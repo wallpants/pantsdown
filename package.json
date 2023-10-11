@@ -2,7 +2,10 @@
   "name": "pantsdown",
   "version": "0.0.0",
   "description": "The markdown parser",
-  "repository": "git://github.com/wallpants/pantsdown.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wallpants/pantsdown.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
