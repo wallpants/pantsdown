@@ -24,6 +24,8 @@ export class Tokenizer {
     space(src: string): Tokens["Space"] | undefined {
         const cap = block.newline.exec(src);
         if (cap && cap[0].length > 0) {
+            // call getSourceMap to increment "this.lexer.line"
+            this.lexer.getSourceMap(cap[0]);
             return {
                 type: "space",
                 raw: cap[0],
@@ -42,6 +44,7 @@ export class Tokenizer {
             raw: cap[0],
             codeBlockStyle: "indented",
             text: rtrim(text, "\n"),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -57,6 +60,7 @@ export class Tokenizer {
             raw,
             lang: cap[2] ? cap[2].trim().replace(inline.escapes, "$1") : cap[2],
             text,
+            sourceMap: this.lexer.getSourceMap(raw),
         };
     }
 
@@ -80,6 +84,7 @@ export class Tokenizer {
             depth: cap[1]!.length,
             text,
             tokens: this.lexer.inline(text),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -90,6 +95,7 @@ export class Tokenizer {
         return {
             type: "hr",
             raw: cap[0],
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -107,6 +113,7 @@ export class Tokenizer {
             raw: cap[0],
             tokens,
             text,
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -124,6 +131,7 @@ export class Tokenizer {
             start: isordered ? +bull.slice(0, -1) : "",
             loose: false,
             items: [] as Tokens["ListItem"][],
+            sourceMap: [0, 0], // updated below once token.raw is built
         };
 
         bull = isordered ? `\\d{1,9}\\${bull.slice(-1)}` : `\\${bull}`;
@@ -285,6 +293,8 @@ export class Tokenizer {
         list.items[list.items.length - 1]!.text = itemContents.trimEnd();
         list.raw = list.raw.trimEnd();
 
+        list.sourceMap = this.lexer.getSourceMap(list.raw);
+
         // Item child tokens handled here at end because we needed to have the final item to trim it first
         for (let i = 0, listItemsLen = list.items.length; i < listItemsLen; i++) {
             this.lexer.state.top = false;
@@ -321,6 +331,7 @@ export class Tokenizer {
             raw: cap[0],
             pre: cap[1] === "pre" || cap[1] === "script" || cap[1] === "style",
             text: cap[0],
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
         return token;
     }
@@ -340,6 +351,7 @@ export class Tokenizer {
             raw: cap[0],
             href,
             title,
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -363,6 +375,7 @@ export class Tokenizer {
             })),
             align: [],
             rows: [],
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
 
         const align = cap[2].replace(/^\||\| *$/g, "").split("|") as (string | null)[];
@@ -429,6 +442,7 @@ export class Tokenizer {
             depth: cap[2]!.startsWith("=") ? 1 : 2,
             text: cap[1]!,
             tokens: this.lexer.inline(cap[1]!),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -442,6 +456,7 @@ export class Tokenizer {
             raw: cap[0],
             text,
             tokens: this.lexer.inline(text),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -454,6 +469,7 @@ export class Tokenizer {
             raw: cap[0],
             text: cap[0],
             tokens: this.lexer.inline(cap[0]),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 

@@ -1,12 +1,13 @@
 import { inline } from "./rules/inline.ts";
 import { Tokenizer } from "./tokenizer.ts";
-import { type Links, type Token } from "./types.ts";
+import { type Links, type SourceMap, type Token } from "./types.ts";
 
 export class Lexer {
     private tokenizer: Tokenizer;
     private inlineQueue: { src: string; tokens: Token[] }[];
     private tokens: Token[] = [];
     private links: Links = {};
+    private line = 1;
 
     state = {
         inLink: false,
@@ -26,6 +27,7 @@ export class Lexer {
         // reset values from previous parse
         this.tokens = [];
         this.links = {};
+        this.line = 1;
 
         src = src.replace(/\r\n|\r/g, "\n");
 
@@ -37,6 +39,21 @@ export class Lexer {
         }
 
         return this.tokens;
+    }
+
+    getSourceMap(rawToken: string): SourceMap | undefined {
+        if (!this.state.top) return;
+        const tokenLines = rawToken.split("\n");
+        const sourceMap: SourceMap = [this.line, (this.line += tokenLines.length - 1)];
+
+        while (tokenLines.slice(-1)[0] === "") {
+            // token.raw sometimes includes newline chars at the end of the string
+            // which we don't want to include in the sourceMap
+            tokenLines.pop();
+            sourceMap[1]--;
+        }
+
+        return sourceMap;
     }
 
     /**

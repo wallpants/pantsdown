@@ -2,7 +2,10 @@ type BaseToken = {
     type: string;
     raw: string;
     text?: string;
+    sourceMap?: SourceMap;
 };
+
+export type SourceMap = [start: number, end: number] | undefined;
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export interface Tokens extends Record<string, BaseToken> {
@@ -16,6 +19,7 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         codeBlockStyle?: "indented";
         lang?: string | undefined;
+        sourceMap: SourceMap;
     };
     Heading: {
         type: "heading";
@@ -23,6 +27,7 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         depth: number;
         tokens: Token[];
+        sourceMap: SourceMap;
     };
     Table: {
         type: "table";
@@ -30,6 +35,7 @@ export interface Tokens extends Record<string, BaseToken> {
         align: ("center" | "left" | "right" | null)[];
         header: Tokens["TableCell"][];
         rows: Tokens["TableCell"][][];
+        sourceMap: SourceMap;
     };
     TableCell: {
         type: "tablecell";
@@ -40,12 +46,14 @@ export interface Tokens extends Record<string, BaseToken> {
     Hr: {
         type: "hr";
         raw: string;
+        sourceMap: SourceMap;
     };
     Blockquote: {
         type: "blockquote";
         raw: string;
         text: string;
         tokens: Token[];
+        sourceMap: SourceMap;
     };
     List: {
         type: "list";
@@ -54,6 +62,7 @@ export interface Tokens extends Record<string, BaseToken> {
         start: number | "";
         loose: boolean;
         items: Tokens["ListItem"][];
+        sourceMap: SourceMap;
     };
     ListItem: {
         type: "list_item";
@@ -70,6 +79,7 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         pre?: boolean | undefined;
         tokens: Token[];
+        sourceMap: SourceMap;
     };
     HTML: {
         type: "html";
@@ -77,12 +87,14 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         pre: boolean;
         block: boolean;
+        sourceMap: SourceMap;
     };
     Text: {
         type: "text";
         raw: string;
         text: string;
         tokens?: Token[];
+        sourceMap?: SourceMap;
     };
     Def: {
         type: "def";
@@ -90,6 +102,7 @@ export interface Tokens extends Record<string, BaseToken> {
         tag: string;
         href: string;
         title: string;
+        sourceMap: SourceMap;
     };
     Escape: {
         type: "escape";

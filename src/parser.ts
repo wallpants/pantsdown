@@ -25,15 +25,19 @@ export class Parser {
                     continue;
                 }
                 case "hr": {
-                    out += this.renderer.hr();
+                    out += this.renderer.hr(token.sourceMap);
                     continue;
                 }
                 case "heading": {
-                    out += this.renderer.heading(this.parseInline(token.tokens), token.depth);
+                    out += this.renderer.heading(
+                        this.parseInline(token.tokens),
+                        token.depth,
+                        token.sourceMap,
+                    );
                     continue;
                 }
                 case "code": {
-                    out += this.renderer.code(token.text, token.lang);
+                    out += this.renderer.code(token.text, token.lang, token.sourceMap);
                     continue;
                 }
                 case "table": {
@@ -47,7 +51,8 @@ export class Parser {
                             align: token.align[j]!,
                         });
                     }
-                    header += this.renderer.tablerow(cell);
+                    const sourceMapLineStart = token.sourceMap?.[0];
+                    header += this.renderer.tablerow(cell, sourceMapLineStart);
 
                     let body = "";
                     for (let j = 0, rowsLen = token.rows.length; j < rowsLen; j++) {
@@ -61,14 +66,17 @@ export class Parser {
                             });
                         }
 
-                        body += this.renderer.tablerow(cell);
+                        body += this.renderer.tablerow(
+                            cell,
+                            sourceMapLineStart ? sourceMapLineStart + 2 + j : undefined,
+                        );
                     }
-                    out += this.renderer.table(header, body);
+                    out += this.renderer.table(header, body, token.sourceMap);
                     continue;
                 }
                 case "blockquote": {
                     const body = this.parse(token.tokens);
-                    out += this.renderer.blockquote(body);
+                    out += this.renderer.blockquote(body, token.sourceMap);
                     continue;
                 }
                 case "list": {
@@ -84,7 +92,7 @@ export class Parser {
 
                         let itemBody = "";
                         if (item.task) {
-                            const checkbox = this.renderer.checkbox(!!checked);
+                            const checkbox = this.renderer.checkbox(Boolean(checked));
                             if (loose) {
                                 if (
                                     item.tokens.length > 0 &&
@@ -110,18 +118,22 @@ export class Parser {
                         }
 
                         itemBody += this.parse(item.tokens, loose);
-                        body += this.renderer.listitem(itemBody, task, !!checked);
+                        body += this.renderer.listitem(itemBody, task, Boolean(checked));
                     }
 
-                    out += this.renderer.list(body, ordered, start);
+                    out += this.renderer.list(body, ordered, start, token.sourceMap);
                     continue;
                 }
                 case "html": {
-                    out += this.renderer.html(token.text, token.block);
+                    out += this.renderer.html(
+                        token.text,
+                        token.block,
+                        "sourceMap" in token ? token.sourceMap : undefined,
+                    );
                     continue;
                 }
                 case "paragraph": {
-                    out += this.renderer.paragraph(this.parseInline(token.tokens));
+                    out += this.renderer.paragraph(this.parseInline(token.tokens), token.sourceMap);
                     continue;
                 }
                 case "text": {
@@ -137,7 +149,7 @@ export class Parser {
                                 ? this.parseInline(textToken.tokens)
                                 : textToken.text);
                     }
-                    out += top ? this.renderer.paragraph(body) : body;
+                    out += top ? this.renderer.paragraph(body, textToken.sourceMap) : body;
                     continue;
                 }
 
@@ -166,7 +178,7 @@ export class Parser {
                     break;
                 }
                 case "html": {
-                    out += this.renderer.html(token.text);
+                    out += this.renderer.html(token.text, false);
                     break;
                 }
                 case "link": {
