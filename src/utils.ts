@@ -1,5 +1,5 @@
 import { type Lexer } from "./lexer.ts";
-import { type Tokens } from "./types.ts";
+import { type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -29,6 +29,27 @@ export function escape(html: string, encode?: boolean) {
     }
 
     return html;
+}
+
+export function injectHtmlAttributes(
+    html: string,
+    attrs: [name: string, value: string | number][],
+) {
+    const parser = new DOMParser();
+    try {
+        const doc = parser.parseFromString(html, "text/html");
+        // eslint-disable-next-line
+        if (!doc.body) throw Error("Invalid HTML");
+        const element = doc.body.firstChild as HTMLElement;
+        // eslint-disable-next-line
+        if (!element) throw Error("No valid element found");
+        attrs.forEach(([name, value]) => {
+            element.setAttribute(name, JSON.stringify(value));
+        });
+        return element.outerHTML;
+    } catch (_) {
+        return html;
+    }
 }
 
 export function fixHtmlLocalImageHref(html: string, localImageUrlPrefix: string): string {
@@ -63,6 +84,11 @@ export function fixLocalImageHref(href: string, localImageUrlPrefix: string): st
     } catch (e) {
         return href;
     }
+}
+
+export function renderSourceMap(sourceMap: SourceMap) {
+    if (!sourceMap) return "";
+    return ` line-start=${sourceMap[0]} line-end=${sourceMap[1]}`;
 }
 
 export function cleanUrl(href: string) {
