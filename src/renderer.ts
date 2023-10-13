@@ -80,17 +80,9 @@ export class Renderer {
         return `<p${renderSourceMap(sourceMap)}>${text}</p>\n`;
     }
 
-    table(header: string, body: string, sourceMap: SourceMap): string {
+    table(header: string, body: string): string {
         if (body) body = `<tbody>${body}</tbody>`;
-
-        return (
-            `<table${renderSourceMap(sourceMap)}>\n` +
-            "<thead>\n" +
-            header +
-            "</thead>\n" +
-            body +
-            "</table>\n"
-        );
+        return "<table>\n" + "<thead>\n" + header + "</thead>\n" + body + "</table>\n";
     }
 
     tablerow(content: string, sourceMapStart: number | undefined): string {

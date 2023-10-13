@@ -71,7 +71,7 @@ export class Parser {
                             sourceMapLineStart ? sourceMapLineStart + 2 + j : undefined,
                         );
                     }
-                    out += this.renderer.table(header, body, token.sourceMap);
+                    out += this.renderer.table(header, body);
                     continue;
                 }
                 case "blockquote": {
