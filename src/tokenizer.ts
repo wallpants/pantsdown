@@ -103,7 +103,7 @@ export class Tokenizer {
         const cap = block.blockquote.exec(src);
         if (!cap) return undefined;
 
-        const text = cap[0].replace(/^ *>[ \t]?/gm, "");
+        const text = rtrim(cap[0].replace(/^ *>[ \t]?/gm, ""), "\n");
         const top = this.lexer.state.top;
         this.lexer.state.top = true;
         const tokens = this.lexer.blockTokens(text, []);
