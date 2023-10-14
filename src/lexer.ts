@@ -7,7 +7,7 @@ export class Lexer {
     private inlineQueue: { src: string; tokens: Token[] }[];
     private tokens: Token[] = [];
     private links: Links = {};
-    private line = 1;
+    private line = 0;
 
     state = {
         inLink: false,
@@ -27,7 +27,7 @@ export class Lexer {
         // reset values from previous parse
         this.tokens = [];
         this.links = {};
-        this.line = 1;
+        this.line = 0;
 
         src = src.replace(/\r\n|\r/g, "\n");
 
