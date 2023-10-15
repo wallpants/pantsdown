@@ -1,5 +1,5 @@
 import hljs from "highlight.js";
-import { type RendererProps, type SourceMap } from "./types.ts";
+import { type PantsdownConfig, type SourceMap } from "./types.ts";
 import {
     cleanUrl,
     escape,
@@ -9,14 +9,19 @@ import {
     renderSourceMap,
 } from "./utils.ts";
 
+const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
+    localImageUrlPrefix: "",
+};
+
 /**
  * An object containing functions to render tokens to HTML.
  */
 export class Renderer {
-    private props: RendererProps;
+    private rendererConfig: NonNullable<PantsdownConfig["renderer"]>;
 
-    constructor(props: RendererProps) {
-        this.props = props;
+    constructor(config: PantsdownConfig | undefined) {
+        const rendererConfig = Object.assign(defaultConfig, config?.renderer ?? {});
+        this.rendererConfig = rendererConfig;
     }
 
     code(code: string, infostring: string | undefined, sourceMap: SourceMap): string {
@@ -41,7 +46,7 @@ export class Renderer {
     }
 
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
-        let result = fixHtmlLocalImageHref(html, this.props.localImageUrlPrefix);
+        let result = fixHtmlLocalImageHref(html, this.rendererConfig.localImageUrlPrefix);
         if (sourceMap) {
             result = injectHtmlAttributes(result, [
                 ["line-start", sourceMap[0]],
@@ -145,7 +150,7 @@ export class Renderer {
         if (cleanHref === null) {
             return text;
         }
-        href = fixLocalImageHref(cleanHref, this.props.localImageUrlPrefix);
+        href = fixLocalImageHref(cleanHref, this.rendererConfig.localImageUrlPrefix);
 
         let out = `<img src="${href}" alt="${text}"`;
 

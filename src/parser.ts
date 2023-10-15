@@ -1,5 +1,5 @@
 import { Renderer } from "./renderer.ts";
-import { type RendererProps, type Token, type Tokens } from "./types.ts";
+import { type PantsdownConfig, type Token, type Tokens } from "./types.ts";
 
 /**
  * Parsing & Compiling
@@ -7,8 +7,8 @@ import { type RendererProps, type Token, type Tokens } from "./types.ts";
 export class Parser {
     private renderer: Renderer;
 
-    constructor({ renderer }: { renderer: RendererProps }) {
-        this.renderer = new Renderer(renderer);
+    constructor(config: PantsdownConfig | undefined) {
+        this.renderer = new Renderer(config);
     }
 
     /**
