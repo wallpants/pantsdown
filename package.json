@@ -10,9 +10,16 @@
     "url": "git://github.com/wallpants/pantsdown.git"
   },
   "exports": {
-    "types": "./src/index.ts",
-    "bun": "./src/index.ts",
-    "import": "./src/index.ts"
+    "./styles.css": {
+      "types": "./styles.css.d.ts",
+      "bun": "./styles.css",
+      "import": "./styles.css"
+    },
+    ".": {
+      "types": "./src/index.ts",
+      "bun": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
   },
   "config": {
     "commitizen": {

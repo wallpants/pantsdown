@@ -17,6 +17,8 @@ const escapeReplacements: Record<string, string> = {
 };
 const getEscapeReplacement = (ch: string) => escapeReplacements[ch]!;
 
+// look into using Bun's Bun.escapeHTML()
+// https://bun.sh/docs/api/utils#bun-escapehtml
 export function escape(html: string, encode?: boolean) {
     if (encode) {
         if (escapeTest.test(html)) {
