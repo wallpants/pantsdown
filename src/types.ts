@@ -187,10 +187,12 @@ export type Token =
 
 export type Links = Record<string, { href: string; title: string }>;
 
-export type RendererProps = {
-    /**
-     * url prefix. Must start and end with "/"
-     * example: "/__localimage__/"
-     */
-    localImageUrlPrefix: string;
+export type PantsdownConfig = {
+    renderer?: {
+        /**
+         * url prefix. Must start and end with "/"
+         * example: "/__localimage__/"
+         */
+        localImageUrlPrefix: string;
+    };
 };

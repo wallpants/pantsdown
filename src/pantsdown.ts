@@ -1,14 +1,14 @@
 import { Lexer } from "./lexer.ts";
 import { Parser } from "./parser.ts";
-import { type RendererProps } from "./types.ts";
+import { type PantsdownConfig } from "./types.ts";
 
 export class Pantsdown {
     private lexer: Lexer;
     private parser: Parser;
 
-    constructor({ renderer }: { renderer: RendererProps }) {
+    constructor(config?: PantsdownConfig) {
         this.lexer = new Lexer();
-        this.parser = new Parser({ renderer });
+        this.parser = new Parser(config);
     }
 
     parse(src: string): string {
