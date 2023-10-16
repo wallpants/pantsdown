@@ -33,18 +33,40 @@ export function escape(html: string, encode?: boolean) {
     return html;
 }
 
+export function renderHtmlClasses(classes: string[]) {
+    if (!classes.length) return "";
+    let result = ' class="';
+    result += classes.join(" ");
+    result += '"';
+    return result;
+}
+
+function parseHtmlElement(html: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    // eslint-disable-next-line
+    if (!doc.body) throw Error("Invalid HTML");
+    const element = doc.body.firstChild as HTMLElement;
+    // eslint-disable-next-line
+    if (!element) throw Error("No valid element found");
+    return element;
+}
+
+export function getHtmlElementText(html: string) {
+    try {
+        const element = parseHtmlElement(html);
+        return element.textContent ?? html;
+    } catch (_) {
+        return html;
+    }
+}
+
 export function injectHtmlAttributes(
     html: string,
     attrs: [name: string, value: string | number][],
 ) {
-    const parser = new DOMParser();
     try {
-        const doc = parser.parseFromString(html, "text/html");
-        // eslint-disable-next-line
-        if (!doc.body) throw Error("Invalid HTML");
-        const element = doc.body.firstChild as HTMLElement;
-        // eslint-disable-next-line
-        if (!element) throw Error("No valid element found");
+        const element = parseHtmlElement(html);
         attrs.forEach(([name, value]) => {
             element.setAttribute(name, JSON.stringify(value));
         });

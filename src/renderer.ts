@@ -1,3 +1,4 @@
+import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
 import { type PantsdownConfig, type SourceMap } from "./types.ts";
 import {
@@ -5,7 +6,9 @@ import {
     escape,
     fixHtmlLocalImageHref,
     fixLocalImageHref,
+    getHtmlElementText,
     injectHtmlAttributes,
+    renderHtmlClasses,
     renderSourceMap,
 } from "./utils.ts";
 
@@ -18,6 +21,7 @@ const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
  */
 export class Renderer {
     private rendererConfig: NonNullable<PantsdownConfig["renderer"]>;
+    slugger = new GithubSlugger();
 
     constructor(config: PantsdownConfig | undefined) {
         const rendererConfig = Object.assign(defaultConfig, config?.renderer ?? {});
@@ -57,8 +61,14 @@ export class Renderer {
     }
 
     heading(text: string, level: number, sourceMap: SourceMap): string {
-        // ignore IDs
-        return `<h${level}${renderSourceMap(sourceMap)}>${text}</h${level}>\n`;
+        const elementText = getHtmlElementText(text);
+        const slug = this.slugger.slug(elementText);
+        let result = `<h${level}${renderSourceMap(sourceMap)} style="position: relative;">`;
+        // span with negative top to add some offset when scrolling to #slug
+        result += `<span style="position: absolute; top: -50px;" id="${slug}"></span>`;
+        result += `${text}<a class="anchor octicon-link" href="#${slug}"></a>`;
+        result += `</h${level}>\n`;
+        return result;
     }
 
     hr(sourceMap: SourceMap): string {

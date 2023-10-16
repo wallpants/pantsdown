@@ -5,7 +5,7 @@ import { type PantsdownConfig, type Token, type Tokens } from "./types.ts";
  * Parsing & Compiling
  */
 export class Parser {
-    private renderer: Renderer;
+    renderer: Renderer;
 
     constructor(config: PantsdownConfig | undefined) {
         this.renderer = new Renderer(config);
