@@ -1,0 +1,1183 @@
+/*
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                       *
+*                  Markdown                             *
+*                                                       *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+* https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown.css */
+
+.pantsdown.dark {
+    color-scheme: dark;
+    --color-fg-default: #e6edf3;
+    --color-fg-muted: #7d8590;
+    --color-fg-subtle: #6e7681;
+    --color-canvas-default: #0d1117;
+    --color-canvas-subtle: #161b22;
+    --color-border-default: #30363d;
+    --color-border-muted: #21262d;
+    --color-neutral-muted: rgba(110, 118, 129, 0.4);
+    --color-accent-fg: #2f81f7;
+    --color-accent-emphasis: #1f6feb;
+    --color-attention-subtle: rgba(187, 128, 9, 0.15);
+    --color-attention-muted: rgba(187, 128, 9, 0.4);
+    --color-danger-fg: #f85149;
+    --color-icon-directory: #7d8590;
+    --color-icon-file: #7d8590;
+    --color-btn-bg: #21262d;
+    --color-btn-border: rgba(240, 246, 252, 0.1);
+    --color-btn-hover-bg: #30363d;
+}
+
+.pantsdown.light {
+    color-scheme: light;
+    --color-fg-default: #1f2328;
+    --color-fg-muted: #656d76;
+    --color-fg-subtle: #6e7781;
+    --color-canvas-default: #ffffff;
+    --color-canvas-subtle: #f6f8fa;
+    --color-border-default: #d0d7de;
+    --color-border-muted: hsla(210, 18%, 87%, 1);
+    --color-neutral-muted: rgba(175, 184, 193, 0.2);
+    --color-accent-fg: #0969da;
+    --color-accent-emphasis: #0969da;
+    --color-attention-subtle: #fff8c5;
+    --color-attention-muted: rgba(212, 167, 44, 0.4);
+    --color-danger-fg: #d1242f;
+    --color-icon-directory: #54aeff;
+    --color-icon-file: #656d76;
+    --color-btn-bg: #f6f8fa;
+    --color-btn-border: rgba(31, 35, 40, 0.15);
+    --color-btn-hover-bg: #f3f4f6;
+}
+
+.pantsdown {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    margin: 0;
+    color: var(--color-fg-default);
+    background-color: var(--color-canvas-default);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.pantsdown .octicon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: text-bottom;
+}
+
+.pantsdown .anchor:focus {
+    outline: none;
+}
+
+.pantsdown h1 .anchor.octicon-link:after,
+.pantsdown h2 .anchor.octicon-link:after,
+.pantsdown h3 .anchor.octicon-link:after,
+.pantsdown h4 .anchor.octicon-link:after,
+.pantsdown h5 .anchor.octicon-link:after,
+.pantsdown h6 .anchor.octicon-link:after {
+    width: 16px;
+    height: 16px;
+    content: " ";
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: currentColor;
+    color: var(--color-fg-muted);
+    -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+    mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.pantsdown details,
+.pantsdown figcaption,
+.pantsdown figure {
+    display: block;
+}
+
+.pantsdown summary {
+    display: list-item;
+}
+
+.pantsdown [hidden] {
+    display: none !important;
+}
+
+.pantsdown a {
+    background-color: transparent;
+    color: var(--color-accent-fg);
+    text-decoration: none;
+}
+
+.pantsdown abbr[title] {
+    border-bottom: none;
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+}
+
+.pantsdown b,
+.pantsdown strong {
+    font-weight: 600;
+}
+
+.pantsdown dfn {
+    font-style: italic;
+}
+
+.pantsdown h1 {
+    margin: 0.67em 0;
+    font-weight: 600;
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid var(--color-border-muted);
+}
+
+.pantsdown mark {
+    background-color: var(--color-attention-subtle);
+    color: var(--color-fg-default);
+}
+
+.pantsdown small {
+    font-size: 90%;
+}
+
+.pantsdown sub,
+.pantsdown sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.pantsdown sub {
+    bottom: -0.25em;
+}
+
+.pantsdown sup {
+    top: -0.5em;
+}
+
+.pantsdown img {
+    border-style: none;
+    max-width: 100%;
+    box-sizing: content-box;
+    background-color: var(--color-canvas-default);
+}
+
+.pantsdown code,
+.pantsdown kbd,
+.pantsdown pre,
+.pantsdown samp {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+.pantsdown figure {
+    margin: 1em 40px;
+}
+
+.pantsdown hr {
+    box-sizing: content-box;
+    overflow: hidden;
+    background: transparent;
+    border-bottom: 1px solid var(--color-border-muted);
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: var(--color-border-default);
+    border: 0;
+}
+
+.pantsdown input {
+    font: inherit;
+    margin: 0;
+    overflow: visible;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.pantsdown [type="button"],
+.pantsdown [type="reset"],
+.pantsdown [type="submit"] {
+    appearance: button;
+    -webkit-appearance: button;
+}
+
+.pantsdown [type="checkbox"],
+.pantsdown [type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.pantsdown [type="number"]::-webkit-inner-spin-button,
+.pantsdown [type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+.pantsdown [type="search"]::-webkit-search-cancel-button,
+.pantsdown [type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+.pantsdown ::-webkit-input-placeholder {
+    color: inherit;
+    opacity: 0.54;
+}
+
+.pantsdown ::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}
+
+.pantsdown a:hover {
+    text-decoration: underline;
+}
+
+.pantsdown ::placeholder {
+    color: var(--color-fg-subtle);
+    opacity: 1;
+}
+
+.pantsdown hr::before {
+    display: table;
+    content: "";
+}
+
+.pantsdown hr::after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+.pantsdown table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow: auto;
+}
+
+.pantsdown td,
+.pantsdown th {
+    padding: 0;
+}
+
+.pantsdown details summary {
+    cursor: pointer;
+}
+
+.pantsdown details:not([open]) > *:not(summary) {
+    display: none !important;
+}
+
+.pantsdown a:focus,
+.pantsdown [role="button"]:focus,
+.pantsdown input[type="radio"]:focus,
+.pantsdown input[type="checkbox"]:focus {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    box-shadow: none;
+}
+
+.pantsdown a:focus:not(:focus-visible),
+.pantsdown [role="button"]:focus:not(:focus-visible),
+.pantsdown input[type="radio"]:focus:not(:focus-visible),
+.pantsdown input[type="checkbox"]:focus:not(:focus-visible) {
+    outline: solid 1px transparent;
+}
+
+.pantsdown a:focus-visible,
+.pantsdown [role="button"]:focus-visible,
+.pantsdown input[type="radio"]:focus-visible,
+.pantsdown input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    box-shadow: none;
+}
+
+.pantsdown a:not([class]):focus,
+.pantsdown a:not([class]):focus-visible,
+.pantsdown input[type="radio"]:focus,
+.pantsdown input[type="radio"]:focus-visible,
+.pantsdown input[type="checkbox"]:focus,
+.pantsdown input[type="checkbox"]:focus-visible {
+    outline-offset: 0;
+}
+
+.pantsdown kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font:
+        11px ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
+        monospace;
+    line-height: 10px;
+    color: var(--color-fg-default);
+    vertical-align: middle;
+    background-color: var(--color-canvas-subtle);
+    border: solid 1px var(--color-neutral-muted);
+    border-bottom-color: var(--color-neutral-muted);
+    border-radius: 6px;
+    box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+}
+
+.pantsdown h1,
+.pantsdown h2,
+.pantsdown h3,
+.pantsdown h4,
+.pantsdown h5,
+.pantsdown h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.pantsdown h2 {
+    font-weight: 600;
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid var(--color-border-muted);
+}
+
+.pantsdown h3 {
+    font-weight: 600;
+    font-size: 1.25em;
+}
+
+.pantsdown h4 {
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.pantsdown h5 {
+    font-weight: 600;
+    font-size: 0.875em;
+}
+
+.pantsdown h6 {
+    font-weight: 600;
+    font-size: 0.85em;
+    color: var(--color-fg-muted);
+}
+
+.pantsdown p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.pantsdown blockquote {
+    margin: 0;
+    padding: 0 1em;
+    color: var(--color-fg-muted);
+    border-left: 0.25em solid var(--color-border-default);
+}
+
+.pantsdown ul,
+.pantsdown ol {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 2em;
+}
+
+.pantsdown ol ol,
+.pantsdown ul ol {
+    list-style-type: lower-roman;
+}
+
+.pantsdown ul ul ol,
+.pantsdown ul ol ol,
+.pantsdown ol ul ol,
+.pantsdown ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.pantsdown dd {
+    margin-left: 0;
+}
+
+.pantsdown tt,
+.pantsdown code,
+.pantsdown samp {
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
+        monospace;
+    font-size: 12px;
+}
+
+.pantsdown pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
+        monospace;
+    font-size: 12px;
+    word-wrap: normal;
+}
+
+.pantsdown .octicon {
+    display: inline-block;
+    overflow: visible !important;
+    vertical-align: text-bottom;
+    fill: currentColor;
+}
+
+.pantsdown input::-webkit-outer-spin-button,
+.pantsdown input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.pantsdown::before {
+    display: table;
+    content: "";
+}
+
+.pantsdown::after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+.pantsdown > *:first-child {
+    margin-top: 0 !important;
+}
+
+.pantsdown > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.pantsdown a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+}
+
+.pantsdown .absent {
+    color: var(--color-danger-fg);
+}
+
+.pantsdown p,
+.pantsdown blockquote,
+.pantsdown ul,
+.pantsdown ol,
+.pantsdown dl,
+.pantsdown table,
+.pantsdown pre,
+.pantsdown details {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.pantsdown blockquote > :first-child {
+    margin-top: 0;
+}
+
+.pantsdown blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+.pantsdown h1 tt,
+.pantsdown h1 code,
+.pantsdown h2 tt,
+.pantsdown h2 code,
+.pantsdown h3 tt,
+.pantsdown h3 code,
+.pantsdown h4 tt,
+.pantsdown h4 code,
+.pantsdown h5 tt,
+.pantsdown h5 code,
+.pantsdown h6 tt,
+.pantsdown h6 code {
+    padding: 0 0.2em;
+    font-size: inherit;
+}
+
+.pantsdown summary h1,
+.pantsdown summary h2,
+.pantsdown summary h3,
+.pantsdown summary h4,
+.pantsdown summary h5,
+.pantsdown summary h6 {
+    display: inline-block;
+}
+
+.pantsdown summary h1 .anchor,
+.pantsdown summary h2 .anchor,
+.pantsdown summary h3 .anchor,
+.pantsdown summary h4 .anchor,
+.pantsdown summary h5 .anchor,
+.pantsdown summary h6 .anchor {
+    margin-left: -40px;
+}
+
+.pantsdown summary h1,
+.pantsdown summary h2 {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.pantsdown ul.no-list,
+.pantsdown ol.no-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.pantsdown ol[type="a s"] {
+    list-style-type: lower-alpha;
+}
+
+.pantsdown ol[type="A s"] {
+    list-style-type: upper-alpha;
+}
+
+.pantsdown ol[type="i s"] {
+    list-style-type: lower-roman;
+}
+
+.pantsdown ol[type="I s"] {
+    list-style-type: upper-roman;
+}
+
+.pantsdown ol[type="1"] {
+    list-style-type: decimal;
+}
+
+.pantsdown div > ol:not([type]) {
+    list-style-type: decimal;
+}
+
+.pantsdown ul ul,
+.pantsdown ul ol,
+.pantsdown ol ol,
+.pantsdown ol ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.pantsdown li > p {
+    margin-top: 16px;
+}
+
+/* .pantsdown li + li { */
+.pantsdown li {
+    margin-top: 0.25em;
+}
+
+.pantsdown dl {
+    padding: 0;
+}
+
+.pantsdown dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.pantsdown dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.pantsdown table th {
+    font-weight: 600;
+}
+
+.pantsdown table th,
+.pantsdown table td {
+    padding: 6px 13px;
+    border: 1px solid var(--color-border-default);
+}
+
+.pantsdown table td > :last-child {
+    margin-bottom: 0;
+}
+
+.pantsdown table tr {
+    background-color: var(--color-canvas-default);
+    border-top: 1px solid var(--color-border-muted);
+}
+
+.pantsdown table tr:nth-child(2n) {
+    background-color: var(--color-canvas-subtle);
+}
+
+.pantsdown table img {
+    background-color: transparent;
+}
+
+.pantsdown img[align="right"] {
+    padding-left: 20px;
+}
+
+.pantsdown img[align="left"] {
+    padding-right: 20px;
+}
+
+.pantsdown .emoji {
+    max-width: none;
+    vertical-align: text-top;
+    background-color: transparent;
+}
+
+.pantsdown span.frame {
+    display: block;
+    overflow: hidden;
+}
+
+.pantsdown span.frame > span {
+    display: block;
+    float: left;
+    width: auto;
+    padding: 7px;
+    margin: 13px 0 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border-default);
+}
+
+.pantsdown span.frame span img {
+    display: block;
+    float: left;
+}
+
+.pantsdown span.frame span span {
+    display: block;
+    padding: 5px 0 0;
+    clear: both;
+    color: var(--color-fg-default);
+}
+
+.pantsdown span.align-center {
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+
+.pantsdown span.align-center > span {
+    display: block;
+    margin: 13px auto 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.pantsdown span.align-center span img {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pantsdown span.align-right {
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+
+.pantsdown span.align-right > span {
+    display: block;
+    margin: 13px 0 0;
+    overflow: hidden;
+    text-align: right;
+}
+
+.pantsdown span.align-right span img {
+    margin: 0;
+    text-align: right;
+}
+
+.pantsdown span.float-left {
+    display: block;
+    float: left;
+    margin-right: 13px;
+    overflow: hidden;
+}
+
+.pantsdown span.float-left span {
+    margin: 13px 0 0;
+}
+
+.pantsdown span.float-right {
+    display: block;
+    float: right;
+    margin-left: 13px;
+    overflow: hidden;
+}
+
+.pantsdown span.float-right > span {
+    display: block;
+    margin: 13px auto 0;
+    overflow: hidden;
+    text-align: right;
+}
+
+.pantsdown code,
+.pantsdown tt {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: var(--color-neutral-muted);
+    border-radius: 6px;
+}
+
+.pantsdown code br,
+.pantsdown tt br {
+    display: none;
+}
+
+.pantsdown del code {
+    text-decoration: inherit;
+}
+
+.pantsdown samp {
+    font-size: 85%;
+}
+
+.pantsdown pre code {
+    font-size: 100%;
+}
+
+.pantsdown pre > code {
+    padding: 0;
+    margin: 0;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+}
+
+.pantsdown .highlight {
+    margin-bottom: 16px;
+}
+
+.pantsdown .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+}
+
+.pantsdown .highlight pre,
+.pantsdown pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    color: var(--color-fg-default);
+    background-color: var(--color-canvas-subtle);
+    border-radius: 6px;
+}
+
+.pantsdown pre code,
+.pantsdown pre tt {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+}
+
+.pantsdown .csv-data td,
+.pantsdown .csv-data th {
+    padding: 5px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.pantsdown .csv-data .blob-num {
+    padding: 10px 8px 9px;
+    text-align: right;
+    background: var(--color-canvas-default);
+    border: 0;
+}
+
+.pantsdown .csv-data tr {
+    border-top: 0;
+}
+
+.pantsdown .csv-data th {
+    font-weight: 600;
+    background: var(--color-canvas-subtle);
+    border-top: 0;
+}
+
+.pantsdown [data-footnote-ref]::before {
+    content: "[";
+}
+
+.pantsdown [data-footnote-ref]::after {
+    content: "]";
+}
+
+.pantsdown .footnotes {
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    border-top: 1px solid var(--color-border-default);
+}
+
+.pantsdown .footnotes ol {
+    padding-left: 16px;
+}
+
+.pantsdown .footnotes ol ul {
+    display: inline-block;
+    padding-left: 16px;
+    margin-top: 16px;
+}
+
+.pantsdown .footnotes li {
+    position: relative;
+}
+
+.pantsdown .footnotes li:target::before {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -24px;
+    pointer-events: none;
+    content: "";
+    border: 2px solid var(--color-accent-emphasis);
+    border-radius: 6px;
+}
+
+.pantsdown .footnotes li:target {
+    color: var(--color-fg-default);
+}
+
+.pantsdown .footnotes .data-footnote-backref g-emoji {
+    font-family: monospace;
+}
+
+.pantsdown g-emoji {
+    display: inline-block;
+    min-width: 1ch;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1em;
+    font-style: normal !important;
+    font-weight: 400;
+    line-height: 1;
+    vertical-align: -0.075em;
+}
+
+.pantsdown g-emoji img {
+    width: 1em;
+    height: 1em;
+}
+
+.pantsdown .task-list-item {
+    list-style-type: none;
+    margin-top: 4px;
+}
+
+.pantsdown .task-list-item label {
+    font-weight: 400;
+}
+
+.pantsdown .task-list-item.enabled label {
+    cursor: pointer;
+}
+
+/* .pantsdown .task-list-item + .task-list-item { */
+/*     margin-top: 4px; */
+/* } */
+
+.pantsdown .task-list-item .handle {
+    display: none;
+}
+
+.pantsdown .task-list-item-checkbox {
+    margin: 0 0.2em 0.25em -1.4em;
+    vertical-align: middle;
+}
+
+.pantsdown .contains-task-list:dir(rtl) .task-list-item-checkbox {
+    margin: 0 -1.6em 0.25em 0.2em;
+}
+
+.pantsdown .contains-task-list {
+    position: relative;
+}
+
+.pantsdown .contains-task-list:hover .task-list-item-convert-container,
+.pantsdown .contains-task-list:focus-within .task-list-item-convert-container {
+    display: block;
+    width: auto;
+    height: 24px;
+    overflow: visible;
+    clip: auto;
+}
+
+.pantsdown ::-webkit-calendar-picker-indicator {
+    filter: invert(50%);
+}
+
+/*
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                       *
+*             highlight.js github LIGHT                 *
+*                                                       *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+* https://github.com/highlightjs/highlight.js/blob/main/src/styles/github.css */
+
+.pantsdown.light .hljs {
+    color: #24292e;
+}
+
+.pantsdown.light .hljs-doctag,
+.pantsdown.light .hljs-keyword,
+.pantsdown.light .hljs-meta .hljs-keyword,
+.pantsdown.light .hljs-template-tag,
+.pantsdown.light .hljs-template-variable,
+.pantsdown.light .hljs-type,
+.pantsdown.light .hljs-variable.language_ {
+    /* prettylights-syntax-keyword */
+    color: #d73a49;
+}
+
+.pantsdown.light .hljs-title,
+.pantsdown.light .hljs-title.class_,
+.pantsdown.light .hljs-title.class_.inherited__,
+.pantsdown.light .hljs-title.function_ {
+    /* prettylights-syntax-entity */
+    color: #6f42c1;
+}
+
+.pantsdown.light .hljs-attr,
+.pantsdown.light .hljs-attribute,
+.pantsdown.light .hljs-literal,
+.pantsdown.light .hljs-meta,
+.pantsdown.light .hljs-number,
+.pantsdown.light .hljs-operator,
+.pantsdown.light .hljs-variable,
+.pantsdown.light .hljs-selector-attr,
+.pantsdown.light .hljs-selector-class,
+.pantsdown.light .hljs-selector-id {
+    /* prettylights-syntax-constant */
+    color: #005cc5;
+}
+
+.pantsdown.light .hljs-regexp,
+.pantsdown.light .hljs-string,
+.pantsdown.light .hljs-meta .hljs-string {
+    /* prettylights-syntax-string */
+    color: #032f62;
+}
+
+.pantsdown.light .hljs-built_in,
+.pantsdown.light .hljs-symbol {
+    /* prettylights-syntax-variable */
+    color: #e36209;
+}
+
+.pantsdown.light .hljs-comment,
+.pantsdown.light .hljs-code,
+.pantsdown.light .hljs-formula {
+    /* prettylights-syntax-comment */
+    color: #6a737d;
+}
+
+.pantsdown.light .hljs-name,
+.pantsdown.light .hljs-quote,
+.pantsdown.light .hljs-selector-tag,
+.pantsdown.light .hljs-selector-pseudo {
+    /* prettylights-syntax-entity-tag */
+    color: #22863a;
+}
+
+.pantsdown.light .hljs-subst {
+    /* prettylights-syntax-storage-modifier-import */
+    color: #24292e;
+}
+
+.pantsdown.light .hljs-section {
+    /* prettylights-syntax-markup-heading */
+    color: #005cc5;
+    font-weight: bold;
+}
+
+.pantsdown.light .hljs-bullet {
+    /* prettylights-syntax-markup-list */
+    color: #735c0f;
+}
+
+.pantsdown.light .hljs-emphasis {
+    /* prettylights-syntax-markup-italic */
+    color: #24292e;
+    font-style: italic;
+}
+
+.pantsdown.light .hljs-strong {
+    /* prettylights-syntax-markup-bold */
+    color: #24292e;
+    font-weight: bold;
+}
+
+.pantsdown.light .hljs-addition {
+    /* prettylights-syntax-markup-inserted */
+    color: #22863a;
+    background-color: #f0fff4;
+}
+
+.pantsdown.light .hljs-deletion {
+    /* prettylights-syntax-markup-deleted */
+    color: #b31d28;
+    background-color: #ffeef0;
+}
+
+/* .pantsdown.light .hljs-char.escape_, */
+/* .pantsdown.light .hljs-link, */
+/* .pantsdown.light .hljs-params, */
+/* .pantsdown.light .hljs-property, */
+/* .pantsdown.light .hljs-punctuation, */
+/* .pantsdown.light .hljs-tag { */
+/*   /1* purposely ignored *1/ */
+/* } */
+
+/*
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                       *
+*             highlight.js github dark                  *
+*                                                       *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+* https://github.com/highlightjs/highlight.js/blob/main/src/styles/github.css */
+
+.pantsdown.dark .hljs {
+    color: #c9d1d9;
+}
+
+.pantsdown.dark .hljs-doctag,
+.pantsdown.dark .hljs-keyword,
+.pantsdown.dark .hljs-meta .hljs-keyword,
+.pantsdown.dark .hljs-template-tag,
+.pantsdown.dark .hljs-template-variable,
+.pantsdown.dark .hljs-type,
+.pantsdown.dark .hljs-variable.language_ {
+    /* prettylights-syntax-keyword */
+    color: #ff7b72;
+}
+
+.pantsdown.dark .hljs-title,
+.pantsdown.dark .hljs-title.class_,
+.pantsdown.dark .hljs-title.class_.inherited__,
+.pantsdown.dark .hljs-title.function_ {
+    /* prettylights-syntax-entity */
+    color: #d2a8ff;
+}
+
+.pantsdown.dark .hljs-attr,
+.pantsdown.dark .hljs-attribute,
+.pantsdown.dark .hljs-literal,
+.pantsdown.dark .hljs-meta,
+.pantsdown.dark .hljs-number,
+.pantsdown.dark .hljs-operator,
+.pantsdown.dark .hljs-variable,
+.pantsdown.dark .hljs-selector-attr,
+.pantsdown.dark .hljs-selector-class,
+.pantsdown.dark .hljs-selector-id {
+    /* prettylights-syntax-constant */
+    color: #79c0ff;
+}
+
+.pantsdown.dark .hljs-regexp,
+.pantsdown.dark .hljs-string,
+.pantsdown.dark .hljs-meta .hljs-string {
+    /* prettylights-syntax-string */
+    color: #a5d6ff;
+}
+
+.pantsdown.dark .hljs-built_in,
+.pantsdown.dark .hljs-symbol {
+    /* prettylights-syntax-variable */
+    color: #ffa657;
+}
+
+.pantsdown.dark .hljs-comment,
+.pantsdown.dark .hljs-code,
+.pantsdown.dark .hljs-formula {
+    /* prettylights-syntax-comment */
+    color: #8b949e;
+}
+
+.pantsdown.dark .hljs-name,
+.pantsdown.dark .hljs-quote,
+.pantsdown.dark .hljs-selector-tag,
+.pantsdown.dark .hljs-selector-pseudo {
+    /* prettylights-syntax-entity-tag */
+    color: #7ee787;
+}
+
+.pantsdown.dark .hljs-subst {
+    /* prettylights-syntax-storage-modifier-import */
+    color: #c9d1d9;
+}
+
+.pantsdown.dark .hljs-section {
+    /* prettylights-syntax-markup-heading */
+    color: #1f6feb;
+    font-weight: bold;
+}
+
+.pantsdown.dark .hljs-bullet {
+    /* prettylights-syntax-markup-list */
+    color: #f2cc60;
+}
+
+.pantsdown.dark .hljs-emphasis {
+    /* prettylights-syntax-markup-italic */
+    color: #c9d1d9;
+    font-style: italic;
+}
+
+.pantsdown.dark .hljs-strong {
+    /* prettylights-syntax-markup-bold */
+    color: #c9d1d9;
+    font-weight: bold;
+}
+
+.pantsdown.dark .hljs-addition {
+    /* prettylights-syntax-markup-inserted */
+    color: #aff5b4;
+    background-color: #033a16;
+}
+
+.pantsdown.dark .hljs-deletion {
+    /* prettylights-syntax-markup-deleted */
+    color: #ffdcd7;
+    background-color: #67060c;
+}
+
+/* .pantsdown.dark .hljs-char.escape_, */
+/* .pantsdown.dark .hljs-link, */
+/* .pantsdown.dark .hljs-params, */
+/* .pantsdown.dark .hljs-property, */
+/* .pantsdown.dark .hljs-punctuation, */
+/* .pantsdown.dark .hljs-tag { */
+/*     /1* purposely ignored *1/ */
+/* } */

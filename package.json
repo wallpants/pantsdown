@@ -11,9 +11,9 @@
   },
   "exports": {
     "./styles.css": {
-      "types": "./styles.css.d.ts",
-      "bun": "./styles.css",
-      "import": "./styles.css"
+      "types": "./src/css/styles.css.d.ts",
+      "bun": "./src/css/styles.css",
+      "import": "./src/css/styles.css"
     },
     ".": {
       "types": "./src/index.ts",
