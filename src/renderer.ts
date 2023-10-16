@@ -75,20 +75,39 @@ export class Renderer {
         return `<hr${renderSourceMap(sourceMap)}>\n`;
     }
 
-    list(body: string, ordered: boolean, start: number | "", sourceMap: SourceMap): string {
+    list(
+        body: string,
+        ordered: boolean,
+        start: number | "",
+        sourceMap: SourceMap,
+        classes: string[] = [],
+    ): string {
         const type = ordered ? "ol" : "ul";
         const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
         return (
-            "<" + type + startatt + `${renderSourceMap(sourceMap)}>\n` + body + "</" + type + ">\n"
+            "<" +
+            type +
+            startatt +
+            `${renderSourceMap(sourceMap)}${renderHtmlClasses(classes)}>\n` +
+            body +
+            "</" +
+            type +
+            ">\n"
         );
     }
 
-    listitem(text: string, _task: boolean, _checked: boolean): string {
-        return `<li>${text}</li>\n`;
+    listitem(text: string, task: boolean, _checked: boolean): string {
+        const classes: string[] = [];
+        if (task) classes.push("task-list-item");
+        return `<li${renderHtmlClasses(classes)}>${text}</li>\n`;
     }
 
-    checkbox(checked: boolean): string {
-        return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox">';
+    checkbox(checked: boolean, classes: string[] = []): string {
+        return (
+            "<input " +
+            (checked ? 'checked="" ' : "") +
+            `disabled="" type="checkbox"${renderHtmlClasses(classes)}>`
+        );
     }
 
     paragraph(text: string, sourceMap: SourceMap): string {

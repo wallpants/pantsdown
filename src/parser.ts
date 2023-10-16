@@ -83,6 +83,7 @@ export class Parser {
                     const ordered = token.ordered;
                     const start = token.start;
                     const loose = token.loose;
+                    let containsTaskList = false;
 
                     let body = "";
                     for (let j = 0, itemsLen = token.items.length; j < itemsLen; j++) {
@@ -92,7 +93,10 @@ export class Parser {
 
                         let itemBody = "";
                         if (item.task) {
-                            const checkbox = this.renderer.checkbox(Boolean(checked));
+                            containsTaskList = true;
+                            const checkbox = this.renderer.checkbox(Boolean(checked), [
+                                "task-list-item-checkbox",
+                            ]);
                             if (loose) {
                                 if (
                                     item.tokens.length > 0 &&
@@ -121,7 +125,9 @@ export class Parser {
                         body += this.renderer.listitem(itemBody, task, Boolean(checked));
                     }
 
-                    out += this.renderer.list(body, ordered, start, token.sourceMap);
+                    const listClasses: string[] = [];
+                    if (containsTaskList) listClasses.push("contains-task-list");
+                    out += this.renderer.list(body, ordered, start, token.sourceMap, listClasses);
                     continue;
                 }
                 case "html": {
