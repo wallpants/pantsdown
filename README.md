@@ -87,7 +87,7 @@ const config: PantsdownConfig = {
          * relativeImageUrlPrefix: "/__localimage__/"
          *
          * ![image](./wallpants-512.png)
-         * relative src is updated and result in:
+         * relative src is updated and results in:
          * <img src="/__localimage__/wallpants-512.png" />
          *
          * ![image](https://avatars.githubusercontent.com/wallpants)
