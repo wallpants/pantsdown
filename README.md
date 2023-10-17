@@ -64,6 +64,8 @@ function App() {
         if (container) container.innerHTML = html;
     }, []);
 
+    // 🚨 for styles to be applied, a parent element must contain
+    // the classes "pantsdown light" or "pantsdown dark"
     return <div id="markdown-container" className="pantsdown light" />;
 }
 
