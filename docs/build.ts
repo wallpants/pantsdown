@@ -20,14 +20,14 @@ const index = `<!doctype html>
     <body>
         <div style="padding: 40px 40px 100px; max-width: 900px; margin: 0 auto">
             <p style="background: #e3c0a6; color: #4d2609; padding: 20px; border-radius: 4px">
-                This page was generated from the
+                This page was generated from
                 <a
                     href="https://github.com/wallpants/pantsdown/blob/main/README.md"
                     target="_blank"
                     rel="noreferrer noopener"
                     >README.md</a
                 >
-                file using Pantsdown.
+                using Pantsdown.
                 <br />
                 <a
                     href="https://github.com/wallpants/pantsdown/blob/main/docs/build.ts"
