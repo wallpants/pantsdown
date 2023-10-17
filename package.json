@@ -30,7 +30,7 @@
     "format": "prettier **/*{ts,js} --write",
     "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "commit": "cz",
-    "docs:build": "bun parcel build docs/index.ts --no-source-maps --no-content-hash --dist-dir docs"
+    "docs:build": "bun parcel build docs/index.ts --no-source-maps --no-content-hash --dist-dir docs-build"
   },
   "release": {
     "branches": [
