@@ -190,9 +190,20 @@ export type Links = Record<string, { href: string; title: string }>;
 export type PantsdownConfig = {
     renderer?: {
         /**
-         * url prefix. Must start and end with "/"
-         * example: "/__localimage__/"
+         * Prefix to be added to relative image sources.
+         * Must start and end with "/"
+         *
+         * @example
+         * relativeImageUrlPrefix: "/__localimage__/"
+         *
+         * ![image](./wallpants-512.png)
+         * relative src is updated and result in:
+         * <img src="/__localimage__/wallpants-512.png" />
+         *
+         * ![image](https://avatars.githubusercontent.com/wallpants)
+         * absolute path remains unchanged:
+         * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
-        localImageUrlPrefix: string;
+        relativeImageUrlPrefix: string;
     };
 };

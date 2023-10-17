@@ -70,6 +70,38 @@ function App() {
 export default App;
 ```
 
+## Configuration
+
+The Pantsdown constructor accepts an optional configuration object:
+
+```typescript
+import { PantsdownConfig } from "pantsdown";
+
+const config: PantsdownConfig = {
+    renderer: {
+        /**
+         * Prefix to be added to relative image sources.
+         * Must start and end with "/"
+         *
+         * @example
+         * relativeImageUrlPrefix: "/__localimage__/"
+         *
+         * ![image](./wallpants-512.png)
+         * relative src is updated and result in:
+         * <img src="/__localimage__/wallpants-512.png" />
+         *
+         * ![image](https://avatars.githubusercontent.com/wallpants)
+         * absolute path remains unchanged:
+         * <img src="https://avatars.githubusercontent.com/wallpants" />
+         */
+        relativeImageUrlPrefix: "/__localimage__/",
+    },
+};
+
+const pantsdown = new Pantsdown(config);
+pantsdown.parse(markdown);
+```
+
 ## Roadmap
 
 -   [x] Add id & anchors to headings

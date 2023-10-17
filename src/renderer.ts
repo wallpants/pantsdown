@@ -13,7 +13,7 @@ import {
 } from "./utils.ts";
 
 const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
-    localImageUrlPrefix: "",
+    relativeImageUrlPrefix: "",
 };
 
 /**
@@ -50,7 +50,7 @@ export class Renderer {
     }
 
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
-        let result = fixHtmlLocalImageHref(html, this.rendererConfig.localImageUrlPrefix);
+        let result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
         if (sourceMap) {
             result = injectHtmlAttributes(result, [
                 ["line-start", sourceMap[0]],
@@ -179,7 +179,7 @@ export class Renderer {
         if (cleanHref === null) {
             return text;
         }
-        href = fixLocalImageHref(cleanHref, this.rendererConfig.localImageUrlPrefix);
+        href = fixLocalImageHref(cleanHref, this.rendererConfig.relativeImageUrlPrefix);
 
         let out = `<img src="${href}" alt="${text}"`;
 
