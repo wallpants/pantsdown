@@ -1,0 +1,5 @@
+github-page/
+.github/
+bun.lockb
+.eslintrc.json
+.prettierrc.json
