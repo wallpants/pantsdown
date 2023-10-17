@@ -11,6 +11,8 @@ Applicable fixes/updates released by Marked will eventually be applied to Pantsd
 If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
 feel free to open an issue. If you need anything else, use Marked or another library.
 
+### [Demo](https://wallpants.github.io/pantsdown/)
+
 ## Installation
 
 🚨 Pantsdown is distributed only as a TypeScript module. This means you'll need a bundler to handle transpilation.
