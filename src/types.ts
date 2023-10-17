@@ -201,7 +201,7 @@ export type PantsdownConfig = {
          * <img src="/__localimage__/wallpants-512.png" />
          *
          * ![image](https://avatars.githubusercontent.com/wallpants)
-         * absolute path remains unchanged:
+         * absolute src remains unchanged:
          * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
         relativeImageUrlPrefix: string;
