@@ -29,6 +29,11 @@ bun install pantsdown
 For styles to be properly applied, either the element containing the generated html or one of its parents
 must have the classes `class="pantsdown light"` or `class="pantsdown dark"` added.
 
+### [Bun](https://bun.sh/)
+
+Take a look at [how Pantsdown's demo is built](https://github.com/wallpants/pantsdown/blob/main/docs/build.ts)
+for a very simple usage example with Bun.
+
 ### [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)
 
 Create a Vite Project & install dependencies:

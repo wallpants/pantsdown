@@ -30,7 +30,7 @@ const index = `<!doctype html>
                 file using Pantsdown.
                 <br />
                 <a
-                    href="https://github.com/wallpants/pantsdown/tree/main/docs"
+                    href="https://github.com/wallpants/pantsdown/blob/main/docs/build.ts"
                     target="_blank"
                     rel="noreferrer noopener"
                     >View source</a
