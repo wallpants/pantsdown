@@ -2,7 +2,7 @@
   "name": "pantsdown",
   "version": "0.0.0",
   "author": "wallpants",
-  "description": "The markdown parser",
+  "description": "Markdown to 'GitHub HTML' parser",
   "license": "MIT",
   "type": "module",
   "repository": {
