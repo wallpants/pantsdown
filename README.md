@@ -22,6 +22,11 @@ bun install pantsdown
 
 ## Usage
 
+### Styles
+
+For styles to be properly applied, either the element containing the generated html or one of its parents
+must have the classes `class="pantsdown light"` or `class="pantsdown dark"` added.
+
 ### [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)
 
 Create a Vite Project & install dependencies:
@@ -64,8 +69,8 @@ function App() {
         if (container) container.innerHTML = html;
     }, []);
 
-    // 🚨 for styles to be applied, a parent element must contain
-    // the classes "pantsdown light" or "pantsdown dark"
+    // 🚨 for styles to be applied, a parent element must have
+    // the classes "pantsdown light" or "pantsdown dark" added
     return <div id="markdown-container" className="pantsdown light" />;
 }
 
