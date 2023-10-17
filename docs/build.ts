@@ -14,7 +14,6 @@ const index = `<!doctype html>
     <head>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
-        <script src="index.js" type="module" type="text/javascript" defer></script>
         <style>${css}</style>
         <title>Pantsdown</title>
     </head>
