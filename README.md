@@ -8,7 +8,7 @@ some features developed specifically for [github-preview.nvim](https://github.co
 
 Applicable fixes/updates released by Marked will eventually be applied to Pantsdown.
 
-If you need a feature that's supported by GitHub and is not already listed in Pantsdown's [Roadmap](#roadmap),
+If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
 feel free to open an issue. If you need anything else, use Marked or another library.
 
 ## Installation
