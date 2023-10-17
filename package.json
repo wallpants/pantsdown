@@ -30,7 +30,7 @@
     "format": "prettier **/*{ts,js} --write",
     "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "commit": "cz",
-    "docs:build": "bun parcel build docs/index.ts --no-source-maps --no-content-hash --dist-dir docs-build"
+    "docs:build": "bun run docs/build.ts"
   },
   "release": {
     "branches": [
@@ -48,7 +48,6 @@
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.50.0",
-    "parcel": "^2.10.0",
     "prettier": "^3.0.2",
     "prettier-plugin-organize-imports": "^3.2.3",
     "semantic-release": "^22.0.5",

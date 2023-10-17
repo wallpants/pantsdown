@@ -9,7 +9,7 @@ permissions:
     contents: read
 
 jobs:
-    test:
+    Test:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
@@ -23,8 +23,8 @@ jobs:
             - name: Test
               run: bun test
 
-    release:
-        needs: [test]
+    Release:
+        needs: [Test]
         if: |
             github.ref == 'refs/heads/main' &&
             github.event.repository.fork == false

@@ -16,7 +16,7 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
-    build:
+    Build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -32,10 +32,10 @@ jobs:
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v2
               with:
-                  path: ./docs-build
+                  path: ./docs
 
-    deploy:
-        needs: [build]
+    Deploy:
+        needs: [Build]
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}

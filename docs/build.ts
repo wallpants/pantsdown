@@ -1,9 +1,21 @@
-<!doctype html>
+import { Pantsdown } from "../src";
+
+const readmePath = import.meta.dir + "/../README.md";
+const readme = await Bun.file(readmePath).text();
+
+const cssPath = import.meta.dir + "/../src/css/styles.css";
+const css = await Bun.file(cssPath).text();
+
+const pantsdown = new Pantsdown();
+const html = pantsdown.parse(readme);
+
+const index = `<!doctype html>
 <html lang="en" class="pantsdown dark">
     <head>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
         <script src="index.js" type="module" type="text/javascript" defer></script>
+        <style>${css}</style>
         <title>Pantsdown</title>
     </head>
     <body>
@@ -25,7 +37,10 @@
                     >View source</a
                 >
             </p>
-            <div id="markdown-container"></div>
+            <div>${html}</div>
         </div>
     </body>
-</html>
+</html>`;
+
+const indexPath = import.meta.dir + "/index.html";
+await Bun.write(indexPath, index);
