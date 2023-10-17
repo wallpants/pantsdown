@@ -76,21 +76,21 @@ export function injectHtmlAttributes(
     }
 }
 
-export function fixHtmlLocalImageHref(html: string, localImageUrlPrefix: string): string {
+export function fixHtmlLocalImageHref(html: string, relativeImageUrlPrefix: string): string {
     return html.replace(
         /<img\s+([^>]*?)src\s*=\s*(["'])([^\2>]+?)\2([^>]*)>/gm,
         (_m, g1, _g2, g3: string, g4) => {
-            const href = fixLocalImageHref(g3, localImageUrlPrefix);
+            const href = fixLocalImageHref(g3, relativeImageUrlPrefix);
             return `<img ${g1}src="${href}"${g4}>`;
         },
     );
 }
 
-export function fixLocalImageHref(href: string, localImageUrlPrefix: string): string {
+export function fixLocalImageHref(href: string, relativeImageUrlPrefix: string): string {
     const reIsAbsolute = /^[\w+]+:\/\//;
     const dummyUrl = "http://__dummy__";
-    const dummyBaseUrl = new URL(localImageUrlPrefix, dummyUrl);
-    const dummyUrlLength = dummyUrl.length + (localImageUrlPrefix.startsWith("/") ? 0 : 1);
+    const dummyBaseUrl = new URL(relativeImageUrlPrefix, dummyUrl);
+    const dummyUrlLength = dummyUrl.length + (relativeImageUrlPrefix.startsWith("/") ? 0 : 1);
 
     if (reIsAbsolute.test(href)) {
         // the URL is absolute, do not touch it
