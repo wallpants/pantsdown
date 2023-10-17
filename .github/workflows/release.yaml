@@ -24,8 +24,6 @@ jobs:
               run: bun test
 
     Release:
-        permissions:
-            contents: write
         needs: [Test]
         if: |
             github.ref == 'refs/heads/main' &&
