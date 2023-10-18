@@ -19,7 +19,10 @@ feel free to open an issue. If you need anything else, use Marked or another lib
 See below for usage examples.
 
 ```sh
+# bun
 bun install pantsdown
+# npm
+npm install pantsdown
 ```
 
 ## Usage
