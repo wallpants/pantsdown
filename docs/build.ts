@@ -1,4 +1,4 @@
-// Demo build script called by github action:
+// "Pantsdown Demo" build script called by github action:
 // https://github.com/wallpants/pantsdown/blob/main/.github/workflows/github-page.yaml
 
 import { Pantsdown } from "../src";
