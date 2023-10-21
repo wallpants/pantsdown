@@ -1,5 +1,6 @@
 import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
+import { inline } from "./rules/inline.ts";
 import { type PantsdownConfig, type SourceMap } from "./types.ts";
 import {
     cleanUrl,
@@ -14,6 +15,7 @@ import {
 
 const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
     relativeImageUrlPrefix: "",
+    detailsTagDefaultOpen: false,
 };
 
 /**
@@ -45,19 +47,27 @@ export class Renderer {
         );
     }
 
-    blockquote(quote: string, sourceMap: SourceMap): string {
-        return `<blockquote${renderSourceMap(sourceMap)}>\n${quote}</blockquote>\n`;
+    blockquote(quote: string): string {
+        return `<blockquote>\n${quote}</blockquote>\n`;
     }
 
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
-        let result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
+        const result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
+
+        const htmlAttributes: [name: string, value: string | number][] = [];
+
         if (sourceMap) {
-            result = injectHtmlAttributes(result, [
-                ["line-start", sourceMap[0]],
-                ["line-end", sourceMap[1]],
-            ]);
+            htmlAttributes.push(["line-start", sourceMap[0]], ["line-end", sourceMap[1]]);
         }
-        return result;
+
+        if (this.rendererConfig.detailsTagDefaultOpen) {
+            const tag = inline.tag.exec(html);
+            if (tag?.[0] === "<details>") {
+                htmlAttributes.push(["open", ""]);
+            }
+        }
+
+        return injectHtmlAttributes(result, htmlAttributes);
     }
 
     heading(text: string, level: number, sourceMap: SourceMap): string {

@@ -76,7 +76,7 @@ export class Parser {
                 }
                 case "blockquote": {
                     const body = this.parse(token.tokens);
-                    out += this.renderer.blockquote(body, token.sourceMap);
+                    out += this.renderer.blockquote(body);
                     continue;
                 }
                 case "list": {

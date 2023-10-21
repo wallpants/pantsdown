@@ -16,6 +16,7 @@ import {
  */
 export class Tokenizer {
     private lexer: Lexer;
+    pendingHtmlClose: [tag: string, index: number][] = [];
 
     constructor(lexer: Lexer) {
         this.lexer = lexer;
@@ -108,12 +109,12 @@ export class Tokenizer {
         this.lexer.state.top = true;
         const tokens = this.lexer.blockTokens(text, []);
         this.lexer.state.top = top;
+        this.lexer.line++;
         return {
             type: "blockquote",
             raw: cap[0],
             tokens,
             text,
-            sourceMap: this.lexer.getSourceMap(cap[0]),
         };
     }
 
@@ -333,6 +334,65 @@ export class Tokenizer {
             text: cap[0],
             sourceMap: this.lexer.getSourceMap(cap[0]),
         };
+
+        /*
+         * Sometimes an html token does not contain its closing tag.
+         *
+         * The following markdown:
+         *
+         * 130  <details>
+         * 131    <summary><h4>Hello World</h4></summary>
+         * 132
+         * 133    Here some non-html markdown
+         * 134  </details>
+         *
+         * would result in 3 tokens:
+         * [
+         *   {
+         *     type: "html",
+         *     raw: "<details>↵  <summary><h4>PUT</h4></summary>↵↵",
+         *     sourceMap: [130, 131]
+         *   },
+         *   {
+         *     type: "paragraph",
+         *     raw: "Here some non-html markdown",
+         *     sourceMap: [133, 133]
+         *   },
+         *   {
+         *     type: "html",
+         *     raw: "</details>",
+         *   }
+         * ]
+         *
+         * sourceMap metadata in first token will be incorrect, because it will
+         * not take its children into consideration when it should.
+         *
+         * To solve that we keep track of html tokens that are pending to be closed
+         * and update their sourceMap once they're closed.
+         */
+
+        const capEndsWith = (str: string) => cap[0].trimEnd().endsWith(str);
+
+        const tag = inline.tag.exec(src);
+        const isHtmlClosed = capEndsWith(tag![0].slice(1));
+
+        if (!isHtmlClosed) {
+            // index where the token we just created will be inserted
+            const tokenIdx = this.lexer.tokens.length;
+            // first in last out
+            this.pendingHtmlClose.unshift([tag![0], tokenIdx]);
+        } else if (this.pendingHtmlClose.length) {
+            for (const [pendingTag, index] of this.pendingHtmlClose) {
+                if (capEndsWith(pendingTag.slice(1))) {
+                    const updateToken = this.lexer.tokens[index] as Tokens["HTML"];
+                    if (updateToken.sourceMap?.[1] && token.sourceMap?.[1]) {
+                        updateToken.sourceMap[1] = token.sourceMap[1];
+                    }
+                    this.pendingHtmlClose.shift();
+                }
+            }
+        }
+
         return token;
     }
 

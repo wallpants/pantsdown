@@ -61,32 +61,50 @@ export function getHtmlElementText(html: string) {
     }
 }
 
+/**
+ * Only works when html element has no other attributes already defined.
+ * For the regex to work the element must be clean of attributes:
+ *
+ * <div>{whatever}</div>
+ */
 export function injectHtmlAttributes(
     html: string,
     attrs: [name: string, value: string | number][],
 ) {
-    try {
-        const element = parseHtmlElement(html);
-        attrs.forEach(([name, value]) => {
-            element.setAttribute(name, JSON.stringify(value));
-        });
-        return element.outerHTML;
-    } catch (_) {
-        return html;
+    if (!attrs.length) return html;
+
+    const closingBracket = /[a-zA-Z0-9]>|\/>/;
+    const match = html.match(closingBracket);
+    if (match) {
+        let htmlAttrs = "";
+        attrs.forEach((atrr) => (htmlAttrs += ` ${atrr[0]}=${atrr[1]}`));
+        const sliceIdx = match.index! + (match[0] === "/>" ? -1 : 1);
+        return html.slice(0, sliceIdx) + htmlAttrs + html.slice(sliceIdx);
     }
+    return html;
 }
 
-export function fixHtmlLocalImageHref(html: string, relativeImageUrlPrefix: string): string {
-    return html.replace(
-        /<img\s+([^>]*?)src\s*=\s*(["'])([^\2>]+?)\2([^>]*)>/gm,
-        (_m, g1, _g2, g3: string, g4) => {
-            const href = fixLocalImageHref(g3, relativeImageUrlPrefix);
-            return `<img ${g1}src="${href}"${g4}>`;
-        },
-    );
+export function fixHtmlLocalImageHref(
+    html: string,
+    relativeImageUrlPrefix: string | undefined,
+): string {
+    return relativeImageUrlPrefix
+        ? html.replace(
+              /<img\s+([^>]*?)src\s*=\s*(["'])([^\2>]+?)\2([^>]*)>/gm,
+              (_m, g1, _g2, g3: string, g4) => {
+                  const href = fixLocalImageHref(g3, relativeImageUrlPrefix);
+                  return `<img ${g1}src="${href}"${g4}>`;
+              },
+          )
+        : html;
 }
 
-export function fixLocalImageHref(href: string, relativeImageUrlPrefix: string): string {
+export function fixLocalImageHref(
+    href: string,
+    relativeImageUrlPrefix: string | undefined,
+): string {
+    if (!relativeImageUrlPrefix) return href;
+
     const reIsAbsolute = /^[\w+]+:\/\//;
     const dummyUrl = "http://__dummy__";
     const dummyBaseUrl = new URL(relativeImageUrlPrefix, dummyUrl);

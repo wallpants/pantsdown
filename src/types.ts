@@ -53,7 +53,6 @@ export interface Tokens extends Record<string, BaseToken> {
         raw: string;
         text: string;
         tokens: Token[];
-        sourceMap: SourceMap;
     };
     List: {
         type: "list";
@@ -204,6 +203,14 @@ export type PantsdownConfig = {
          * absolute src remains unchanged:
          * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
-        relativeImageUrlPrefix: string;
+        relativeImageUrlPrefix?: string;
+
+        /**
+         * Whether to render <details> html tags with attribute `open=""`
+         *
+         * @default
+         * false
+         */
+        detailsTagDefaultOpen?: boolean;
     };
 };
