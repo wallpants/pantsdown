@@ -5,10 +5,10 @@ import { type Links, type SourceMap, type Token } from "./types.ts";
 export class Lexer {
     private tokenizer: Tokenizer;
     private inlineQueue: { src: string; tokens: Token[] }[];
-    private tokens: Token[] = [];
     private links: Links = {};
-    private line = 0;
 
+    tokens: Token[] = [];
+    line = 1;
     state = {
         inLink: false,
         inRawBlock: false,
@@ -25,9 +25,10 @@ export class Lexer {
      */
     lex(src: string) {
         // reset values from previous parse
+        this.tokenizer.pendingHtmlClose = [];
         this.tokens = [];
         this.links = {};
-        this.line = 0;
+        this.line = 1;
 
         src = src.replace(/\r\n|\r/g, "\n");
 

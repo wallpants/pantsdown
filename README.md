@@ -6,8 +6,6 @@ Pantsdown is a **Markdown** to **"GitHub HTML"** converter based on [Marked](htt
 Basically this is a non customizable version of Marked, optimized to render markdown similar to how GitHub does it plus
 some features developed specifically for [github-preview.nvim](https://github.com/wallpants/github-preview.nvim).
 
-Applicable fixes/updates released by Marked will eventually be applied to Pantsdown.
-
 If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
 feel free to open an issue. If you need anything else, use Marked or another library.
 
@@ -112,11 +110,21 @@ const config: PantsdownConfig = {
          * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
         relativeImageUrlPrefix: "/__localimage__/",
+
+        /**
+         * Whether to render <details> html tags with attribute `open=""`
+         *
+         * @default
+         * false
+         */
+        detailsTagDefaultOpen: true,
     },
 };
 
 const pantsdown = new Pantsdown(config);
-pantsdown.parse(markdown);
+const html = pantsdown.parse(markdown);
+
+console.log(html);
 ```
 
 ## Roadmap
