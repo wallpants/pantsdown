@@ -2,8 +2,8 @@
 
 # Pantsdown
 
-<img src="docs/github.svg" height="60px" align="right" />
-<img src="docs/markdown.svg" height="60px" align="right" />
+<img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/github.svg" height="60px" align="right" />
+<img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/markdown.svg" height="60px" align="right" />
 
 Pantsdown is a **Markdown** to **"GitHub HTML"** converter based on [Marked](https://github.com/markedjs/marked).
 Basically this is a non customizable version of Marked, optimized to render markdown similar to how GitHub does it plus
