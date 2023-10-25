@@ -106,12 +106,17 @@ export class Renderer {
         );
     }
 
-    listitem(text: string, task: boolean, _checked: boolean, lineStart: number): string {
+    listitem(
+        text: string,
+        task: boolean,
+        _checked: boolean,
+        lineStart: number | undefined,
+    ): string {
         const classes: string[] = [];
         if (task) classes.push("task-list-item");
-        return `<li${renderHtmlClasses(
-            classes,
-        )} line-start="${lineStart}" line-end="${lineStart}">${text}</li>\n`;
+        return `<li${renderHtmlClasses(classes)}${renderSourceMap(
+            lineStart ? [lineStart, lineStart] : undefined,
+        )}>${text}</li>\n`;
     }
 
     checkbox(checked: boolean, classes: string[] = []): string {
