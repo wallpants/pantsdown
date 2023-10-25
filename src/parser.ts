@@ -126,7 +126,7 @@ export class Parser {
                             itemBody,
                             task,
                             Boolean(checked),
-                            token.sourceMap![0] + j,
+                            token.sourceMap ? token.sourceMap[0] + j : undefined,
                         );
                     }
 
