@@ -122,7 +122,12 @@ export class Parser {
                         }
 
                         itemBody += this.parse(item.tokens, loose);
-                        body += this.renderer.listitem(itemBody, task, Boolean(checked));
+                        body += this.renderer.listitem(
+                            itemBody,
+                            task,
+                            Boolean(checked),
+                            token.sourceMap![0] + j,
+                        );
                     }
 
                     const listClasses: string[] = [];
