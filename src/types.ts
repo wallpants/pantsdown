@@ -61,7 +61,6 @@ export interface Tokens extends Record<string, BaseToken> {
         start: number | "";
         loose: boolean;
         items: Tokens["ListItem"][];
-        sourceMap: SourceMap;
     };
     ListItem: {
         type: "list_item";
@@ -71,6 +70,7 @@ export interface Tokens extends Record<string, BaseToken> {
         checked?: boolean | undefined;
         loose: boolean;
         tokens: Token[];
+        sourceMap?: SourceMap;
     };
     Paragraph: {
         type: "paragraph";

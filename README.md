@@ -132,8 +132,6 @@ console.log(html);
 
 ## Roadmap
 
--   [x] Add id & anchors to headings
--   [ ] Add sourcemap to list items
 -   [ ] Add button to copy code in fences
 -   [ ] [Mermaid](https://mermaid.js.org/) support
 -   [ ] [Footnote](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes) support [Base](https://github.com/bent10/marked-extensions/tree/main/packages/footnote)

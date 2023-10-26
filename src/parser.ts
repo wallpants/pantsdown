@@ -126,13 +126,13 @@ export class Parser {
                             itemBody,
                             task,
                             Boolean(checked),
-                            token.sourceMap ? token.sourceMap[0] + j : undefined,
+                            item.sourceMap,
                         );
                     }
 
                     const listClasses: string[] = [];
                     if (containsTaskList) listClasses.push("contains-task-list");
-                    out += this.renderer.list(body, ordered, start, token.sourceMap, listClasses);
+                    out += this.renderer.list(body, ordered, start, listClasses);
                     continue;
                 }
                 case "html": {
