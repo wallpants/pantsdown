@@ -1,3 +1,5 @@
+export type HTMLAttrs = [name: string, value: string][];
+
 type BaseToken = {
     type: string;
     raw: string;
