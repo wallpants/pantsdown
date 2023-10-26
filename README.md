@@ -5,12 +5,11 @@
 <img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/github.svg" height="60px" align="right" />
 <img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/markdown.svg" height="60px" align="right" />
 
-Pantsdown is a **Markdown** to **"GitHub HTML"** converter based on [Marked](https://github.com/markedjs/marked).
-Basically this is a non customizable version of Marked, optimized to render markdown similar to how GitHub does it plus
+Pantsdown is a **Markdown** to **HTML** converter. It attempts to render markdown similar to how GitHub does it plus
 some features developed specifically for [github-preview.nvim](https://github.com/wallpants/github-preview.nvim).
 
 If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
-feel free to open an issue. If you need anything else, use Marked or another library.
+feel free to open an issue.
 
 ### [Demo](https://wallpants.github.io/pantsdown/)
 
