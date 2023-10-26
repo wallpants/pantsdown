@@ -41,20 +41,15 @@ export function renderHtmlClasses(classes: string[]) {
     return result;
 }
 
-function parseHtmlElement(html: string) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    // eslint-disable-next-line
-    if (!doc.body) throw Error("Invalid HTML");
-    const element = doc.body.firstChild as HTMLElement;
-    // eslint-disable-next-line
-    if (!element) throw Error("No valid element found");
-    return element;
-}
-
 export function getHtmlElementText(html: string) {
     try {
-        const element = parseHtmlElement(html);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        // eslint-disable-next-line
+        if (!doc.body) throw Error("Invalid HTML");
+        const element = doc.body.firstChild as HTMLElement;
+        // eslint-disable-next-line
+        if (!element) throw Error("No valid element found");
         return element.textContent ?? html;
     } catch (_) {
         return html;
@@ -70,14 +65,20 @@ export function getHtmlElementText(html: string) {
 export function injectHtmlAttributes(
     html: string,
     attrs: [name: string, value: string | number][],
+    sourceMap: SourceMap,
 ) {
+    if (sourceMap) {
+        attrs.push(["line-start", sourceMap[0]]);
+        attrs.push(["line-end", sourceMap[1]]);
+    }
+
     if (!attrs.length) return html;
 
-    const closingBracket = /[a-zA-Z0-9]>|\/>/;
+    const closingBracket = /[a-zA-Z0-9\/"]>/;
     const match = html.match(closingBracket);
     if (match) {
         let htmlAttrs = "";
-        attrs.forEach((atrr) => (htmlAttrs += ` ${atrr[0]}=${atrr[1]}`));
+        attrs.forEach((atrr) => (htmlAttrs += ` ${atrr[0]}="${atrr[1]}"`));
         const sliceIdx = match.index! + (match[0] === "/>" ? -1 : 1);
         return html.slice(0, sliceIdx) + htmlAttrs + html.slice(sliceIdx);
     }
@@ -126,11 +127,6 @@ export function fixLocalImageHref(
     } catch (e) {
         return href;
     }
-}
-
-export function renderSourceMap(sourceMap: SourceMap) {
-    if (!sourceMap) return "";
-    return ` line-start=${sourceMap[0]} line-end=${sourceMap[1]}`;
 }
 
 export function cleanUrl(href: string) {

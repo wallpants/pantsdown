@@ -10,7 +10,6 @@ import {
     getHtmlElementText,
     injectHtmlAttributes,
     renderHtmlClasses,
-    renderSourceMap,
 } from "./utils.ts";
 
 const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
@@ -38,13 +37,14 @@ export class Renderer {
         const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
         const highlightedCode = hljs.highlight(code, { language }).value;
 
-        return (
-            `<pre${renderSourceMap(sourceMap)}><code class="hljs language-` +
+        const result =
+            `<pre><code class="hljs language-` +
             escape(language) +
             '">' +
             highlightedCode +
-            "</code></pre>\n"
-        );
+            "</code></pre>\n";
+
+        return injectHtmlAttributes(result, [], sourceMap);
     }
 
     blockquote(quote: string): string {
@@ -54,35 +54,31 @@ export class Renderer {
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
         const result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
 
-        const htmlAttributes: [name: string, value: string | number][] = [];
-
-        if (sourceMap) {
-            htmlAttributes.push(["line-start", sourceMap[0]], ["line-end", sourceMap[1]]);
-        }
+        const attrs: [name: string, value: string | number][] = [];
 
         if (this.rendererConfig.detailsTagDefaultOpen) {
             const tag = inline.tag.exec(html);
             if (tag?.[0] === "<details>") {
-                htmlAttributes.push(["open", ""]);
+                attrs.push(["open", ""]);
             }
         }
 
-        return injectHtmlAttributes(result, htmlAttributes);
+        return injectHtmlAttributes(result, attrs, sourceMap);
     }
 
     heading(text: string, level: number, sourceMap: SourceMap): string {
         const elementText = getHtmlElementText(text);
         const slug = this.slugger.slug(elementText);
-        let result = `<h${level}${renderSourceMap(sourceMap)} style="position: relative;">`;
+        let result = `<h${level} style="position: relative;">`;
         // span with negative top to add some offset when scrolling to #slug
         result += `<span style="position: absolute; top: -50px;" id="${slug}"></span>`;
         result += `${text}<a class="anchor octicon-link" href="#${slug}"></a>`;
         result += `</h${level}>\n`;
-        return result;
+        return injectHtmlAttributes(result, [], sourceMap);
     }
 
     hr(sourceMap: SourceMap): string {
-        return `<hr${renderSourceMap(sourceMap)}>\n`;
+        return injectHtmlAttributes(`<hr>\n`, [], sourceMap);
     }
 
     list(body: string, ordered: boolean, start: number | "", classes: string[] = []): string {
@@ -94,9 +90,9 @@ export class Renderer {
     }
 
     listitem(text: string, task: boolean, _checked: boolean, sourceMap: SourceMap): string {
-        const classes: string[] = [];
-        if (task) classes.push("task-list-item");
-        return `<li${renderHtmlClasses(classes)}${renderSourceMap(sourceMap)}>${text}</li>\n`;
+        const attrs: [string, string][] = [];
+        if (task) attrs.push(["class", "task-list-item"]);
+        return injectHtmlAttributes(`<li>${text}</li>\n`, attrs, sourceMap);
     }
 
     checkbox(checked: boolean, classes: string[] = []): string {
@@ -108,7 +104,7 @@ export class Renderer {
     }
 
     paragraph(text: string, sourceMap: SourceMap): string {
-        return `<p${renderSourceMap(sourceMap)}>${text}</p>\n`;
+        return injectHtmlAttributes(`<p>${text}</p>\n`, [], sourceMap);
     }
 
     table(header: string, body: string): string {
@@ -117,9 +113,11 @@ export class Renderer {
     }
 
     tablerow(content: string, sourceMapStart: number | undefined): string {
-        return `<tr${renderSourceMap(
+        return injectHtmlAttributes(
+            `<tr>\n${content}</tr>\n`,
+            [],
             sourceMapStart ? [sourceMapStart, sourceMapStart] : undefined,
-        )}>\n${content}</tr>\n`;
+        );
     }
 
     tablecell(
