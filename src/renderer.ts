@@ -85,38 +85,18 @@ export class Renderer {
         return `<hr${renderSourceMap(sourceMap)}>\n`;
     }
 
-    list(
-        body: string,
-        ordered: boolean,
-        start: number | "",
-        sourceMap: SourceMap,
-        classes: string[] = [],
-    ): string {
+    list(body: string, ordered: boolean, start: number | "", classes: string[] = []): string {
         const type = ordered ? "ol" : "ul";
         const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
         return (
-            "<" +
-            type +
-            startatt +
-            `${renderSourceMap(sourceMap)}${renderHtmlClasses(classes)}>\n` +
-            body +
-            "</" +
-            type +
-            ">\n"
+            "<" + type + startatt + `${renderHtmlClasses(classes)}>\n` + body + "</" + type + ">\n"
         );
     }
 
-    listitem(
-        text: string,
-        task: boolean,
-        _checked: boolean,
-        lineStart: number | undefined,
-    ): string {
+    listitem(text: string, task: boolean, _checked: boolean, sourceMap: SourceMap): string {
         const classes: string[] = [];
         if (task) classes.push("task-list-item");
-        return `<li${renderHtmlClasses(classes)}${renderSourceMap(
-            lineStart ? [lineStart, lineStart] : undefined,
-        )}>${text}</li>\n`;
+        return `<li${renderHtmlClasses(classes)}${renderSourceMap(sourceMap)}>${text}</li>\n`;
     }
 
     checkbox(checked: boolean, classes: string[] = []): string {

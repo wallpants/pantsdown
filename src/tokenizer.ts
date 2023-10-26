@@ -132,7 +132,6 @@ export class Tokenizer {
             start: isordered ? +bull.slice(0, -1) : "",
             loose: false,
             items: [] as Tokens["ListItem"][],
-            sourceMap: [0, 0], // updated below once token.raw is built
         };
 
         bull = isordered ? `\\d{1,9}\\${bull.slice(-1)}` : `\\${bull}`;
@@ -294,10 +293,9 @@ export class Tokenizer {
         list.items[list.items.length - 1]!.text = itemContents.trimEnd();
         list.raw = list.raw.trimEnd();
 
-        list.sourceMap = this.lexer.getSourceMap(list.raw);
-
         // Item child tokens handled here at end because we needed to have the final item to trim it first
         for (let i = 0, listItemsLen = list.items.length; i < listItemsLen; i++) {
+            list.items[i]!.sourceMap = this.lexer.getSourceMap(list.items[i]!.raw);
             this.lexer.state.top = false;
             list.items[i]!.tokens = this.lexer.blockTokens(list.items[i]!.text, []);
 
