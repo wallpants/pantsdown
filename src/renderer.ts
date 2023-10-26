@@ -1,7 +1,7 @@
 import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
 import { inline } from "./rules/inline.ts";
-import { type PantsdownConfig, type SourceMap } from "./types.ts";
+import { type HTMLAttrs, type PantsdownConfig, type SourceMap } from "./types.ts";
 import {
     cleanUrl,
     escape,
@@ -9,7 +9,6 @@ import {
     fixLocalImageHref,
     getHtmlElementText,
     injectHtmlAttributes,
-    renderHtmlClasses,
 } from "./utils.ts";
 
 const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
@@ -54,7 +53,7 @@ export class Renderer {
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
         const result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
 
-        const attrs: [name: string, value: string | number][] = [];
+        const attrs: HTMLAttrs = [];
 
         if (this.rendererConfig.detailsTagDefaultOpen) {
             const tag = inline.tag.exec(html);
@@ -69,12 +68,12 @@ export class Renderer {
     heading(text: string, level: number, sourceMap: SourceMap): string {
         const elementText = getHtmlElementText(text);
         const slug = this.slugger.slug(elementText);
-        let result = `<h${level} style="position: relative;">`;
+        let result = `<h${level}>`;
         // span with negative top to add some offset when scrolling to #slug
         result += `<span style="position: absolute; top: -50px;" id="${slug}"></span>`;
         result += `${text}<a class="anchor octicon-link" href="#${slug}"></a>`;
         result += `</h${level}>\n`;
-        return injectHtmlAttributes(result, [], sourceMap);
+        return injectHtmlAttributes(result, [["style", "position: relative;"]], sourceMap);
     }
 
     hr(sourceMap: SourceMap): string {
@@ -83,28 +82,35 @@ export class Renderer {
 
     list(body: string, ordered: boolean, start: number | "", classes: string[] = []): string {
         const type = ordered ? "ol" : "ul";
-        const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
-        return (
-            "<" + type + startatt + `${renderHtmlClasses(classes)}>\n` + body + "</" + type + ">\n"
-        );
+        const attrs: HTMLAttrs = [["class", classes.join(" ")]];
+        if (ordered && start && start !== 1) {
+            attrs.push(["start", String(start)]);
+        }
+        const result = `<${type}>\n${body}</${type}>\n`;
+        return injectHtmlAttributes(result, attrs);
     }
 
     listitem(text: string, task: boolean, _checked: boolean, sourceMap: SourceMap): string {
         const attrs: [string, string][] = [];
         if (task) attrs.push(["class", "task-list-item"]);
-        return injectHtmlAttributes(`<li>${text}</li>\n`, attrs, sourceMap);
+        const result = `<li>${text}</li>\n`;
+        return injectHtmlAttributes(result, attrs, sourceMap);
     }
 
     checkbox(checked: boolean, classes: string[] = []): string {
-        return (
-            "<input " +
-            (checked ? 'checked="" ' : "") +
-            `disabled="" type="checkbox"${renderHtmlClasses(classes)}>`
-        );
+        const result = "<input>";
+        const attrs: HTMLAttrs = [
+            ["disabled", ""],
+            ["type", "checkbox"],
+            ["class", classes.join(" ")],
+        ];
+        if (checked) attrs.push(["checked", ""]);
+        return injectHtmlAttributes(result, attrs);
     }
 
     paragraph(text: string, sourceMap: SourceMap): string {
-        return injectHtmlAttributes(`<p>${text}</p>\n`, [], sourceMap);
+        const result = `<p>${text}</p>\n`;
+        return injectHtmlAttributes(result, [], sourceMap);
     }
 
     table(header: string, body: string): string {
@@ -113,11 +119,8 @@ export class Renderer {
     }
 
     tablerow(content: string, sourceMapStart: number | undefined): string {
-        return injectHtmlAttributes(
-            `<tr>\n${content}</tr>\n`,
-            [],
-            sourceMapStart ? [sourceMapStart, sourceMapStart] : undefined,
-        );
+        const sourceMap: SourceMap = sourceMapStart ? [sourceMapStart, sourceMapStart] : undefined;
+        return injectHtmlAttributes(`<tr>\n${content}</tr>\n`, [], sourceMap);
     }
 
     tablecell(
@@ -128,8 +131,10 @@ export class Renderer {
         },
     ): string {
         const type = flags.header ? "th" : "td";
-        const tag = flags.align ? `<${type} align="${flags.align}">` : `<${type}>`;
-        return tag + content + `</${type}>\n`;
+        const attrs: HTMLAttrs = [];
+        if (flags.align) attrs.push(["align", flags.align]);
+        const result = `<${type}>` + content + `</${type}>\n`;
+        return injectHtmlAttributes(result, attrs);
     }
 
     /**
@@ -160,13 +165,9 @@ export class Renderer {
         if (cleanHref === null) {
             return text;
         }
-        href = cleanHref;
-        let out = '<a href="' + href + '"';
-        if (title) {
-            out += ' title="' + title + '"';
-        }
-        out += ">" + text + "</a>";
-        return out;
+        const attrs: HTMLAttrs = [["href", cleanHref]];
+        if (title) attrs.push(["title", title]);
+        return injectHtmlAttributes(`<a>${text}</a>`, attrs);
     }
 
     image(href: string, title: string | null, text: string): string {
@@ -174,15 +175,12 @@ export class Renderer {
         if (cleanHref === null) {
             return text;
         }
-        href = fixLocalImageHref(cleanHref, this.rendererConfig.relativeImageUrlPrefix);
-
-        let out = `<img src="${href}" alt="${text}"`;
-
-        if (title) {
-            out += ` title="${title}"`;
-        }
-        out += ">";
-        return out;
+        const attrs: HTMLAttrs = [
+            ["src", fixLocalImageHref(cleanHref, this.rendererConfig.relativeImageUrlPrefix)],
+            ["alt", text],
+        ];
+        if (title) attrs.push(["title", title]);
+        return injectHtmlAttributes("<img>", attrs);
     }
 
     text(text: string): string {

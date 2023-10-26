@@ -1,5 +1,5 @@
 import { type Lexer } from "./lexer.ts";
-import { type SourceMap, type Tokens } from "./types.ts";
+import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -33,14 +33,6 @@ export function escape(html: string, encode?: boolean) {
     return html;
 }
 
-export function renderHtmlClasses(classes: string[]) {
-    if (!classes.length) return "";
-    let result = ' class="';
-    result += classes.join(" ");
-    result += '"';
-    return result;
-}
-
 export function getHtmlElementText(html: string) {
     try {
         const parser = new DOMParser();
@@ -56,20 +48,10 @@ export function getHtmlElementText(html: string) {
     }
 }
 
-/**
- * Only works when html element has no other attributes already defined.
- * For the regex to work the element must be clean of attributes:
- *
- * <div>{whatever}</div>
- */
-export function injectHtmlAttributes(
-    html: string,
-    attrs: [name: string, value: string | number][],
-    sourceMap: SourceMap,
-) {
+export function injectHtmlAttributes(html: string, attrs: HTMLAttrs, sourceMap?: SourceMap) {
     if (sourceMap) {
-        attrs.push(["line-start", sourceMap[0]]);
-        attrs.push(["line-end", sourceMap[1]]);
+        attrs.push(["line-start", String(sourceMap[0])]);
+        attrs.push(["line-end", String(sourceMap[1])]);
     }
 
     if (!attrs.length) return html;
