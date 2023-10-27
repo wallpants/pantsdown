@@ -30,8 +30,15 @@ export class Renderer {
 
     code(code: string, infostring: string | undefined, sourceMap: SourceMap): string {
         const lang = (infostring ?? "").match(/^\S*/)?.[0];
-
         code = code.replace(/\n$/, "") + "\n";
+
+        if (lang === "mermaid") {
+            return injectHtmlAttributes(
+                `<section><div class="mermaid">${code}</div></section>`,
+                [["class", "mermaid-container"]],
+                sourceMap,
+            );
+        }
 
         const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
         const highlightedCode = hljs.highlight(code, { language }).value;

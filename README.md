@@ -132,5 +132,5 @@ console.log(html);
 ## Roadmap
 
 -   [ ] Add button to copy code in fences
--   [ ] [Mermaid](https://mermaid.js.org/) support
+-   [ ] [Mermaid](https://mermaid.js.org/) usage docs
 -   [ ] [Footnote](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes) support [Base](https://github.com/bent10/marked-extensions/tree/main/packages/footnote)

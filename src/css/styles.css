@@ -64,6 +64,13 @@
     word-wrap: break-word;
 }
 
+.pantsdown .mermaid-container {
+    margin-bottom: 16px;
+}
+
+/* .pantsdown .mermaid { */
+/* } */
+
 .pantsdown .octicon {
     display: inline-block;
     fill: currentColor;
