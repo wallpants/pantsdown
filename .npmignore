@@ -3,3 +3,4 @@ docs/
 bun.lockb
 .eslintrc.json
 .prettierrc.json
+tests/
