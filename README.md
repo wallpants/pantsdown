@@ -73,7 +73,7 @@ const pantsdown = new Pantsdown();
 
 function App() {
     useEffect(() => {
-        const markdown = "# Hello world";
+        const markdown = "# Hello world\n- [ ] Task 1\n- [x] Task 2";
         const html = pantsdown.parse(markdown);
         const container = document.getElementById("markdown-container");
         if (container) container.innerHTML = html;
@@ -92,7 +92,7 @@ export default App;
 The Pantsdown constructor accepts an optional configuration object:
 
 ```typescript
-import { PantsdownConfig } from "pantsdown";
+import { Pantsdown, PantsdownConfig } from "pantsdown";
 
 const config: PantsdownConfig = {
     renderer: {
