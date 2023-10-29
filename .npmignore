@@ -1,6 +1,8 @@
-docs/
 .github/
-bun.lockb
+docs/
+tests/
 .eslintrc.json
 .prettierrc.json
-tests/
+README.md
+bun.lockb
+bunfig.toml
