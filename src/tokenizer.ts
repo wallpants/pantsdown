@@ -320,6 +320,32 @@ export class Tokenizer {
         return list;
     }
 
+    footnote(src: string): Tokens["Footnote"] | undefined {
+        const cap = block.footnote.exec(src);
+        if (!cap) return undefined;
+
+        const label = cap[2] ?? "";
+        let text = cap[3] ? rtrim(cap[3].replace(/^ *[ \t]?/gm, ""), "\n") : "";
+
+        text += `<a href="#footnote-ref-${encodeURIComponent(
+            label,
+        )}" data-footnote-backref aria-label="Back to reference ${label}"> ↩</a>`;
+
+        this.lexer.state.top = false;
+        const tokens = this.lexer.blockTokens(text, []);
+
+        const token: Tokens["Footnote"] = {
+            type: "footnote",
+            raw: cap[0],
+            text: text,
+            label: label,
+            content: tokens,
+            sourceMap: this.lexer.getSourceMap(cap[0]),
+        };
+
+        return token;
+    }
+
     html(src: string): Tokens["HTML"] | undefined {
         const cap = block.html.exec(src);
         if (!cap) return undefined;
@@ -718,6 +744,17 @@ export class Tokenizer {
         }
 
         return undefined;
+    }
+
+    footnoteRef(src: string): Tokens["FootnoteRef"] | undefined {
+        const cap = inline.footnoteRef.exec(src);
+        if (!cap) return undefined;
+
+        return {
+            type: "footnoteRef",
+            raw: cap[0],
+            label: cap[1] ?? "",
+        };
     }
 
     codespan(src: string): Tokens["Codespan"] | undefined {

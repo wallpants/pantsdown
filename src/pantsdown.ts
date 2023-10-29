@@ -18,7 +18,6 @@ export class Pantsdown {
         this.parser.renderer.slugger = new GithubSlugger();
 
         const tokens = this.lexer.lex(src);
-        const html = this.parser.parse(tokens);
-        return html;
+        return this.parser.parse(tokens);
     }
 }
