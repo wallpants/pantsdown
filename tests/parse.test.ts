@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { Pantsdown } from ".";
+import { Pantsdown } from "../src";
 
 test("pantsdown.parse(test.md)", async () => {
     const pantsdown = new Pantsdown({
@@ -9,7 +9,7 @@ test("pantsdown.parse(test.md)", async () => {
         },
     });
 
-    const markdown = await Bun.file("./test.md").text();
+    const markdown = await Bun.file(import.meta.dir + "/test.md").text();
     const html = pantsdown.parse(markdown);
 
     expect(html).toMatchSnapshot();
