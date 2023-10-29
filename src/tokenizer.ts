@@ -369,16 +369,16 @@ export class Tokenizer {
          * and update their sourceMap once they're closed.
          */
 
-        const capEndsWith = (str: string) => cap[0].trimEnd().endsWith(str);
+        const capEndsWith = (str?: string) => str && cap[0].trimEnd().endsWith(str);
 
         const tag = inline.tag.exec(src);
-        const isHtmlClosed = capEndsWith(tag![0].slice(1));
+        const isHtmlClosed = capEndsWith(tag?.[0].slice(1));
 
-        if (!isHtmlClosed) {
+        if (tag?.[0] && !isHtmlClosed) {
             // index where the token we just created will be inserted
             const tokenIdx = this.lexer.tokens.length;
             // first in last out
-            this.pendingHtmlClose.unshift([tag![0], tokenIdx]);
+            this.pendingHtmlClose.unshift([tag[0], tokenIdx]);
         } else if (this.pendingHtmlClose.length) {
             for (const [pendingTag, index] of this.pendingHtmlClose) {
                 if (capEndsWith(pendingTag.slice(1))) {
