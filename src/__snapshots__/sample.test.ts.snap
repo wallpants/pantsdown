@@ -1,0 +1,115 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pantsdown.parse(test.md) 1`] = `
+"<!-- Up to marked@9.1.3 -->
+
+<h1 style="position: relative;" line-start="3" line-end="3"><span style="position: absolute; top: -50px;" id="pantsdown"></span>Pantsdown<a class="anchor octicon-link" href="#pantsdown"></a></h1>
+<img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/github.svg" height="60px" align="right" line-start="5" line-end="6" />
+<img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/markdown.svg" height="60px" align="right" />
+
+<p line-start="8" line-end="9">Pantsdown is a <strong>Markdown</strong> to <strong>HTML</strong> converter. It attempts to render markdown similar to how GitHub does it plus
+some features developed specifically for <a href="https://github.com/wallpants/github-preview.nvim">github-preview.nvim</a>.</p>
+<p line-start="11" line-end="12">If you need a feature that&#39;s supported by GitHub and is not already listed in the <a href="#roadmap">Roadmap</a>,
+feel free to open an issue.</p>
+<h3 style="position: relative;" line-start="14" line-end="14"><span style="position: absolute; top: -50px;" id="demo"></span><a href="https://wallpants.github.io/pantsdown/">Demo</a><a class="anchor octicon-link" href="#demo"></a></h3>
+<h2 style="position: relative;" line-start="16" line-end="16"><span style="position: absolute; top: -50px;" id="installation"></span>Installation<a class="anchor octicon-link" href="#installation"></a></h2>
+<p line-start="18" line-end="19">🚨 Pantsdown is distributed only as a TypeScript module. This means you&#39;ll need a bundler to handle transpilation.
+See below for usage examples.</p>
+<pre line-start="21" line-end="26"><code class="hljs language-sh"><span class="hljs-comment"># bun</span>
+bun install pantsdown
+<span class="hljs-comment"># npm</span>
+npm install pantsdown
+</code></pre>
+<h2 style="position: relative;" line-start="28" line-end="28"><span style="position: absolute; top: -50px;" id="usage"></span>Usage<a class="anchor octicon-link" href="#usage"></a></h2>
+<h3 style="position: relative;" line-start="30" line-end="30"><span style="position: absolute; top: -50px;" id="styles"></span>Styles<a class="anchor octicon-link" href="#styles"></a></h3>
+<p line-start="32" line-end="33">For styles to be properly applied, either the element containing the generated html or one of its parents
+must have the classes <code>class=&quot;pantsdown light&quot;</code> or <code>class=&quot;pantsdown dark&quot;</code> added.</p>
+<h3 style="position: relative;" line-start="35" line-end="35"><span style="position: absolute; top: -50px;" id="bun"></span><a href="https://bun.sh/">Bun</a><a class="anchor octicon-link" href="#bun"></a></h3>
+<p line-start="37" line-end="38">Take a look at <a href="https://github.com/wallpants/pantsdown/blob/main/docs/build.ts">how Pantsdown&#39;s demo is built</a>
+for a very simple usage example with Bun.</p>
+<h3 style="position: relative;" line-start="40" line-end="40"><span style="position: absolute; top: -50px;" id="vite"></span><a href="https://vitejs.dev/guide/#scaffolding-your-first-vite-project">Vite</a><a class="anchor octicon-link" href="#vite"></a></h3>
+<p line-start="42" line-end="42">Create a Vite Project &amp; install dependencies:</p>
+<pre line-start="44" line-end="48"><code class="hljs language-sh">bun create vite my-app --template react-swc-ts
+<span class="hljs-built_in">cd</span> my-app
+bun install pantsdown
+</code></pre>
+<p line-start="50" line-end="50">Remove CSS from <code>my-app/src/main.tsx</code>:</p>
+<pre line-start="52" line-end="63"><code class="hljs language-diff">import React from &#x27;react&#x27;
+import ReactDOM from &#x27;react-dom/client&#x27;
+import App from &#x27;./App.tsx&#x27;
+<span class="hljs-deletion">- import &#x27;./index.css&#x27;</span>
+
+ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;)!).render(
+  &lt;React.StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/React.StrictMode&gt;,
+)
+</code></pre>
+<p line-start="65" line-end="65">Replace content in <code>my-app/src/App.tsx</code>:</p>
+<pre line-start="67" line-end="88"><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Pantsdown</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;pantsdown&quot;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;pantsdown/styles.css&quot;</span>;
+<span class="hljs-keyword">import</span> { useEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+
+<span class="hljs-keyword">const</span> pantsdown = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pantsdown</span>();
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> markdown = <span class="hljs-string">&quot;# Hello world&quot;</span>;
+        <span class="hljs-keyword">const</span> html = pantsdown.<span class="hljs-title function_">parse</span>(markdown);
+        <span class="hljs-keyword">const</span> container = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;markdown-container&quot;</span>);
+        <span class="hljs-keyword">if</span> (container) container.<span class="hljs-property">innerHTML</span> = html;
+    }, []);
+
+    <span class="hljs-comment">// 🚨 for styles to be applied, a parent element must have</span>
+    <span class="hljs-comment">// the classes &quot;pantsdown light&quot; or &quot;pantsdown dark&quot; added</span>
+    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;markdown-container&quot;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;pantsdown light&quot;</span> /&gt;</span></span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span>;
+</code></pre>
+<h2 style="position: relative;" line-start="90" line-end="90"><span style="position: absolute; top: -50px;" id="configuration"></span>Configuration<a class="anchor octicon-link" href="#configuration"></a></h2>
+<p line-start="92" line-end="92">The Pantsdown constructor accepts an optional configuration object:</p>
+<pre line-start="94" line-end="130"><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PantsdownConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;pantsdown&quot;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">config</span>: <span class="hljs-title class_">PantsdownConfig</span> = {
+    <span class="hljs-attr">renderer</span>: {
+        <span class="hljs-comment">/**
+         * Prefix to be added to relative image sources.
+         * Must start and end with &quot;/&quot;
+         *
+         * <span class="hljs-doctag">@example</span>
+         * relativeImageUrlPrefix: &quot;/__localimage__/&quot;
+         *
+         * ![image](./wallpants-512.png)
+         * relative src is updated and results in:
+         * &lt;img src=&quot;/__localimage__/wallpants-512.png&quot; /&gt;
+         *
+         * ![image](https://avatars.githubusercontent.com/wallpants)
+         * absolute src remains unchanged:
+         * &lt;img src=&quot;https://avatars.githubusercontent.com/wallpants&quot; /&gt;
+         */</span>
+        <span class="hljs-attr">relativeImageUrlPrefix</span>: <span class="hljs-string">&quot;/__localimage__/&quot;</span>,
+
+        <span class="hljs-comment">/**
+         * Whether to render &lt;details&gt; html tags with attribute open=&quot;&quot;
+         *
+         * <span class="hljs-doctag">@default</span>
+         * false
+         */</span>
+        <span class="hljs-attr">detailsTagDefaultOpen</span>: <span class="hljs-literal">true</span>,
+    },
+};
+
+<span class="hljs-keyword">const</span> pantsdown = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pantsdown</span>(config);
+<span class="hljs-keyword">const</span> html = pantsdown.<span class="hljs-title function_">parse</span>(markdown);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(html);
+</code></pre>
+<h2 style="position: relative;" line-start="132" line-end="132"><span style="position: absolute; top: -50px;" id="roadmap"></span>Roadmap<a class="anchor octicon-link" href="#roadmap"></a></h2>
+<ul class="contains-task-list">
+<li class="task-list-item" line-start="134" line-end="134"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Add button to copy code in fences</li>
+<li class="task-list-item" line-start="135" line-end="135"><input disabled="" type="checkbox" class="task-list-item-checkbox"> <a href="https://mermaid.js.org/">Mermaid</a> usage docs</li>
+<li class="task-list-item" line-start="136" line-end="136"><input disabled="" type="checkbox" class="task-list-item-checkbox"> <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes">Footnote</a> support <a href="https://github.com/bent10/marked-extensions/tree/main/packages/footnote">Base</a></li>
+</ul>
+"
+`;
