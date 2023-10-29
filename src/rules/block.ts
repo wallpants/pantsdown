@@ -15,6 +15,7 @@ type BlockRuleNames =
     | "text"
     | "bullet"
     | "listItemStart"
+    | "footnote"
     | "paragraph";
 
 export const label = /(?!\s*\])(?:\\.|[^\[\]\\])+/;
@@ -110,6 +111,10 @@ const block_blockquote = edit(/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/)
     .replace("paragraph", block_paragraph)
     .getRegex();
 
+const block_footnote = edit(/^( {0,3}\[\^(\d+)\]:(?:[ \t]+|[\n]*?|$)?(paragraph|[^\n]*))+/)
+    .replace("paragraph", block_paragraph)
+    .getRegex();
+
 export const block: Record<BlockRuleNames, RegExp> = {
     newline: /^(?: *(?:\n|$))+/,
     code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
@@ -125,5 +130,6 @@ export const block: Record<BlockRuleNames, RegExp> = {
     table: block_table,
     lheading: block_lheading,
     paragraph: block_paragraph,
+    footnote: block_footnote,
     text: /^[^\n]+/,
 };

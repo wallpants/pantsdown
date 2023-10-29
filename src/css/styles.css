@@ -116,7 +116,6 @@
 .pantsdown a {
     background-color: transparent;
     color: var(--color-accent-fg);
-    text-decoration: none;
 }
 
 .pantsdown abbr[title] {
@@ -238,10 +237,6 @@
 .pantsdown ::-webkit-file-upload-button {
     -webkit-appearance: button;
     font: inherit;
-}
-
-.pantsdown a:hover {
-    text-decoration: underline;
 }
 
 .pantsdown ::placeholder {

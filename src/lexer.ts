@@ -1,6 +1,6 @@
 import { inline } from "./rules/inline.ts";
 import { Tokenizer } from "./tokenizer.ts";
-import { type Links, type SourceMap, type Token } from "./types.ts";
+import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
 
 export class Lexer {
     private tokenizer: Tokenizer;
@@ -8,6 +8,7 @@ export class Lexer {
     private links: Links = {};
 
     tokens: Token[] = [];
+    footnoteTokens: Tokens["Footnote"][] = [];
     line = 1;
     state = {
         inLink: false,
@@ -26,6 +27,7 @@ export class Lexer {
     lex(src: string) {
         // reset values from previous parse
         this.tokenizer.pendingHtmlClose = [];
+        this.footnoteTokens = [];
         this.tokens = [];
         this.links = {};
         this.line = 1;
@@ -38,6 +40,14 @@ export class Lexer {
         while ((next = this.inlineQueue.shift())) {
             this.inlineTokens(next.src, next.tokens);
         }
+
+        const footnotesToken: Tokens["Footnotes"] = {
+            type: "footnotes",
+            raw: "",
+            items: this.footnoteTokens,
+        };
+
+        this.tokens.push(footnotesToken);
 
         return this.tokens;
     }
@@ -105,6 +115,13 @@ export class Lexer {
             if ((token = this.tokenizer.fences(src))) {
                 src = src.substring(token.raw.length);
                 tokens.push(token);
+                continue;
+            }
+
+            // footnote
+            if ((token = this.tokenizer.footnote(src))) {
+                src = src.substring(token.raw.length);
+                this.footnoteTokens.push(token);
                 continue;
             }
 
@@ -291,6 +308,13 @@ export class Lexer {
                 } else {
                     tokens.push(token);
                 }
+                continue;
+            }
+
+            // footnoteRef
+            if ((token = this.tokenizer.footnoteRef(src))) {
+                src = src.substring(token.raw.length);
+                tokens.push(token);
                 continue;
             }
 

@@ -1,7 +1,7 @@
 import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
 import { inline } from "./rules/inline.ts";
-import { type HTMLAttrs, type PantsdownConfig, type SourceMap } from "./types.ts";
+import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
 import {
     cleanUrl,
     escape,
@@ -188,6 +188,24 @@ export class Renderer {
         ];
         if (title) attrs.push(["title", title]);
         return injectHtmlAttributes("<img>", attrs);
+    }
+
+    footnoteRef(token: Tokens["FootnoteRef"]) {
+        const encodedLabel = encodeURIComponent(token.label);
+
+        return `<sup><a id="footnote-ref-${encodedLabel}" href="#${
+            "footnote-" + encodedLabel
+        }" data-footnote-ref aria-describedby="footnote-label">${token.label}</a></sup>`;
+    }
+
+    footnotes(token: Tokens["Footnotes"], body: string) {
+        if (!token.items.length) return "";
+
+        let footnotesHTML = '<section class="footnotes" data-footnotes>\n';
+        footnotesHTML += `<ol>\n${body}\n</ol>\n`;
+        footnotesHTML += "</section>\n";
+
+        return footnotesHTML;
     }
 
     text(text: string): string {

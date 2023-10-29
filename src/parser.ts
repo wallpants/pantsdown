@@ -1,5 +1,6 @@
 import { Renderer } from "./renderer.ts";
 import { type PantsdownConfig, type Token, type Tokens } from "./types.ts";
+import { injectHtmlAttributes } from "./utils.ts";
 
 /**
  * Parsing & Compiling
@@ -143,6 +144,20 @@ export class Parser {
                     );
                     continue;
                 }
+                case "footnotes": {
+                    const body = token.items.reduce((acc, { label, content, sourceMap }) => {
+                        let footnoteItem = `<li id="footnote-${encodeURIComponent(label)}">\n`;
+                        footnoteItem += this.parse(content);
+                        footnoteItem += "</li>\n";
+
+                        footnoteItem = injectHtmlAttributes(footnoteItem, [], sourceMap);
+
+                        return acc + footnoteItem;
+                    }, "");
+
+                    out += this.renderer.footnotes(token, body);
+                    continue;
+                }
                 case "paragraph": {
                     out += this.renderer.paragraph(this.parseInline(token.tokens), token.sourceMap);
                     continue;
@@ -210,6 +225,10 @@ export class Parser {
                 }
                 case "em": {
                     out += this.renderer.em(this.parseInline(token.tokens));
+                    break;
+                }
+                case "footnoteRef": {
+                    out += this.renderer.footnoteRef(token);
                     break;
                 }
                 case "codespan": {

@@ -160,6 +160,24 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         tokens: Token[];
     };
+    Footnote: {
+        type: "footnote";
+        raw: string;
+        text: string;
+        label: string;
+        content: Token[];
+        sourceMap: SourceMap;
+    };
+    FootnoteRef: {
+        type: "footnoteRef";
+        raw: string;
+        label: string;
+    };
+    Footnotes: {
+        type: "footnotes";
+        raw: string;
+        items: Tokens["Footnote"][];
+    };
 }
 
 export type Token =
@@ -184,7 +202,10 @@ export type Token =
     | Tokens["Em"]
     | Tokens["Codespan"]
     | Tokens["Br"]
-    | Tokens["Del"];
+    | Tokens["Del"]
+    | Tokens["Footnote"]
+    | Tokens["FootnoteRef"]
+    | Tokens["Footnotes"];
 
 export type Links = Record<string, { href: string; title: string }>;
 

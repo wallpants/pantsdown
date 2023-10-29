@@ -19,6 +19,7 @@ type InlineRuleNames =
     | "punctuation"
     | "blockSkip"
     | "escapes"
+    | "footnoteRef"
     | "backpedal";
 
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
@@ -143,4 +144,5 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
     blockSkip: inline_blockSkip,
     escapes: inline_escapes,
     backpedal: inline_backpedal,
+    footnoteRef: /^\[\^([^\]\n]+)\]/,
 };
