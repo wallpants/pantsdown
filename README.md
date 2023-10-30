@@ -131,4 +131,6 @@ console.log(html);
 
 ## Roadmap
 
+-   [ ] showcase more in demo | list features
+-   [ ] [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)
 -   [ ] [Mermaid](https://mermaid.js.org/) usage docs.
