@@ -131,4 +131,4 @@ console.log(html);
 
 ## Roadmap
 
--   [ ] [Mermaid](https://mermaid.js.org/) usage docs
+-   [ ] [Mermaid](https://mermaid.js.org/) usage docs.
