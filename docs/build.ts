@@ -6,14 +6,17 @@ import { Pantsdown } from "../src";
 const readmePath = import.meta.dir + "/../README.md";
 const readme = await Bun.file(readmePath).text();
 
+const featuresPath = import.meta.dir + "/features.md";
+const features = await Bun.file(featuresPath).text();
+
 const cssPath = import.meta.dir + "/../src/css/styles.css";
 const css = await Bun.file(cssPath).text();
 
 const pantsdown = new Pantsdown();
-const html = pantsdown.parse(readme);
+const html = pantsdown.parse(readme + features);
 
-const index = `<!doctype html>
-<html lang="en" class="pantsdown dark">
+const index = (theme: "dark" | "light") => `<!doctype html>
+<html lang="en" class="pantsdown ${theme}">
     <head>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
@@ -45,4 +48,7 @@ const index = `<!doctype html>
 </html>`;
 
 const indexPath = import.meta.dir + "/index.html";
-await Bun.write(indexPath, index);
+await Bun.write(indexPath, index("dark"));
+
+const lightPath = import.meta.dir + "/light.html";
+await Bun.write(lightPath, index("light"));
