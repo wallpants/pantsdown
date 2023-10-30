@@ -131,5 +131,4 @@ console.log(html);
 
 ## Roadmap
 
--   [ ] Add button to copy code in fences
 -   [ ] [Mermaid](https://mermaid.js.org/) usage docs

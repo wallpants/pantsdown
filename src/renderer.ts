@@ -32,6 +32,7 @@ export class Renderer {
         const lang = (infostring ?? "").match(/^\S*/)?.[0];
         code = code.replace(/\n$/, "") + "\n";
 
+        // TODO: render pre and code instead of this section
         if (lang === "mermaid") {
             return injectHtmlAttributes(
                 `<section><div class="mermaid">${code}</div></section>`,
@@ -44,11 +45,9 @@ export class Renderer {
         const highlightedCode = hljs.highlight(code, { language }).value;
 
         const result =
-            `<pre><code class="hljs language-` +
-            escape(language) +
-            '">' +
-            highlightedCode +
-            "</code></pre>\n";
+            `<pre style="position: relative;">` +
+            `<code class="hljs language-${escape(language)}">${highlightedCode}</code>` +
+            `</pre>`;
 
         return injectHtmlAttributes(result, [], sourceMap);
     }
