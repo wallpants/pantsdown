@@ -21,7 +21,7 @@ const index = `<!doctype html>
         <title>Pantsdown</title>
     </head>
     <body>
-        <div style="padding: 40px 40px 100px; max-width: 900px; margin: 0 auto">
+        <div style="padding: 40px 40px 100px; width: 80%; min-width: 500px; max-width: 900px; margin: 0 auto;">
             <p style="background: #e3c0a6; color: #4d2609; padding: 20px; border-radius: 4px">
                 This page was generated from
                 <a
