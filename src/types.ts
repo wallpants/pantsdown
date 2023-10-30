@@ -72,7 +72,7 @@ export interface Tokens extends Record<string, BaseToken> {
         checked?: boolean | undefined;
         loose: boolean;
         tokens: Token[];
-        sourceMap?: SourceMap;
+        sourceMap: SourceMap;
     };
     Paragraph: {
         type: "paragraph";

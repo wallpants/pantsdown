@@ -283,19 +283,25 @@ export class Tokenizer {
                 loose: false,
                 text: itemContents,
                 tokens: [],
+                sourceMap: this.lexer.getSourceMap(raw),
             });
 
             list.raw += raw;
         }
 
         // Do not consume newlines at end of final item. Alternatively, make itemRegex *start* with any newlines to simplify/speed up endsWithBlankLine logic
-        list.items[list.items.length - 1]!.raw = raw.trimEnd();
+        const lastTrimmed = raw.trimEnd();
+
+        if (list.items[list.items.length - 1]!.sourceMap) {
+            this.lexer.line -= raw.length - lastTrimmed.length;
+        }
+
+        list.items[list.items.length - 1]!.raw = lastTrimmed;
         list.items[list.items.length - 1]!.text = itemContents.trimEnd();
         list.raw = list.raw.trimEnd();
 
         // Item child tokens handled here at end because we needed to have the final item to trim it first
         for (let i = 0, listItemsLen = list.items.length; i < listItemsLen; i++) {
-            list.items[i]!.sourceMap = this.lexer.getSourceMap(list.items[i]!.raw);
             this.lexer.state.top = false;
             list.items[i]!.tokens = this.lexer.blockTokens(list.items[i]!.text, []);
 

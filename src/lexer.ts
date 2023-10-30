@@ -57,7 +57,7 @@ export class Lexer {
         const tokenLines = rawToken.split("\n");
         const sourceMap: SourceMap = [this.line, (this.line += tokenLines.length - 1)];
 
-        while (tokenLines.slice(-1)[0] === "") {
+        while (tokenLines[tokenLines.length - 1] === "") {
             // token.raw sometimes includes newline chars at the end of the string
             // which we don't want to include in the sourceMap
             tokenLines.pop();
