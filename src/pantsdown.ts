@@ -1,4 +1,5 @@
 import GithubSlugger from "github-slugger";
+import { codeCopyScript } from "./code-copy.ts";
 import { Lexer } from "./lexer.ts";
 import { Parser } from "./parser.ts";
 import { type PantsdownConfig } from "./types.ts";
@@ -18,6 +19,7 @@ export class Pantsdown {
         this.parser.renderer.slugger = new GithubSlugger();
 
         const tokens = this.lexer.lex(src);
-        return this.parser.parse(tokens);
+        const html = this.parser.parse(tokens);
+        return codeCopyScript + html;
     }
 }

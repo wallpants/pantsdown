@@ -64,10 +64,42 @@
     word-wrap: break-word;
 }
 
+.pantsdown .copy-button {
+    position: absolute;
+    left: calc(100% - 36px);
+    top: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    background: var(--color-btn-bg);
+    border: 1px solid var(--color-btn-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pantsdown .copy-button.success {
+    border-color: green;
+}
+.pantsdown .copy-button:hover {
+    background: var(--color-btn-hover-bg);
+}
+.pantsdown .copy-button .copy-success {
+    display: none;
+}
+.pantsdown .copy-button.success .copy-success {
+    display: block;
+}
+.pantsdown .copy-button.success .copy-base {
+    display: none;
+}
+
 .pantsdown .mermaid-container {
     margin-bottom: 16px;
 }
 
+/* TODO: clean-up */
 /* .pantsdown .mermaid { */
 /* } */
 
