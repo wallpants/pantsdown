@@ -1,6 +1,6 @@
 ## Features
 
-### [Light](https://wallpants.github.io/pantsdown/light.html) and [Dark](https://wallpants.github.io/pantsdown/) modes
+### [Light](https://wallpants.github.io/pantsdown/light.html#features) and [Dark](https://wallpants.github.io/pantsdown/index.html#features) modes
 
 ### Lists
 

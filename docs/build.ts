@@ -31,16 +31,22 @@ const index = (theme: "dark" | "light") => `<!doctype html>
                     href="https://github.com/wallpants/pantsdown/blob/main/README.md"
                     target="_blank"
                     rel="noreferrer noopener"
-                    >README.md</a
-                >
+                    >README.md</a>
+                and
+                <a
+                    href="https://github.com/wallpants/pantsdown/blob/main/docs/features.md"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    >docs/features.md</a>
                 using Pantsdown.
                 <br />
                 <a
                     href="https://github.com/wallpants/pantsdown/blob/main/docs/build.ts"
                     target="_blank"
                     rel="noreferrer noopener"
-                    >View source</a
-                >
+                    >
+                View source
+                </a>
             </p>
             <div>${html}</div>
         </div>
