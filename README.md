@@ -11,9 +11,9 @@ some features developed specifically for [github-preview.nvim](https://github.co
 If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
 feel free to open an issue.
 
-### [Demo](https://wallpants.github.io/pantsdown/)
+### ▶️ [Demo](https://wallpants.github.io/pantsdown/)
 
-## Installation
+## 📦 Installation
 
 🚨 Pantsdown is distributed only as a TypeScript module. This means you'll need a bundler to handle transpilation.
 See below for usage examples.
@@ -25,7 +25,7 @@ bun install pantsdown
 npm install pantsdown
 ```
 
-## Usage
+## 💻 Usage
 
 ### Styles
 
@@ -79,7 +79,7 @@ function App() {
         if (container) container.innerHTML = html;
     }, []);
 
-    // 🚨 for styles to be applied, a parent element must have
+    // ⚠️ for styles to be applied, a parent element must have
     // the classes "pantsdown light" or "pantsdown dark" added
     return <div id="markdown-container" className="pantsdown light" />;
 }
@@ -87,7 +87,7 @@ function App() {
 export default App;
 ```
 
-## Configuration
+## ⚙️ Configuration
 
 The Pantsdown constructor accepts an optional configuration object:
 
@@ -129,7 +129,16 @@ const html = pantsdown.parse(markdown);
 console.log(html);
 ```
 
-## Roadmap
+## 🤝 Acknowledgements
+
+<a href="https://marked.js.org">
+  <img width="60px" height="60px" src="https://marked.js.org/img/logo-black.svg" align="right" />
+</a>
+
+Pantsdown is based on [Marked](https://github.com/markedjs/marked).
+Without their hard work, Pantsdown would not exist.
+
+## 🚀 Roadmap
 
 -   [ ] fix footnotes regex, docs/features.md not rendered properly
 -   [ ] check if copy code button works with current vite docs
