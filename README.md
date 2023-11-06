@@ -137,9 +137,3 @@ console.log(html);
 
 Pantsdown is based on [Marked](https://github.com/markedjs/marked).
 Without their hard work, Pantsdown would not exist.
-
-## 🚀 Roadmap
-
--   [ ] fix alerts css. see "alerts" in demo
--   [ ] check if copy code button works with current vite docs
--   [ ] [Mermaid](https://mermaid.js.org/) usage docs.
