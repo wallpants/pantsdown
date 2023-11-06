@@ -140,7 +140,6 @@ Without their hard work, Pantsdown would not exist.
 
 ## 🚀 Roadmap
 
--   [ ] fix footnotes regex, docs/features.md not rendered properly
 -   [ ] check if copy code button works with current vite docs
 -   [ ] showcase more in demo | list features
 -   [ ] [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)

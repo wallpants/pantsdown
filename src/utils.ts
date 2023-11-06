@@ -98,6 +98,7 @@ export function fixLocalImageHref(
         return href;
     }
 
+    // TODO: do we need this?
     if (href.startsWith("/")) {
         // the URL is from root
         return href;
