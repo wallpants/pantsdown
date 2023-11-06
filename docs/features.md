@@ -1,8 +1,10 @@
-# Features
+## Features
 
-## [Light](https://wallpants.github.io/pantsdown/light.html#features) and [Dark](https://wallpants.github.io/pantsdown/index.html#features) modes
+### [Light](https://wallpants.github.io/pantsdown/light.html#features) and [Dark](https://wallpants.github.io/pantsdown/index.html#features) modes
 
-## Lists
+---
+
+### Lists
 
 -   Ordered
     1. Item 1
@@ -14,26 +16,36 @@
     -   [x] Item 1
     -   [ ] Item 2
 
-## Images
+---
+
+### Images
 
 ![wallpants](https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/wallpants-128.png)
 
-## Tables
+---
+
+### Tables
 
 | Syntax    | Description |
 | --------- | ----------- |
 | Header    | Title       |
 | Paragraph | Text        |
 
-## Code Highlight & Copy to Clipboard Button
+---
+
+### Code Highlight & Copy to Clipboard Button
 
 [Supported languages](https://highlightjs.readthedocs.io/en/latest/supported-languages.html).
 
-## Header Slugs
+---
+
+### Header Slugs
 
 Jump to [#images](#images)
 
-## Alerts
+---
+
+### Alerts
 
 > [!NOTE]
 > Highlights information that users should take into account, even when skimming.
@@ -44,7 +56,9 @@ Jump to [#images](#images)
 > [!WARNING]
 > Critical content demanding immediate user attention due to potential risks.
 
-## \<details>
+---
+
+### \<details>
 
 <details>
     <summary>
@@ -59,11 +73,11 @@ Jump to [#images](#images)
 > echo "hello world"
 > ```
 
-> ---
+---
 
 </details>
 
-## Footnotes
+### Footnotes
 
 Here's a simple footnote,[^1] and here's a longer one.[^bignote]
 
@@ -74,7 +88,9 @@ Here's a simple footnote,[^1] and here's a longer one.[^bignote]
     `{ my code }`
     Add as many paragraphs as you like.
 
-## Mermaid
+---
+
+### Mermaid
 
 ````
 ```mermaid
