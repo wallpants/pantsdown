@@ -27,7 +27,7 @@
     }
   },
   "scripts": {
-    "format": "prettier **/*{ts,js} --write",
+    "format": "prettier **.{md,ts,css} -w",
     "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "commit": "cz",
     "docs:build": "bun run docs/build.ts"
