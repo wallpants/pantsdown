@@ -67,15 +67,15 @@ Jump to [#images](#images)
 
 >
 
-> Some content:
->
-> ```sh
-> echo "hello world"
-> ```
+Some content:
 
----
+```sh
+echo "hello world"
+```
 
 </details>
+
+---
 
 ### Footnotes
 
