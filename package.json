@@ -44,7 +44,7 @@
   "devDependencies": {
     "@happy-dom/global-registrator": "^12.10.3",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@typescript-eslint/parser": "^6.9.1",
     "bun-types": "latest",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
