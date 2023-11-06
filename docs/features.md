@@ -1,8 +1,8 @@
-## Features
+# Features
 
-### [Light](https://wallpants.github.io/pantsdown/light.html#features) and [Dark](https://wallpants.github.io/pantsdown/index.html#features) modes
+## [Light](https://wallpants.github.io/pantsdown/light.html#features) and [Dark](https://wallpants.github.io/pantsdown/index.html#features) modes
 
-### Lists
+## Lists
 
 -   Ordered
     1. Item 1
@@ -14,30 +14,37 @@
     -   [x] Item 1
     -   [ ] Item 2
 
-### Images
+## Images
 
 ![wallpants](https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/wallpants-128.png)
 
-### Tables
+## Tables
 
 | Syntax    | Description |
 | --------- | ----------- |
 | Header    | Title       |
 | Paragraph | Text        |
 
-### Code Highlight & Copy to Clipboard Button
+## Code Highlight & Copy to Clipboard Button
 
 [Supported languages](https://highlightjs.readthedocs.io/en/latest/supported-languages.html).
 
-### Header Slugs
+## Header Slugs
 
 Jump to [#images](#images)
 
-### Alerts
+## Alerts
 
-🚨 🚧 Work in progress
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
 
-### \<details>
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+
+## \<details>
 
 <details>
     <summary>
@@ -56,9 +63,7 @@ Jump to [#images](#images)
 
 </details>
 
-### Footnotes
-
-🚨 🚧 Work in progress
+## Footnotes
 
 Here's a simple footnote,[^1] and here's a longer one.[^bignote]
 
@@ -69,4 +74,34 @@ Here's a simple footnote,[^1] and here's a longer one.[^bignote]
     `{ my code }`
     Add as many paragraphs as you like.
 
-### Mermaid
+## Mermaid
+
+````
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts <br/>prevail!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
+```
+````
+
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts <br/>prevail!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
+```
