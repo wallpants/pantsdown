@@ -3,6 +3,7 @@ import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { type Links, type Tokens } from "./types.ts";
 import {
+    ALERTS,
     escape,
     findClosingBracket,
     indentCodeCompensation,
@@ -100,7 +101,7 @@ export class Tokenizer {
         };
     }
 
-    blockquote(src: string): Tokens["Blockquote"] | undefined {
+    blockquote(src: string): Tokens["Blockquote"] | Tokens["Alert"] | undefined {
         const cap = block.blockquote.exec(src);
         if (!cap) return undefined;
 
@@ -110,12 +111,42 @@ export class Tokenizer {
         const tokens = this.lexer.blockTokens(text, []);
         this.lexer.state.top = top;
         this.lexer.line++;
-        return {
+
+        const blockquoteToken: Tokens["Blockquote"] = {
             type: "blockquote",
             raw: cap[0],
             tokens,
             text,
         };
+
+        const matchedVariant = ALERTS.find(({ regex }) => regex.test(blockquoteToken.text));
+
+        if (matchedVariant) {
+            const { variant, icon, regex } = matchedVariant;
+
+            const firstLine = blockquoteToken.tokens[0] as Tokens["Paragraph"];
+            const firstLineText = firstLine.raw.replace(regex, "");
+            firstLine.tokens = [
+                {
+                    type: "text",
+                    raw: firstLine.raw,
+                    text: `<span>${icon + variant}</span>${firstLineText}`,
+                },
+            ];
+
+            const alertToken: Tokens["Alert"] = {
+                ...blockquoteToken,
+                type: "alert",
+                variant: variant as Tokens["Alert"]["variant"],
+                icon,
+            };
+
+            alertToken.tokens.splice(0, 1, firstLine);
+
+            return alertToken;
+        }
+
+        return blockquoteToken;
     }
 
     list(src: string): Tokens["List"] | undefined {
