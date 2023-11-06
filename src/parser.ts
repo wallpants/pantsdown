@@ -75,6 +75,11 @@ export class Parser {
                     out += this.renderer.table(header, body);
                     continue;
                 }
+                case "alert": {
+                    const body = this.parse(token.tokens);
+                    out += this.renderer.alert(body, token);
+                    continue;
+                }
                 case "blockquote": {
                     const body = this.parse(token.tokens);
                     out += this.renderer.blockquote(body);

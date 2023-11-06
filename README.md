@@ -11,7 +11,7 @@ some features developed specifically for [github-preview.nvim](https://github.co
 If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
 feel free to open an issue.
 
-### ▶️ [Demo](https://wallpants.github.io/pantsdown/)
+## [▶️ Demo](https://wallpants.github.io/pantsdown/)
 
 ## 📦 Installation
 

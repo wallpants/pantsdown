@@ -23,6 +23,14 @@ export interface Tokens extends Record<string, BaseToken> {
         lang?: string | undefined;
         sourceMap: SourceMap;
     };
+    Alert: {
+        type: "alert";
+        raw: string;
+        text: string;
+        icon: string;
+        tokens: Token[];
+        variant: "Note" | "Important" | "Warning";
+    };
     Heading: {
         type: "heading";
         raw: string;
@@ -203,6 +211,7 @@ export type Token =
     | Tokens["Codespan"]
     | Tokens["Br"]
     | Tokens["Del"]
+    | Tokens["Alert"]
     | Tokens["Footnote"]
     | Tokens["FootnoteRef"]
     | Tokens["Footnotes"];

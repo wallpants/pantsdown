@@ -52,6 +52,13 @@ export class Renderer {
         return injectHtmlAttributes(result, [], sourceMap);
     }
 
+    alert(body: string, token: Tokens["Alert"]): string {
+        const result = `<div>\n${body}</div>\n`;
+        return injectHtmlAttributes(result, [
+            ["class", `markdown-alert markdown-alert-${token.variant.toLowerCase()}`],
+        ]);
+    }
+
     blockquote(quote: string): string {
         return `<blockquote>\n${quote}</blockquote>\n`;
     }
