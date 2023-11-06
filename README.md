@@ -8,7 +8,7 @@
 Pantsdown is a **Markdown** to **HTML** converter. It attempts to render markdown similar to how GitHub does it plus
 some features developed specifically for [github-preview.nvim](https://github.com/wallpants/github-preview.nvim).
 
-If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#roadmap),
+If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#-roadmap),
 feel free to open an issue.
 
 ## [▶️ Demo](https://wallpants.github.io/pantsdown/)
@@ -141,6 +141,4 @@ Without their hard work, Pantsdown would not exist.
 ## 🚀 Roadmap
 
 -   [ ] check if copy code button works with current vite docs
--   [ ] showcase more in demo | list features
--   [ ] [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)
 -   [ ] [Mermaid](https://mermaid.js.org/) usage docs.
