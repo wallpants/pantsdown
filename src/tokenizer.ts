@@ -330,8 +330,8 @@ export class Tokenizer {
         const cap = block.footnote.exec(src);
         if (!cap) return undefined;
 
-        const label = cap[2] ?? "";
-        let text = cap[3] ? rtrim(cap[3].replace(/^ *[ \t]?/gm, ""), "\n") : "";
+        const label = cap[1] ?? "";
+        let text = cap[2] ? rtrim(cap[2].replace(/^ *[ \t]?/gm, ""), "\n") : "";
 
         text += `<a href="#footnote-ref-${encodeURIComponent(
             label,
