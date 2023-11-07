@@ -89,12 +89,15 @@ export default App;
 
 ## ⚙️ Configuration
 
-The Pantsdown constructor accepts an optional configuration object:
+The Pantsdown constructor accepts an optional configuration object.
+If you
 
 ```typescript
-import { Pantsdown, PantsdownConfig } from "pantsdown";
+import { Pantsdown, type PartialPantsdownConfig } from "pantsdown";
 
-const config: PantsdownConfig = {
+// This is the default config object. If you provide
+// a config object, it will be deeply merged into this.
+const config: PartialPantsdownConfig = {
     renderer: {
         /**
          * Prefix to be added to relative image sources.
@@ -111,7 +114,7 @@ const config: PantsdownConfig = {
          * absolute src remains unchanged:
          * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
-        relativeImageUrlPrefix: "/__localimage__/",
+        relativeImageUrlPrefix: "",
 
         /**
          * Whether to render <details> html tags with attribute open=""
@@ -119,7 +122,7 @@ const config: PantsdownConfig = {
          * @default
          * false
          */
-        detailsTagDefaultOpen: true,
+        detailsTagDefaultOpen: false,
     },
 };
 

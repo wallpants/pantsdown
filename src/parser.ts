@@ -1,5 +1,6 @@
+import { type Pantsdown } from "./pantsdown.ts";
 import { Renderer } from "./renderer.ts";
-import { type PantsdownConfig, type Token, type Tokens } from "./types.ts";
+import { type Token, type Tokens } from "./types.ts";
 import { injectHtmlAttributes } from "./utils.ts";
 
 /**
@@ -8,8 +9,8 @@ import { injectHtmlAttributes } from "./utils.ts";
 export class Parser {
     renderer: Renderer;
 
-    constructor(config: PantsdownConfig | undefined) {
-        this.renderer = new Renderer(config);
+    constructor(pantsdown: Pantsdown) {
+        this.renderer = new Renderer(pantsdown);
     }
 
     /**
