@@ -219,7 +219,7 @@ export type Token =
 export type Links = Record<string, { href: string; title: string }>;
 
 export type PantsdownConfig = {
-    renderer?: {
+    renderer: {
         /**
          * Prefix to be added to relative image sources.
          * Must start and end with "/"
@@ -235,7 +235,7 @@ export type PantsdownConfig = {
          * absolute src remains unchanged:
          * <img src="https://avatars.githubusercontent.com/wallpants" />
          */
-        relativeImageUrlPrefix?: string;
+        relativeImageUrlPrefix: string;
 
         /**
          * Whether to render <details> html tags with attribute `open=""`
@@ -243,6 +243,12 @@ export type PantsdownConfig = {
          * @default
          * false
          */
-        detailsTagDefaultOpen?: boolean;
+        detailsTagDefaultOpen: boolean;
     };
 };
+
+type DeepPartial<T> = {
+    [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+};
+
+export type PartialPantsdownConfig = DeepPartial<PantsdownConfig>;

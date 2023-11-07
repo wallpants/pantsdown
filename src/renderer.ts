@@ -1,7 +1,8 @@
 import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
+import { type Pantsdown } from "./pantsdown.ts";
 import { inline } from "./rules/inline.ts";
-import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
+import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 import {
     cleanUrl,
     escape,
@@ -11,21 +12,15 @@ import {
     injectHtmlAttributes,
 } from "./utils.ts";
 
-const defaultConfig: NonNullable<PantsdownConfig["renderer"]> = {
-    relativeImageUrlPrefix: "",
-    detailsTagDefaultOpen: false,
-};
-
 /**
  * An object containing functions to render tokens to HTML.
  */
 export class Renderer {
-    private rendererConfig: NonNullable<PantsdownConfig["renderer"]>;
+    private pantsdown: Pantsdown;
     slugger = new GithubSlugger();
 
-    constructor(config: PantsdownConfig | undefined) {
-        const rendererConfig = Object.assign(defaultConfig, config?.renderer ?? {});
-        this.rendererConfig = rendererConfig;
+    constructor(pantsdown: Pantsdown) {
+        this.pantsdown = pantsdown;
     }
 
     code(code: string, infostring: string | undefined, sourceMap: SourceMap): string {
@@ -58,11 +53,14 @@ export class Renderer {
     }
 
     html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
-        const result = fixHtmlLocalImageHref(html, this.rendererConfig.relativeImageUrlPrefix);
+        const result = fixHtmlLocalImageHref(
+            html,
+            this.pantsdown.config.renderer.relativeImageUrlPrefix,
+        );
 
         const attrs: HTMLAttrs = [];
 
-        if (this.rendererConfig.detailsTagDefaultOpen) {
+        if (this.pantsdown.config.renderer.detailsTagDefaultOpen) {
             const tag = inline.tag.exec(html);
             if (tag?.[0] === "<details>") {
                 attrs.push(["open", ""]);
@@ -183,7 +181,10 @@ export class Renderer {
             return text;
         }
         const attrs: HTMLAttrs = [
-            ["src", fixLocalImageHref(cleanHref, this.rendererConfig.relativeImageUrlPrefix)],
+            [
+                "src",
+                fixLocalImageHref(cleanHref, this.pantsdown.config.renderer.relativeImageUrlPrefix),
+            ],
             ["alt", text],
         ];
         if (title) attrs.push(["title", title]);
