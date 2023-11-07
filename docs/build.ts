@@ -21,6 +21,13 @@ const index = (theme: "dark" | "light") => `<!doctype html>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
         <style>${css}</style>
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: "${theme === "light" ? "default" : "dark"}"
+            });
+        </script>
         <title>Pantsdown</title>
     </head>
     <body>
