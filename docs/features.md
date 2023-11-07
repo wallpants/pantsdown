@@ -92,6 +92,9 @@ Here's a simple footnote,[^1] and here's a longer one.[^bignote]
 
 ### Mermaid
 
+Take a look at [how Pantsdown's demo is built](https://github.com/wallpants/pantsdown/blob/main/docs/build.ts)
+for an example setup.
+
 ````
 ```mermaid
 sequenceDiagram
