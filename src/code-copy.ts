@@ -1,6 +1,9 @@
 export const codeCopyScript = `
 <script id="code-copy-script" type="module">
     document.querySelectorAll("pre").forEach((pre) => {
+        const firstElement = pre.firstElementChild;
+        if (!firstElement || firstElement.tagName !== "CODE") return;
+
         const copyButton = document.createElement("button");
 
         const innerHTML =

@@ -32,24 +32,18 @@ export class Renderer {
         const lang = (infostring ?? "").match(/^\S*/)?.[0];
         code = code.replace(/\n$/, "") + "\n";
 
-        // TODO: render pre and code instead of this section
+        const attrs: HTMLAttrs = [];
+
         if (lang === "mermaid") {
-            return injectHtmlAttributes(
-                `<section><div class="mermaid">${code}</div></section>`,
-                [["class", "mermaid-container"]],
-                sourceMap,
-            );
+            attrs.push(["class", "mermaid-container mermaid"]);
+        } else {
+            const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
+            code = hljs.highlight(code, { language }).value;
+            code = `<code class="hljs language-${escape(language)}">${code}</code>`;
         }
 
-        const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
-        const highlightedCode = hljs.highlight(code, { language }).value;
-
-        const result =
-            `<pre style="position: relative;">` +
-            `<code class="hljs language-${escape(language)}">${highlightedCode}</code>` +
-            `</pre>`;
-
-        return injectHtmlAttributes(result, [], sourceMap);
+        const result = `<pre style="position: relative;">` + code + `</pre>`;
+        return injectHtmlAttributes(result, attrs, sourceMap);
     }
 
     alert(body: string, token: Tokens["Alert"]): string {
