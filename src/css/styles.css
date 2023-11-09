@@ -19,7 +19,7 @@
     --color-neutral-muted: rgba(110, 118, 129, 0.4);
     --color-accent-fg: #2f81f7;
     --color-accent-emphasis: #1f6feb;
-    --color-fg-attention: #d29922;
+    --color-attention-fg: #d29922;
     --color-attention-subtle: rgba(187, 128, 9, 0.15);
     --color-attention-muted: rgba(187, 128, 9, 0.4);
     --color-danger-fg: #f85149;
@@ -29,6 +29,30 @@
     --color-btn-bg: #21262d;
     --color-btn-border: rgba(240, 246, 252, 0.1);
     --color-btn-hover-bg: #30363d;
+}
+
+.pantsdown.dark.high-contrast {
+    color-scheme: dark-high-contrast;
+    --color-fg-default: #f0f3f6;
+    --color-fg-muted: #f0f3f6;
+    --color-fg-subtle: #9ea7b3;
+    --color-canvas-default: #0a0c10;
+    --color-canvas-subtle: #272b33;
+    --color-border-default: #7a828e;
+    --color-border-muted: #7a828e;
+    --color-neutral-muted: rgba(158, 167, 179, 0.4);
+    --color-accent-fg: #71b7ff;
+    --color-accent-emphasis: #409eff;
+    --color-attention-fg: #f0b72f;
+    --color-attention-subtle: rgba(224, 155, 19, 0.15);
+    --color-attention-muted: #e09b13;
+    --color-danger-fg: #ff6a69;
+    --color-done-fg: #b780ff;
+    --color-icon-directory: #f0f3f6;
+    --color-icon-file: #7d8590;
+    --color-btn-bg: #7d8590;
+    --color-btn-border: #7a828e;
+    --color-btn-hover-bg: #525964;
 }
 
 .pantsdown.light {
@@ -43,7 +67,7 @@
     --color-neutral-muted: rgba(175, 184, 193, 0.2);
     --color-accent-fg: #0969da;
     --color-accent-emphasis: #0969da;
-    --color-fg-attention: #9a6700;
+    --color-attention-fg: #9a6700;
     --color-attention-subtle: #fff8c5;
     --color-attention-muted: rgba(212, 167, 44, 0.4);
     --color-danger-fg: #d1242f;
@@ -53,6 +77,30 @@
     --color-btn-bg: #f6f8fa;
     --color-btn-border: rgba(31, 35, 40, 0.15);
     --color-btn-hover-bg: #f3f4f6;
+}
+
+.pantsdown.light.high-contrast {
+    color-scheme: light-high-contrast;
+    --color-fg-default: #0e1116;
+    --color-fg-muted: #0e1116;
+    --color-fg-subtle: #66707b;
+    --color-canvas-default: #ffffff;
+    --color-canvas-subtle: #e7ecf0;
+    --color-border-default: #20252c;
+    --color-border-muted: #88929d;
+    --color-neutral-muted: rgba(172, 182, 192, 0.2);
+    --color-accent-fg: #0349b4;
+    --color-accent-emphasis: #0349b4;
+    --color-attention-fg: #744500;
+    --color-attention-subtle: #fcf7be;
+    --color-attention-muted: #b58407;
+    --color-danger-fg: #d1242f;
+    --color-done-fg: #622cbc;
+    --color-icon-directory: #368cf9;
+    --color-icon-file: #368cf9;
+    --color-btn-bg: #e7ecf0;
+    --color-btn-border: rgba(1, 4, 9, 0.8);
+    --color-btn-hover-bg: #ced5dc;
 }
 
 .pantsdown {
