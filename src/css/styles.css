@@ -23,6 +23,7 @@
     --color-attention-subtle: rgba(187, 128, 9, 0.15);
     --color-attention-muted: rgba(187, 128, 9, 0.4);
     --color-danger-fg: #f85149;
+    --color-success-fg: #3fb950;
     --color-done-fg: #a371f7;
     --color-icon-directory: #7d8590;
     --color-icon-file: #7d8590;
@@ -47,6 +48,7 @@
     --color-attention-subtle: rgba(224, 155, 19, 0.15);
     --color-attention-muted: #e09b13;
     --color-danger-fg: #ff6a69;
+    --color-success-fg: #26cd4d;
     --color-done-fg: #b780ff;
     --color-icon-directory: #f0f3f6;
     --color-icon-file: #7d8590;
@@ -71,6 +73,7 @@
     --color-attention-subtle: #fff8c5;
     --color-attention-muted: rgba(212, 167, 44, 0.4);
     --color-danger-fg: #d1242f;
+    --color-success-fg: #1a7f37;
     --color-done-fg: #8250df;
     --color-icon-directory: #54aeff;
     --color-icon-file: #656d76;
@@ -95,6 +98,7 @@
     --color-attention-subtle: #fcf7be;
     --color-attention-muted: #b58407;
     --color-danger-fg: #d1242f;
+    --color-success-fg: #055d20;
     --color-done-fg: #622cbc;
     --color-icon-directory: #368cf9;
     --color-icon-file: #368cf9;
