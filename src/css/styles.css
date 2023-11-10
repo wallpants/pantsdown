@@ -149,10 +149,10 @@
 }
 
 .pantsdown .markdown-alert-warning {
-    border-color: var(--color-fg-attention);
+    border-color: var(--color-attention-fg);
 }
 .pantsdown .markdown-alert-warning span {
-    color: var(--color-fg-attention);
+    color: var(--color-attention-fg);
 }
 
 .pantsdown .copy-button {
