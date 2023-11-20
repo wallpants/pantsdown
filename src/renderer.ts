@@ -42,7 +42,7 @@ export class Renderer {
     }
 
     alert(body: string, token: Tokens["Alert"]): string {
-        const result = `<div>\n${body}</div>\n`;
+        const result = `<div><span>${token.icon + token.variant}</span>${body}</div>\n`;
         return injectHtmlAttributes(result, [
             ["class", `markdown-alert markdown-alert-${token.variant.toLowerCase()}`],
         ]);
