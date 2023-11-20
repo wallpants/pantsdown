@@ -126,6 +126,6 @@ export const block: Record<BlockRuleNames, RegExp> = {
     table: block_table,
     lheading: block_lheading,
     paragraph: block_paragraph,
-    footnote: /^\[\^([^\]\n]+)\]:(?:[ \t]+|[\n]*?|$)([^\[\n]*?(?:\n|$)(?:[\n]*?[ ]{4,}[^\[\n]*)*)/,
+    footnote: /^\[\^([^\]\n]+)\]:(?:[ \t]+|[\n]*?|$)([^\n]*?(?:\n|$)(?:[\n]*?[ ]{4,}[^\n]*)*)/,
     text: /^[^\n]+/,
 };
