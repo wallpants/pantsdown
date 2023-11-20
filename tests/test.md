@@ -131,29 +131,29 @@ _This is italic text_
 ⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
 ⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
 
--   Unordered list can use asterisks
+- Unordered list can use asterisks
 
-*   Or minuses
+* Or minuses
 
--   Or pluses
+- Or pluses
 
 1. Make my changes
-    1. Fix bug
-    2. Improve formatting
-        - Make the headings bigger
+   1. Fix bug
+   2. Improve formatting
+      - Make the headings bigger
 2. Push my commits to GitHub
 3. Open a pull request
-    - Describe my changes
-    - Mention all the members of my team
-        - Ask for feedback
+   - Describe my changes
+   - Mention all the members of my team
+     - Ask for feedback
 
--   Create a list by starting a line with `+`, `-`, or `*`
--   Sub-lists are made by indenting 2 spaces:
-    -   Marker character change forces new list start:
-        -   Ac tristique libero volutpat at
-        *   Facilisis in pretium nisl aliquet
-        -   Nulla volutpat aliquam velit
--   Very easy!
+- Create a list by starting a line with `+`, `-`, or `*`
+- Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces new list start:
+    - Ac tristique libero volutpat at
+    * Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
+- Very easy!
 
 ---
 
@@ -169,13 +169,13 @@ _This is italic text_
 - [ ] this is an incomplete item
 ```
 
--   [x] Finish my changes
--   [ ] Push my commits to GitHub
--   [ ] Open a pull request
--   [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
--   [x] list syntax required (any unordered or ordered list supported)
--   [ ] this is a complete item
--   [ ] this is an incomplete item
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [ ] this is a complete item
+- [ ] this is an incomplete item
 
 ---
 
@@ -311,8 +311,6 @@ Footnote 1 link[^first].
 
 Footnote 2 link[^second].
 
-Inline footnote^[Text of inline footnote] definition.
-
 Duplicated footnote reference[^second].
 
 [^first]: Footnote **can have markup**
@@ -352,22 +350,22 @@ namespace MyApplication
 
 ```css
 @font-face {
-    font-family: Chunkfive;
-    src: url("Chunkfive.otf");
+  font-family: Chunkfive;
+  src: url("Chunkfive.otf");
 }
 
 body,
 .usertext {
-    color: #f0f0f0;
-    background: #600;
-    font-family: Chunkfive, sans;
+  color: #f0f0f0;
+  background: #600;
+  font-family: Chunkfive, sans;
 }
 
 @import url(print.css);
 @media print {
-    a[href^="http"]::after {
-        content: attr(href);
-    }
+  a[href^="http"]::after {
+    content: attr(href);
+  }
 }
 ```
 
