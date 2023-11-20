@@ -1,5 +1,5 @@
-export const codeCopyScript = `
-<script id="code-copy-script" type="module">
+export const javascript = `
+    /** code copy button */
     document.querySelectorAll("pre").forEach((pre) => {
         const firstElement = pre.firstElementChild;
         if (!firstElement || firstElement.tagName !== "CODE") return;
@@ -15,17 +15,21 @@ export const codeCopyScript = `
 
         pre.appendChild(copyButton);
         copyButton.addEventListener("click", () => {
-            navigator.clipboard.writeText(pre.firstChild.textContent)
-                .then(
-                    () => {
-                        copyButton.classList.add("success");
-                        setTimeout(() => {
-                            copyButton.classList.remove("success");
-                        }, 1000);
-                    }
-                );
+            if (!pre.firstChild?.textContent) {
+                return;
+            }
 
+            navigator.clipboard
+                .writeText(pre.firstChild.textContent)
+                .then(() => {
+                    copyButton.classList.add("success");
+                    setTimeout(() => {
+                        copyButton.classList.remove("success");
+                    }, 1000);
+                })
+                .catch(() => {
+                    //
+                });
         });
     });
-</script>
 `;

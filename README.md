@@ -6,9 +6,6 @@
 Pantsdown is a **Markdown** to **HTML** converter. It attempts to render markdown similar to how GitHub does it plus
 some features developed specifically for [github-preview.nvim](https://github.com/wallpants/github-preview.nvim).
 
-If you need a feature that's supported by GitHub and is not already listed in the [Roadmap](#-roadmap),
-feel free to open an issue.
-
 ## [▶️ Demo](https://wallpants.github.io/pantsdown/)
 
 ## 📦 Installation
@@ -32,7 +29,9 @@ it's recommended you use a sanitization library like [DOMPurify](https://github.
 ### Styles
 
 For styles to be properly applied, either the element containing the generated html or one of its parents
-must have the classes `class="pantsdown light"` or `class="pantsdown dark"` added.
+must have the classes `class="pantsdown light"` or `class="pantsdown dark"` added. You can also add
+the class `"high-contrast"` to enable high-contrast themes `class="pantsdown dark high-contrast"` or
+`class="pantsdown light high-contrast"`.
 
 ### [Bun](https://bun.sh/)
 
@@ -74,16 +73,22 @@ import { useEffect } from "react";
 const pantsdown = new Pantsdown();
 
 function App() {
-    useEffect(() => {
-        const markdown = "# Hello world\n- [ ] Task 1\n- [x] Task 2";
-        const html = pantsdown.parse(markdown);
-        const container = document.getElementById("markdown-container");
-        if (container) container.innerHTML = html;
-    }, []);
+  useEffect(() => {
+    const container = document.getElementById("markdown-container");
+    if (!container) return;
 
-    // ⚠️ for styles to be applied, a parent element must have
-    // the classes "pantsdown light" or "pantsdown dark" added
-    return <div id="markdown-container" className="pantsdown light" />;
+    const markdown = "# Hello world\n- [ ] Task 1\n- [x] Task 2";
+    const { html, javascript } = pantsdown.parse(markdown);
+    container.innerHTML = html;
+
+    const newScript = document.createElement("script");
+    newScript.text = javascript;
+    container.appendChild(newScript);
+  }, []);
+
+  // ⚠️ for styles to be applied, a parent element must have
+  // the classes "pantsdown light" or "pantsdown dark" added
+  return <div id="markdown-container" className="pantsdown light" />;
 }
 
 export default App;
@@ -100,32 +105,32 @@ import { Pantsdown, type PartialPantsdownConfig } from "pantsdown";
 // This is the default config object. If you provide
 // a config object, it will be deeply merged into this.
 const config: PartialPantsdownConfig = {
-    renderer: {
-        /**
-         * Prefix to be added to relative image sources.
-         * Must start and end with "/"
-         *
-         * @example
-         * relativeImageUrlPrefix: "/__localimage__/"
-         *
-         * ![image](./wallpants-512.png)
-         * relative src is updated and results in:
-         * <img src="/__localimage__/wallpants-512.png" />
-         *
-         * ![image](https://avatars.githubusercontent.com/wallpants)
-         * absolute src remains unchanged:
-         * <img src="https://avatars.githubusercontent.com/wallpants" />
-         */
-        relativeImageUrlPrefix: "",
+  renderer: {
+    /**
+     * Prefix to be added to relative image sources.
+     * Must start and end with "/"
+     *
+     * @example
+     * relativeImageUrlPrefix: "/__localimage__/"
+     *
+     * ![image](./wallpants-512.png)
+     * relative src is updated and results in:
+     * <img src="/__localimage__/wallpants-512.png" />
+     *
+     * ![image](https://avatars.githubusercontent.com/wallpants)
+     * absolute src remains unchanged:
+     * <img src="https://avatars.githubusercontent.com/wallpants" />
+     */
+    relativeImageUrlPrefix: "",
 
-        /**
-         * Whether to render <details> html tags with attribute open=""
-         *
-         * @default
-         * false
-         */
-        detailsTagDefaultOpen: false,
-    },
+    /**
+     * Whether to render <details> html tags with attribute open=""
+     *
+     * @default
+     * false
+     */
+    detailsTagDefaultOpen: false,
+  },
 };
 
 const pantsdown = new Pantsdown(config);
