@@ -1,5 +1,3 @@
-<!-- Up to marked@9.1.3 -->
-
 # Pantsdown
 
 <img src="https://raw.githubusercontent.com/wallpants/pantsdown/main/docs/github.svg" height="60px" align="right" />
@@ -15,7 +13,8 @@ feel free to open an issue.
 
 ## 📦 Installation
 
-🚨 Pantsdown is distributed only as a TypeScript module. This means you'll need a bundler to handle transpilation.
+This package is distributed only as a TypeScript module.
+This means you'll need a bundler to handle transpilation.
 See below for usage examples.
 
 ```sh
@@ -26,6 +25,9 @@ npm install pantsdown
 ```
 
 ## 💻 Usage
+
+🚨 Pantsdown does not sanitize the output HTML. If you are processing potentially unsafe strings,
+it's recommended you use a sanitization library like [DOMPurify](https://github.com/cure53/DOMPurify).
 
 ### Styles
 
