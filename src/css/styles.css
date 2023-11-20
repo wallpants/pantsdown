@@ -52,7 +52,7 @@
     --color-done-fg: #b780ff;
     --color-icon-directory: #f0f3f6;
     --color-icon-file: #7d8590;
-    --color-btn-bg: #7d8590;
+    --color-btn-bg: #272b33;
     --color-btn-border: #7a828e;
     --color-btn-hover-bg: #525964;
 }
@@ -189,10 +189,6 @@
 .pantsdown .mermaid-container {
     margin-bottom: 16px;
 }
-
-/* TODO: clean-up */
-/* .pantsdown .mermaid { */
-/* } */
 
 .pantsdown .octicon {
     display: inline-block;
