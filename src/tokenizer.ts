@@ -105,7 +105,7 @@ export class Tokenizer {
         const cap = block.blockquote.exec(src);
         if (!cap) return undefined;
 
-        const text = rtrim(cap[0].replace(/^ *>[ \t]?/gm, ""), "\n");
+        let text = rtrim(cap[0].replace(/^ *>[ \t]?/gm, ""), "\n");
         const top = this.lexer.state.top;
         this.lexer.state.top = true;
         const tokens = this.lexer.blockTokens(text, []);
@@ -119,20 +119,21 @@ export class Tokenizer {
             text,
         };
 
-        const matchedVariant = ALERTS.find(({ regex }) => regex.test(blockquoteToken.text));
+        const matchedAlertVariant = ALERTS.find(({ regex }) => regex.test(blockquoteToken.text));
 
-        if (matchedVariant) {
-            const { variant, icon, regex } = matchedVariant;
+        if (matchedAlertVariant) {
+            const { variant, icon, regex } = matchedAlertVariant;
 
-            const firstLine = blockquoteToken.tokens[0] as Tokens["Paragraph"];
-            const firstLineText = firstLine.raw.replace(regex, "");
-            firstLine.tokens = [
-                {
-                    type: "text",
-                    raw: firstLine.raw,
-                    text: `<span>${icon + variant}</span>${firstLineText}`,
-                },
-            ];
+            const firstToken = blockquoteToken.tokens[0] as Tokens["Paragraph"];
+
+            text = firstToken.raw.replace(regex, "");
+
+            // since we're modifying firstToken.raw by removing the first line,
+            // resulting tokens also change and thus also the sourceMap that
+            // was generated for the blockquote
+            if (firstToken.sourceMap?.[0]) firstToken.sourceMap[0]++;
+
+            firstToken.tokens = this.lexer.inlineTokens(text, []);
 
             const alertToken: Tokens["Alert"] = {
                 ...blockquoteToken,
@@ -140,8 +141,6 @@ export class Tokenizer {
                 variant: variant as Tokens["Alert"]["variant"],
                 icon,
             };
-
-            alertToken.tokens.splice(0, 1, firstLine);
 
             return alertToken;
         }
