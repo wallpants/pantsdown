@@ -13,7 +13,7 @@ const cssPath = import.meta.dir + "/../src/css/styles.css";
 const css = await Bun.file(cssPath).text();
 
 const pantsdown = new Pantsdown();
-const html = pantsdown.parse(readme + features);
+const { html, javascript } = pantsdown.parse(readme + features);
 
 const index = (theme: "dark" | "light") => `<!doctype html>
 <html lang="en" class="pantsdown ${theme}">
@@ -21,6 +21,7 @@ const index = (theme: "dark" | "light") => `<!doctype html>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
         <style>${css}</style>
+        <script type="module">${javascript}</script>
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
             mermaid.initialize({
