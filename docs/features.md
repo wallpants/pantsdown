@@ -6,15 +6,15 @@
 
 ### Lists
 
--   Ordered
-    1. Item 1
-    2. Item 2
--   Unordered
-    -   Item 1
-    -   Item 2
--   Tasks
-    -   [x] Item 1
-    -   [ ] Item 2
+- Ordered
+  1. Item 1
+  2. Item 2
+- Unordered
+  - Item 1
+  - Item 2
+- Tasks
+  - [x] Item 1
+  - [ ] Item 2
 
 ---
 
