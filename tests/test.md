@@ -109,7 +109,7 @@ _This is italic text_
     * Mention all the members of my team
         * Ask for feedback
 
-+ Create a list by starting a line with `+`, `-`, or `*`
++ Create a list by starting a line with "+", "-", or "*"
 + Sub-lists are made by indenting 2 spaces:
   - Marker character change forces new list start:
     * Ac tristique libero volutpat at
@@ -181,13 +181,13 @@ _This is italic text_
 
 # Ignoring Markdown formatting
 
-You can tell GitHub to ignore (or escape) Markdown formatting by using \ before the Markdown character.
+You can tell GitHub to ignore (or escape) Markdown formatting by using backslash before the Markdown character.
 
 ```
-Let's rename \*our-new-project\* to \*our-old-project\*.
+Let's rename *our-new-project* to *our-old-project*.
 ```
 
-Let's rename \*our-new-project\* to \*our-old-project\*.
+Let's rename _our-new-project_ to _our-old-project_.
 
 ---
 
@@ -324,10 +324,10 @@ Duplicated footnote reference[^second].
 # Code and Syntax Highlighting
 
 ```
-Inline `code` has `back-ticks around` it.
+Inline code has back-ticks around it.
 ```
 
-Inline `code` has `back-ticks around` it.
+Inline code has back-ticks around it.
 
 ```c#
 using System.IO.Compression;
@@ -370,11 +370,11 @@ body,
 ```
 
 ```javascript
-function $initHighlight(block, cls) {
+function $initHighlight(block) {
   try {
-    if (cls.search(/\bno\-highlight\b/) != -1)
+    if (cls.search(/no-highlight/) != -1)
       return process(block, true, 0x0F) +
-             ` class="${cls}"`;
+             'class="some-class"';
   } catch (e) {
     /* handle exception */
   }
@@ -390,7 +390,7 @@ export  $initHighlight;
 ```php
 require_once 'Zend/Uri/Http.php';
 
-namespace Location\Web;
+namespace Location/Web;
 
 interface Factory
 {
@@ -425,7 +425,7 @@ line description';
         }
 
         $this->var = 0 - self::$st;
-        $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => \Location\Web\URI::class));
+        $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => /Location/Web/URI::class));
 
         return [
             'uri'   => $uri,
@@ -461,7 +461,7 @@ raw Markdown line up prettily. You can also use inline Markdown.
 
 Markdown | Less | Pretty
 --- | --- | ---
-*Still* | `renders` | **nicely**
+*Still* | renders | **nicely**
 1 | 2 | 3
 
 | First Header  | Second Header |
@@ -476,8 +476,8 @@ Markdown | Less | Pretty
 
 | Command | Description |
 | --- | --- |
-| `git status` | List all *new or modified* files |
-| `git diff` | Show file differences that **haven't been** staged |
+| git status | List all *new or modified* files |
+| git diff | Show file differences that **haven't been** staged |
 
 | Left-aligned | Center-aligned | Right-aligned |
 | :---         |     :---:      |          ---: |
@@ -486,8 +486,8 @@ Markdown | Less | Pretty
 
 | Name     | Character |
 | ---      | ---       |
-| Backtick | `         |
-| Pipe     | \|        |
+| Backtick | '         |
+| Pipe     | |        |
 ```
 
 Colons can be used to align columns.
@@ -528,9 +528,9 @@ raw Markdown line up prettily. You can also use inline Markdown.
 | git diff     |    git diff    |      git diff |
 
 | Name     | Character |
-| -------- | --------- |
-| Backtick | `         |
-| Pipe     | \|        |
+| -------- | --------- | --- |
+| Backtick | '         |
+| Pipe     |           |     |
 
 ---
 

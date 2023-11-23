@@ -6,7 +6,7 @@ test("1 + 2", () => {
 });
 
 // https://github.com/oven-sh/bun/issues/4722
-test.skip("pantsdown.parse(test.md)", async () => {
+test("pantsdown.parse(test.md)", async () => {
     const pantsdown = new Pantsdown({
         renderer: {
             detailsTagDefaultOpen: true,
