@@ -26,16 +26,16 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "scripts": {
-    "format": "prettier **/*.{md,ts,css} -w",
-    "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
-    "commit": "cz",
-    "docs:build": "bun run docs/build.ts"
-  },
   "release": {
     "branches": [
       "main"
     ]
+  },
+  "scripts": {
+    "commit": "cz",
+    "format": "prettier **/*.{md,ts,css} -w",
+    "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
+    "docs:build": "bun run docs/build.ts"
   },
   "dependencies": {
     "github-slugger": "^2.0.0",
