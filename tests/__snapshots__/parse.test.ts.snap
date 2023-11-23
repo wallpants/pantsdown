@@ -1,0 +1,644 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pantsdown.parse(test.md) 1`] = `
+{
+  "html": 
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="headers"></span>Headers<a class="anchor octicon-link" href="#headers"></a></h1>
+<pre style="position: relative;" line-start="3" line-end="18"><code class="hljs language-plaintext"># h1 Heading 8-)
+## h2 Heading
+### h3 Heading
+#### h4 Heading
+##### h5 Heading
+###### h6 Heading
+
+Alternatively, for H1 and H2, an underline-ish style:
+
+Alt-H1
+======
+
+Alt-H2
+------
+</code></pre><h1 style="position: relative;" line-start="20" line-end="20"><span style="position: absolute; top: -50px;" id="h1-heading-8-"></span>h1 Heading 8-)<a class="anchor octicon-link" href="#h1-heading-8-"></a></h1>
+<h2 style="position: relative;" line-start="22" line-end="22"><span style="position: absolute; top: -50px;" id="h2-heading"></span>h2 Heading<a class="anchor octicon-link" href="#h2-heading"></a></h2>
+<h3 style="position: relative;" line-start="24" line-end="24"><span style="position: absolute; top: -50px;" id="h3-heading"></span>h3 Heading<a class="anchor octicon-link" href="#h3-heading"></a></h3>
+<h4 style="position: relative;" line-start="26" line-end="26"><span style="position: absolute; top: -50px;" id="h4-heading"></span>h4 Heading<a class="anchor octicon-link" href="#h4-heading"></a></h4>
+<h5 style="position: relative;" line-start="28" line-end="28"><span style="position: absolute; top: -50px;" id="h5-heading"></span>h5 Heading<a class="anchor octicon-link" href="#h5-heading"></a></h5>
+<h6 style="position: relative;" line-start="30" line-end="30"><span style="position: absolute; top: -50px;" id="h6-heading"></span>h6 Heading<a class="anchor octicon-link" href="#h6-heading"></a></h6>
+<p line-start="32" line-end="32">Alternatively, for H1 and H2, an underline-ish style:</p>
+<h1 style="position: relative;" line-start="34" line-end="34"><span style="position: absolute; top: -50px;" id="alt-h1"></span>Alt-H1<a class="anchor octicon-link" href="#alt-h1"></a></h1>
+<h2 style="position: relative;" line-start="36" line-end="36"><span style="position: absolute; top: -50px;" id="alt-h2"></span>Alt-H2<a class="anchor octicon-link" href="#alt-h2"></a></h2>
+<hr line-start="38" line-end="38">
+<h1 style="position: relative;" line-start="40" line-end="40"><span style="position: absolute; top: -50px;" id="emphasis"></span>Emphasis<a class="anchor octicon-link" href="#emphasis"></a></h1>
+<pre style="position: relative;" line-start="42" line-end="60"><code class="hljs language-plaintext">Emphasis, aka italics, with *asterisks* or _underscores_.
+
+Strong emphasis, aka bold, with **asterisks** or __underscores__.
+
+Combined emphasis with **asterisks and _underscores_**.
+
+Strikethrough uses two tildes. ~~Scratch this.~~
+
+**This is bold text**
+
+__This is bold text__
+
+*This is italic text*
+
+_This is italic text_
+
+~~Strikethrough~~
+</code></pre><p line-start="62" line-end="62">Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+<p line-start="64" line-end="64">Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+<p line-start="66" line-end="66">Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+<p line-start="68" line-end="68">Strikethrough uses two tildes. <del>Scratch this.</del></p>
+<p line-start="70" line-end="70"><strong>This is bold text</strong></p>
+<p line-start="72" line-end="72"><strong>This is bold text</strong></p>
+<p line-start="74" line-end="74"><em>This is italic text</em></p>
+<p line-start="76" line-end="76"><em>This is italic text</em></p>
+<p line-start="78" line-end="78"><del>Strikethrough</del></p>
+<hr line-start="80" line-end="80">
+<h1 style="position: relative;" line-start="82" line-end="82"><span style="position: absolute; top: -50px;" id="lists"></span>Lists<a class="anchor octicon-link" href="#lists"></a></h1>
+<pre style="position: relative;" line-start="84" line-end="119"><code class="hljs language-plaintext">1. First ordered list item
+2. Another item
+⋅⋅* Unordered sub-list.
+1. Actual numbers don&#x27;t matter, just that it&#x27;s a number
+⋅⋅1. Ordered sub-list
+4. And another item.
+
+⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we&#x27;ll use three here to also align the raw Markdown).
+
+⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
+
+1. Make my changes
+    1. Fix bug
+    2. Improve formatting
+        - Make the headings bigger
+2. Push my commits to GitHub
+3. Open a pull request
+    * Describe my changes
+    * Mention all the members of my team
+        * Ask for feedback
+
++ Create a list by starting a line with &quot;+&quot;, &quot;-&quot;, or &quot;*&quot;
++ Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces new list start:
+    * Ac tristique libero volutpat at
+    + Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
++ Very easy!
+</code></pre><ol class="">
+<li line-start="121" line-end="121">First ordered list item</li>
+<li line-start="122" line-end="123">Another item
+⋅⋅* Unordered sub-list.</li>
+<li line-start="124" line-end="125">Actual numbers don&#39;t matter, just that it&#39;s a number
+⋅⋅1. Ordered sub-list</li>
+<li line-start="126" line-end="126">And another item.</li>
+</ol>
+<p line-start="128" line-end="128">⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we&#39;ll use three here to also align the raw Markdown).</p>
+<p line-start="130" line-end="132">⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
+<ul class="">
+<li line-start="134" line-end="134">Unordered list can use asterisks</li>
+</ul>
+<ul class="">
+<li line-start="136" line-end="136">Or minuses</li>
+</ul>
+<ul class="">
+<li line-start="138" line-end="138">Or pluses</li>
+</ul>
+<ol class="">
+<li line-start="140" line-end="143">Make my changes<ol class="">
+<li>Fix bug</li>
+<li>Improve formatting<ul class="">
+<li>Make the headings bigger</li>
+</ul>
+</li>
+</ol>
+</li>
+<li line-start="144" line-end="144">Push my commits to GitHub</li>
+<li line-start="145" line-end="148">Open a pull request<ul class="">
+<li>Describe my changes</li>
+<li>Mention all the members of my team<ul class="">
+<li>Ask for feedback</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul class="">
+<li line-start="150" line-end="150">Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code></li>
+<li line-start="151" line-end="155">Sub-lists are made by indenting 2 spaces:<ul class="">
+<li>Marker character change forces new list start:<ul class="">
+<li>Ac tristique libero volutpat at</li>
+</ul>
+<ul class="">
+<li line-start="157" line-end="157">Facilisis in pretium nisl aliquet</li>
+</ul>
+<ul class="">
+<li line-start="158" line-end="158">Nulla volutpat aliquam velit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li line-start="156" line-end="156">Very easy!</li>
+</ul>
+<hr line-start="160" line-end="160">
+<h1 style="position: relative;" line-start="162" line-end="162"><span style="position: absolute; top: -50px;" id="task-lists"></span>Task lists<a class="anchor octicon-link" href="#task-lists"></a></h1>
+<pre style="position: relative;" line-start="164" line-end="172"><code class="hljs language-plaintext">- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
+- [x] @mentions, #refs, [links](), **formatting**, and &lt;del&gt;tags&lt;/del&gt; supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
+</code></pre><ul class="contains-task-list">
+<li class="task-list-item" line-start="174" line-end="174"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Finish my changes</li>
+<li class="task-list-item" line-start="175" line-end="175"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Push my commits to GitHub</li>
+<li class="task-list-item" line-start="176" line-end="176"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Open a pull request</li>
+<li class="task-list-item" line-start="177" line-end="177"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li class="task-list-item" line-start="178" line-end="178"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> list syntax required (any unordered or ordered list supported)</li>
+<li class="task-list-item" line-start="179" line-end="179"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is a complete item</li>
+<li class="task-list-item" line-start="180" line-end="180"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is an incomplete item</li>
+</ul>
+<hr line-start="182" line-end="182">
+<h1 style="position: relative;" line-start="184" line-end="184"><span style="position: absolute; top: -50px;" id="ignoring-markdown-formatting"></span>Ignoring Markdown formatting<a class="anchor octicon-link" href="#ignoring-markdown-formatting"></a></h1>
+<p line-start="186" line-end="186">You can tell GitHub to ignore (or escape) Markdown formatting by using backslash before the Markdown character.</p>
+<pre style="position: relative;" line-start="188" line-end="190"><code class="hljs language-plaintext">Let&#x27;s rename *our-new-project* to *our-old-project*.
+</code></pre><p line-start="192" line-end="192">Let&#39;s rename <em>our-new-project</em> to <em>our-old-project</em>.</p>
+<hr line-start="194" line-end="194">
+<h1 style="position: relative;" line-start="196" line-end="196"><span style="position: absolute; top: -50px;" id="links"></span>Links<a class="anchor octicon-link" href="#links"></a></h1>
+<pre style="position: relative;" line-start="198" line-end="220"><code class="hljs language-plaintext">[I&#x27;m an inline-style link](https://www.google.com)
+
+[I&#x27;m an inline-style link with title](https://www.google.com &quot;Google&#x27;s Homepage&quot;)
+
+[I&#x27;m a reference-style link][Arbitrary case-insensitive reference text]
+
+[I&#x27;m a relative reference to a repository file](../blob/master/LICENSE)
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+URLs and URLs in angle brackets will automatically get turned into links.
+http://www.example.com or &lt;http://www.example.com&gt; and sometimes
+example.com (but not on Github, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com
+</code></pre><p line-start="222" line-end="222"><a href="https://www.google.com">I&#39;m an inline-style link</a></p>
+<p line-start="224" line-end="224"><a href="https://www.google.com" title="Google&#39;s Homepage">I&#39;m an inline-style link with title</a></p>
+<p line-start="226" line-end="226"><a href="https://www.mozilla.org">I&#39;m a reference-style link</a></p>
+<p line-start="228" line-end="228"><a href="../blob/master/LICENSE">I&#39;m a relative reference to a repository file</a></p>
+<p line-start="230" line-end="230"><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
+<p line-start="232" line-end="232">Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
+<p line-start="234" line-end="236">URLs and URLs in angle brackets will automatically get turned into links.
+<a href="http://www.example.com">http://www.example.com</a> or <a href="http://www.example.com">http://www.example.com</a> and sometimes
+example.com (but not on Github, for example).</p>
+<p line-start="238" line-end="238">Some text to show that the reference links can follow later.</p>
+<hr line-start="244" line-end="244">
+<h1 style="position: relative;" line-start="246" line-end="246"><span style="position: absolute; top: -50px;" id="images"></span>Images<a class="anchor octicon-link" href="#images"></a></h1>
+<pre style="position: relative;" line-start="248" line-end="269"><code class="hljs language-plaintext">Here&#x27;s our logo (hover to see the title text):
+
+Inline-style:
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;)
+
+Reference-style:
+![alt text][logo]
+
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 2&quot;
+
+![Minion](https://octodex.github.com/images/minion.png)
+![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg &quot;The Stormtroopocat&quot;)
+
+Like links, Images also have a footnote style syntax
+
+![Alt text][id]
+
+With a reference later in the document defining the URL location:
+
+[id]: https://octodex.github.com/images/dojocat.jpg  &quot;The Dojocat&quot;
+</code></pre><p line-start="271" line-end="271">Here&#39;s our logo (hover to see the title text):</p>
+<p line-start="273" line-end="274">Inline-style:
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 1"></p>
+<p line-start="276" line-end="277">Reference-style:
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 2"></p>
+<p line-start="281" line-end="282"><img src="https://octodex.github.com/images/minion.png" alt="Minion">
+<img src="https://octodex.github.com/images/stormtroopocat.jpg" alt="Stormtroopocat" title="The Stormtroopocat"></p>
+<p line-start="284" line-end="284">Like links, Images also have a footnote style syntax</p>
+<p line-start="286" line-end="286"><img src="https://octodex.github.com/images/dojocat.jpg" alt="Alt text" title="The Dojocat"></p>
+<p line-start="288" line-end="288">With a reference later in the document defining the URL location:</p>
+<hr line-start="292" line-end="292">
+<h1 style="position: relative;" line-start="294" line-end="294"><span style="position: absolute; top: -50px;" id="footnotes"></span><a href="https://github.com/markdown-it/markdown-it-footnote">Footnotes</a><a class="anchor octicon-link" href="#footnotes"></a></h1>
+<pre style="position: relative;" line-start="296" line-end="310"><code class="hljs language-plaintext">Footnote 1 link[^first].
+
+Footnote 2 link[^second].
+
+Inline footnote^[Text of inline footnote] definition.
+
+Duplicated footnote reference[^second].
+
+[^first]: Footnote **can have markup**
+
+    and multiple paragraphs.
+
+[^second]: Footnote text.
+</code></pre><p line-start="312" line-end="312">Footnote 1 link<sup><a id="footnote-ref-first" href="#footnote-first" data-footnote-ref aria-describedby="footnote-label">first</a></sup>.</p>
+<p line-start="314" line-end="314">Footnote 2 link<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
+<p line-start="316" line-end="316">Duplicated footnote reference<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
+<hr line-start="324" line-end="324">
+<h1 style="position: relative;" line-start="326" line-end="326"><span style="position: absolute; top: -50px;" id="code-and-syntax-highlighting"></span>Code and Syntax Highlighting<a class="anchor octicon-link" href="#code-and-syntax-highlighting"></a></h1>
+<pre style="position: relative;" line-start="328" line-end="330"><code class="hljs language-plaintext">Inline code has back-ticks around it.
+</code></pre><p line-start="332" line-end="332">Inline code has back-ticks around it.</p>
+<pre style="position: relative;" line-start="334" line-end="351"><code class="hljs language-c#"><span class="hljs-keyword">using</span> System.IO.Compression;
+
+<span class="hljs-meta">#<span class="hljs-keyword">pragma</span> <span class="hljs-keyword">warning</span> disable 414, 3021</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">MyApplication</span>
+{
+    [<span class="hljs-meta">Obsolete(<span class="hljs-string">&quot;...&quot;</span>)</span>]
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> : <span class="hljs-title">IInterface</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title">List</span>&lt;<span class="hljs-title">int</span>&gt; <span class="hljs-title">JustDoIt</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> count</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$&quot;Hello <span class="hljs-subst">{Name}</span>!&quot;</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;(<span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> })
+        }
+    }
+}
+</code></pre><pre style="position: relative;" line-start="353" line-end="372"><code class="hljs language-css"><span class="hljs-keyword">@font-face</span> {
+  <span class="hljs-attribute">font-family</span>: Chunkfive;
+  <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;Chunkfive.otf&quot;</span>);
+}
+
+<span class="hljs-selector-tag">body</span>,
+<span class="hljs-selector-class">.usertext</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#f0f0f0</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#600</span>;
+  <span class="hljs-attribute">font-family</span>: Chunkfive, sans;
+}
+
+<span class="hljs-keyword">@import</span> url(print.css);
+<span class="hljs-keyword">@media</span> print {
+  <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[href^=<span class="hljs-string">&quot;http&quot;</span>]</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">content</span>: <span class="hljs-built_in">attr</span>(href);
+  }
+}
+</code></pre><pre style="position: relative;" line-start="374" line-end="390"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$initHighlight</span>(<span class="hljs-params">block</span>) {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">if</span> (cls.<span class="hljs-title function_">search</span>(<span class="hljs-regexp">/no-highlight/</span>) != -<span class="hljs-number">1</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(block, <span class="hljs-literal">true</span>, <span class="hljs-number">0x0F</span>) +
+             <span class="hljs-string">&#x27;class=&quot;some-class&quot;&#x27;</span>;
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-comment">/* handle exception */</span>
+  }
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span> / <span class="hljs-number">2</span>; i &lt; classes.<span class="hljs-property">length</span>; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">checkCondition</span>(classes[i]) === <span class="hljs-literal">undefined</span>)
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;undefined&#x27;</span>);
+  }
+}
+
+<span class="hljs-keyword">export</span>  $initHighlight;
+</code></pre><pre style="position: relative;" line-start="392" line-end="445"><code class="hljs language-php"><span class="hljs-keyword">require_once</span> <span class="hljs-string">&#x27;Zend/Uri/Http.php&#x27;</span>;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Location</span>/<span class="hljs-title class_">Web</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_factory</span>(<span class="hljs-params"></span>)</span>;
+}
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">URI</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseURI</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">abstract</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>)</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-variable">$st1</span> = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">ME</span> = <span class="hljs-string">&quot;Yo&quot;</span>;
+    <span class="hljs-keyword">var</span> <span class="hljs-variable">$list</span> = <span class="hljs-literal">NULL</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-variable">$var</span>;
+
+    <span class="hljs-comment">/**
+     * Returns a URI
+     *
+     * <span class="hljs-doctag">@return</span> URI
+     */</span>
+    <span class="hljs-built_in">static</span> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_factory</span>(<span class="hljs-params"><span class="hljs-variable">$stats</span> = <span class="hljs-keyword">array</span>(<span class="hljs-params"></span>), <span class="hljs-variable">$uri</span> = <span class="hljs-string">&#x27;http&#x27;</span></span>)
+    </span>{
+        <span class="hljs-keyword">echo</span> <span class="hljs-keyword">__METHOD__</span>;
+        <span class="hljs-variable">$uri</span> = <span class="hljs-title function_ invoke__">explode</span>(<span class="hljs-string">&#x27;:&#x27;</span>, <span class="hljs-variable">$uri</span>, <span class="hljs-number">0b10</span>);
+        <span class="hljs-variable">$schemeSpecific</span> = <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$uri</span>[<span class="hljs-number">1</span>]) ? <span class="hljs-variable">$uri</span>[<span class="hljs-number">1</span>] : <span class="hljs-string">&#x27;&#x27;</span>;
+        <span class="hljs-variable">$desc</span> = <span class="hljs-string">&#x27;Multi
+line description&#x27;</span>;
+
+        <span class="hljs-comment">// Security check</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">ctype_alnum</span>(<span class="hljs-variable">$scheme</span>)) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Zend_Uri_Exception</span>(<span class="hljs-string">&#x27;Illegal scheme&#x27;</span>);
+        }
+
+        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-keyword">var</span> = <span class="hljs-number">0</span> - <span class="hljs-built_in">self</span>::<span class="hljs-variable">$st</span>;
+        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-keyword">list</span> = <span class="hljs-keyword">list</span>(<span class="hljs-title function_ invoke__">Array</span>(<span class="hljs-string">&quot;1&quot;</span>=&gt; <span class="hljs-number">2</span>, <span class="hljs-number">2</span>=&gt;<span class="hljs-built_in">self</span>::<span class="hljs-variable constant_">ME</span>, <span class="hljs-number">3</span> =&gt; /Location/Web/URI::<span class="hljs-variable language_">class</span>));
+
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;uri&#x27;</span>   =&gt; <span class="hljs-variable">$uri</span>,
+            <span class="hljs-string">&#x27;value&#x27;</span> =&gt; <span class="hljs-literal">null</span>,
+        ];
+    }
+}
+
+<span class="hljs-keyword">echo</span> URI::<span class="hljs-variable constant_">ME</span> . URI::<span class="hljs-variable">$st1</span>;
+
+<span class="hljs-title function_ invoke__">__halt_compiler</span> () ; datahere
+datahere
+datahere */
+datahere
+</code></pre><hr line-start="447" line-end="447">
+<h1 style="position: relative;" line-start="449" line-end="449"><span style="position: absolute; top: -50px;" id="tables"></span>Tables<a class="anchor octicon-link" href="#tables"></a></h1>
+<pre style="position: relative;" line-start="451" line-end="493"><code class="hljs language-plaintext">Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don&#x27;t need to make the
+raw Markdown line up prettily. You can also use inline Markdown.
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | renders | **nicely**
+1 | 2 | 3
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+| Command | Description |
+| --- | --- |
+| git status | List all new or modified files |
+| git diff | Show file differences that haven&#x27;t been staged |
+
+| Command | Description |
+| --- | --- |
+| git status | List all *new or modified* files |
+| git diff | Show file differences that **haven&#x27;t been** staged |
+
+| Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+
+| Name     | Character |
+| ---      | ---       |
+| Backtick | &#x27;         |
+| Pipe     | |        |
+</code></pre><p line-start="495" line-end="495">Colons can be used to align columns.</p>
+<table>
+<thead>
+<tr line-start="497" line-end="497">
+<th>Tables</th>
+<th align="center">Are</th>
+<th align="right">Cool</th>
+</tr>
+</thead>
+<tbody><tr line-start="499" line-end="499">
+<td>col 3 is</td>
+<td align="center">right-aligned</td>
+<td align="right">$1600</td>
+</tr>
+<tr line-start="500" line-end="500">
+<td>col 2 is</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
+</tr>
+<tr line-start="501" line-end="501">
+<td>zebra stripes</td>
+<td align="center">are neat</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<p line-start="503" line-end="505">There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don&#39;t need to make the
+raw Markdown line up prettily. You can also use inline Markdown.</p>
+<table>
+<thead>
+<tr line-start="507" line-end="507">
+<th>Markdown</th>
+<th>Less</th>
+<th>Pretty</th>
+</tr>
+</thead>
+<tbody><tr line-start="509" line-end="509">
+<td><em>Still</em></td>
+<td><code>renders</code></td>
+<td><strong>nicely</strong></td>
+</tr>
+<tr line-start="510" line-end="510">
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr line-start="512" line-end="512">
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr line-start="514" line-end="514">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr line-start="515" line-end="515">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr line-start="517" line-end="517">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr line-start="519" line-end="519">
+<td>git status</td>
+<td>List all new or modified files</td>
+</tr>
+<tr line-start="520" line-end="520">
+<td>git diff</td>
+<td>Show file differences that haven&#39;t been staged</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr line-start="522" line-end="522">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr line-start="524" line-end="524">
+<td><code>git status</code></td>
+<td>List all <em>new or modified</em> files</td>
+</tr>
+<tr line-start="525" line-end="525">
+<td><code>git diff</code></td>
+<td>Show file differences that <strong>haven&#39;t been</strong> staged</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr line-start="527" line-end="527">
+<th align="left">Left-aligned</th>
+<th align="center">Center-aligned</th>
+<th align="right">Right-aligned</th>
+</tr>
+</thead>
+<tbody><tr line-start="529" line-end="529">
+<td align="left">git status</td>
+<td align="center">git status</td>
+<td align="right">git status</td>
+</tr>
+<tr line-start="530" line-end="530">
+<td align="left">git diff</td>
+<td align="center">git diff</td>
+<td align="right">git diff</td>
+</tr>
+</tbody></table>
+<p line-start="537" line-end="540">| Name     | Character |
+| -------- | --------- | --- |
+| Backtick | &#39;         |
+| Pipe     |           |     |</p>
+<hr line-start="542" line-end="542">
+<h1 style="position: relative;" line-start="544" line-end="544"><span style="position: absolute; top: -50px;" id="blockquotes"></span>Blockquotes<a class="anchor octicon-link" href="#blockquotes"></a></h1>
+<pre style="position: relative;" line-start="546" line-end="557"><code class="hljs language-plaintext">&gt; Blockquotes are very handy in email to emulate reply text.
+&gt; This line is part of the same quote.
+
+Quote break.
+
+&gt; This is a very long line that will still be quoted properly when it wraps. Oh boy let&#x27;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
+
+&gt; Blockquotes can also be nested...
+&gt;&gt; ...by using additional greater-than signs right next to each other...
+&gt; &gt; &gt; ...or with spaces between arrows.
+</code></pre><blockquote>
+<p line-start="559" line-end="560">Blockquotes are very handy in email to emulate reply text.
+This line is part of the same quote.</p>
+</blockquote>
+<p line-start="562" line-end="562">Quote break.</p>
+<blockquote>
+<p line-start="564" line-end="564">This is a very long line that will still be quoted properly when it wraps. Oh boy let&#39;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
+</blockquote>
+<blockquote>
+<p line-start="566" line-end="566">Blockquotes can also be nested...</p>
+<blockquote>
+<p line-start="568" line-end="568">...by using additional greater-than signs right next to each other...</p>
+<blockquote>
+<p line-start="570" line-end="570">...or with spaces between arrows.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr line-start="574" line-end="574">
+<h1 style="position: relative;" line-start="576" line-end="576"><span style="position: absolute; top: -50px;" id="inline-html"></span>Inline HTML<a class="anchor octicon-link" href="#inline-html"></a></h1>
+<pre style="position: relative;" line-start="578" line-end="586"><code class="hljs language-plaintext">&lt;dl&gt;
+  &lt;dt&gt;Definition list&lt;/dt&gt;
+  &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;
+
+  &lt;dt&gt;Markdown in HTML&lt;/dt&gt;
+  &lt;dd&gt;Does *not* work **very** well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre><dl line-start="588" line-end="594">
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt line-start="592" line-end="594">Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
+<hr line-start="596" line-end="596">
+<h1 style="position: relative;" line-start="598" line-end="598"><span style="position: absolute; top: -50px;" id="horizontal-rules"></span>Horizontal Rules<a class="anchor octicon-link" href="#horizontal-rules"></a></h1>
+<pre style="position: relative;" line-start="600" line-end="614"><code class="hljs language-plaintext">Three or more...
+
+---
+
+Hyphens
+
+***
+
+Asterisks
+
+___
+
+Underscores
+</code></pre><p line-start="616" line-end="616">Three or more...</p>
+<hr line-start="618" line-end="618">
+<p line-start="620" line-end="620">Hyphens</p>
+<hr line-start="622" line-end="622">
+<p line-start="624" line-end="624">Asterisks</p>
+<hr line-start="626" line-end="626">
+<p line-start="628" line-end="628">Underscores</p>
+<hr line-start="630" line-end="630">
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="footnote-first" line-start="318" line-end="320">
+<p>Footnote <strong>can have markup</strong></p>
+<p>and multiple paragraphs.<a href="#footnote-ref-first" data-footnote-backref aria-label="Back to reference first"> ↩</a></p>
+</li>
+<li id="footnote-second" line-start="322" line-end="322">
+<p>Footnote text.<a href="#footnote-ref-second" data-footnote-backref aria-label="Back to reference second"> ↩</a></p>
+</li>
+
+</ol>
+</section>
+"
+,
+  "javascript": 
+"
+    /** code copy button */
+    document.querySelectorAll("pre").forEach((pre) => {
+        const firstElement = pre.firstElementChild;
+        if (!firstElement || firstElement.tagName !== "CODE") return;
+
+        const copyButton = document.createElement("button");
+
+        const innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="copy-base"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="copy-success"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        copyButton.innerHTML = innerHTML;
+        copyButton.className = "copy-button";
+
+        pre.appendChild(copyButton);
+        copyButton.addEventListener("click", () => {
+            if (!pre.firstChild?.textContent) {
+                return;
+            }
+
+            navigator.clipboard
+                .writeText(pre.firstChild.textContent)
+                .then(() => {
+                    copyButton.classList.add("success");
+                    setTimeout(() => {
+                        copyButton.classList.remove("success");
+                    }, 1000);
+                })
+                .catch(() => {
+                    //
+                });
+        });
+    });
+"
+,
+}
+`;
