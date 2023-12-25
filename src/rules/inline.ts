@@ -18,7 +18,6 @@ type InlineRuleNames =
     | "anyPunctuation"
     | "punctuation"
     | "blockSkip"
-    | "escapes"
     | "footnoteRef"
     | "backpedal";
 
@@ -63,10 +62,6 @@ const inline_emStrong = {
 };
 
 const inline_anyPunctuation = edit(/\\[punct]/g, "gu")
-    .replace(/punct/g, punctuation)
-    .getRegex();
-
-const inline_escapes = edit(/\\([punct])/g, "gu")
     .replace(/punct/g, punctuation)
     .getRegex();
 
@@ -142,7 +137,6 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
     text: inline_text,
     punctuation: inline_punctuation,
     blockSkip: inline_blockSkip,
-    escapes: inline_escapes,
     backpedal: inline_backpedal,
     footnoteRef: /^\[\^([^\]\n]+)\]/,
 };
