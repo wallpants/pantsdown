@@ -145,5 +145,5 @@ console.log(html);
   <img width="60px" height="60px" src="https://marked.js.org/img/logo-black.svg" align="right" />
 </a>
 
-Pantsdown is based on [Marked](https://github.com/markedjs/marked).
-Without their hard work, Pantsdown would not exist.
+Pantsdown is based on [Marked](https://github.com/markedjs/marked). Without their hard work,
+Pantsdown would not exist.
