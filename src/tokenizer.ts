@@ -60,7 +60,7 @@ export class Tokenizer {
         return {
             type: "code",
             raw,
-            lang: cap[2] ? cap[2].trim().replace(inline.escapes, "$1") : cap[2],
+            lang: cap[2] ? cap[2].trim().replace(inline.anyPunctuation, "$1") : cap[2],
             text,
             sourceMap: this.lexer.getSourceMap(raw),
         };
@@ -461,9 +461,11 @@ export class Tokenizer {
         if (!cap) return undefined;
 
         const tag = cap[1]!.toLowerCase().replace(/\s+/g, " ");
-        const href = cap[2] ? cap[2].replace(/^<(.*)>$/, "$1").replace(inline.escapes, "$1") : "";
+        const href = cap[2]
+            ? cap[2].replace(/^<(.*)>$/, "$1").replace(inline.anyPunctuation, "$1")
+            : "";
         const title = cap[3]
-            ? cap[3].substring(1, cap[3].length - 1).replace(inline.escapes, "$1")
+            ? cap[3].substring(1, cap[3].length - 1).replace(inline.anyPunctuation, "$1")
             : "";
         return {
             type: "def",
@@ -667,8 +669,8 @@ export class Tokenizer {
         return outputLink(
             cap,
             {
-                href: href ? href.replace(inline.escapes, "$1") : href,
-                title: title ? title.replace(inline.escapes, "$1") : title,
+                href: href ? href.replace(inline.anyPunctuation, "$1") : href,
+                title: title ? title.replace(inline.anyPunctuation, "$1") : title,
             },
             cap[0],
             this.lexer,
