@@ -109,13 +109,13 @@ export class Parser {
                                     item.tokens.length > 0 &&
                                     item.tokens[0]!.type === "paragraph"
                                 ) {
-                                    item.tokens[0]!.text = checkbox + " " + item.tokens[0]!.text;
+                                    item.tokens[0].text = checkbox + " " + item.tokens[0].text;
                                     if (
-                                        item.tokens[0]!.tokens.length > 0 &&
-                                        item.tokens[0]!.tokens[0]!.type === "text"
+                                        item.tokens[0].tokens.length > 0 &&
+                                        item.tokens[0].tokens[0]!.type === "text"
                                     ) {
-                                        item.tokens[0]!.tokens[0]!.text =
-                                            checkbox + " " + item.tokens[0]!.tokens[0]!.text;
+                                        item.tokens[0].tokens[0]!.text =
+                                            checkbox + " " + item.tokens[0].tokens[0]!.text;
                                     }
                                 } else {
                                     item.tokens.unshift({

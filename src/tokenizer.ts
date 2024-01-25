@@ -757,7 +757,7 @@ export class Tokenizer {
                 // Remove extra characters. *a*** -> *a*
                 rLength = Math.min(rLength, rLength + delimTotal + midDelimTotal);
                 // char length can be >1 for unicode characters;
-                const lastCharLength = [...match[0]]![0]!.length;
+                const lastCharLength = [...match[0]][0]!.length;
                 const raw = src.slice(0, lLength + match.index + lastCharLength + rLength);
 
                 // Create `em` if smallest delimiter has odd char count. *a***
