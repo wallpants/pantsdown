@@ -1,10 +1,10 @@
 {
   "name": "pantsdown",
-  "version": "0.0.0",
   "author": "wallpants",
-  "description": "Markdown to 'GitHub HTML' parser",
-  "license": "MIT",
   "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Markdown to 'GitHub HTML' parser",
   "repository": {
     "type": "git",
     "url": "git://github.com/wallpants/pantsdown.git"
