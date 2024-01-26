@@ -21,19 +21,29 @@
       "import": "./src/index.ts"
     }
   },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
   "release": {
     "branches": [
       "main"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "body-max-line-length": [
+        0
+      ]
+    }
+  },
   "scripts": {
     "commit": "cz",
-    "format": "prettier **/*.{md,ts,css} -w",
+    "format": "prettier **/*.{md,ts,css,yml} -w",
     "lint": "tsc && eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "docs:build": "bun run docs/build.ts"
   },
@@ -42,12 +52,14 @@
     "highlight.js": "^11.9.0"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^18.4.4",
+    "@commitlint/cz-commitlint": "^18.4.4",
     "@happy-dom/global-registrator": "^13.3.1",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.0",
     "bun-types": "latest",
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
+    "commitlint": "^18.4.4",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "prettier-plugin-organize-imports": "^3.2.4",
