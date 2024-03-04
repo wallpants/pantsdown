@@ -28,7 +28,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "@commitlint/cz-commitlint"
+      "path": "./cz-adapter.cjs"
     }
   },
   "commitlint": {
