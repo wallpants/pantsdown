@@ -29,7 +29,7 @@ export interface Tokens extends Record<string, BaseToken> {
         text: string;
         icon: string;
         tokens: Token[];
-        variant: "Note" | "Important" | "Warning";
+        variant: "Note" | "Important" | "Warning" | "Tip" | "Caution";
     };
     Heading: {
         type: "heading";
