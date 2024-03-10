@@ -155,6 +155,18 @@
     color: var(--color-attention-fg);
 }
 
+.pantsdown .markdown-alert-tip {
+    border-color: var(--color-accent-fg);
+}
+.pantsdown .markdown-alert-tip span {
+    color: var(--color-accent-fg);
+}
+.pantsdown .markdown-alert-caution {
+    border-color: var(--color-danger-fg);
+}
+.pantsdown .markdown-alert-caution span {
+    color: var(--color-danger-fg);
+}
 .pantsdown .copy-button {
     position: absolute;
     left: calc(100% - 36px);
