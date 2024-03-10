@@ -156,10 +156,10 @@
 }
 
 .pantsdown .markdown-alert-tip {
-    border-color: var(--color-accent-fg);
+    border-color: var(--color-success-fg);
 }
 .pantsdown .markdown-alert-tip span {
-    color: var(--color-accent-fg);
+    color: var(--color-success-fg);
 }
 .pantsdown .markdown-alert-caution {
     border-color: var(--color-danger-fg);
