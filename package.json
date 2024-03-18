@@ -57,7 +57,7 @@
     "@happy-dom/global-registrator": "^13.7.3",
     "@types/bun": "^1.0.8",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
+    "@typescript-eslint/parser": "^7.2.0",
     "commitizen": "^4.3.0",
     "commitlint": "^19.0.3",
     "eslint": "^8.57.0",
