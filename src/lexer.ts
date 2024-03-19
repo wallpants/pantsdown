@@ -71,7 +71,7 @@ export class Lexer {
      * Lexing
      */
     blockTokens(src: string, tokens: Token[]): Token[] {
-        src = src.replace(/^( *)(\t+)/gm, (_, leading, tabs: string) => {
+        src = src.replace(/^( *)(\t+)/gm, (_, leading: string, tabs: string) => {
             return leading + "    ".repeat(tabs.length);
         });
 
@@ -228,7 +228,7 @@ export class Lexer {
             }
 
             if (src) {
-                const errMsg = "Infinite loop on byte: " + src.charCodeAt(0);
+                const errMsg = "Infinite loop on byte: " + String(src.charCodeAt(0));
                 throw new Error(errMsg);
             }
         }
@@ -401,7 +401,7 @@ export class Lexer {
             }
 
             if (src) {
-                const errMsg = "Infinite loop on byte: " + src.charCodeAt(0);
+                const errMsg = "Infinite loop on byte: " + String(src.charCodeAt(0));
                 throw new Error(errMsg);
             }
         }
