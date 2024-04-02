@@ -49,7 +49,7 @@ const block_list = edit(/^( {0,3}bull)([ \t][^\n]+?)?(?:\n|$)/)
     .replace("def", "\\n+(?=" + block_def.source + ")")
     .getRegex();
 
-export const comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/;
+export const comment = /<!--(?:-?>|[\s\S]*?(?:-->|$))/;
 
 const block_html = edit(
     "^ {0,3}(?:" + // optional indentation
@@ -72,8 +72,16 @@ const block_html = edit(
     )
     .getRegex();
 
-const block_lheading = edit(/^(?!bull )((?:.|\n(?!\s*?\n|bull ))+?)\n {0,3}(=+|-+) *(?:\n+|$)/)
+// const block_lheading = edit(/^(?!bull )((?:.|\n(?!\s*?\n|bull ))+?)\n {0,3}(=+|-+) *(?:\n+|$)/)
+const block_lheading = edit(
+    /^(?!bull |blockCode|fences|blockquote|heading|html)((?:.|\n(?!\s*?\n|bull |blockCode|fences|blockquote|heading|html))+?)\n {0,3}(=+|-+) *(?:\n+|$)/,
+)
     .replace(/bull/g, block_bullet) // lists can interrupt
+    .replace(/blockCode/g, / {4}/) // indented code blocks can interrupt
+    .replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/) // fenced code blocks can interrupt
+    .replace(/blockquote/g, / {0,3}>/) // blockquote can interrupt
+    .replace(/heading/g, / {0,3}#{1,6}/) // ATX heading can interrupt
+    .replace(/html/g, / {0,3}<[^\n>]+>\n/) // block html can interrupt
     .getRegex();
 
 const block_hr = /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/;
