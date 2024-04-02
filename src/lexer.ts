@@ -36,10 +36,10 @@ export class Lexer {
 
         this.blockTokens(src, this.tokens);
 
-        let next;
-        while ((next = this.inlineQueue.shift())) {
+        for (const next of this.inlineQueue) {
             this.inlineTokens(next.src, next.tokens);
         }
+        this.inlineQueue = [];
 
         const footnotesToken: Tokens["Footnotes"] = {
             type: "footnotes",
