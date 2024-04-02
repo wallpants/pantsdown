@@ -22,7 +22,7 @@ type InlineRuleNames =
     | "backpedal";
 
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
-const punctuation = "\\p{P}$+<=>`^|~";
+const punctuation = "\\p{P}\\p{S}";
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
 const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
