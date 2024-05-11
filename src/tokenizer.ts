@@ -105,7 +105,9 @@ export class Tokenizer {
         const cap = block.blockquote.exec(src);
         if (!cap) return undefined;
 
-        let text = rtrim(cap[0].replace(/^ *>[ \t]?/gm, ""), "\n");
+        // precede setext continuation with 4 spaces so it isn't a setext
+        let text = cap[0].replace(/\n {0,3}((?:=+|-+) *)(?=\n|$)/g, "\n    $1");
+        text = rtrim(text.replace(/^ *>[ \t]?/gm, ""), "\n");
         const top = this.lexer.state.top;
         this.lexer.state.top = true;
         const tokens = this.lexer.blockTokens(text, []);
