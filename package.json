@@ -54,10 +54,10 @@
     "highlight.js": "^11.9.0"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@commitlint/cz-commitlint": "^19.2.0",
-    "@happy-dom/global-registrator": "^14.7.1",
-    "@types/bun": "^1.0.12",
+    "@happy-dom/global-registrator": "^14.10.1",
+    "@types/bun": "^1.1.1",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "commitizen": "^4.3.0",
@@ -65,7 +65,7 @@
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "semantic-release": "^23.0.6",
+    "semantic-release": "^23.1.1",
     "typescript": "5.4.5"
   }
 }
