@@ -24,7 +24,7 @@ export class Renderer {
     }
 
     code(code: string, infostring: string | undefined, sourceMap: SourceMap): string {
-        const lang = (infostring ?? "").match(/^\S*/)?.[0];
+        const lang = /^\S*/.exec(infostring ?? "")?.[0];
         code = code.replace(/\n$/, "") + "\n";
 
         const attrs: HTMLAttrs = [];
@@ -52,7 +52,7 @@ export class Renderer {
         return `<blockquote>\n${quote}</blockquote>\n`;
     }
 
-    html(html: string, _block: boolean, sourceMap?: SourceMap | undefined): string {
+    html(html: string, _block: boolean, sourceMap?: SourceMap): string {
         const result = fixHtmlLocalImageHref(
             html,
             this.pantsdown.config.renderer.relativeImageUrlPrefix,

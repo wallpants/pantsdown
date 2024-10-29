@@ -709,7 +709,7 @@ export class Tokenizer {
         if (!match) return;
 
         // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
-        if (match[3] && prevChar.match(/[\p{L}\p{N}]/u)) return;
+        if (match[3] && /[\p{L}\p{N}]/u.exec(prevChar)) return;
 
         // eslint-disable-next-line
         const nextChar = match[1] || match[2] || "";
@@ -738,12 +738,10 @@ export class Tokenizer {
 
                 rLength = [...rDelim].length;
 
-                // eslint-disable-next-line
                 if (match[3] || match[4]) {
                     // found another Left Delim
                     delimTotal += rLength;
                     continue;
-                    // eslint-disable-next-line
                 } else if (match[5] || match[6]) {
                     // either Left or Right Delim
                     if (lLength % 3 && !((lLength + rLength) % 3)) {
