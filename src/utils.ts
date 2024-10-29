@@ -57,11 +57,11 @@ export function injectHtmlAttributes(html: string, attrs: HTMLAttrs, sourceMap?:
     if (!attrs.length) return html;
 
     const closingBracket = /[a-zA-Z0-9\/"]>/;
-    const match = html.match(closingBracket);
+    const match = closingBracket.exec(html);
     if (match) {
         let htmlAttrs = "";
         attrs.forEach((atrr) => (htmlAttrs += ` ${atrr[0]}="${atrr[1]}"`));
-        const sliceIdx = match.index! + (match[0] === "/>" ? -1 : 1);
+        const sliceIdx = match.index + (match[0] === "/>" ? -1 : 1);
         return html.slice(0, sliceIdx) + htmlAttrs + html.slice(sliceIdx);
     }
     return html;
@@ -73,7 +73,7 @@ export function fixHtmlLocalImageHref(
 ): string {
     return relativeImageUrlPrefix
         ? html.replace(
-              /<img\s+([^>]*?)src\s*=\s*(["'])([^\2>]+?)\2([^>]*)>/gm,
+              /<img\s+([^>]*?)src\s*=\s*(["'])([^>'"]+?)\2([^>]*)>/gm,
               (_m, g1, _g2, g3: string, g4) => {
                   const href = fixLocalImageHref(g3, relativeImageUrlPrefix);
                   return `<img ${g1}src="${href}"${g4}>`;
@@ -106,7 +106,7 @@ export function fixLocalImageHref(
     try {
         const temp = new URL(href, dummyBaseUrl).href;
         return temp.slice(dummyUrlLength);
-    } catch (e) {
+    } catch (_) {
         return href;
     }
 }
@@ -114,7 +114,7 @@ export function fixLocalImageHref(
 export function cleanUrl(href: string) {
     try {
         href = encodeURI(href).replace(/%25/g, "%");
-    } catch (e) {
+    } catch (_) {
         return null;
     }
     return href;
@@ -249,7 +249,7 @@ export function outputLink(
 }
 
 export function indentCodeCompensation(raw: string, text: string) {
-    const matchIndentToCode = raw.match(/^(\s+)(?:```)/);
+    const matchIndentToCode = /^(\s+)(?:```)/.exec(raw);
 
     if (matchIndentToCode === null) {
         return text;
@@ -260,7 +260,7 @@ export function indentCodeCompensation(raw: string, text: string) {
     return text
         .split("\n")
         .map((node) => {
-            const matchIndentInNode = node.match(/^\s+/);
+            const matchIndentInNode = /^\s+/.exec(node);
             if (matchIndentInNode === null) {
                 return node;
             }
