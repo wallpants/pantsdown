@@ -51,21 +51,21 @@
   },
   "dependencies": {
     "github-slugger": "^2.0.0",
-    "highlight.js": "^11.10.0"
+    "highlight.js": "^11.11.1"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.5.0",
-    "@commitlint/cz-commitlint": "^19.5.0",
-    "@happy-dom/global-registrator": "^15.7.4",
-    "@types/bun": "^1.1.12",
-    "@typescript-eslint/eslint-plugin": "^8.12.2",
-    "@typescript-eslint/parser": "^8.12.2",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/cz-commitlint": "^19.6.1",
+    "@happy-dom/global-registrator": "^16.3.0",
+    "@types/bun": "^1.1.14",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
+    "@typescript-eslint/parser": "^8.19.0",
     "commitizen": "^4.3.1",
-    "commitlint": "^19.5.0",
+    "commitlint": "^19.6.1",
     "eslint": "^8.57.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.2",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "semantic-release": "^24.2.0",
+    "semantic-release": "^24.2.1",
     "typescript": "5.6.3"
   }
 }
