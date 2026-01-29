@@ -186,6 +186,17 @@ export interface Tokens extends Record<string, BaseToken> {
         raw: string;
         items: Tokens["Footnote"][];
     };
+    LatexBlock: {
+        type: "latexBlock";
+        raw: string;
+        text: string;
+        sourceMap: SourceMap;
+    };
+    LatexInline: {
+        type: "latexInline";
+        raw: string;
+        text: string;
+    };
 }
 
 export type Token =
@@ -214,7 +225,9 @@ export type Token =
     | Tokens["Alert"]
     | Tokens["Footnote"]
     | Tokens["FootnoteRef"]
-    | Tokens["Footnotes"];
+    | Tokens["Footnotes"]
+    | Tokens["LatexBlock"]
+    | Tokens["LatexInline"];
 
 export type Links = Record<string, { href: string; title: string }>;
 

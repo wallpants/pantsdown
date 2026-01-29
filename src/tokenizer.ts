@@ -716,6 +716,7 @@ export class Tokenizer {
 
         if (!nextChar || !prevChar || inline.punctuation.exec(prevChar)) {
             // unicode Regex counts emoji as 1 char; spread into array for proper count (used multiple times below)
+            // eslint-disable-next-line @typescript-eslint/no-misused-spread
             const lLength = [...match[0]].length - 1;
             let rDelim,
                 rLength,
@@ -736,6 +737,7 @@ export class Tokenizer {
 
                 if (!rDelim) continue; // skip single * in __abc*abc__
 
+                // eslint-disable-next-line @typescript-eslint/no-misused-spread
                 rLength = [...rDelim].length;
 
                 if (match[3] || match[4]) {
@@ -757,6 +759,7 @@ export class Tokenizer {
                 // Remove extra characters. *a*** -> *a*
                 rLength = Math.min(rLength, rLength + delimTotal + midDelimTotal);
                 // char length can be >1 for unicode characters;
+                // eslint-disable-next-line @typescript-eslint/no-misused-spread
                 const lastCharLength = [...match[0]][0]!.length;
                 const raw = src.slice(0, lLength + match.index + lastCharLength + rLength);
 
@@ -916,6 +919,35 @@ export class Tokenizer {
         }
         return {
             type: "text",
+            raw: cap[0],
+            text,
+        };
+    }
+
+    latexBlock(src: string): Tokens["LatexBlock"] | undefined {
+        const cap = block.latexBlock.exec(src);
+        if (!cap) return undefined;
+
+        // cap[1] is from $$...$$ syntax, cap[2] is from \[...\] syntax
+        const text = cap[1] ?? cap[2] ?? "";
+
+        return {
+            type: "latexBlock",
+            raw: cap[0],
+            text: text.trim(),
+            sourceMap: this.lexer.getSourceMap(cap[0]),
+        };
+    }
+
+    latexInline(src: string): Tokens["LatexInline"] | undefined {
+        const cap = inline.latexInline.exec(src);
+        if (!cap) return undefined;
+
+        // cap[1] is from $...$ syntax, cap[2] is from \(...\) syntax
+        const text = cap[1] ?? cap[2] ?? "";
+
+        return {
+            type: "latexInline",
             raw: cap[0],
             text,
         };

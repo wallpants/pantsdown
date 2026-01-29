@@ -619,3 +619,44 @@ Asterisks
 Underscores
 
 ---
+
+# LaTeX / Math
+
+## Inline LaTeX
+
+Inline math using dollar signs: $E = mc^2$ and $a^2 + b^2 = c^2$.
+
+Inline math using parentheses: \(F = ma\) and \(\sum\_{i=1}^n i = \frac{n(n+1)}{2}\).
+
+Mixed with text: The quadratic formula is $x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$ which solves $ax^2 + bx + c = 0$.
+
+## Block LaTeX
+
+Block math using double dollar signs:
+
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+Block math using square brackets:
+
+\[
+\nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}
+\]
+
+A more complex equation:
+
+$$
+\begin{aligned}
+\nabla \cdot \vec{E} &= \frac{\rho}{\epsilon_0} \\
+\nabla \cdot \vec{B} &= 0
+\end{aligned}
+$$
+
+## Code vs LaTeX
+
+Code spans should not be affected: `$not latex$` and `\(also not latex\)`.
+
+A regular dollar amount like $100 should not be parsed as LaTeX because there's no closing $.
+
+---
