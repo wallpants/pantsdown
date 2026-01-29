@@ -97,6 +97,47 @@ Here's a simple footnote,[^1] and here's a longer one.[^bignote]
 
 ---
 
+### LaTeX / Math
+
+```
+Inline math: $E = mc^2$ and $a^2 + b^2 = c^2$
+```
+
+Inline math: $E = mc^2$ and $a^2 + b^2 = c^2$
+
+Block math with `$$`:
+
+```
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+```
+
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+Math code block:
+
+````
+```math
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+```
+````
+
+```math
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+```
+
+> [!NOTE]
+> Consumers must include KaTeX CSS for proper rendering:
+>
+> ```html
+> <link rel="stylesheet" href="katex/dist/katex.min.css" />
+> ```
+
+---
+
 ### Mermaid
 
 Take a look at [how Pantsdown's demo is built](https://github.com/wallpants/pantsdown/blob/main/docs/build.ts)
