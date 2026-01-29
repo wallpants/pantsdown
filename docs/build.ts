@@ -9,8 +9,11 @@ const readme = await Bun.file(readmePath).text();
 const featuresPath = import.meta.dir + "/features.md";
 const features = await Bun.file(featuresPath).text();
 
-const cssPath = import.meta.dir + "/../src/css/styles.css";
-const css = await Bun.file(cssPath).text();
+const baseCssPath = import.meta.dir + "/../src/css/styles.css";
+const baseCss = await Bun.file(baseCssPath).text();
+
+const katexCssPath = import.meta.dir + "/../node_modules/katex/dist/katex.min.css";
+const katexCss = await Bun.file(katexCssPath).text();
 
 const pantsdown = new Pantsdown();
 const { html, javascript } = pantsdown.parse(readme + features);
@@ -20,7 +23,8 @@ const index = (theme: "dark" | "light") => `<!doctype html>
     <head>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
-        <style>${css}</style>
+        <style>${baseCss}</style>
+        <style>${katexCss}</style>
         <script type="module">${javascript}</script>
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
