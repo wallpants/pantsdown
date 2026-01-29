@@ -26,17 +26,23 @@ export class Renderer {
 
     code(code: string, infostring: string | undefined, sourceMap: SourceMap): string {
         const lang = /^\S*/.exec(infostring ?? "")?.[0];
-        code = code.replace(/\n$/, "") + "\n";
+        code = code.replace(/\n$/, "");
 
         const attrs: HTMLAttrs = [];
 
         if (lang === "mermaid") {
             attrs.push(["class", "mermaid-container mermaid"]);
-        } else {
-            const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
-            code = hljs.highlight(code, { language }).value;
-            code = `<code class="hljs language-${escape(language)}">${code}</code>`;
+            const result = `<pre style="position: relative;">` + code + "\n" + `</pre>`;
+            return injectHtmlAttributes(result, attrs, sourceMap);
         }
+
+        if (lang === "math") {
+            return this.latexBlock(code, sourceMap);
+        }
+
+        const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
+        code = hljs.highlight(code + "\n", { language }).value;
+        code = `<code class="hljs language-${escape(language)}">${code}</code>`;
 
         const result = `<pre style="position: relative;">` + code + `</pre>`;
         return injectHtmlAttributes(result, attrs, sourceMap);
