@@ -16,7 +16,8 @@ type BlockRuleNames =
     | "bullet"
     | "listItemStart"
     | "footnote"
-    | "paragraph";
+    | "paragraph"
+    | "latexBlock";
 
 export const label = /(?!\s*\])(?:\\.|[^\[\]\\])+/;
 
@@ -136,4 +137,5 @@ export const block: Record<BlockRuleNames, RegExp> = {
     paragraph: block_paragraph,
     footnote: /^\[\^([^\]\n]+)\]:(?:[ \t]+|[\n]*?|$)([^\n]*?(?:\n|$)(?:[\n]*?[ ]{4,}[^\n]*)*)/,
     text: /^[^\n]+/,
+    latexBlock: /^(?:\$\$([^$]*(?:\$(?!\$)[^$]*)*)\$\$|\\\[([\s\S]*?)\\\])/,
 };

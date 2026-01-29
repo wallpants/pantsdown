@@ -1,5 +1,6 @@
 import GithubSlugger from "github-slugger";
 import hljs from "highlight.js";
+import katex from "katex";
 import { type Pantsdown } from "./pantsdown.ts";
 import { inline } from "./rules/inline.ts";
 import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
@@ -211,5 +212,41 @@ export class Renderer {
 
     text(text: string): string {
         return text;
+    }
+
+    latexBlock(latex: string, sourceMap: SourceMap): string {
+        try {
+            const rendered = katex.renderToString(latex, {
+                displayMode: true,
+                throwOnError: false,
+                output: "html",
+                trust: false,
+            });
+            return injectHtmlAttributes(
+                `<div class="katex-block">${rendered}</div>\n`,
+                [],
+                sourceMap,
+            );
+        } catch {
+            return injectHtmlAttributes(
+                `<div class="katex-block katex-error"><code>${escape(latex)}</code></div>\n`,
+                [],
+                sourceMap,
+            );
+        }
+    }
+
+    latexInline(latex: string): string {
+        try {
+            const rendered = katex.renderToString(latex, {
+                displayMode: false,
+                throwOnError: false,
+                output: "html",
+                trust: false,
+            });
+            return `<span class="katex-inline">${rendered}</span>`;
+        } catch {
+            return `<span class="katex-inline katex-error"><code>${escape(latex)}</code></span>`;
+        }
     }
 }

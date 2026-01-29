@@ -19,7 +19,8 @@ type InlineRuleNames =
     | "punctuation"
     | "blockSkip"
     | "footnoteRef"
-    | "backpedal";
+    | "backpedal"
+    | "latexInline";
 
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
 const punctuation = "\\p{P}\\p{S}";
@@ -112,7 +113,7 @@ const inline_backpedal =
 const inline_del = /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/;
 
 const inline_text =
-    /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/;
+    /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/;
 
 const inline_url = edit(/^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/, "i")
     .replace("email", extended_email)
@@ -139,4 +140,5 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
     blockSkip: inline_blockSkip,
     backpedal: inline_backpedal,
     footnoteRef: /^\[\^([^\]\n]+)\]/,
+    latexInline: /^(?:\$(?!\$)([^\s$](?:[^$\n]*[^\s$])?)\$(?!\$)|\\\((.+?)\\\))/,
 };

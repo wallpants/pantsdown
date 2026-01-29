@@ -184,6 +184,10 @@ export class Parser {
                     out += top ? this.renderer.paragraph(body, textToken.sourceMap) : body;
                     continue;
                 }
+                case "latexBlock": {
+                    out += this.renderer.latexBlock(token.text, token.sourceMap);
+                    continue;
+                }
 
                 default: {
                     const errMsg = 'Token with "' + token.type + '" type was not found.';
@@ -251,6 +255,10 @@ export class Parser {
                 }
                 case "text": {
                     out += this.renderer.text(token.text);
+                    break;
+                }
+                case "latexInline": {
+                    out += this.renderer.latexInline(token.text);
                     break;
                 }
                 default: {

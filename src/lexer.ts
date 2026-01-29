@@ -111,6 +111,13 @@ export class Lexer {
                 continue;
             }
 
+            // latexBlock
+            if ((token = this.tokenizer.latexBlock(src))) {
+                src = src.substring(token.raw.length);
+                tokens.push(token);
+                continue;
+            }
+
             // fences
             if ((token = this.tokenizer.fences(src))) {
                 src = src.substring(token.raw.length);
@@ -169,8 +176,8 @@ export class Lexer {
                     lastToken.text += "\n" + token.raw;
                     const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                     if (lastInline) lastInline.src = lastToken.text;
-                } else if (!this.links[token.tag]) {
-                    this.links[token.tag] = {
+                } else {
+                    this.links[token.tag] ??= {
                         href: token.href,
                         title: token.title,
                     };
@@ -215,7 +222,7 @@ export class Lexer {
             if ((token = this.tokenizer.text(src))) {
                 src = src.substring(token.raw.length);
                 lastToken = tokens[tokens.length - 1];
-                if (lastToken && lastToken.type === "text") {
+                if (lastToken?.type === "text") {
                     lastToken.raw += "\n" + token.raw;
                     lastToken.text += "\n" + token.text;
                     this.inlineQueue.pop();
@@ -290,6 +297,13 @@ export class Lexer {
                 prevChar = "";
             }
             keepPrevChar = false;
+
+            // latexInline (before escape to handle \(...\) syntax)
+            if ((token = this.tokenizer.latexInline(src))) {
+                src = src.substring(token.raw.length);
+                tokens.push(token);
+                continue;
+            }
 
             // escape
             if ((token = this.tokenizer.escape(src))) {
@@ -391,7 +405,7 @@ export class Lexer {
                 }
                 keepPrevChar = true;
                 lastToken = tokens[tokens.length - 1];
-                if (lastToken && lastToken.type === "text") {
+                if (lastToken?.type === "text") {
                     lastToken.raw += token.raw;
                     lastToken.text += token.text;
                 } else {
