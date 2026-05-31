@@ -64,6 +64,7 @@ All token types are defined in `src/types.ts`. The `Token` union type covers all
 ## Output
 
 `pantsdown.parse(markdown)` returns `{ html, javascript }`:
+
 - `html`: The rendered HTML string
 - `javascript`: A script for interactive features (task list checkboxes, copy buttons)
 
