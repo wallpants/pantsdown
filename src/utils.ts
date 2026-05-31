@@ -1,5 +1,5 @@
 import { type Lexer } from "./lexer.ts";
-import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
+import { PantsdownConfig, type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -67,15 +67,12 @@ export function injectHtmlAttributes(html: string, attrs: HTMLAttrs, sourceMap?:
    return html;
 }
 
-export function fixHtmlLocalImageHref(
-   html: string,
-   relativeImageUrlPrefix: string | undefined,
-): string {
-   return relativeImageUrlPrefix
+export function fixHtmlLocalImageHref(html: string, config: PantsdownConfig): string {
+   return config.renderer.relativeImageUrlPrefix
       ? html.replace(
            /<img\s+([^>]*?)src\s*=\s*(["'])([^>'"]+?)\2([^>]*)>/gm,
            (_m, g1, _g2, g3: string, g4) => {
-              const href = fixLocalImageHref(g3, relativeImageUrlPrefix);
+              const href = fixLocalImageHref(g3, config);
               return `<img ${g1}src="${href}"${g4}>`;
            },
         )
@@ -120,25 +117,27 @@ export function addGithubImageStyles(html: string): string {
    });
 }
 
-export function fixLocalImageHref(
-   href: string,
-   relativeImageUrlPrefix: string | undefined,
-): string {
-   if (!relativeImageUrlPrefix) return href;
+export function fixLocalImageHref(href: string, config: PantsdownConfig): string {
+   if (!config.renderer.relativeImageUrlPrefix) return href;
 
-   const reIsAbsolute = /^[\w+]+:\/\//;
+   // http://something
+   const refIsExternal = /^[\w+]+:\/\//;
    const dummyUrl = "http://__dummy__";
-   const dummyBaseUrl = new URL(relativeImageUrlPrefix, dummyUrl);
-   const dummyUrlLength = dummyUrl.length + (relativeImageUrlPrefix.startsWith("/") ? 0 : 1);
+   const dummyBaseUrl = new URL(config.renderer.relativeImageUrlPrefix, dummyUrl);
+   const dummyUrlLength =
+      dummyUrl.length + (config.renderer.relativeImageUrlPrefix.startsWith("/") ? 0 : 1);
 
-   if (reIsAbsolute.test(href)) {
-      // the URL is absolute, do not touch it
+   if (refIsExternal.test(href)) {
+      // the URL is external, do not touch it
       return href;
    }
 
    if (href.startsWith("/")) {
       // the URL is from root
-      return relativeImageUrlPrefix + href.slice(1);
+      return (
+         (config.renderer.absoluteImageUrlPrefix ?? config.renderer.relativeImageUrlPrefix) +
+         href.slice(1)
+      );
    }
 
    try {

@@ -7,6 +7,7 @@ import { type PantsdownConfig, type PartialPantsdownConfig } from "./types.ts";
 const defaultConfig: PantsdownConfig = {
    renderer: {
       relativeImageUrlPrefix: "",
+      absoluteImageUrlPrefix: undefined,
       detailsTagDefaultOpen: false,
    },
 };
