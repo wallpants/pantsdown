@@ -1,5 +1,5 @@
 import { type Lexer } from "./lexer.ts";
-import { PantsdownConfig, type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
+import { type PantsdownConfig, type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers

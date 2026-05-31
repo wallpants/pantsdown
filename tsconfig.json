@@ -14,8 +14,6 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-
-    // strict: https://github.com/tsconfig/bases/blob/main/bases/strictest.json
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
@@ -28,6 +26,7 @@
     "noUnusedParameters": true,
     "isolatedModules": true,
     "checkJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true
   }
 }
