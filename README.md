@@ -105,32 +105,50 @@ import { Pantsdown, type PartialPantsdownConfig } from "pantsdown";
 // This is the default config object. If you provide
 // a config object, it will be deeply merged into this.
 const config: PartialPantsdownConfig = {
-  renderer: {
-    /**
-     * Prefix to be added to relative image sources.
-     * Must start and end with "/"
-     *
-     * @example
-     * relativeImageUrlPrefix: "/__localimage__/"
-     *
-     * ![image](./wallpants-512.png)
-     * relative src is updated and results in:
-     * <img src="/__localimage__/wallpants-512.png" />
-     *
-     * ![image](https://avatars.githubusercontent.com/wallpants)
-     * absolute src remains unchanged:
-     * <img src="https://avatars.githubusercontent.com/wallpants" />
-     */
-    relativeImageUrlPrefix: "",
+   renderer: {
+      /**
+       * Prefix to be added to relative image sources.
+       * Must start and end with "/"
+       *
+       * @example
+       * relativeImageUrlPrefix: "/__localimage__/nested/directory/"
+       *
+       * ![image](./wallpants-512.png)
+       * relative src is updated and results in:
+       * <img src="/__localimage__/nested/directory/wallpants-512.png" />
+       *
+       * ![image](https://avatars.githubusercontent.com/wallpants)
+       * absolute src remains unchanged:
+       * <img src="https://avatars.githubusercontent.com/wallpants" />
+       */
+      relativeImageUrlPrefix: string;
 
-    /**
-     * Whether to render <details> html tags with attribute open=""
-     *
-     * @default
-     * false
-     */
-    detailsTagDefaultOpen: false,
-  },
+      /**
+       * Prefix to be added to absolute image sources.
+       * Must start and end with "/"
+       * Falls back to `relativeImageUrlPrefix` if not provided
+       *
+       * @example
+       * absoluteImageUrlPrefix: "/__localimage__/"
+       *
+       * ![image](/wallpants-512.png)
+       * relative src is updated and results in:
+       * <img src="/__localimage__/wallpants-512.png" />
+       *
+       * ![image](https://avatars.githubusercontent.com/wallpants)
+       * external src remains unchanged:
+       * <img src="https://avatars.githubusercontent.com/wallpants" />
+       */
+      absoluteImageUrlPrefix?: string | undefined;
+
+      /**
+       * Whether to render <details> html tags with attribute `open=""`
+       *
+       * @default
+       * false
+       */
+      detailsTagDefaultOpen: boolean;
+   };
 };
 
 const pantsdown = new Pantsdown(config);

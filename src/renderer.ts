@@ -61,10 +61,7 @@ export class Renderer {
    }
 
    html(html: string, _block: boolean, sourceMap?: SourceMap): string {
-      let result = fixHtmlLocalImageHref(
-         html,
-         this.pantsdown.config.renderer.relativeImageUrlPrefix,
-      );
+      let result = fixHtmlLocalImageHref(html, this.pantsdown.config);
       result = addGithubImageStyles(result);
 
       const attrs: HTMLAttrs = [];
@@ -190,10 +187,7 @@ export class Renderer {
          return text;
       }
       const attrs: HTMLAttrs = [
-         [
-            "src",
-            fixLocalImageHref(cleanHref, this.pantsdown.config.renderer.relativeImageUrlPrefix),
-         ],
+         ["src", fixLocalImageHref(cleanHref, this.pantsdown.config)],
          ["alt", text],
       ];
       if (title) attrs.push(["title", title]);
