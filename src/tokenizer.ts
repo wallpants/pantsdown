@@ -317,7 +317,8 @@ export class Tokenizer {
       const lastTrimmed = raw.trimEnd();
 
       if (list.items[list.items.length - 1]!.sourceMap) {
-         this.lexer.line -= raw.length - lastTrimmed.length;
+         // give back the trimmed trailing newlines; the counter tracks lines, not chars
+         this.lexer.line -= (raw.slice(lastTrimmed.length).match(/\n/g) ?? []).length;
       }
 
       list.items[list.items.length - 1]!.raw = lastTrimmed;

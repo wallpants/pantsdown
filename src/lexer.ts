@@ -31,6 +31,11 @@ export class Lexer {
       this.tokens = [];
       this.links = {};
       this.line = 1;
+      this.state = {
+         inLink: false,
+         inRawBlock: false,
+         top: true,
+      };
 
       src = src.replace(/\r\n|\r/g, "\n");
 
