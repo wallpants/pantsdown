@@ -33,7 +33,9 @@ export class Renderer {
 
       if (lang === "mermaid") {
          attrs.push(["class", "mermaid-container mermaid"]);
-         const result = `<pre style="position: relative;">` + code + "\n" + `</pre>`;
+         // escape so diagram source can't be parsed as HTML;
+         // mermaid reads textContent, which undoes the escaping
+         const result = `<pre style="position: relative;">` + escape(code, true) + "\n" + `</pre>`;
          return injectHtmlAttributes(result, attrs, sourceMap);
       }
 

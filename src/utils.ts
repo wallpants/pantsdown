@@ -53,12 +53,15 @@ export function injectHtmlAttributes(html: string, attrs: HTMLAttrs, sourceMap?:
 
    if (!attrs.length) return html;
 
+   // closing tags cannot carry attributes
+   if (/^\s*<\//.test(html)) return html;
+
    const closingBracket = /[a-zA-Z0-9\/"]>/;
    const match = closingBracket.exec(html);
    if (match) {
       let htmlAttrs = "";
       attrs.forEach((atrr) => (htmlAttrs += ` ${atrr[0]}="${atrr[1]}"`));
-      const sliceIdx = match.index + (match[0] === "/>" ? -1 : 1);
+      const sliceIdx = match.index + (match[0] === "/>" ? 0 : 1);
       return html.slice(0, sliceIdx) + htmlAttrs + html.slice(sliceIdx);
    }
    return html;
@@ -311,7 +314,7 @@ export function indentCodeCompensation(raw: string, text: string) {
 }
 
 function makeAlertRegex(type: string) {
-   return new RegExp(`^(?:\\[\\!${type.toUpperCase()}\\]|[\\*]{2}${type}[\\*]{2})[\s]*?\n?`);
+   return new RegExp(`^(?:\\[\\!${type.toUpperCase()}\\]|[\\*]{2}${type}[\\*]{2})[ \\t]*\\n?`);
 }
 
 export const ALERTS = [
