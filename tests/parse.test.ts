@@ -1,10 +1,6 @@
 import { expect, test } from "bun:test";
 import { Pantsdown } from "../src";
 
-test("1 + 2", () => {
-   expect(1 + 2).toBe(3);
-});
-
 // https://github.com/oven-sh/bun/issues/4722
 test("pantsdown.parse(test.md)", async () => {
    const pantsdown = new Pantsdown({

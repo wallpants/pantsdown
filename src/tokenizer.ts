@@ -333,8 +333,7 @@ export class Tokenizer {
             // Check if list should be loose
             const spacers = list.items[i]!.tokens.filter((t) => t.type === "space");
             const hasMultipleLineBreaks =
-               // eslint-disable-next-line
-               spacers.length > 0 && spacers.some((t: any) => /\n.*\n/.test(t.raw));
+               spacers.length > 0 && spacers.some((t) => /\n.*\n/.test(t.raw));
 
             list.loose = hasMultipleLineBreaks;
          }
@@ -703,13 +702,11 @@ export class Tokenizer {
       // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
       if (match[3] && /[\p{L}\p{N}]/u.exec(prevChar)) return;
 
-      // eslint-disable-next-line
       const nextChar = match[1] || match[2] || "";
 
       if (!nextChar || !prevChar || inline.punctuation.exec(prevChar)) {
-         // unicode Regex counts emoji as 1 char; spread into array for proper count (used multiple times below)
-         // eslint-disable-next-line @typescript-eslint/no-misused-spread
-         const lLength = [...match[0]].length - 1;
+         // unicode Regex counts emoji as 1 char; convert to array for proper count (used multiple times below)
+         const lLength = Array.from(match[0]).length - 1;
          let rDelim,
             rLength,
             delimTotal = lLength,
@@ -724,13 +721,11 @@ export class Tokenizer {
          maskedSrc = maskedSrc.slice(-1 * src.length + lLength);
 
          while ((match = endReg.exec(maskedSrc)) != null) {
-            // eslint-disable-next-line
             rDelim = match[1] || match[2] || match[3] || match[4] || match[5] || match[6];
 
             if (!rDelim) continue; // skip single * in __abc*abc__
 
-            // eslint-disable-next-line @typescript-eslint/no-misused-spread
-            rLength = [...rDelim].length;
+            rLength = Array.from(rDelim).length;
 
             if (match[3] || match[4]) {
                // found another Left Delim
@@ -751,8 +746,7 @@ export class Tokenizer {
             // Remove extra characters. *a*** -> *a*
             rLength = Math.min(rLength, rLength + delimTotal + midDelimTotal);
             // char length can be >1 for unicode characters;
-            // eslint-disable-next-line @typescript-eslint/no-misused-spread
-            const lastCharLength = [...match[0]][0]!.length;
+            const lastCharLength = Array.from(match[0])[0]!.length;
             const raw = src.slice(0, lLength + match.index + lastCharLength + rLength);
 
             // Create `em` if smallest delimiter has odd char count. *a***

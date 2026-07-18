@@ -9,7 +9,7 @@ type BaseToken = {
 
 export type SourceMap = [start: number, end: number] | undefined;
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+// eslint-disable-next-line typescript/consistent-type-definitions
 export interface Tokens extends Record<string, BaseToken> {
    Space: {
       type: "space";
