@@ -1,8 +1,0 @@
-.github/
-docs/
-tests/
-.eslintrc.json
-.prettierrc.json
-README.md
-bun.lockb
-bunfig.toml
