@@ -7,10 +7,7 @@ on:
       - main
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  id-token: write
+  contents: read
 
 jobs:
   Test:
@@ -50,6 +47,11 @@ jobs:
     if: |
       github.ref == 'refs/heads/main' &&
       github.event.repository.fork == false
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -68,4 +70,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bun run semantic-release
-
