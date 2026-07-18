@@ -20,7 +20,7 @@ const index = (theme: "dark" | "light") => `<!doctype html>
     <head>
         <meta charset="utf-8" />
         <link href="wallpants-128.png" rel="icon" type="image/png" />
-        <link href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/katex@0.18/dist/katex.min.css" rel="stylesheet" />
         <style>${baseCss}</style>
         <script type="module">${javascript}</script>
         <script type="module">
