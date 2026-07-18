@@ -37,10 +37,7 @@ export function getHtmlElementText(html: string) {
    try {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
-      // eslint-disable-next-line
-      if (!doc.body) throw Error("Invalid HTML");
-      const element = doc.body.firstChild as HTMLElement;
-      // eslint-disable-next-line
+      const element = doc.body.firstChild;
       if (!element) throw Error("No valid element found");
       return element.textContent || html;
    } catch (_) {

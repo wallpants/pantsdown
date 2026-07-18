@@ -9,7 +9,6 @@
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "composite": true,
     "strict": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
