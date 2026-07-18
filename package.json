@@ -8,6 +8,10 @@
     "type": "git",
     "url": "git://github.com/wallpants/pantsdown.git"
   },
+  "files": [
+    "src",
+    "!src/**/*.test.ts"
+  ],
   "type": "module",
   "exports": {
     "./*": "./*",
