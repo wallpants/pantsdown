@@ -54,7 +54,7 @@ export const comment = /<!--(?:-?>|[\s\S]*?(?:-->|$))/;
 
 const block_html = edit(
    "^ {0,3}(?:" + // optional indentation
-      "<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)" + // (1)
+      "<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n*|$)" + // (1)
       "|comment[^\\n]*(\\n+|$)" + // (2)
       "|<\\?[\\s\\S]*?(?:\\?>\\n*|$)" + // (3)
       "|<![A-Z][\\s\\S]*?(?:>\\n*|$)" + // (4)
@@ -93,7 +93,7 @@ const block_table = edit(
    .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
    .replace("blockquote", " {0,3}>")
    .replace("code", " {4}[^\\n]")
-   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n")
+   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
    .replace("list", " {0,3}(?:[*+-]|1[.)]) ") // only lists starting from 1 can interrupt
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
    .replace("tag", tag) // tables can be interrupted by type (6) html blocks
@@ -107,7 +107,7 @@ const block_paragraph = edit(
    .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
    .replace("table", block_table) // interrupt paragraphs with table
    .replace("blockquote", " {0,3}>")
-   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n")
+   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
    .replace("list", " {0,3}(?:[*+-]|1[.)]) ") // only lists starting from 1 can interrupt
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
    .replace("tag", tag) // pars can be interrupted by type (6) html blocks

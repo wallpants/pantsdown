@@ -305,16 +305,22 @@ export class Tokenizer {
          list.raw += raw;
       }
 
+      const lastItem = list.items[list.items.length - 1];
+      if (!lastItem) {
+         // not a list since there were no items
+         return undefined;
+      }
+
       // Do not consume newlines at end of final item. Alternatively, make itemRegex *start* with any newlines to simplify/speed up endsWithBlankLine logic
       const lastTrimmed = raw.trimEnd();
 
-      if (list.items[list.items.length - 1]!.sourceMap) {
+      if (lastItem.sourceMap) {
          // give back the trimmed trailing newlines; the counter tracks lines, not chars
          this.lexer.line -= (raw.slice(lastTrimmed.length).match(/\n/g) ?? []).length;
       }
 
-      list.items[list.items.length - 1]!.raw = lastTrimmed;
-      list.items[list.items.length - 1]!.text = itemContents.trimEnd();
+      lastItem.raw = lastTrimmed;
+      lastItem.text = itemContents.trimEnd();
       list.raw = list.raw.trimEnd();
 
       // Item child tokens handled here at end because we needed to have the final item to trim it first
@@ -716,11 +722,12 @@ export class Tokenizer {
    ): Tokens["Em"] | Tokens["Strong"] | undefined {
       let match = inline.emStrong.lDelim.exec(src);
       if (!match) return;
+      if (!match[1] && !match[2] && !match[3] && !match[4]) return;
 
       // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
-      if (match[3] && other.unicodeAlphaNumeric.exec(prevChar)) return;
+      if (match[4] && other.unicodeAlphaNumeric.exec(prevChar)) return;
 
-      const nextChar = match[1] || match[2] || "";
+      const nextChar = match[1] || match[3] || "";
 
       if (!nextChar || !prevChar || inline.punctuation.exec(prevChar)) {
          // unicode Regex counts emoji as 1 char; convert to array for proper count (used multiple times below)

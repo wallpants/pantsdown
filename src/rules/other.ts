@@ -4,6 +4,19 @@
  * syncs stay diffable; some values intentionally lag upstream until the
  * corresponding fixes are ported (see MARKED_SYNC.md).
  */
+function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
+   const cache: RegExp[] = [];
+   return (indent: number) => {
+      const cacheIndex = Math.max(0, Math.min(3, indent - 1));
+      let regex = cache[cacheIndex];
+      if (!regex) {
+         regex = createRegex(cacheIndex);
+         cache[cacheIndex] = regex;
+      }
+      return regex;
+   };
+}
+
 export const other = {
    codeRemoveIndent: /^ {1,4}/gm,
    outputLinkReplace: /\\([\[\]])/g,
@@ -46,15 +59,16 @@ export const other = {
    notSpaceStart: /^\S*/,
    endingNewline: /\n$/,
    listItemRegex: (bull: string) => new RegExp(`^( {0,3}${bull})((?:[\t ][^\\n]*)?(?:\\n|$))`),
-   nextBulletRegex: (indent: number) =>
-      new RegExp(
-         `^ {0,${Math.min(3, indent - 1)}}(?:[*+-]|\\d{1,9}[.)])((?:[ \t][^\\n]*)?(?:\\n|$))`,
-      ),
-   hrRegex: (indent: number) =>
-      new RegExp(
-         `^ {0,${Math.min(3, indent - 1)}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`,
-      ),
-   fencesBeginRegex: (indent: number) =>
-      new RegExp(`^ {0,${Math.min(3, indent - 1)}}(?:\`\`\`|~~~)`),
-   headingBeginRegex: (indent: number) => new RegExp(`^ {0,${Math.min(3, indent - 1)}}#`),
+   nextBulletRegex: cachedIndentRegex(
+      (indent: number) =>
+         new RegExp(`^ {0,${indent}}(?:[*+-]|\\d{1,9}[.)])((?:[ \t][^\\n]*)?(?:\\n|$))`),
+   ),
+   hrRegex: cachedIndentRegex(
+      (indent: number) =>
+         new RegExp(`^ {0,${indent}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`),
+   ),
+   fencesBeginRegex: cachedIndentRegex(
+      (indent: number) => new RegExp(`^ {0,${indent}}(?:\`\`\`|~~~)`),
+   ),
+   headingBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}#`)),
 };

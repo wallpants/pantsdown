@@ -86,7 +86,14 @@ export class Lexer {
       let cutSrc;
       let lastParagraphClipped;
 
+      let srcLength = Infinity;
       while (src) {
+         if (src.length < srcLength) {
+            srcLength = src.length;
+         } else {
+            this.infiniteLoopError(src.charCodeAt(0));
+         }
+
          // newline
          if ((token = this.tokenizer.space(src))) {
             src = src.substring(token.raw.length);
@@ -241,8 +248,7 @@ export class Lexer {
          }
 
          if (src) {
-            const errMsg = "Infinite loop on byte: " + String(src.charCodeAt(0));
-            throw new Error(errMsg);
+            this.infiniteLoopError(src.charCodeAt(0));
          }
       }
 
@@ -263,42 +269,34 @@ export class Lexer {
 
       // String with links masked to avoid interference with em and strong
       let maskedSrc = src;
-      let match;
       let keepPrevChar, prevChar;
 
       // Mask out reflinks
       const links = Object.keys(this.links);
       if (links.length > 0) {
-         while ((match = inline.reflinkSearch.exec(maskedSrc)) != null) {
-            if (links.includes(match[0].slice(match[0].lastIndexOf("[") + 1, -1))) {
-               maskedSrc =
-                  maskedSrc.slice(0, match.index) +
-                  "[" +
-                  "a".repeat(match[0].length - 2) +
-                  "]" +
-                  maskedSrc.slice(inline.reflinkSearch.lastIndex);
-            }
-         }
+         maskedSrc = maskedSrc.replace(inline.reflinkSearch, (match0) =>
+            links.includes(match0.slice(match0.lastIndexOf("[") + 1, -1))
+               ? "[" + "a".repeat(match0.length - 2) + "]"
+               : match0,
+         );
       }
       // Mask out other blocks
-      while ((match = inline.blockSkip.exec(maskedSrc)) != null) {
-         maskedSrc =
-            maskedSrc.slice(0, match.index) +
-            "[" +
-            "a".repeat(match[0].length - 2) +
-            "]" +
-            maskedSrc.slice(inline.blockSkip.lastIndex);
-      }
+      maskedSrc = maskedSrc.replace(
+         inline.blockSkip,
+         (match0) => "[" + "a".repeat(match0.length - 2) + "]",
+      );
 
       // Mask out escaped characters
-      while ((match = inline.anyPunctuation.exec(maskedSrc)) != null) {
-         maskedSrc =
-            maskedSrc.slice(0, match.index) +
-            "++" +
-            maskedSrc.slice(inline.anyPunctuation.lastIndex);
-      }
+      maskedSrc = maskedSrc.replace(inline.anyPunctuation, "++");
 
+      let srcLength = Infinity;
       while (src) {
+         if (src.length < srcLength) {
+            srcLength = src.length;
+         } else {
+            this.infiniteLoopError(src.charCodeAt(0));
+         }
+
          if (!keepPrevChar) {
             prevChar = "";
          }
@@ -415,11 +413,14 @@ export class Lexer {
          }
 
          if (src) {
-            const errMsg = "Infinite loop on byte: " + String(src.charCodeAt(0));
-            throw new Error(errMsg);
+            this.infiniteLoopError(src.charCodeAt(0));
          }
       }
 
       return tokens;
+   }
+
+   private infiniteLoopError(byte: number): never {
+      throw new Error("Infinite loop on byte: " + String(byte));
    }
 }

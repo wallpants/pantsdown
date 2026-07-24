@@ -25,7 +25,7 @@ type InlineRuleNames =
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
 const punctuation = "\\p{P}\\p{S}";
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
-const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/;
+const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
 const comment = edit(blockComment).replace("(?:-->|$)", "-->").getRegex();
 const attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
@@ -42,7 +42,7 @@ const inline_punctuation = edit(/^((?![*_])[\spunctuation])/, "u")
 const inline_blockSkip = /\[[^[\]]*?\]\([^\(\)]*?\)|`[^`]*?`|<[^<>]*?>/g;
 
 const inline_emStrong = {
-   lDelim: edit(/^(?:\*+(?:((?!\*)[punct])|[^\s*]))|^_+(?:((?!_)[punct])|([^\s_]))/, "u")
+   lDelim: edit(/^(?:\*+(?:((?!\*)[punct])|([^\s*]))?)|^_+(?:((?!_)[punct])|([^\s_]))?/, "u")
       .replace(/punct/g, punctuation)
       .getRegex(),
    // (1) and (2) can only be a Right Delimiter. (3) and (4) can only be Left.  (5) and (6) can be either Left or Right.
@@ -115,7 +115,14 @@ const inline_del = /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/;
 const inline_text =
    /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/;
 
-const inline_url = edit(/^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/, "i")
+// DEVIATION from upstream `(?:[a-zA-Z0-9\-]+\.?)+`: the nested quantifier
+// combined with the email alternative defeats JSC's start-anchor optimization
+// (every exec scans the whole subject, O(n²) across the inline loop). This
+// domain form matches the exact same language. See MARKED_SYNC.md.
+const inline_url = edit(
+   /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.?[^\s<]*|^email/,
+   "i",
+)
    .replace("email", extended_email)
    .getRegex();
 
