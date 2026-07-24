@@ -1,4 +1,4 @@
-const caret = /(^|[^\[])\^/g;
+import { other } from "./other.ts";
 
 export function edit(rule: RegExp | string, opt?: string) {
    let source = typeof rule === "string" ? rule : rule.source;
@@ -6,7 +6,7 @@ export function edit(rule: RegExp | string, opt?: string) {
    const obj = {
       replace: (name: string | RegExp, val: string | RegExp) => {
          let valSource = typeof val === "string" ? val : val.source;
-         valSource = valSource.replace(caret, "$1");
+         valSource = valSource.replace(other.caret, "$1");
          source = source.replace(name, valSource);
          return obj;
       },

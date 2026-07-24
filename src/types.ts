@@ -52,6 +52,8 @@ export interface Tokens extends Record<string, BaseToken> {
       raw: string;
       text: string;
       tokens: Token[];
+      header: boolean;
+      align: "center" | "left" | "right" | null;
    };
    Hr: {
       type: "hr";
@@ -103,6 +105,7 @@ export interface Tokens extends Record<string, BaseToken> {
       raw: string;
       text: string;
       tokens?: Token[];
+      escaped?: boolean;
       sourceMap?: SourceMap;
    };
    Def: {
@@ -119,12 +122,17 @@ export interface Tokens extends Record<string, BaseToken> {
       text: string;
    };
    Tag: {
-      type: "text" | "html";
+      type: "html";
       raw: string;
       text: string;
       inLink: boolean;
       inRawBlock: boolean;
       block: boolean;
+   };
+   Checkbox: {
+      type: "checkbox";
+      raw: string;
+      checked: boolean;
    };
    Link: {
       type: "link";
@@ -222,6 +230,7 @@ export type Token =
    | Tokens["Codespan"]
    | Tokens["Br"]
    | Tokens["Del"]
+   | Tokens["Checkbox"]
    | Tokens["Alert"]
    | Tokens["Footnote"]
    | Tokens["FootnoteRef"]
