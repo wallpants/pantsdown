@@ -76,7 +76,7 @@ export class Lexer {
    /**
     * Lexing
     */
-   blockTokens(src: string, tokens: Token[]): Token[] {
+   blockTokens(src: string, tokens: Token[], lastParagraphClipped = false): Token[] {
       src = src.replace(/^( *)(\t+)/gm, (_, leading: string, tabs: string) => {
          return leading + "    ".repeat(tabs.length);
       });
@@ -84,7 +84,6 @@ export class Lexer {
       let token: Token | undefined;
       let lastToken: Token | undefined;
       let cutSrc;
-      let lastParagraphClipped;
 
       let srcLength = Infinity;
       while (src) {

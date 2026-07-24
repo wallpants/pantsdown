@@ -2,7 +2,7 @@ import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type Links, type Tokens } from "./types.ts";
+import { type Links, type Token, type Tokens } from "./types.ts";
 import {
    ALERTS,
    findClosingBracket,
@@ -94,10 +94,11 @@ export class Tokenizer {
       const cap = block.hr.exec(src);
       if (!cap) return undefined;
 
+      const raw = rtrim(cap[0], "\n");
       return {
          type: "hr",
-         raw: cap[0],
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         raw,
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
@@ -105,18 +106,97 @@ export class Tokenizer {
       const cap = block.blockquote.exec(src);
       if (!cap) return undefined;
 
-      // precede setext continuation with 4 spaces so it isn't a setext
-      let text = cap[0].replace(other.blockquoteSetextReplace, "\n    $1");
-      text = rtrim(text.replace(other.blockquoteSetextReplace2, ""), "\n");
-      const top = this.lexer.state.top;
-      this.lexer.state.top = true;
-      const tokens = this.lexer.blockTokens(text, []);
-      this.lexer.state.top = top;
-      this.lexer.line++;
+      let lines = rtrim(cap[0], "\n").split("\n");
+      let raw = "";
+      let text = "";
+      const tokens: Token[] = [];
+      // the accumulated `raw` can end up with garbled *content* at continuation-merge
+      // boundaries (upstream does the same), but its length and newline count always
+      // match the consumed source — which is all the lexer and sourcemaps rely on
+      const startLine = this.lexer.line;
+
+      while (lines.length > 0) {
+         let inBlockquote = false;
+         const currentLines = [];
+
+         let i;
+         for (i = 0; i < lines.length; i++) {
+            // get lines up to a continuation
+            if (other.blockquoteStart.test(lines[i]!)) {
+               currentLines.push(lines[i]!);
+               inBlockquote = true;
+            } else if (!inBlockquote) {
+               currentLines.push(lines[i]!);
+            } else {
+               break;
+            }
+         }
+         lines = lines.slice(i);
+
+         const currentRaw = currentLines.join("\n");
+         const currentText = currentRaw
+            // precede setext continuation with 4 spaces so it isn't a setext
+            .replace(other.blockquoteSetextReplace, "\n    $1")
+            .replace(other.blockquoteSetextReplace2, "");
+         // this round starts right after the lines already accumulated in `raw`
+         this.lexer.line = startLine + (raw ? raw.split("\n").length : 0);
+         raw = raw ? `${raw}\n${currentRaw}` : currentRaw;
+         text = text ? `${text}\n${currentText}` : currentText;
+
+         // parse blockquote lines as top level tokens
+         // merge paragraphs if this is a continuation
+         const top = this.lexer.state.top;
+         this.lexer.state.top = true;
+         this.lexer.blockTokens(currentText, tokens, true);
+         this.lexer.state.top = top;
+
+         // if there is no continuation then we are done
+         if (lines.length === 0) {
+            break;
+         }
+
+         const lastToken = tokens[tokens.length - 1];
+
+         if (lastToken?.type === "code") {
+            // blockquote continuation cannot be preceded by a code block
+            break;
+         } else if (lastToken?.type === "blockquote") {
+            // include continuation in nested blockquote
+            const oldToken = lastToken;
+            const newText = oldToken.raw + "\n" + lines.join("\n");
+            // re-lexing the nested blockquote restarts at its first source line
+            this.lexer.line =
+               startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            const newToken = this.blockquote(newText)!;
+            tokens[tokens.length - 1] = newToken;
+
+            raw = raw.substring(0, raw.length - oldToken.raw.length) + newToken.raw;
+            text = text.substring(0, text.length - oldToken.text.length) + newToken.text;
+            break;
+         } else if (lastToken?.type === "list") {
+            // include continuation in nested list
+            const oldToken = lastToken;
+            const newText = oldToken.raw + "\n" + lines.join("\n");
+            // re-lexing the nested list restarts at its first source line
+            this.lexer.line =
+               startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            const newToken = this.list(newText)!;
+            tokens[tokens.length - 1] = newToken;
+
+            raw = raw.substring(0, raw.length - lastToken.raw.length) + newToken.raw;
+            text = text.substring(0, text.length - oldToken.raw.length) + newToken.raw;
+            lines = newText.substring(tokens[tokens.length - 1]!.raw.length).split("\n");
+            continue;
+         }
+      }
+
+      // leave the counter on the blockquote's last line; `raw` has no trailing
+      // newline, so the pending line terminator is counted by the next space token
+      this.lexer.line = startLine + raw.split("\n").length - 1;
 
       const blockquoteToken: Tokens["Blockquote"] = {
          type: "blockquote",
-         raw: cap[0],
+         raw,
          tokens,
          text,
       };
