@@ -1,10 +1,10 @@
 import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
+import { other } from "./rules/other.ts";
 import { type Links, type Tokens } from "./types.ts";
 import {
    ALERTS,
-   escape,
    findClosingBracket,
    indentCodeCompensation,
    outputLink,
@@ -40,7 +40,7 @@ export class Tokenizer {
       const cap = block.code.exec(src);
       if (!cap) return undefined;
 
-      const text = cap[0].replace(/^ {1,4}/gm, "");
+      const text = cap[0].replace(other.codeRemoveIndent, "");
       return {
          type: "code",
          raw: cap[0],
@@ -106,8 +106,8 @@ export class Tokenizer {
       if (!cap) return undefined;
 
       // precede setext continuation with 4 spaces so it isn't a setext
-      let text = cap[0].replace(/\n {0,3}((?:=+|-+) *)(?=\n|$)/g, "\n    $1");
-      text = rtrim(text.replace(/^ *>[ \t]?/gm, ""), "\n");
+      let text = cap[0].replace(other.blockquoteSetextReplace, "\n    $1");
+      text = rtrim(text.replace(other.blockquoteSetextReplace2, ""), "\n");
       const top = this.lexer.state.top;
       this.lexer.state.top = true;
       const tokens = this.lexer.blockTokens(text, []);
@@ -169,7 +169,7 @@ export class Tokenizer {
       bull = isordered ? `\\d{1,9}\\${bull.slice(-1)}` : `\\${bull}`;
 
       // Get next list item
-      const itemRegex = new RegExp(`^( {0,3}${bull})((?:[\t ][^\\n]*)?(?:\\n|$))`);
+      const itemRegex = other.listItemRegex(bull);
       let raw = "";
       let itemContents = "";
       let endsWithBlankLine = false;
@@ -190,18 +190,18 @@ export class Tokenizer {
 
          let line = cap[2]!
             .split("\n", 1)[0]!
-            .replace(/^\t+/, (t: string) => " ".repeat(3 * t.length));
+            .replace(other.listReplaceTabs, (t: string) => " ".repeat(3 * t.length));
          let nextLine = src.split("\n", 1)[0] ?? "";
 
          let indent = 0;
-         indent = cap[2]!.search(/[^ ]/); // Find first non-space char
+         indent = cap[2]!.search(other.nonSpaceChar); // Find first non-space char
          indent = indent > 4 ? 1 : indent; // Treat indented code blocks (> 4 spaces) as having only 1 indent
          itemContents = line.slice(indent);
          indent += cap[1]!.length;
 
          let blankLine = false;
 
-         if (!line && /^ *$/.test(nextLine)) {
+         if (!line && other.blankLine.test(nextLine)) {
             // Items begin with at most one blank line
             raw += nextLine + "\n";
             src = src.substring(nextLine.length + 1);
@@ -209,14 +209,10 @@ export class Tokenizer {
          }
 
          if (!endEarly) {
-            const nextBulletRegex = new RegExp(
-               `^ {0,${Math.min(3, indent - 1)}}(?:[*+-]|\\d{1,9}[.)])((?:[ \t][^\\n]*)?(?:\\n|$))`,
-            );
-            const hrRegex = new RegExp(
-               `^ {0,${Math.min(3, indent - 1)}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`,
-            );
-            const fencesBeginRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}(?:\`\`\`|~~~)`);
-            const headingBeginRegex = new RegExp(`^ {0,${Math.min(3, indent - 1)}}#`);
+            const nextBulletRegex = other.nextBulletRegex(indent);
+            const hrRegex = other.hrRegex(indent);
+            const fencesBeginRegex = other.fencesBeginRegex(indent);
+            const headingBeginRegex = other.headingBeginRegex(indent);
 
             // Check if following lines should be included in List Item
             while (src) {
@@ -243,7 +239,7 @@ export class Tokenizer {
                   break;
                }
 
-               if (nextLine.search(/[^ ]/) >= indent || !nextLine.trim()) {
+               if (nextLine.search(other.nonSpaceChar) >= indent || !nextLine.trim()) {
                   // Dedent if possible
                   itemContents += "\n" + nextLine.slice(indent);
                } else {
@@ -253,7 +249,7 @@ export class Tokenizer {
                   }
 
                   // paragraph continuation unless last line was a different block level element
-                  if (line.search(/[^ ]/) >= 4) {
+                  if (line.search(other.nonSpaceChar) >= 4) {
                      // indented code block
                      break;
                   }
@@ -285,25 +281,21 @@ export class Tokenizer {
             // If the previous item ended with a blank line, the list is loose
             if (endsWithBlankLine) {
                list.loose = true;
-            } else if (/\n *\n *$/.test(raw)) {
+            } else if (other.doubleBlankLine.test(raw)) {
                endsWithBlankLine = true;
             }
          }
 
-         let istask: RegExpExecArray | null = null;
-         let ischecked: boolean | undefined;
          // Check for task list items
-         istask = /^\[[ xX]\] /.exec(itemContents);
+         const istask = other.listIsTask.exec(itemContents);
          if (istask) {
-            ischecked = istask[0] !== "[ ] ";
-            itemContents = itemContents.replace(/^\[[ xX]\] +/, "");
+            itemContents = itemContents.replace(other.listReplaceTask, "");
          }
 
          list.items.push({
             type: "list_item",
             raw,
             task: Boolean(istask),
-            checked: ischecked,
             loose: false,
             text: itemContents,
             tokens: [],
@@ -326,15 +318,49 @@ export class Tokenizer {
       list.raw = list.raw.trimEnd();
 
       // Item child tokens handled here at end because we needed to have the final item to trim it first
-      for (let i = 0, listItemsLen = list.items.length; i < listItemsLen; i++) {
+      for (const item of list.items) {
          this.lexer.state.top = false;
-         list.items[i]!.tokens = this.lexer.blockTokens(list.items[i]!.text, []);
+         item.tokens = this.lexer.blockTokens(item.text, []);
+
+         if (item.task) {
+            const taskRaw = other.listTaskCheckbox.exec(item.raw);
+            if (taskRaw) {
+               const checkboxToken: Tokens["Checkbox"] = {
+                  type: "checkbox",
+                  raw: taskRaw[0] + " ",
+                  checked: taskRaw[0] !== "[ ]",
+               };
+               item.checked = checkboxToken.checked;
+               const firstToken = item.tokens[0];
+               if (list.loose) {
+                  if (
+                     firstToken &&
+                     (firstToken.type === "paragraph" || firstToken.type === "text") &&
+                     "tokens" in firstToken
+                  ) {
+                     firstToken.raw = checkboxToken.raw + firstToken.raw;
+                     firstToken.text = checkboxToken.raw + firstToken.text;
+                     firstToken.tokens.unshift(checkboxToken);
+                  } else {
+                     item.tokens.unshift({
+                        type: "paragraph",
+                        raw: checkboxToken.raw,
+                        text: checkboxToken.raw,
+                        tokens: [checkboxToken],
+                        sourceMap: undefined,
+                     });
+                  }
+               } else {
+                  item.tokens.unshift(checkboxToken);
+               }
+            }
+         }
 
          if (!list.loose) {
             // Check if list should be loose
-            const spacers = list.items[i]!.tokens.filter((t) => t.type === "space");
+            const spacers = item.tokens.filter((t) => t.type === "space");
             const hasMultipleLineBreaks =
-               spacers.length > 0 && spacers.some((t) => /\n.*\n/.test(t.raw));
+               spacers.length > 0 && spacers.some((t) => other.anyLine.test(t.raw));
 
             list.loose = hasMultipleLineBreaks;
          }
@@ -342,8 +368,13 @@ export class Tokenizer {
 
       // Set all items to loose if list is loose
       if (list.loose) {
-         for (let i = 0, listItemsLen = list.items.length; i < listItemsLen; i++) {
-            list.items[i]!.loose = true;
+         for (const item of list.items) {
+            item.loose = true;
+            for (const token of item.tokens) {
+               if (token.type === "text") {
+                  (token as unknown as Tokens["Paragraph"]).type = "paragraph";
+               }
+            }
          }
       }
 
@@ -454,9 +485,9 @@ export class Tokenizer {
       const cap = block.def.exec(src);
       if (!cap) return undefined;
 
-      const tag = cap[1]!.toLowerCase().replace(/\s+/g, " ");
+      const tag = cap[1]!.toLowerCase().replace(other.multipleSpaceGlobal, " ");
       const href = cap[2]
-         ? cap[2].replace(/^<(.*)>$/, "$1").replace(inline.anyPunctuation, "$1")
+         ? cap[2].replace(other.hrefBrackets, "$1").replace(inline.anyPunctuation, "$1")
          : "";
       const title = cap[3]
          ? cap[3].substring(1, cap[3].length - 1).replace(inline.anyPunctuation, "$1")
@@ -475,74 +506,60 @@ export class Tokenizer {
       const cap = block.table.exec(src);
       if (!cap?.[2]) return;
 
-      if (!/[:|]/.test(cap[2])) {
+      if (!other.tableDelimiter.test(cap[2])) {
          // delimiter row must have a pipe (|) or colon (:) otherwise it is a setext heading
          return;
       }
 
+      const headers = splitCells(cap[1]!);
+      const aligns = cap[2].replace(other.tableAlignChars, "").split("|");
+      const rows = cap[3]?.trim() ? cap[3].replace(other.tableRowBlankLine, "").split("\n") : [];
+
+      if (headers.length !== aligns.length) return;
+
       const item: Tokens["Table"] = {
          type: "table",
          raw: cap[0],
-         header: splitCells(cap[1]!).map((c) => ({
-            type: "tablecell",
-            raw: c,
-            text: c,
-            tokens: [],
-         })),
+         header: [],
          align: [],
          rows: [],
          sourceMap: this.lexer.getSourceMap(cap[0]),
       };
 
-      const align = cap[2].replace(/^\||\| *$/g, "").split("|") as (string | null)[];
-      const rows = cap[3]?.trim() ? cap[3].replace(/\n[ \t]*$/, "").split("\n") : [];
-
-      if (item.header.length !== align.length) return;
-
-      let l = align.length;
-      let i, j, k, row;
-      for (i = 0; i < l; i++) {
-         const alignStr = align[i];
-         if (alignStr) {
-            if (/^ *-+: *$/.test(alignStr)) {
-               item.align.push("right");
-            } else if (/^ *:-+: *$/.test(alignStr)) {
-               item.align.push("center");
-            } else if (/^ *:-+ *$/.test(alignStr)) {
-               item.align.push("left");
-            } else {
-               item.align.push(null);
-            }
+      for (const align of aligns) {
+         if (other.tableAlignRight.test(align)) {
+            item.align.push("right");
+         } else if (other.tableAlignCenter.test(align)) {
+            item.align.push("center");
+         } else if (other.tableAlignLeft.test(align)) {
+            item.align.push("left");
+         } else {
+            item.align.push(null);
          }
       }
 
-      l = rows.length;
-      for (i = 0; i < l; i++) {
+      for (let i = 0, len = headers.length; i < len; i++) {
+         item.header.push({
+            type: "tablecell",
+            raw: headers[i]!,
+            text: headers[i]!,
+            tokens: this.lexer.inline(headers[i]!),
+            header: true,
+            align: item.align[i]!,
+         });
+      }
+
+      for (const row of rows) {
          item.rows.push(
-            splitCells(rows[i] as unknown as string, item.header.length).map((c) => ({
-               type: "tablecell",
-               raw: c,
-               text: c,
-               tokens: [],
+            splitCells(row, headers.length).map((cell, i) => ({
+               type: "tablecell" as const,
+               raw: cell,
+               text: cell,
+               tokens: this.lexer.inline(cell),
+               header: false,
+               align: item.align[i]!,
             })),
          );
-      }
-
-      // parse child tokens inside headers and cells
-
-      // header child tokens
-      l = item.header.length;
-      for (j = 0; j < l; j++) {
-         item.header[j]!.tokens = this.lexer.inline(item.header[j]!.text);
-      }
-
-      // cell child tokens
-      l = item.rows.length;
-      for (j = 0; j < l; j++) {
-         row = item.rows[j]!;
-         for (k = 0; k < row.length; k++) {
-            row[k]!.tokens = this.lexer.inline(row[k]!.text);
-         }
       }
 
       return item;
@@ -596,7 +613,7 @@ export class Tokenizer {
       return {
          type: "escape",
          raw: cap[0],
-         text: escape(cap[1]!),
+         text: cap[1]!,
       };
    }
 
@@ -604,14 +621,14 @@ export class Tokenizer {
       const cap = inline.tag.exec(src);
       if (!cap) return undefined;
 
-      if (!this.lexer.state.inLink && /^<a /i.test(cap[0])) {
+      if (!this.lexer.state.inLink && other.startATag.test(cap[0])) {
          this.lexer.state.inLink = true;
-      } else if (this.lexer.state.inLink && /^<\/a>/i.test(cap[0])) {
+      } else if (this.lexer.state.inLink && other.endATag.test(cap[0])) {
          this.lexer.state.inLink = false;
       }
-      if (!this.lexer.state.inRawBlock && /^<(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+      if (!this.lexer.state.inRawBlock && other.startPreScriptTag.test(cap[0])) {
          this.lexer.state.inRawBlock = true;
-      } else if (this.lexer.state.inRawBlock && /^<\/(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+      } else if (this.lexer.state.inRawBlock && other.endPreScriptTag.test(cap[0])) {
          this.lexer.state.inRawBlock = false;
       }
 
@@ -701,7 +718,7 @@ export class Tokenizer {
       if (!match) return;
 
       // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
-      if (match[3] && /[\p{L}\p{N}]/u.exec(prevChar)) return;
+      if (match[3] && other.unicodeAlphaNumeric.exec(prevChar)) return;
 
       const nextChar = match[1] || match[2] || "";
 
@@ -790,13 +807,12 @@ export class Tokenizer {
       const cap = inline.code.exec(src);
       if (!cap) return undefined;
 
-      let text = cap[2]!.replace(/\n/g, " ");
-      const hasNonSpaceChars = /[^ ]/.test(text);
+      let text = cap[2]!.replace(other.newLineCharGlobal, " ");
+      const hasNonSpaceChars = other.nonSpaceChar.test(text);
       const hasSpaceCharsOnBothEnds = text.startsWith(" ") && text.endsWith(" ");
       if (hasNonSpaceChars && hasSpaceCharsOnBothEnds) {
          text = text.substring(1, text.length - 1);
       }
-      text = escape(text, true);
       return {
          type: "codespan",
          raw: cap[0],
@@ -832,10 +848,10 @@ export class Tokenizer {
 
       let text, href;
       if (cap[2] === "@") {
-         text = escape(cap[1]!);
+         text = cap[1]!;
          href = "mailto:" + text;
       } else {
-         text = escape(cap[1]!);
+         text = cap[1]!;
          href = text;
       }
 
@@ -860,7 +876,7 @@ export class Tokenizer {
       if ((cap = inline.url.exec(src))) {
          let text, href;
          if (cap[2] === "@") {
-            text = escape(cap[0]);
+            text = cap[0];
             href = "mailto:" + text;
          } else {
             // do extended autolink path validation
@@ -869,7 +885,7 @@ export class Tokenizer {
                prevCapZero = cap[0];
                cap[0] = inline.backpedal.exec(cap[0])![0];
             } while (prevCapZero !== cap[0]);
-            text = escape(cap[0]);
+            text = cap[0];
             if (cap[1] === "www.") {
                href = "http://" + cap[0];
             } else {
@@ -898,16 +914,11 @@ export class Tokenizer {
       const cap = inline.text.exec(src);
       if (!cap) return undefined;
 
-      let text;
-      if (this.lexer.state.inRawBlock) {
-         text = cap[0];
-      } else {
-         text = escape(cap[0]);
-      }
       return {
          type: "text",
          raw: cap[0],
-         text,
+         text: cap[0],
+         escaped: this.lexer.state.inRawBlock,
       };
    }
 

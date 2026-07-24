@@ -1,4 +1,5 @@
 import { inline } from "./rules/inline.ts";
+import { other } from "./rules/other.ts";
 import { Tokenizer } from "./tokenizer.ts";
 import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
 
@@ -37,7 +38,7 @@ export class Lexer {
          top: true,
       };
 
-      src = src.replace(/\r\n|\r/g, "\n");
+      src = src.replace(other.carriageReturn, "\n");
 
       this.blockTokens(src, this.tokens);
 
@@ -320,13 +321,7 @@ export class Lexer {
          // tag
          if ((token = this.tokenizer.tag(src))) {
             src = src.substring(token.raw.length);
-            lastToken = tokens[tokens.length - 1];
-            if (lastToken && token.type === "text" && lastToken.type === "text") {
-               lastToken.raw += token.raw;
-               lastToken.text += token.text;
-            } else {
-               tokens.push(token);
-            }
+            tokens.push(token);
             continue;
          }
 

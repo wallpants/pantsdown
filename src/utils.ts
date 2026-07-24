@@ -1,13 +1,10 @@
 import { type Lexer } from "./lexer.ts";
+import { other } from "./rules/other.ts";
 import { type PantsdownConfig, type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
  */
-const escapeTest = /[&<>"']/;
-const escapeReplace = new RegExp(escapeTest.source, "g");
-const escapeTestNoEncode = /[<>"']|&(?!(#\d{1,7}|#[Xx][a-fA-F0-9]{1,6}|\w+);)/;
-const escapeReplaceNoEncode = new RegExp(escapeTestNoEncode.source, "g");
 const escapeReplacements: Record<string, string> = {
    "&": "&amp;",
    "<": "&lt;",
@@ -21,12 +18,12 @@ const getEscapeReplacement = (ch: string) => escapeReplacements[ch]!;
 // https://bun.sh/docs/api/utils#bun-escapehtml
 export function escape(html: string, encode?: boolean) {
    if (encode) {
-      if (escapeTest.test(html)) {
-         return html.replace(escapeReplace, getEscapeReplacement);
+      if (other.escapeTest.test(html)) {
+         return html.replace(other.escapeReplace, getEscapeReplacement);
       }
    } else {
-      if (escapeTestNoEncode.test(html)) {
-         return html.replace(escapeReplaceNoEncode, getEscapeReplacement);
+      if (other.escapeTestNoEncode.test(html)) {
+         return html.replace(other.escapeReplaceNoEncode, getEscapeReplacement);
       }
    }
 
@@ -150,7 +147,7 @@ export function fixLocalImageHref(href: string, config: PantsdownConfig): string
 
 export function cleanUrl(href: string) {
    try {
-      href = encodeURI(href).replace(/%25/g, "%");
+      href = encodeURI(href).replace(other.percentDecode, "%");
    } catch (_) {
       return null;
    }
@@ -162,7 +159,7 @@ export const noopTest = { exec: () => null };
 export function splitCells(tableRow: string, count?: number) {
    // ensure that every cell-delimiting pipe has a space
    // before it to distinguish it from an escaped pipe
-   const row = tableRow.replace(/\|/g, (_match, offset: number, str: string) => {
+   const row = tableRow.replace(other.findPipe, (_match, offset: number, str: string) => {
          let escaped = false;
          let curr = offset;
          while (--curr >= 0 && str[curr] === "\\") escaped = !escaped;
@@ -175,7 +172,7 @@ export function splitCells(tableRow: string, count?: number) {
             return " |";
          }
       }),
-      cells = row.split(/ \|/);
+      cells = row.split(other.splitPipe);
 
    // First/last cell in a row cannot be empty if it has no leading/trailing pipe
    if (!cells[0]?.trim()) {
@@ -195,7 +192,7 @@ export function splitCells(tableRow: string, count?: number) {
 
    for (let i = 0, len = cells.length; i < len; i++) {
       // leading or trailing whitespace is ignored per the gfm spec
-      cells[i] = cells[i]!.trim().replace(/\\\|/g, "|");
+      cells[i] = cells[i]!.trim().replace(other.slashPipe, "|");
    }
    return cells;
 }
@@ -260,8 +257,8 @@ export function outputLink(
    lexer: Lexer,
 ): Tokens["Link"] | Tokens["Image"] {
    const href = link.href;
-   const title = link.title ? escape(link.title) : null;
-   const text = cap[1]?.replace(/\\([\[\]])/g, "$1") ?? "";
+   const title = link.title || null;
+   const text = cap[1]?.replace(other.outputLinkReplace, "$1") ?? "";
 
    if (cap[0]?.charAt(0) !== "!") {
       lexer.state.inLink = true;
@@ -281,12 +278,12 @@ export function outputLink(
       raw,
       href,
       title,
-      text: escape(text),
+      text,
    };
 }
 
 export function indentCodeCompensation(raw: string, text: string) {
-   const matchIndentToCode = /^(\s+)(?:```)/.exec(raw);
+   const matchIndentToCode = other.indentCodeCompensation.exec(raw);
 
    if (matchIndentToCode === null) {
       return text;
@@ -297,7 +294,7 @@ export function indentCodeCompensation(raw: string, text: string) {
    return text
       .split("\n")
       .map((node) => {
-         const matchIndentInNode = /^\s+/.exec(node);
+         const matchIndentInNode = other.beginningSpace.exec(node);
          if (matchIndentInNode === null) {
             return node;
          }
