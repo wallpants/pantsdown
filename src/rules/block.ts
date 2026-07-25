@@ -94,7 +94,7 @@ const block_table = edit(
    .replace("blockquote", " {0,3}>")
    .replace("code", " {4}[^\\n]")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
-   .replace("list", " {0,3}(?:[*+-]|1[.)]) ") // only lists starting from 1 can interrupt
+   .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // only lists starting from 1 can interrupt
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
    .replace("tag", tag) // tables can be interrupted by type (6) html blocks
    .getRegex();
@@ -108,7 +108,7 @@ const block_paragraph = edit(
    .replace("table", block_table) // interrupt paragraphs with table
    .replace("blockquote", " {0,3}>")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
-   .replace("list", " {0,3}(?:[*+-]|1[.)]) ") // only lists starting from 1 can interrupt
+   .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // only lists starting from 1 can interrupt
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
    .replace("tag", tag) // pars can be interrupted by type (6) html blocks
    .getRegex();
