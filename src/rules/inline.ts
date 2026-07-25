@@ -39,7 +39,7 @@ const inline_punctuation = edit(/^((?![*_])[\spunctuation])/, "u")
    .getRegex();
 
 // sequences em should skip over [title](link), `code`, <html>
-const inline_blockSkip = /\[[^[\]]*?\]\([^\(\)]*?\)|`[^`]*?`|<[^<>]*?>/g;
+const inline_blockSkip = /\[[^[\]]*?\]\((?:\\.|[^\\\(\)]|\((?:\\.|[^\\\(\)])*\))*\)|`[^`]*?`|<[^<>]*?>/g;
 
 const inline_emStrong = {
    lDelim: edit(/^(?:\*+(?:((?!\*)[punct])|([^\s*]))?)|^_+(?:((?!_)[punct])|([^\s_]))?/, "u")
