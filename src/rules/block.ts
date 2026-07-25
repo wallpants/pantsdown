@@ -99,22 +99,26 @@ const block_table = edit(
    .replace("tag", tag) // tables can be interrupted by type (6) html blocks
    .getRegex();
 
-const block_paragraph = edit(
-   /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,
-)
-   .replace("hr", block_hr)
-   .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
-   .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
-   .replace("table", block_table) // interrupt paragraphs with table
-   .replace("blockquote", " {0,3}>")
-   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
-   .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]+[^ \\t\\n]") // only non-empty lists starting from 1 can interrupt
-   .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
-   .replace("tag", tag) // pars can be interrupted by type (6) html blocks
-   .getRegex();
+const createParagraph = (listInterrupt: string) =>
+   edit(/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/)
+      .replace("hr", block_hr)
+      .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
+      .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
+      .replace("table", block_table) // interrupt paragraphs with table
+      .replace("blockquote", " {0,3}>")
+      .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
+      .replace("list", listInterrupt)
+      .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
+      .replace("tag", tag) // pars can be interrupted by type (6) html blocks
+      .getRegex();
+
+// only non-empty lists starting from 1 can interrupt paragraphs
+const block_paragraph = createParagraph(" {0,3}(?:[*+-]|1[.)])[ \\t]+[^ \\t\\n]");
+// blockquotes can be interrupted by lists starting from any number
+const block_blockquoteParagraph = createParagraph(" {0,3}(?:[*+-]|\\d{1,9}[.)])[ \\t]+[^ \\t\\n]");
 
 const block_blockquote = edit(/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/)
-   .replace("paragraph", block_paragraph)
+   .replace("paragraph", block_blockquoteParagraph)
    .getRegex();
 
 export const block: Record<BlockRuleNames, RegExp> = {
