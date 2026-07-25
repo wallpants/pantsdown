@@ -5,7 +5,7 @@ import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts"
 
 export class Lexer {
    private tokenizer: Tokenizer;
-   private inlineQueue: { src: string; tokens: Token[] }[];
+   inlineQueue: { src: string; tokens: Token[] }[];
    private links: Links = {};
 
    tokens: Token[] = [];

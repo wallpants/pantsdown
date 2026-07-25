@@ -376,16 +376,10 @@ export class Tokenizer {
             }
          }
 
-         // Check for task list items
-         const istask = other.listIsTask.exec(itemContents);
-         if (istask) {
-            itemContents = itemContents.replace(other.listReplaceTask, "");
-         }
-
          list.items.push({
             type: "list_item",
             raw,
-            task: Boolean(istask),
+            task: other.listIsTask.test(itemContents),
             loose: false,
             text: itemContents,
             tokens: [],
@@ -422,6 +416,23 @@ export class Tokenizer {
          item.tokens = this.lexer.blockTokens(item.text, []);
 
          if (item.task) {
+            // Remove checkbox markdown from item tokens
+            item.text = item.text.replace(other.listReplaceTask, "");
+            const itemToken = item.tokens[0];
+            if (itemToken?.type === "text" || itemToken?.type === "paragraph") {
+               itemToken.raw = itemToken.raw.replace(other.listReplaceTask, "");
+               itemToken.text = itemToken.text.replace(other.listReplaceTask, "");
+               for (let i = this.lexer.inlineQueue.length - 1; i >= 0; i--) {
+                  if (other.listIsTask.test(this.lexer.inlineQueue[i]!.src)) {
+                     this.lexer.inlineQueue[i]!.src = this.lexer.inlineQueue[i]!.src.replace(
+                        other.listReplaceTask,
+                        "",
+                     );
+                     break;
+                  }
+               }
+            }
+
             const taskRaw = other.listTaskCheckbox.exec(item.raw);
             if (taskRaw) {
                const checkboxToken: Tokens["Checkbox"] = {
