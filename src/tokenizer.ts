@@ -250,12 +250,12 @@ export class Tokenizer {
 
       // Get next list item
       const itemRegex = other.listItemRegex(bull);
-      let raw = "";
-      let itemContents = "";
       let endsWithBlankLine = false;
       // Check if current bullet point can start a new List Item
       while (src) {
          let endEarly = false;
+         let raw = "";
+         let itemContents = "";
          if (!(cap = itemRegex.exec(src))) {
             break;
          }
@@ -273,15 +273,19 @@ export class Tokenizer {
             .replace(other.listReplaceTabs, (t: string) => " ".repeat(3 * t.length));
          let nextLine = src.split("\n", 1)[0] ?? "";
 
+         let blankLine = !line.trim();
+
          let indent = 0;
-         indent = cap[2]!.search(other.nonSpaceChar); // Find first non-space char
-         indent = indent > 4 ? 1 : indent; // Treat indented code blocks (> 4 spaces) as having only 1 indent
-         itemContents = line.slice(indent);
-         indent += cap[1]!.length;
+         if (blankLine) {
+            indent = cap[1]!.length + 1;
+         } else {
+            indent = cap[2]!.search(other.nonSpaceChar); // Find first non-space char
+            indent = indent > 4 ? 1 : indent; // Treat indented code blocks (> 4 spaces) as having only 1 indent
+            itemContents = line.slice(indent);
+            indent += cap[1]!.length;
+         }
 
-         let blankLine = false;
-
-         if (!line && other.blankLine.test(nextLine)) {
+         if (blankLine && other.blankLine.test(nextLine)) {
             // Items begin with at most one blank line
             raw += nextLine + "\n";
             src = src.substring(nextLine.length + 1);
@@ -392,15 +396,15 @@ export class Tokenizer {
       }
 
       // Do not consume newlines at end of final item. Alternatively, make itemRegex *start* with any newlines to simplify/speed up endsWithBlankLine logic
-      const lastTrimmed = raw.trimEnd();
+      const lastTrimmed = lastItem.raw.trimEnd();
 
       if (lastItem.sourceMap) {
          // give back the trimmed trailing newlines; the counter tracks lines, not chars
-         this.lexer.line -= (raw.slice(lastTrimmed.length).match(/\n/g) ?? []).length;
+         this.lexer.line -= (lastItem.raw.slice(lastTrimmed.length).match(/\n/g) ?? []).length;
       }
 
       lastItem.raw = lastTrimmed;
-      lastItem.text = itemContents.trimEnd();
+      lastItem.text = lastItem.text.trimEnd();
       list.raw = list.raw.trimEnd();
 
       // Item child tokens handled here at end because we needed to have the final item to trim it first
