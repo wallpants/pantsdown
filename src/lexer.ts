@@ -279,14 +279,14 @@ export class Lexer {
                : match0,
          );
       }
+      // Mask out escaped characters
+      maskedSrc = maskedSrc.replace(inline.anyPunctuation, "++");
+
       // Mask out other blocks
       maskedSrc = maskedSrc.replace(
          inline.blockSkip,
          (match0) => "[" + "a".repeat(match0.length - 2) + "]",
       );
-
-      // Mask out escaped characters
-      maskedSrc = maskedSrc.replace(inline.anyPunctuation, "++");
 
       let srcLength = Infinity;
       while (src) {
