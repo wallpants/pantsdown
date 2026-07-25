@@ -414,6 +414,9 @@ export class Tokenizer {
       list.raw = list.raw.trimEnd();
 
       // Item child tokens handled here at end because we needed to have the final item to trim it first
+      // save/restore top: blockTokens resets it to true on exit, and a nested list
+      // lexed with a stale top=true would advance the sourcemap line counter
+      const top = this.lexer.state.top;
       for (const item of list.items) {
          this.lexer.state.top = false;
          item.tokens = this.lexer.blockTokens(item.text, []);
@@ -461,6 +464,7 @@ export class Tokenizer {
             list.loose = hasMultipleLineBreaks;
          }
       }
+      this.lexer.state.top = top;
 
       // Set all items to loose if list is loose
       if (list.loose) {
