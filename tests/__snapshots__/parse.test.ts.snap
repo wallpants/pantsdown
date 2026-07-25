@@ -138,19 +138,19 @@ _This is italic text_
 <li>Ac tristique libero volutpat at</li>
 </ul>
 <ul class="">
-<li line-start="157" line-end="157">Facilisis in pretium nisl aliquet</li>
+<li>Facilisis in pretium nisl aliquet</li>
 </ul>
 <ul class="">
-<li line-start="158" line-end="158">Nulla volutpat aliquam velit</li>
+<li>Nulla volutpat aliquam velit</li>
 </ul>
 </li>
 </ul>
 </li>
 <li line-start="156" line-end="156">Very easy!</li>
 </ul>
-<hr line-start="160" line-end="160">
-<h1 style="position: relative;" line-start="162" line-end="162"><span style="position: absolute; top: -50px;" id="task-lists"></span>Task lists<a class="anchor octicon-link" href="#task-lists"></a></h1>
-<pre style="position: relative;" line-start="164" line-end="172"><code class="hljs language-plaintext">- [x] Finish my changes
+<hr line-start="158" line-end="158">
+<h1 style="position: relative;" line-start="160" line-end="160"><span style="position: absolute; top: -50px;" id="task-lists"></span>Task lists<a class="anchor octicon-link" href="#task-lists"></a></h1>
+<pre style="position: relative;" line-start="162" line-end="170"><code class="hljs language-plaintext">- [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
 - [x] @mentions, #refs, [links](), **formatting**, and &lt;del&gt;tags&lt;/del&gt; supported
@@ -158,22 +158,22 @@ _This is italic text_
 - [x] this is a complete item
 - [ ] this is an incomplete item
 </code></pre><ul class="contains-task-list">
-<li class="task-list-item" line-start="174" line-end="174"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Finish my changes</li>
-<li class="task-list-item" line-start="175" line-end="175"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Push my commits to GitHub</li>
-<li class="task-list-item" line-start="176" line-end="176"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Open a pull request</li>
-<li class="task-list-item" line-start="177" line-end="177"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
-<li class="task-list-item" line-start="178" line-end="178"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> list syntax required (any unordered or ordered list supported)</li>
-<li class="task-list-item" line-start="179" line-end="179"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is a complete item</li>
-<li class="task-list-item" line-start="180" line-end="180"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is an incomplete item</li>
+<li class="task-list-item" line-start="172" line-end="172"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Finish my changes</li>
+<li class="task-list-item" line-start="173" line-end="173"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Push my commits to GitHub</li>
+<li class="task-list-item" line-start="174" line-end="174"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Open a pull request</li>
+<li class="task-list-item" line-start="175" line-end="175"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li class="task-list-item" line-start="176" line-end="176"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> list syntax required (any unordered or ordered list supported)</li>
+<li class="task-list-item" line-start="177" line-end="177"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is a complete item</li>
+<li class="task-list-item" line-start="178" line-end="178"><input disabled="" type="checkbox" class="task-list-item-checkbox"> this is an incomplete item</li>
 </ul>
-<hr line-start="182" line-end="182">
-<h1 style="position: relative;" line-start="184" line-end="184"><span style="position: absolute; top: -50px;" id="ignoring-markdown-formatting"></span>Ignoring Markdown formatting<a class="anchor octicon-link" href="#ignoring-markdown-formatting"></a></h1>
-<p line-start="186" line-end="186">You can tell GitHub to ignore (or escape) Markdown formatting by using backslash before the Markdown character.</p>
-<pre style="position: relative;" line-start="188" line-end="190"><code class="hljs language-plaintext">Let&#x27;s rename *our-new-project* to *our-old-project*.
-</code></pre><p line-start="192" line-end="192">Let&#39;s rename <em>our-new-project</em> to <em>our-old-project</em>.</p>
-<hr line-start="194" line-end="194">
-<h1 style="position: relative;" line-start="196" line-end="196"><span style="position: absolute; top: -50px;" id="links"></span>Links<a class="anchor octicon-link" href="#links"></a></h1>
-<pre style="position: relative;" line-start="198" line-end="220"><code class="hljs language-plaintext">[I&#x27;m an inline-style link](https://www.google.com)
+<hr line-start="180" line-end="180">
+<h1 style="position: relative;" line-start="182" line-end="182"><span style="position: absolute; top: -50px;" id="ignoring-markdown-formatting"></span>Ignoring Markdown formatting<a class="anchor octicon-link" href="#ignoring-markdown-formatting"></a></h1>
+<p line-start="184" line-end="184">You can tell GitHub to ignore (or escape) Markdown formatting by using backslash before the Markdown character.</p>
+<pre style="position: relative;" line-start="186" line-end="188"><code class="hljs language-plaintext">Let&#x27;s rename *our-new-project* to *our-old-project*.
+</code></pre><p line-start="190" line-end="190">Let&#39;s rename <em>our-new-project</em> to <em>our-old-project</em>.</p>
+<hr line-start="192" line-end="192">
+<h1 style="position: relative;" line-start="194" line-end="194"><span style="position: absolute; top: -50px;" id="links"></span>Links<a class="anchor octicon-link" href="#links"></a></h1>
+<pre style="position: relative;" line-start="196" line-end="218"><code class="hljs language-plaintext">[I&#x27;m an inline-style link](https://www.google.com)
 
 [I&#x27;m an inline-style link with title](https://www.google.com &quot;Google&#x27;s Homepage&quot;)
 
@@ -194,19 +194,19 @@ Some text to show that the reference links can follow later.
 [arbitrary case-insensitive reference text]: https://www.mozilla.org
 [1]: http://slashdot.org
 [link text itself]: http://www.reddit.com
-</code></pre><p line-start="222" line-end="222"><a href="https://www.google.com">I&#39;m an inline-style link</a></p>
-<p line-start="224" line-end="224"><a href="https://www.google.com" title="Google&#39;s Homepage">I&#39;m an inline-style link with title</a></p>
-<p line-start="226" line-end="226"><a href="https://www.mozilla.org">I&#39;m a reference-style link</a></p>
-<p line-start="228" line-end="228"><a href="../blob/master/LICENSE">I&#39;m a relative reference to a repository file</a></p>
-<p line-start="230" line-end="230"><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
-<p line-start="232" line-end="232">Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
-<p line-start="234" line-end="236">URLs and URLs in angle brackets will automatically get turned into links.
+</code></pre><p line-start="220" line-end="220"><a href="https://www.google.com">I&#39;m an inline-style link</a></p>
+<p line-start="222" line-end="222"><a href="https://www.google.com" title="Google&#39;s Homepage">I&#39;m an inline-style link with title</a></p>
+<p line-start="224" line-end="224"><a href="https://www.mozilla.org">I&#39;m a reference-style link</a></p>
+<p line-start="226" line-end="226"><a href="../blob/master/LICENSE">I&#39;m a relative reference to a repository file</a></p>
+<p line-start="228" line-end="228"><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
+<p line-start="230" line-end="230">Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
+<p line-start="232" line-end="234">URLs and URLs in angle brackets will automatically get turned into links.
 <a href="http://www.example.com">http://www.example.com</a> or <a href="http://www.example.com">http://www.example.com</a> and sometimes
 example.com (but not on Github, for example).</p>
-<p line-start="238" line-end="238">Some text to show that the reference links can follow later.</p>
-<hr line-start="244" line-end="244">
-<h1 style="position: relative;" line-start="246" line-end="246"><span style="position: absolute; top: -50px;" id="images"></span>Images<a class="anchor octicon-link" href="#images"></a></h1>
-<pre style="position: relative;" line-start="248" line-end="269"><code class="hljs language-plaintext">Here&#x27;s our logo (hover to see the title text):
+<p line-start="236" line-end="236">Some text to show that the reference links can follow later.</p>
+<hr line-start="242" line-end="242">
+<h1 style="position: relative;" line-start="244" line-end="244"><span style="position: absolute; top: -50px;" id="images"></span>Images<a class="anchor octicon-link" href="#images"></a></h1>
+<pre style="position: relative;" line-start="246" line-end="267"><code class="hljs language-plaintext">Here&#x27;s our logo (hover to see the title text):
 
 Inline-style:
 ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;)
@@ -226,19 +226,19 @@ Like links, Images also have a footnote style syntax
 With a reference later in the document defining the URL location:
 
 [id]: https://octodex.github.com/images/dojocat.jpg  &quot;The Dojocat&quot;
-</code></pre><p line-start="271" line-end="271">Here&#39;s our logo (hover to see the title text):</p>
-<p line-start="273" line-end="274">Inline-style:
+</code></pre><p line-start="269" line-end="269">Here&#39;s our logo (hover to see the title text):</p>
+<p line-start="271" line-end="272">Inline-style:
 <img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 1"></p>
-<p line-start="276" line-end="277">Reference-style:
+<p line-start="274" line-end="275">Reference-style:
 <img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 2"></p>
-<p line-start="281" line-end="282"><img src="https://octodex.github.com/images/minion.png" alt="Minion">
+<p line-start="279" line-end="280"><img src="https://octodex.github.com/images/minion.png" alt="Minion">
 <img src="https://octodex.github.com/images/stormtroopocat.jpg" alt="Stormtroopocat" title="The Stormtroopocat"></p>
-<p line-start="284" line-end="284">Like links, Images also have a footnote style syntax</p>
-<p line-start="286" line-end="286"><img src="https://octodex.github.com/images/dojocat.jpg" alt="Alt text" title="The Dojocat"></p>
-<p line-start="288" line-end="288">With a reference later in the document defining the URL location:</p>
-<hr line-start="292" line-end="292">
-<h1 style="position: relative;" line-start="294" line-end="294"><span style="position: absolute; top: -50px;" id="footnotes"></span><a href="https://github.com/markdown-it/markdown-it-footnote">Footnotes</a><a class="anchor octicon-link" href="#footnotes"></a></h1>
-<pre style="position: relative;" line-start="296" line-end="310"><code class="hljs language-plaintext">Footnote 1 link[^first].
+<p line-start="282" line-end="282">Like links, Images also have a footnote style syntax</p>
+<p line-start="284" line-end="284"><img src="https://octodex.github.com/images/dojocat.jpg" alt="Alt text" title="The Dojocat"></p>
+<p line-start="286" line-end="286">With a reference later in the document defining the URL location:</p>
+<hr line-start="290" line-end="290">
+<h1 style="position: relative;" line-start="292" line-end="292"><span style="position: absolute; top: -50px;" id="footnotes"></span><a href="https://github.com/markdown-it/markdown-it-footnote">Footnotes</a><a class="anchor octicon-link" href="#footnotes"></a></h1>
+<pre style="position: relative;" line-start="294" line-end="308"><code class="hljs language-plaintext">Footnote 1 link[^first].
 
 Footnote 2 link[^second].
 
@@ -251,14 +251,14 @@ Duplicated footnote reference[^second].
     and multiple paragraphs.
 
 [^second]: Footnote text.
-</code></pre><p line-start="312" line-end="312">Footnote 1 link<sup><a id="footnote-ref-first" href="#footnote-first" data-footnote-ref aria-describedby="footnote-label">first</a></sup>.</p>
-<p line-start="314" line-end="314">Footnote 2 link<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
-<p line-start="316" line-end="316">Duplicated footnote reference<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
-<hr line-start="324" line-end="324">
-<h1 style="position: relative;" line-start="326" line-end="326"><span style="position: absolute; top: -50px;" id="code-and-syntax-highlighting"></span>Code and Syntax Highlighting<a class="anchor octicon-link" href="#code-and-syntax-highlighting"></a></h1>
-<pre style="position: relative;" line-start="328" line-end="330"><code class="hljs language-plaintext">Inline code has back-ticks around it.
-</code></pre><p line-start="332" line-end="332">Inline code has back-ticks around it.</p>
-<pre style="position: relative;" line-start="334" line-end="351"><code class="hljs language-c#"><span class="hljs-keyword">using</span> System.IO.Compression;
+</code></pre><p line-start="310" line-end="310">Footnote 1 link<sup><a id="footnote-ref-first" href="#footnote-first" data-footnote-ref aria-describedby="footnote-label">first</a></sup>.</p>
+<p line-start="312" line-end="312">Footnote 2 link<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
+<p line-start="314" line-end="314">Duplicated footnote reference<sup><a id="footnote-ref-second" href="#footnote-second" data-footnote-ref aria-describedby="footnote-label">second</a></sup>.</p>
+<hr line-start="322" line-end="322">
+<h1 style="position: relative;" line-start="324" line-end="324"><span style="position: absolute; top: -50px;" id="code-and-syntax-highlighting"></span>Code and Syntax Highlighting<a class="anchor octicon-link" href="#code-and-syntax-highlighting"></a></h1>
+<pre style="position: relative;" line-start="326" line-end="328"><code class="hljs language-plaintext">Inline code has back-ticks around it.
+</code></pre><p line-start="330" line-end="330">Inline code has back-ticks around it.</p>
+<pre style="position: relative;" line-start="332" line-end="349"><code class="hljs language-c#"><span class="hljs-keyword">using</span> System.IO.Compression;
 
 <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> <span class="hljs-keyword">warning</span> disable 414, 3021</span>
 
@@ -274,7 +274,7 @@ Duplicated footnote reference[^second].
         }
     }
 }
-</code></pre><pre style="position: relative;" line-start="353" line-end="372"><code class="hljs language-css"><span class="hljs-keyword">@font-face</span> {
+</code></pre><pre style="position: relative;" line-start="351" line-end="370"><code class="hljs language-css"><span class="hljs-keyword">@font-face</span> {
   <span class="hljs-attribute">font-family</span>: Chunkfive;
   <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;Chunkfive.otf&quot;</span>);
 }
@@ -292,7 +292,7 @@ Duplicated footnote reference[^second].
     <span class="hljs-attribute">content</span>: <span class="hljs-built_in">attr</span>(href);
   }
 }
-</code></pre><pre style="position: relative;" line-start="374" line-end="390"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$initHighlight</span>(<span class="hljs-params">block</span>) {
+</code></pre><pre style="position: relative;" line-start="372" line-end="388"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$initHighlight</span>(<span class="hljs-params">block</span>) {
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">if</span> (cls.<span class="hljs-title function_">search</span>(<span class="hljs-regexp">/no-highlight/</span>) != -<span class="hljs-number">1</span>)
       <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(block, <span class="hljs-literal">true</span>, <span class="hljs-number">0x0F</span>) +
@@ -307,7 +307,7 @@ Duplicated footnote reference[^second].
 }
 
 <span class="hljs-keyword">export</span>  $initHighlight;
-</code></pre><pre style="position: relative;" line-start="392" line-end="445"><code class="hljs language-php"><span class="hljs-keyword">require_once</span> <span class="hljs-string">&#x27;Zend/Uri/Http.php&#x27;</span>;
+</code></pre><pre style="position: relative;" line-start="390" line-end="443"><code class="hljs language-php"><span class="hljs-keyword">require_once</span> <span class="hljs-string">&#x27;Zend/Uri/Http.php&#x27;</span>;
 
 <span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Location</span>/<span class="hljs-title class_">Web</span>;
 
@@ -359,9 +359,9 @@ line description&#x27;</span>;
 datahere
 datahere */
 datahere
-</code></pre><hr line-start="447" line-end="447">
-<h1 style="position: relative;" line-start="449" line-end="449"><span style="position: absolute; top: -50px;" id="tables"></span>Tables<a class="anchor octicon-link" href="#tables"></a></h1>
-<pre style="position: relative;" line-start="451" line-end="493"><code class="hljs language-plaintext">Colons can be used to align columns.
+</code></pre><hr line-start="445" line-end="445">
+<h1 style="position: relative;" line-start="447" line-end="447"><span style="position: absolute; top: -50px;" id="tables"></span>Tables<a class="anchor octicon-link" href="#tables"></a></h1>
+<pre style="position: relative;" line-start="449" line-end="491"><code class="hljs language-plaintext">Colons can be used to align columns.
 
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
@@ -402,48 +402,48 @@ Markdown | Less | Pretty
 | ---      | ---       |
 | Backtick | &#x27;         |
 | Pipe     | |        |
-</code></pre><p line-start="495" line-end="495">Colons can be used to align columns.</p>
+</code></pre><p line-start="493" line-end="493">Colons can be used to align columns.</p>
 <table>
 <thead>
-<tr line-start="497" line-end="497">
+<tr line-start="495" line-end="495">
 <th>Tables</th>
 <th align="center">Are</th>
 <th align="right">Cool</th>
 </tr>
 </thead>
-<tbody><tr line-start="499" line-end="499">
+<tbody><tr line-start="497" line-end="497">
 <td>col 3 is</td>
 <td align="center">right-aligned</td>
 <td align="right">$1600</td>
 </tr>
-<tr line-start="500" line-end="500">
+<tr line-start="498" line-end="498">
 <td>col 2 is</td>
 <td align="center">centered</td>
 <td align="right">$12</td>
 </tr>
-<tr line-start="501" line-end="501">
+<tr line-start="499" line-end="499">
 <td>zebra stripes</td>
 <td align="center">are neat</td>
 <td align="right">$1</td>
 </tr>
 </tbody></table>
-<p line-start="503" line-end="505">There must be at least 3 dashes separating each header cell.
+<p line-start="501" line-end="503">There must be at least 3 dashes separating each header cell.
 The outer pipes (|) are optional, and you don&#39;t need to make the
 raw Markdown line up prettily. You can also use inline Markdown.</p>
 <table>
 <thead>
-<tr line-start="507" line-end="507">
+<tr line-start="505" line-end="505">
 <th>Markdown</th>
 <th>Less</th>
 <th>Pretty</th>
 </tr>
 </thead>
-<tbody><tr line-start="509" line-end="509">
+<tbody><tr line-start="507" line-end="507">
 <td><em>Still</em></td>
 <td><code>renders</code></td>
 <td><strong>nicely</strong></td>
 </tr>
-<tr line-start="510" line-end="510">
+<tr line-start="508" line-end="508">
 <td>1</td>
 <td>2</td>
 <td>3</td>
@@ -451,78 +451,78 @@ raw Markdown line up prettily. You can also use inline Markdown.</p>
 </tbody></table>
 <table>
 <thead>
-<tr line-start="512" line-end="512">
+<tr line-start="510" line-end="510">
 <th>First Header</th>
 <th>Second Header</th>
 </tr>
 </thead>
-<tbody><tr line-start="514" line-end="514">
+<tbody><tr line-start="512" line-end="512">
 <td>Content Cell</td>
 <td>Content Cell</td>
 </tr>
-<tr line-start="515" line-end="515">
+<tr line-start="513" line-end="513">
 <td>Content Cell</td>
 <td>Content Cell</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
-<tr line-start="517" line-end="517">
+<tr line-start="515" line-end="515">
 <th>Command</th>
 <th>Description</th>
 </tr>
 </thead>
-<tbody><tr line-start="519" line-end="519">
+<tbody><tr line-start="517" line-end="517">
 <td>git status</td>
 <td>List all new or modified files</td>
 </tr>
-<tr line-start="520" line-end="520">
+<tr line-start="518" line-end="518">
 <td>git diff</td>
 <td>Show file differences that haven&#39;t been staged</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
-<tr line-start="522" line-end="522">
+<tr line-start="520" line-end="520">
 <th>Command</th>
 <th>Description</th>
 </tr>
 </thead>
-<tbody><tr line-start="524" line-end="524">
+<tbody><tr line-start="522" line-end="522">
 <td><code>git status</code></td>
 <td>List all <em>new or modified</em> files</td>
 </tr>
-<tr line-start="525" line-end="525">
+<tr line-start="523" line-end="523">
 <td><code>git diff</code></td>
 <td>Show file differences that <strong>haven&#39;t been</strong> staged</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
-<tr line-start="527" line-end="527">
+<tr line-start="525" line-end="525">
 <th align="left">Left-aligned</th>
 <th align="center">Center-aligned</th>
 <th align="right">Right-aligned</th>
 </tr>
 </thead>
-<tbody><tr line-start="529" line-end="529">
+<tbody><tr line-start="527" line-end="527">
 <td align="left">git status</td>
 <td align="center">git status</td>
 <td align="right">git status</td>
 </tr>
-<tr line-start="530" line-end="530">
+<tr line-start="528" line-end="528">
 <td align="left">git diff</td>
 <td align="center">git diff</td>
 <td align="right">git diff</td>
 </tr>
 </tbody></table>
-<p line-start="532" line-end="535">| Name     | Character |
+<p line-start="530" line-end="533">| Name     | Character |
 | -------- | --------- | --- |
 | Backtick | &#39;         |
 | Pipe     |           |     |</p>
-<hr line-start="537" line-end="537">
-<h1 style="position: relative;" line-start="539" line-end="539"><span style="position: absolute; top: -50px;" id="blockquotes"></span>Blockquotes<a class="anchor octicon-link" href="#blockquotes"></a></h1>
-<pre style="position: relative;" line-start="541" line-end="552"><code class="hljs language-plaintext">&gt; Blockquotes are very handy in email to emulate reply text.
+<hr line-start="535" line-end="535">
+<h1 style="position: relative;" line-start="537" line-end="537"><span style="position: absolute; top: -50px;" id="blockquotes"></span>Blockquotes<a class="anchor octicon-link" href="#blockquotes"></a></h1>
+<pre style="position: relative;" line-start="539" line-end="550"><code class="hljs language-plaintext">&gt; Blockquotes are very handy in email to emulate reply text.
 &gt; This line is part of the same quote.
 
 Quote break.
@@ -533,42 +533,42 @@ Quote break.
 &gt;&gt; ...by using additional greater-than signs right next to each other...
 &gt; &gt; &gt; ...or with spaces between arrows.
 </code></pre><blockquote>
-<p line-start="554" line-end="555">Blockquotes are very handy in email to emulate reply text.
+<p line-start="552" line-end="553">Blockquotes are very handy in email to emulate reply text.
 This line is part of the same quote.</p>
 </blockquote>
-<p line-start="557" line-end="557">Quote break.</p>
+<p line-start="555" line-end="555">Quote break.</p>
 <blockquote>
-<p line-start="559" line-end="559">This is a very long line that will still be quoted properly when it wraps. Oh boy let&#39;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
+<p line-start="557" line-end="557">This is a very long line that will still be quoted properly when it wraps. Oh boy let&#39;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
 </blockquote>
 <blockquote>
-<p line-start="561" line-end="561">Blockquotes can also be nested...</p>
+<p line-start="559" line-end="559">Blockquotes can also be nested...</p>
 <blockquote>
-<p line-start="563" line-end="563">...by using additional greater-than signs right next to each other...</p>
+<p line-start="561" line-end="561">...by using additional greater-than signs right next to each other...</p>
 <blockquote>
-<p line-start="565" line-end="565">...or with spaces between arrows.</p>
+<p line-start="563" line-end="563">...or with spaces between arrows.</p>
 </blockquote>
 </blockquote>
 </blockquote>
-<hr line-start="567" line-end="567">
-<h1 style="position: relative;" line-start="569" line-end="569"><span style="position: absolute; top: -50px;" id="inline-html"></span>Inline HTML<a class="anchor octicon-link" href="#inline-html"></a></h1>
-<pre style="position: relative;" line-start="571" line-end="579"><code class="hljs language-plaintext">&lt;dl&gt;
+<hr line-start="565" line-end="565">
+<h1 style="position: relative;" line-start="567" line-end="567"><span style="position: absolute; top: -50px;" id="inline-html"></span>Inline HTML<a class="anchor octicon-link" href="#inline-html"></a></h1>
+<pre style="position: relative;" line-start="569" line-end="577"><code class="hljs language-plaintext">&lt;dl&gt;
   &lt;dt&gt;Definition list&lt;/dt&gt;
   &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;
 
   &lt;dt&gt;Markdown in HTML&lt;/dt&gt;
   &lt;dd&gt;Does *not* work **very** well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;
 &lt;/dl&gt;
-</code></pre><dl line-start="581" line-end="587">
+</code></pre><dl line-start="579" line-end="585">
   <dt>Definition list</dt>
   <dd>Is something people use sometimes.</dd>
 
-  <dt line-start="585" line-end="587">Markdown in HTML</dt>
+  <dt line-start="583" line-end="585">Markdown in HTML</dt>
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
 </dl>
 
-<hr line-start="589" line-end="589">
-<h1 style="position: relative;" line-start="591" line-end="591"><span style="position: absolute; top: -50px;" id="horizontal-rules"></span>Horizontal Rules<a class="anchor octicon-link" href="#horizontal-rules"></a></h1>
-<pre style="position: relative;" line-start="593" line-end="607"><code class="hljs language-plaintext">Three or more...
+<hr line-start="587" line-end="587">
+<h1 style="position: relative;" line-start="589" line-end="589"><span style="position: absolute; top: -50px;" id="horizontal-rules"></span>Horizontal Rules<a class="anchor octicon-link" href="#horizontal-rules"></a></h1>
+<pre style="position: relative;" line-start="591" line-end="605"><code class="hljs language-plaintext">Three or more...
 
 ---
 
@@ -581,19 +581,19 @@ Asterisks
 ___
 
 Underscores
-</code></pre><p line-start="609" line-end="609">Three or more...</p>
-<hr line-start="611" line-end="611">
-<p line-start="613" line-end="613">Hyphens</p>
-<hr line-start="615" line-end="615">
-<p line-start="617" line-end="617">Asterisks</p>
-<hr line-start="619" line-end="619">
-<p line-start="621" line-end="621">Underscores</p>
-<hr line-start="623" line-end="623">
-<h1 style="position: relative;" line-start="625" line-end="625"><span style="position: absolute; top: -50px;" id="latex--math"></span>LaTeX / Math<a class="anchor octicon-link" href="#latex--math"></a></h1>
-<h2 style="position: relative;" line-start="627" line-end="627"><span style="position: absolute; top: -50px;" id="inline-latex"></span>Inline LaTeX<a class="anchor octicon-link" href="#inline-latex"></a></h2>
-<p line-start="629" line-end="629">Inline math using dollar signs: <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> and <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</p>
-<p line-start="631" line-end="631">Inline math using parentheses: <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">ma</span></span></span></span></span> and <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord" style="margin-right:0.0278em;">_</span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7138em;"><span style="top:-3.1124em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>.</p>
-<p line-start="633" line-end="633">Mixed with text: The quadratic formula is <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.3845em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0395em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">a</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">b</span><span class="mbin mtight">±</span><span class="mord sqrt mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9221em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mtight" style="padding-left:0.833em;"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight">4</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">c</span></span></span><span style="top:-2.8821em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail mtight" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+</code></pre><p line-start="607" line-end="607">Three or more...</p>
+<hr line-start="609" line-end="609">
+<p line-start="611" line-end="611">Hyphens</p>
+<hr line-start="613" line-end="613">
+<p line-start="615" line-end="615">Asterisks</p>
+<hr line-start="617" line-end="617">
+<p line-start="619" line-end="619">Underscores</p>
+<hr line-start="621" line-end="621">
+<h1 style="position: relative;" line-start="623" line-end="623"><span style="position: absolute; top: -50px;" id="latex--math"></span>LaTeX / Math<a class="anchor octicon-link" href="#latex--math"></a></h1>
+<h2 style="position: relative;" line-start="625" line-end="625"><span style="position: absolute; top: -50px;" id="inline-latex"></span>Inline LaTeX<a class="anchor octicon-link" href="#inline-latex"></a></h2>
+<p line-start="627" line-end="627">Inline math using dollar signs: <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> and <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</p>
+<p line-start="629" line-end="629">Inline math using parentheses: <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">ma</span></span></span></span></span> and <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord" style="margin-right:0.0278em;">_</span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7138em;"><span style="top:-3.1124em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>.</p>
+<p line-start="631" line-end="631">Mixed with text: The quadratic formula is <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.3845em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0395em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">a</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">b</span><span class="mbin mtight">±</span><span class="mord sqrt mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9221em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mtight" style="padding-left:0.833em;"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight">4</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">c</span></span></span><span style="top:-2.8821em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail mtight" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
 c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
@@ -605,9 +605,9 @@ H400000v40H845.2724
 s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
 c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
 M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1179em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span> which solves <span class="katex-inline"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span>.</p>
-<h2 style="position: relative;" line-start="635" line-end="635"><span style="position: absolute; top: -50px;" id="block-latex"></span>Block LaTeX<a class="anchor octicon-link" href="#block-latex"></a></h2>
-<p line-start="637" line-end="637">Block math using double dollar signs:</p>
-<div class="katex-block" line-start="639" line-end="641"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.3262em;vertical-align:-0.9119em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.4445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4143em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0369em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.1633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4773em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+<h2 style="position: relative;" line-start="633" line-end="633"><span style="position: absolute; top: -50px;" id="block-latex"></span>Block LaTeX<a class="anchor octicon-link" href="#block-latex"></a></h2>
+<p line-start="635" line-end="635">Block math using double dollar signs:</p>
+<div class="katex-block" line-start="637" line-end="639"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.3262em;vertical-align:-0.9119em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.4445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4143em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0369em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.1633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4773em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8003em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span></span></span><span style="top:-2.7603em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
 c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
 c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
 c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
@@ -619,8 +619,8 @@ H400000v40H845.2724
 s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
 c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
 M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2397em;"><span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
-<p line-start="643" line-end="643">Block math using square brackets:</p>
-<div class="katex-block" line-start="645" line-end="647"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">∇</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.9663em;"></span><span class="mord katex-accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="katex-overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+<p line-start="641" line-end="641">Block math using square brackets:</p>
+<div class="katex-block" line-start="643" line-end="645"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">∇</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.9663em;"></span><span class="mord katex-accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="katex-overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
@@ -633,8 +633,8 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 -7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
 H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
 c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
-<p line-start="649" line-end="649">A more complex equation:</p>
-<div class="katex-block" line-start="651" line-end="656"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:3.5699em;vertical-align:-1.5349em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0349em;"><span style="top:-4.0349em;"><span class="pstrut" style="height:3.1076em;"></span><span class="mord"><span class="mord">∇</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord katex-accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="katex-overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+<p line-start="647" line-end="647">A more complex equation:</p>
+<div class="katex-block" line-start="649" line-end="654"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:3.5699em;vertical-align:-1.5349em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0349em;"><span style="top:-4.0349em;"><span class="pstrut" style="height:3.1076em;"></span><span class="mord"><span class="mord">∇</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord katex-accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="katex-overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
@@ -647,17 +647,17 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 -7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
 H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
 c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5349em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0349em;"><span style="top:-4.0349em;"><span class="pstrut" style="height:3.1076em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">ρ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-1.9326em;"><span class="pstrut" style="height:3.1076em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5349em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<h2 style="position: relative;" line-start="658" line-end="658"><span style="position: absolute; top: -50px;" id="code-vs-latex"></span>Code vs LaTeX<a class="anchor octicon-link" href="#code-vs-latex"></a></h2>
-<p line-start="660" line-end="660">Code spans should not be affected: <code>$not latex$</code> and <code>\\(also not latex\\)</code>.</p>
-<p line-start="662" line-end="662">A regular dollar amount like $100 should not be parsed as LaTeX because there&#39;s no closing $.</p>
-<hr line-start="664" line-end="664">
+<h2 style="position: relative;" line-start="656" line-end="656"><span style="position: absolute; top: -50px;" id="code-vs-latex"></span>Code vs LaTeX<a class="anchor octicon-link" href="#code-vs-latex"></a></h2>
+<p line-start="658" line-end="658">Code spans should not be affected: <code>$not latex$</code> and <code>\\(also not latex\\)</code>.</p>
+<p line-start="660" line-end="660">A regular dollar amount like $100 should not be parsed as LaTeX because there&#39;s no closing $.</p>
+<hr line-start="662" line-end="662">
 <section class="footnotes" data-footnotes>
 <ol>
-<li id="footnote-first" line-start="318" line-end="320">
+<li id="footnote-first" line-start="316" line-end="318">
 <p>Footnote <strong>can have markup</strong></p>
 <p>and multiple paragraphs.<a href="#footnote-ref-first" data-footnote-backref aria-label="Back to reference first"> ↩</a></p>
 </li>
-<li id="footnote-second" line-start="322" line-end="322">
+<li id="footnote-second" line-start="320" line-end="320">
 <p>Footnote text.<a href="#footnote-ref-second" data-footnote-backref aria-label="Back to reference second"> ↩</a></p>
 </li>
 
