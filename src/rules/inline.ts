@@ -34,10 +34,6 @@ const _punctuationGfmStrongEm = /(?!~)[\p{P}\p{S}]/u;
 const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s\p{P}\p{S}]/u;
 const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
 
-// GFM allows * and _ inside strikethrough
-const _punctuationGfmDel = /(?![*_])[\p{P}\p{S}]/u;
-const _punctuationOrSpaceGfmDel = /(?![*_])[\s\p{P}\p{S}]/u;
-const _notPunctuationOrSpaceGfmDel = /(?:[^\s\p{P}\p{S}]|[*_])/u;
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
 const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
@@ -147,7 +143,7 @@ const inline_backpedal =
 
 // Tilde left delimiter for strikethrough (similar to emStrongLDelim for asterisk)
 const inline_delLDelim = edit(/^~~?(?:((?!~)punct)|[^\s~])/, "u")
-   .replace(/punct/g, _punctuationGfmDel)
+   .replace(/punct/g, _punctuation)
    .getRegex();
 
 // Tilde delimiter patterns for strikethrough (similar to asterisk)
@@ -161,9 +157,9 @@ const delRDelimCore =
    "|notPunctSpace(~~?)(?=notPunctSpace)"; // (6) a~~a can be either Left or Right Delimiter
 
 const inline_delRDelim = edit(delRDelimCore, "gu")
-   .replace(/notPunctSpace/g, _notPunctuationOrSpaceGfmDel)
-   .replace(/punctSpace/g, _punctuationOrSpaceGfmDel)
-   .replace(/punct/g, _punctuationGfmDel)
+   .replace(/notPunctSpace/g, _notPunctuationOrSpace)
+   .replace(/punctSpace/g, _punctuationOrSpace)
+   .replace(/punct/g, _punctuation)
    .getRegex();
 
 const inline_text =
