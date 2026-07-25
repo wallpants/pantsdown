@@ -47,7 +47,10 @@ const inline_punctuation = edit(/^((?![*_])punctSpace)/, "u")
    .getRegex();
 
 // sequences em should skip over [title](link), `code`, <html>
-const inline_blockSkip = /\[[^[\]]*?\]\((?:\\.|[^\\\(\)]|\((?:\\.|[^\\\(\)])*\))*\)|`[^`]*?`|<(?! )[^<>]*?>/g;
+// upstream builds this via a codePattern placeholder and a lookbehind fallback;
+// bun (JSC) supports lookbehind so we inline the lookbehind form directly
+const inline_blockSkip =
+   /\[[^[\]]*?\]\((?:\\.|[^\\\(\)]|\((?:\\.|[^\\\(\)])*\))*\)|(?<!`)(`+)[^`]+\1(?!`)|<(?! )[^<>]*?>/g;
 
 const emStrongLDelimCore = /^(?:\*+(?:((?!\*)punct)|([^\s*]))?)|^_+(?:((?!_)punct)|([^\s_]))?/;
 
