@@ -362,10 +362,8 @@ export class Tokenizer {
                   itemContents += "\n" + nextLine;
                }
 
-               if (!blankLine && !nextLine.trim()) {
-                  // Check if current line is blank
-                  blankLine = true;
-               }
+               // Check if current line is blank
+               blankLine = !nextLine.trim();
 
                raw += rawLine + "\n";
                src = src.substring(rawLine.length + 1);

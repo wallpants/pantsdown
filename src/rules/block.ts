@@ -38,13 +38,13 @@ const block_def = edit(
    .replace("title", title)
    .getRegex();
 
-const block_bullet = /(?:[*+-]|\d{1,9}[.)])/;
+const block_bullet = / {0,3}(?:[*+-]|\d{1,9}[.)])/;
 
 const block_listItemStart = edit(/^( *)(bull) */)
    .replace("bull", block_bullet)
    .getRegex();
 
-const block_list = edit(/^( {0,3}bull)([ \t][^\n]+?)?(?:\n|$)/)
+const block_list = edit(/^(bull)([ \t][^\n]+?)?(?:\n|$)/)
    .replace(/bull/g, block_bullet)
    .replace("hr", "\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))")
    .replace("def", "\\n+(?=" + block_def.source + ")")
