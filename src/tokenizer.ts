@@ -298,6 +298,7 @@ export class Tokenizer {
             const fencesBeginRegex = other.fencesBeginRegex(indent);
             const headingBeginRegex = other.headingBeginRegex(indent);
             const htmlBeginRegex = other.htmlBeginRegex(indent);
+            const blockquoteBeginRegex = other.blockquoteBeginRegex(indent);
 
             // Check if following lines should be included in List Item
             while (src) {
@@ -316,6 +317,11 @@ export class Tokenizer {
 
                // End list item if found start of html block
                if (htmlBeginRegex.test(nextLine)) {
+                  break;
+               }
+
+               // End list item if found start of blockquote
+               if (blockquoteBeginRegex.test(nextLine)) {
                   break;
                }
 

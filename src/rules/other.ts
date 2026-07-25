@@ -75,4 +75,5 @@ export const other = {
    htmlBeginRegex: cachedIndentRegex(
       (indent: number) => new RegExp(`^ {0,${indent}}<(?:[a-z].*>|!--)`, "i"),
    ),
+   blockquoteBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}>`)),
 };
