@@ -113,7 +113,7 @@ export class Lexer {
             lastToken = tokens[tokens.length - 1];
             // An indented code block cannot interrupt a paragraph.
             if (lastToken && (lastToken.type === "paragraph" || lastToken.type === "text")) {
-               lastToken.raw += "\n" + token.raw;
+               lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.text;
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                if (lastInline) lastInline.src = lastToken.text;
@@ -184,7 +184,7 @@ export class Lexer {
             src = src.substring(token.raw.length);
             lastToken = tokens[tokens.length - 1];
             if (lastToken && (lastToken.type === "paragraph" || lastToken.type === "text")) {
-               lastToken.raw += "\n" + token.raw;
+               lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.raw;
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                if (lastInline) lastInline.src = lastToken.text;
@@ -217,7 +217,7 @@ export class Lexer {
          if (this.state.top && (token = this.tokenizer.paragraph(cutSrc))) {
             lastToken = tokens[tokens.length - 1];
             if (lastParagraphClipped && lastToken?.type === "paragraph") {
-               lastToken.raw += "\n" + token.raw;
+               lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.text;
                this.inlineQueue.pop();
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
@@ -235,7 +235,7 @@ export class Lexer {
             src = src.substring(token.raw.length);
             lastToken = tokens[tokens.length - 1];
             if (lastToken?.type === "text") {
-               lastToken.raw += "\n" + token.raw;
+               lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.text;
                this.inlineQueue.pop();
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
