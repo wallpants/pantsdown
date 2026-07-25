@@ -1,0 +1,260 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`marked spec: empty_list_after_blockquote 1`] = `
+"<blockquote>
+<p line-start="1" line-end="1">foo</p>
+</blockquote>
+<ul class="">
+<li line-start="2" line-end="2"></li>
+</ul>
+<blockquote>
+<p line-start="4" line-end="5">foo
+bar</p>
+</blockquote>
+<ol class="">
+<li line-start="6" line-end="6"></li>
+</ol>
+"
+`;
+
+exports[`marked spec: html_following_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1">list item 1</li>
+<li line-start="2" line-end="2">list item 2</li>
+</ul>
+<div class="some-class" line-start="3" line-end="5">
+Content
+</div>
+
+<ul class="">
+<li line-start="7" line-end="7">list item 1</li>
+<li line-start="8" line-end="8">list item 2</li>
+</ul>
+<!--
+Comment
+-->
+"
+`;
+
+exports[`marked spec: list_item_empty 1`] = `
+"<ul class="">
+<li line-start="1" line-end="2"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="title"></span>title<a class="anchor octicon-link" href="#title"></a></h2>
+</li>
+</ul>
+<hr line-start="4" line-end="4">
+<ul class="">
+<li line-start="6" line-end="8">title<ul class="">
+<li>desc</li>
+<li></li>
+</ul>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_item_empty_trailing_space 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"></li>
+</ul>
+<ul class="">
+<li line-start="3" line-end="3"></li>
+</ul>
+<ol class="">
+<li line-start="5" line-end="5"></li>
+</ol>
+<ol class="">
+<li line-start="7" line-end="7"></li>
+</ol>
+<p line-start="9" line-end="10">foo
++ </p>
+<p line-start="12" line-end="13">bar
+1. </p>
+"
+`;
+
+exports[`marked spec: list_item_tabs 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1">A</li>
+<li line-start="2" line-end="2">B</li>
+<li line-start="3" line-end="3">C</li>
+<li line-start="4" line-end="4">D</li>
+<li line-start="5" line-end="5">E</li>
+<li line-start="6" line-end="6">F</li>
+</ul>
+<ol class="">
+<li line-start="8" line-end="8">A</li>
+<li line-start="9" line-end="9">B</li>
+<li line-start="10" line-end="10">C</li>
+<li line-start="11" line-end="11">D</li>
+<li line-start="12" line-end="12">E</li>
+<li line-start="13" line-end="13">F</li>
+</ol>
+<p line-start="15" line-end="15">I am using spaces after the number:</p>
+<ol class="">
+<li line-start="16" line-end="16">Some Text</li>
+<li line-start="17" line-end="17">Some Text</li>
+<li line-start="18" line-end="18">Some Text</li>
+</ol>
+<p line-start="20" line-end="20">I am using tabs after the number:</p>
+<ol class="">
+<li line-start="21" line-end="21">SomeText</li>
+<li line-start="22" line-end="22">SomeText</li>
+<li line-start="23" line-end="23">SomeText</li>
+</ol>
+<p line-start="25" line-end="25">I am using tabs after the number and have a space:</p>
+<ol class="">
+<li line-start="27" line-end="27">SomeText</li>
+<li line-start="28" line-end="28">SomeText</li>
+<li line-start="29" line-end="29">SomeText</li>
+</ol>
+<p line-start="31" line-end="31">I am using space after the number and have a tab:</p>
+<ol class="">
+<li line-start="33" line-end="33">SomeText</li>
+<li line-start="34" line-end="34">SomeText</li>
+<li line-start="35" line-end="35">SomeText</li>
+</ol>
+<p line-start="37" line-end="37">I am using spaces after the bullet:</p>
+<ul class="">
+<li line-start="38" line-end="38">Some Text</li>
+<li line-start="39" line-end="39">Some Text</li>
+<li line-start="40" line-end="40">Some Text</li>
+</ul>
+<p line-start="42" line-end="42">I am using tabs after the bullet:</p>
+<ul class="">
+<li line-start="43" line-end="43">SomeText</li>
+<li line-start="44" line-end="44">SomeText</li>
+<li line-start="45" line-end="45">SomeText</li>
+</ul>
+<p line-start="47" line-end="47">I am using tabs after the bullet and have a space:</p>
+<ul class="">
+<li line-start="49" line-end="49">SomeText</li>
+<li line-start="50" line-end="50">SomeText</li>
+<li line-start="51" line-end="51">SomeText</li>
+</ul>
+<p line-start="53" line-end="53">I am using space after the bullet and have a tab:</p>
+<ul class="">
+<li line-start="55" line-end="55">SomeText</li>
+<li line-start="56" line-end="56">SomeText</li>
+<li line-start="57" line-end="57">SomeText</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_with_line_break 1`] = `
+"<ol class="">
+<li line-start="1" line-end="1"></li>
+</ol>
+<p line-start="2" line-end="6">Monday
+2.
+Tuesday
+3.
+Wednesday</p>
+"
+`;
+
+exports[`marked spec: list_wrong_indent 1`] = `
+"<ul class="">
+<li line-start="1" line-end="6"><p><strong>Header</strong>:<br>new line</p>
+<p>two space
+ one space
+no space</p>
+</li>
+</ul>
+<p line-start="8" line-end="8">new line</p>
+"
+`;
+
+exports[`marked spec: nested_blockquote_in_list 1`] = `
+"<h3 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="child"></span>Child<a class="anchor octicon-link" href="#child"></a></h3>
+<ul class="">
+<li line-start="2" line-end="4">list item<ul class="">
+<li>nested list item<blockquote>
+<p line-start="4" line-end="4">quoteblock</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 style="position: relative;" line-start="6" line-end="6"><span style="position: absolute; top: -50px;" id="sibling"></span>Sibling<a class="anchor octicon-link" href="#sibling"></a></h3>
+<ul class="">
+<li line-start="7" line-end="9">list item<ul class="">
+<li>nested list item</li>
+</ul>
+<blockquote>
+<p line-start="9" line-end="9">quoteblock</p>
+</blockquote>
+</li>
+</ul>
+<h3 style="position: relative;" line-start="11" line-end="11"><span style="position: absolute; top: -50px;" id="parent-level"></span>Parent level<a class="anchor octicon-link" href="#parent-level"></a></h3>
+<ul class="">
+<li line-start="12" line-end="13">list item<ul class="">
+<li>nested list item</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p line-start="14" line-end="14">quote block</p>
+</blockquote>
+"
+`;
+
+exports[`marked spec: ordered_list_after_blockquote 1`] = `
+"<ol class="">
+<li line-start="1" line-end="1">test</li>
+</ol>
+<blockquote>
+<p line-start="2" line-end="2">blockquote</p>
+</blockquote>
+<ol class="" start="2">
+<li line-start="3" line-end="3">test</li>
+</ol>
+<blockquote>
+<p line-start="4" line-end="4">blockquote</p>
+</blockquote>
+"
+`;
+
+exports[`marked spec: tasklist_blocks 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="tight"></span>tight<a class="anchor octicon-link" href="#tight"></a></h1>
+<ul class="contains-task-list">
+<li class="task-list-item" line-start="3" line-end="3"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> # heading</li>
+<li class="task-list-item" line-start="4" line-end="4"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> - list</li>
+<li class="task-list-item" line-start="5" line-end="5"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> &gt; blockquote</li>
+<li class="task-list-item" line-start="6" line-end="6"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> ---</li>
+<li class="task-list-item" line-start="7" line-end="8"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> \`\`\`<pre style="position: relative;"><code class="hljs language-plaintext">
+</code></pre></li>
+<li class="task-list-item" line-start="9" line-end="9"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> [def]: <a href="https://example.com">https://example.com</a></li>
+<li class="task-list-item" line-start="10" line-end="13"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> <div>
+<em>html</em></div>
+*html*</li>
+<li class="task-list-item" line-start="14" line-end="16"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> | a | b |
+|---|---|
+| 1 | 1 |</li>
+</ul>
+<h1 style="position: relative;" line-start="18" line-end="18"><span style="position: absolute; top: -50px;" id="loose"></span>loose<a class="anchor octicon-link" href="#loose"></a></h1>
+<ul class="contains-task-list">
+<li class="task-list-item" line-start="20" line-end="20"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> # heading</p>
+</li>
+<li class="task-list-item" line-start="22" line-end="22"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> - list</p>
+</li>
+<li class="task-list-item" line-start="24" line-end="24"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> &gt; blockquote</p>
+</li>
+<li class="task-list-item" line-start="26" line-end="26"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> ---</p>
+</li>
+<li class="task-list-item" line-start="28" line-end="29"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> \`\`\`</p>
+<pre style="position: relative;"><code class="hljs language-plaintext">
+</code></pre></li>
+<li class="task-list-item" line-start="31" line-end="31"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> [def]: <a href="https://example.com">https://example.com</a></p>
+</li>
+<li class="task-list-item" line-start="33" line-end="36"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> <div>
+<em>html</em></p>
+</div>
+*html*
+</li>
+<li class="task-list-item" line-start="38" line-end="40"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> | a | b |
+|---|---|
+| 1 | 1 |</p>
+</li>
+</ul>
+"
+`;
