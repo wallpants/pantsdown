@@ -24,6 +24,14 @@ type InlineRuleNames =
 
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
 const punctuation = "\\p{P}\\p{S}";
+const _punctuation = /[\p{P}\p{S}]/u;
+const _punctuationOrSpace = /[\s\p{P}\p{S}]/u;
+const _notPunctuationOrSpace = /[^\s\p{P}\p{S}]/u;
+
+// GFM allows ~ inside strong and em for strikethrough
+const _punctuationGfmStrongEm = /(?!~)[\p{P}\p{S}]/u;
+const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s\p{P}\p{S}]/u;
+const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
 const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
@@ -34,31 +42,51 @@ const email =
    /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
 const extended_email = /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/;
 
-const inline_punctuation = edit(/^((?![*_])[\spunctuation])/, "u")
-   .replace(/punctuation/g, punctuation)
+const inline_punctuation = edit(/^((?![*_])punctSpace)/, "u")
+   .replace(/punctSpace/g, _punctuationOrSpace)
    .getRegex();
 
 // sequences em should skip over [title](link), `code`, <html>
 const inline_blockSkip = /\[[^[\]]*?\]\((?:\\.|[^\\\(\)]|\((?:\\.|[^\\\(\)])*\))*\)|`[^`]*?`|<[^<>]*?>/g;
 
+const emStrongLDelimCore = /^(?:\*+(?:((?!\*)punct)|([^\s*]))?)|^_+(?:((?!_)punct)|([^\s_]))?/;
+
+const emStrongRDelimAstCore =
+   "^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)" + // Skip orphan inside strong
+   "|[^*]+(?=[^*])" + // Consume to delim
+   "|(?!\\*)punct(\\*+)(?=[\\s]|$)" + // (1) #*** can only be a Right Delimiter
+   "|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)" + // (2) a***#, a*** can only be a Right Delimiter
+   "|(?!\\*)punctSpace(\\*+)(?=notPunctSpace)" + // (3) #***a, ***a can only be Left Delimiter
+   "|[\\s](\\*+)(?!\\*)(?=punct)" + // (4) ***# can only be Left Delimiter
+   "|(?!\\*)punct(\\*+)(?!\\*)(?=punct)" + // (5) #***# can be either Left or Right Delimiter
+   "|notPunctSpace(\\*+)(?=notPunctSpace)"; // (6) a***a can be either Left or Right Delimiter
+
 const inline_emStrong = {
-   lDelim: edit(/^(?:\*+(?:((?!\*)[punct])|([^\s*]))?)|^_+(?:((?!_)[punct])|([^\s_]))?/, "u")
-      .replace(/punct/g, punctuation)
+   // GFM variants: ~ is not treated as punctuation so strikethrough
+   // can nest directly inside strong/em (upstream emStrongLDelimGfm)
+   lDelim: edit(emStrongLDelimCore, "u")
+      .replace(/punct/g, _punctuationGfmStrongEm)
       .getRegex(),
-   // (1) and (2) can only be a Right Delimiter. (3) and (4) can only be Left.  (5) and (6) can be either Left or Right.
-   // | Skip orphan inside strong      | Consume to delim | (1) #***              | (2) a***#, a***                    | (3) #***a, ***a                  | (4) ***#                 | (5) #***#                         | (6) a***a
-   rDelimAst: edit(
-      /^[^_*]*?__[^_*]*?\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\*)[punct](\*+)(?=[\s]|$)|[^punct\s](\*+)(?!\*)(?=[punct\s]|$)|(?!\*)[punct\s](\*+)(?=[^punct\s])|[\s](\*+)(?!\*)(?=[punct])|(?!\*)[punct](\*+)(?!\*)(?=[punct])|[^punct\s](\*+)(?=[^punct\s])/,
-      "gu",
-   )
-      .replace(/punct/g, punctuation)
+   // upstream emStrongRDelimAstGfm
+   rDelimAst: edit(emStrongRDelimAstCore, "gu")
+      .replace(/notPunctSpace/g, _notPunctuationOrSpaceGfmStrongEm)
+      .replace(/punctSpace/g, _punctuationOrSpaceGfmStrongEm)
+      .replace(/punct/g, _punctuationGfmStrongEm)
       .getRegex(),
+   // (6) Not allowed for _
    rDelimUnd: edit(
-      // ^- Not allowed for _
-      /^[^_*]*?\*\*[^_*]*?_[^_*]*?(?=\*\*)|[^_]+(?=[^_])|(?!_)[punct](_+)(?=[\s]|$)|[^punct\s](_+)(?!_)(?=[punct\s]|$)|(?!_)[punct\s](_+)(?=[^punct\s])|[\s](_+)(?!_)(?=[punct])|(?!_)[punct](_+)(?!_)(?=[punct])/,
+      "^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)" + // Skip orphan inside strong
+         "|[^_]+(?=[^_])" + // Consume to delim
+         "|(?!_)punct(_+)(?=[\\s]|$)" + // (1) #___ can only be a Right Delimiter
+         "|notPunctSpace(_+)(?!_)(?=punctSpace|$)" + // (2) a___#, a___ can only be a Right Delimiter
+         "|(?!_)punctSpace(_+)(?=notPunctSpace)" + // (3) #___a, ___a can only be Left Delimiter
+         "|[\\s](_+)(?!_)(?=punct)" + // (4) ___# can only be Left Delimiter
+         "|(?!_)punct(_+)(?!_)(?=punct)", // (5) #___# can be either Left or Right Delimiter
       "gu",
    )
-      .replace(/punct/g, punctuation)
+      .replace(/notPunctSpace/g, _notPunctuationOrSpace)
+      .replace(/punctSpace/g, _punctuationOrSpace)
+      .replace(/punct/g, _punctuation)
       .getRegex(),
 };
 
@@ -103,9 +131,7 @@ const inline_reflinkSearch = edit("reflink|nolink(?!\\()", "g")
    .replace("nolink", inline_nolink)
    .getRegex();
 
-const inline_escape = edit(/^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/)
-   .replace("])", "~|])")
-   .getRegex();
+const inline_escape = /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/;
 
 const inline_backpedal =
    /(?:[^?!.,:;*_'"~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_'"~)]+(?!$))+/;
