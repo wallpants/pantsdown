@@ -11,7 +11,8 @@ type InlineRuleNames =
    | "reflinkSearch"
    | "code"
    | "br"
-   | "del"
+   | "delLDelim"
+   | "delRDelim"
    | "url"
    | "text"
    | "emStrong"
@@ -32,6 +33,11 @@ const _notPunctuationOrSpace = /[^\s\p{P}\p{S}]/u;
 const _punctuationGfmStrongEm = /(?!~)[\p{P}\p{S}]/u;
 const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s\p{P}\p{S}]/u;
 const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
+
+// GFM allows * and _ inside strikethrough
+const _punctuationGfmDel = /(?![*_])[\p{P}\p{S}]/u;
+const _punctuationOrSpaceGfmDel = /(?![*_])[\s\p{P}\p{S}]/u;
+const _notPunctuationOrSpaceGfmDel = /(?:[^\s\p{P}\p{S}]|[*_])/u;
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
 const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
@@ -139,7 +145,26 @@ const inline_escape = /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/;
 const inline_backpedal =
    /(?:[^?!.,:;*_'"~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_'"~)]+(?!$))+/;
 
-const inline_del = /^(~~?)(?=[^\s~])((?:\\.|[^\\])*?(?:\\.|[^\s~\\]))\1(?=[^~]|$)/;
+// Tilde left delimiter for strikethrough (similar to emStrongLDelim for asterisk)
+const inline_delLDelim = edit(/^~~?(?:((?!~)punct)|[^\s~])/, "u")
+   .replace(/punct/g, _punctuationGfmDel)
+   .getRegex();
+
+// Tilde delimiter patterns for strikethrough (similar to asterisk)
+const delRDelimCore =
+   "^[^~]+(?=[^~])" + // Consume to delim
+   "|(?!~)punct(~~?)(?=[\\s]|$)" + // (1) #~~ can only be a Right Delimiter
+   "|notPunctSpace(~~?)(?!~)(?=punctSpace|$)" + // (2) a~~#, a~~ can only be a Right Delimiter
+   "|(?!~)punctSpace(~~?)(?=notPunctSpace)" + // (3) #~~a, ~~a can only be Left Delimiter
+   "|[\\s](~~?)(?!~)(?=punct)" + // (4) ~~# can only be Left Delimiter
+   "|(?!~)punct(~~?)(?!~)(?=punct)" + // (5) #~~# can be either Left or Right Delimiter
+   "|notPunctSpace(~~?)(?=notPunctSpace)"; // (6) a~~a can be either Left or Right Delimiter
+
+const inline_delRDelim = edit(delRDelimCore, "gu")
+   .replace(/notPunctSpace/g, _notPunctuationOrSpaceGfmDel)
+   .replace(/punctSpace/g, _punctuationOrSpaceGfmDel)
+   .replace(/punct/g, _punctuationGfmDel)
+   .getRegex();
 
 const inline_text =
    /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/;
@@ -170,7 +195,8 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
    emStrong: inline_emStrong,
    code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
    br: /^( {2,}|\\)\n(?!\s*$)/,
-   del: inline_del,
+   delLDelim: inline_delLDelim,
+   delRDelim: inline_delRDelim,
    text: inline_text,
    punctuation: inline_punctuation,
    blockSkip: inline_blockSkip,
