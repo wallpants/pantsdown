@@ -5,6 +5,7 @@ import { other } from "./rules/other.ts";
 import { type Links, type Token, type Tokens } from "./types.ts";
 import {
    ALERTS,
+   expandTabs,
    findClosingBracket,
    indentCodeCompensation,
    outputLink,
@@ -268,9 +269,7 @@ export class Tokenizer {
          raw = cap[0];
          src = src.substring(raw.length);
 
-         let line = cap[2]!
-            .split("\n", 1)[0]!
-            .replace(other.listReplaceTabs, (t: string) => " ".repeat(3 * t.length));
+         let line = expandTabs(cap[2]!.split("\n", 1)[0]!, cap[1]!.length);
          let nextLine = src.split("\n", 1)[0] ?? "";
 
          let blankLine = !line.trim();
@@ -279,7 +278,7 @@ export class Tokenizer {
          if (blankLine) {
             indent = cap[1]!.length + 1;
          } else {
-            indent = cap[2]!.search(other.nonSpaceChar); // Find first non-space char
+            indent = line.search(other.nonSpaceChar); // Find first non-space char
             indent = indent > 4 ? 1 : indent; // Treat indented code blocks (> 4 spaces) as having only 1 indent
             itemContents = line.slice(indent);
             indent += cap[1]!.length;
