@@ -72,4 +72,7 @@ export const other = {
       (indent: number) => new RegExp(`^ {0,${indent}}(?:\`\`\`|~~~)`),
    ),
    headingBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}#`)),
+   htmlBeginRegex: cachedIndentRegex(
+      (indent: number) => new RegExp(`^ {0,${indent}}<[a-z].*>`, "i"),
+   ),
 };
