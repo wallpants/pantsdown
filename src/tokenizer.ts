@@ -2,15 +2,16 @@ import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type Links,type Token,type Tokens } from "./types.ts";
+import { type Links, type Token, type Tokens } from "./types.ts";
 import {
-ALERTS,
-expandTabs,
-findClosingBracket,
-indentCodeCompensation,
-outputLink,
-rtrim,
-splitCells,
+   ALERTS,
+   expandTabs,
+   findClosingBracket,
+   indentCodeCompensation,
+   outputLink,
+   rtrim,
+   splitCells,
+   trimTrailingBlankLines,
 } from "./utils.ts";
 
 /**
@@ -41,13 +42,14 @@ export class Tokenizer {
       const cap = block.code.exec(src);
       if (!cap) return undefined;
 
-      const text = cap[0].replace(other.codeRemoveIndent, "");
+      const raw = trimTrailingBlankLines(cap[0]);
+      const text = raw.replace(other.codeRemoveIndent, "");
       return {
          type: "code",
-         raw: cap[0],
+         raw,
          codeBlockStyle: "indented",
-         text: rtrim(text, "\n"),
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         text,
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
@@ -525,13 +527,14 @@ export class Tokenizer {
       const cap = block.html.exec(src);
       if (!cap) return undefined;
 
+      const raw = trimTrailingBlankLines(cap[0]);
       const token: Tokens["HTML"] = {
          type: "html",
          block: true,
-         raw: cap[0],
+         raw,
          pre: cap[1] === "pre" || cap[1] === "script" || cap[1] === "style",
-         text: cap[0],
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         text: raw,
+         sourceMap: this.lexer.getSourceMap(raw),
       };
 
       /*

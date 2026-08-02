@@ -1,6 +1,6 @@
 import { type Lexer } from "./lexer.ts";
 import { other } from "./rules/other.ts";
-import { type HTMLAttrs,type PantsdownConfig,type SourceMap,type Tokens } from "./types.ts";
+import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -227,6 +227,20 @@ export function rtrim(str: string, c: string, invert?: boolean) {
    }
 
    return str.slice(0, l - suffLen);
+}
+
+export function trimTrailingBlankLines(str: string) {
+   const lines = str.split("\n");
+   let end = lines.length - 1;
+   while (end >= 0 && other.blankLine.test(lines[end]!)) {
+      end--;
+   }
+   if (lines.length - end <= 2) {
+      // we want to keep single trailing blank lines
+      return str;
+   }
+
+   return lines.slice(0, end + 1).join("\n");
 }
 
 export function findClosingBracket(str: string, b: string) {

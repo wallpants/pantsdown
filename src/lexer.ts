@@ -1,7 +1,7 @@
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
 import { Tokenizer } from "./tokenizer.ts";
-import { type Links,type SourceMap,type Token,type Tokens } from "./types.ts";
+import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
 
 export class Lexer {
    private tokenizer: Tokenizer;

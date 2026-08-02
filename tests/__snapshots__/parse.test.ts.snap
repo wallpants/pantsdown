@@ -560,13 +560,9 @@ This line is part of the same quote.</p>
 &lt;/dl&gt;
 </code></pre><dl line-start="579" line-end="585">
   <dt>Definition list</dt>
-  <dd>Is something people use sometimes.</dd>
-
-  <dt line-start="583" line-end="585">Markdown in HTML</dt>
+  <dd>Is something people use sometimes.</dd>  <dt line-start="583" line-end="585">Markdown in HTML</dt>
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
-</dl>
-
-<hr line-start="587" line-end="587">
+</dl><hr line-start="587" line-end="587">
 <h1 style="position: relative;" line-start="589" line-end="589"><span style="position: absolute; top: -50px;" id="horizontal-rules"></span>Horizontal Rules<a class="anchor octicon-link" href="#horizontal-rules"></a></h1>
 <pre style="position: relative;" line-start="591" line-end="605"><code class="hljs language-plaintext">Three or more...
 
