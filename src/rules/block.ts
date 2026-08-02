@@ -19,7 +19,7 @@ type BlockRuleNames =
    | "paragraph"
    | "latexBlock";
 
-export const label = /(?!\s*\])(?:\\.|[^\[\]\\])+/;
+export const label = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\])+/;
 
 const tag =
    "address|article|aside|base|basefont|blockquote|body|caption" +
