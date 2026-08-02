@@ -69,9 +69,7 @@ const emStrongRDelimAstCore =
 const inline_emStrong = {
    // GFM variants: ~ is not treated as punctuation so strikethrough
    // can nest directly inside strong/em (upstream emStrongLDelimGfm)
-   lDelim: edit(emStrongLDelimCore, "u")
-      .replace(/punct/g, _punctuationGfmStrongEm)
-      .getRegex(),
+   lDelim: edit(emStrongLDelimCore, "u").replace(/punct/g, _punctuationGfmStrongEm).getRegex(),
    // upstream emStrongRDelimAstGfm
    rDelimAst: edit(emStrongRDelimAstCore, "gu")
       .replace(/notPunctSpace/g, _notPunctuationOrSpaceGfmStrongEm)
@@ -95,7 +93,7 @@ const inline_emStrong = {
       .getRegex(),
 };
 
-const inline_anyPunctuation = edit(/\\[punct]/g, "gu")
+const inline_anyPunctuation = edit(/\\([punct])/g, "gu")
    .replace(/punct/g, punctuation)
    .getRegex();
 
