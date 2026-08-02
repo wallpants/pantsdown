@@ -1,6 +1,6 @@
 import { type Lexer } from "./lexer.ts";
 import { other } from "./rules/other.ts";
-import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
+import { type HTMLAttrs,type PantsdownConfig,type SourceMap,type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -263,26 +263,17 @@ export function outputLink(
    const title = link.title || null;
    const text = cap[1]?.replace(other.outputLinkReplace, "$1") ?? "";
 
-   if (cap[0]?.charAt(0) !== "!") {
-      lexer.state.inLink = true;
-      const token: Tokens["Link"] = {
-         type: "link",
-         raw,
-         href,
-         title,
-         text,
-         tokens: lexer.inlineTokens(text),
-      };
-      lexer.state.inLink = false;
-      return token;
-   }
-   return {
-      type: "image",
+   lexer.state.inLink = true;
+   const token: Tokens["Link"] | Tokens["Image"] = {
+      type: cap[0]?.charAt(0) === "!" ? "image" : "link",
       raw,
       href,
       title,
       text,
+      tokens: lexer.inlineTokens(text),
    };
+   lexer.state.inLink = false;
+   return token;
 }
 
 export function indentCodeCompensation(raw: string, text: string) {
