@@ -1,4 +1,4 @@
-import { comment as blockComment, label as blockLabel } from "./block.ts";
+import { comment as blockComment,label as blockLabel } from "./block.ts";
 import { edit } from "./utils.ts";
 
 type InlineRuleNames =
@@ -35,7 +35,7 @@ const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s\p{P}\p{S}]/u;
 const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
 
 const title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
-const href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]+|(?=\))/;
+const href = /<(?:\\.|[^\n<>\\])+>|[^ \t\n\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
 const comment = edit(blockComment).replace("(?:-->|$)", "-->").getRegex();
 const attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
@@ -114,7 +114,7 @@ const inline_tag = edit(
    .replace("attribute", attribute)
    .getRegex();
 
-const inline_link = edit(/^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/)
+const inline_link = edit(/^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/)
    .replace("label", label)
    .replace("href", href)
    .replace("title", title)
