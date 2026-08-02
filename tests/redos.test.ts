@@ -32,8 +32,7 @@ test("redos: inline link title group (marked #3902)", () => {
 });
 
 test("redos: backticks in link label without close (marked #3918)", () => {
-   const md =
-      "[" + Array.from({ length: 15 }, (_, i) => `\`\`\`\`code${i}\`\`\`\``).join(" ");
+   const md = "[" + Array.from({ length: 15 }, (_, i) => `\`\`\`\`code${i}\`\`\`\``).join(" ");
    const html = parseWithin(md);
    expect(html).toContain("<code>code0</code>");
    expect(html).toContain("<code>code14</code>");
