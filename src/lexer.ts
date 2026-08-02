@@ -1,7 +1,7 @@
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
 import { Tokenizer } from "./tokenizer.ts";
-import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
+import { type Links,type SourceMap,type Token,type Tokens } from "./types.ts";
 
 export class Lexer {
    private tokenizer: Tokenizer;
@@ -77,10 +77,6 @@ export class Lexer {
     * Lexing
     */
    blockTokens(src: string, tokens: Token[], lastParagraphClipped = false): Token[] {
-      src = src.replace(/^( *)(\t+)/gm, (_, leading: string, tabs: string) => {
-         return leading + "    ".repeat(tabs.length);
-      });
-
       let token: Token | undefined;
       let lastToken: Token | undefined;
       let cutSrc;

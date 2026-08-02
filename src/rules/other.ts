@@ -18,15 +18,16 @@ function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
 }
 
 export const other = {
-   codeRemoveIndent: /^ {1,4}/gm,
+   codeRemoveIndent: /^(?: {1,4}| {0,3}\t)/gm,
+   tabCharGlobal: /\t/g,
    outputLinkReplace: /\\([\[\]])/g,
    indentCodeCompensation: /^(\s+)(?:```)/,
    beginningSpace: /^\s+/,
    nonSpaceChar: /[^ ]/,
    newLineCharGlobal: /\n/g,
    multipleSpaceGlobal: /\s+/g,
-   blankLine: /^ *$/,
-   doubleBlankLine: /\n *\n *$/,
+   blankLine: /^[ \t]*$/,
+   doubleBlankLine: /\n[ \t]*\n[ \t]*$/,
    blockquoteSetextReplace: /\n {0,3}((?:=+|-+) *)(?=\n|$)/g,
    blockquoteSetextReplace2: /^ *>[ \t]?/gm,
    blockquoteStart: /^ {0,3}>/,
