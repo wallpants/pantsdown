@@ -258,3 +258,10 @@ exports[`marked spec: tasklist_blocks 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: escape_newline 1`] = `
+"<p line-start="1" line-end="2"><a href="https://example.com">foo<br>bar</a></p>
+<p line-start="7" line-end="8"><a href="https://example2.com">foo2<br>bar2</a></p>
+<p line-start="10" line-end="12"><a href="https://example.com">foo3<br>bar3</a></p>
+"
+`;
