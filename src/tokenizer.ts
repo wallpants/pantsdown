@@ -81,13 +81,14 @@ export class Tokenizer {
          }
       }
 
+      const raw = rtrim(cap[0], "\n");
       return {
          type: "heading",
-         raw: cap[0],
+         raw,
          depth: cap[1]!.length,
          text,
          tokens: this.lexer.inline(text),
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
@@ -605,13 +606,14 @@ export class Tokenizer {
       const title = cap[3]
          ? cap[3].substring(1, cap[3].length - 1).replace(inline.anyPunctuation, "$1")
          : "";
+      const raw = rtrim(cap[0], "\n");
       return {
          type: "def",
          tag,
-         raw: cap[0],
+         raw,
          href,
          title,
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
@@ -683,13 +685,14 @@ export class Tokenizer {
       if (!cap) return undefined;
 
       const text = cap[1]!.trim();
+      const raw = rtrim(cap[0], "\n");
       return {
          type: "heading",
-         raw: cap[0],
+         raw,
          depth: cap[2]!.startsWith("=") ? 1 : 2,
          text,
          tokens: this.lexer.inline(text),
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
