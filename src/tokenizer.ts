@@ -166,8 +166,7 @@ export class Tokenizer {
             const oldToken = lastToken;
             const newText = oldToken.raw + "\n" + lines.join("\n");
             // re-lexing the nested blockquote restarts at its first source line
-            this.lexer.line =
-               startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            this.lexer.line = startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
             const newToken = this.blockquote(newText)!;
             tokens[tokens.length - 1] = newToken;
 
@@ -179,8 +178,7 @@ export class Tokenizer {
             const oldToken = lastToken;
             const newText = oldToken.raw + "\n" + lines.join("\n");
             // re-lexing the nested list restarts at its first source line
-            this.lexer.line =
-               startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            this.lexer.line = startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
             const newToken = this.list(newText)!;
             tokens[tokens.length - 1] = newToken;
 
@@ -775,6 +773,10 @@ export class Tokenizer {
       } else {
          // find closing parenthesis
          const lastParenIndex = findClosingBracket(cap[2]!, "()");
+         if (lastParenIndex === -2) {
+            // more open parens than closed
+            return;
+         }
          if (lastParenIndex > -1) {
             const start = cap[0].startsWith("!") ? 5 : 4;
             const linkLen = start + cap[1]!.length + lastParenIndex;

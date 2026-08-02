@@ -1,6 +1,6 @@
 import { type Lexer } from "./lexer.ts";
 import { other } from "./rules/other.ts";
-import { type PantsdownConfig, type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
+import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
 
 /**
  * Helpers
@@ -246,6 +246,9 @@ export function findClosingBracket(str: string, b: string) {
             return i;
          }
       }
+   }
+   if (level > 0) {
+      return -2;
    }
    return -1;
 }
