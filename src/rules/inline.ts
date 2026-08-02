@@ -53,7 +53,7 @@ const inline_punctuation = edit(/^((?![*_])punctSpace)/, "u")
 // upstream builds this via a codePattern placeholder and a lookbehind fallback;
 // bun (JSC) supports lookbehind so we inline the lookbehind form directly
 const inline_blockSkip =
-   /\[[^\[\]]*?\]\((?:\\[\s\S]|[^\\\(\)]|\((?:\\[\s\S]|[^\\\(\)])*\))*\)|(?<!`)(`+)[^`]+\1(?!`)|<(?! )[^<>]*?>/g;
+   /\[(?:[^\[\]`]|(?<a>`+)[^`]+\k<a>(?!`))*?\]\((?:\\[\s\S]|[^\\\(\)]|\((?:\\[\s\S]|[^\\\(\)])*\))*\)|(?<!`)(?<b>`+)[^`]+\k<b>(?!`)|<(?! )[^<>]*?>/g;
 
 const emStrongLDelimCore = /^(?:\*+(?:((?!\*)punct)|([^\s*]))?)|^_+(?:((?!_)punct)|([^\s_]))?/;
 
