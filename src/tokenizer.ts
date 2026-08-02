@@ -2,15 +2,15 @@ import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type Links, type Token, type Tokens } from "./types.ts";
+import { type Links,type Token,type Tokens } from "./types.ts";
 import {
-   ALERTS,
-   expandTabs,
-   findClosingBracket,
-   indentCodeCompensation,
-   outputLink,
-   rtrim,
-   splitCells,
+ALERTS,
+expandTabs,
+findClosingBracket,
+indentCodeCompensation,
+outputLink,
+rtrim,
+splitCells,
 } from "./utils.ts";
 
 /**
@@ -301,6 +301,7 @@ export class Tokenizer {
             while (src) {
                const rawLine = src.split("\n", 1)[0] ?? "";
                nextLine = rawLine;
+               const nextLineWithoutTabs = nextLine.replace(other.tabCharGlobal, "    ");
 
                // End list item if found code fences
                if (fencesBeginRegex.test(nextLine)) {
@@ -328,13 +329,13 @@ export class Tokenizer {
                }
 
                // Horizontal rule found
-               if (hrRegex.test(src)) {
+               if (hrRegex.test(nextLine)) {
                   break;
                }
 
-               if (nextLine.search(other.nonSpaceChar) >= indent || !nextLine.trim()) {
+               if (nextLineWithoutTabs.search(other.nonSpaceChar) >= indent || !nextLine.trim()) {
                   // Dedent if possible
-                  itemContents += "\n" + nextLine.slice(indent);
+                  itemContents += "\n" + nextLineWithoutTabs.slice(indent);
                } else {
                   // not enough indentation
                   if (blankLine) {
@@ -342,7 +343,7 @@ export class Tokenizer {
                   }
 
                   // paragraph continuation unless last line was a different block level element
-                  if (line.search(other.nonSpaceChar) >= 4) {
+                  if (line.replace(other.tabCharGlobal, "    ").search(other.nonSpaceChar) >= 4) {
                      // indented code block
                      break;
                   }
@@ -364,7 +365,7 @@ export class Tokenizer {
 
                raw += rawLine + "\n";
                src = src.substring(rawLine.length + 1);
-               line = nextLine.slice(indent);
+               line = nextLineWithoutTabs.slice(indent);
             }
          }
 

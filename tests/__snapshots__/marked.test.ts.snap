@@ -265,3 +265,8 @@ exports[`marked spec: escape_newline 1`] = `
 <p line-start="10" line-end="12"><a href="https://example.com">foo3<br>bar3</a></p>
 "
 `;
+
+exports[`marked spec: tabs_code 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">	tab
+</code></pre>"
+`;

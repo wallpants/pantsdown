@@ -32,7 +32,7 @@ const tag =
 const title = /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/;
 
 const block_def = edit(
-   /^ {0,3}\[(label)\]: *(?:\n *)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
+   /^ {0,3}\[(label)\]: *(?:\n[ \t]*)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n[ \t]*)?| *\n[ \t]*)(title))? *(?:\n+|$)/,
 )
    .replace("label", label)
    .replace("title", title)
@@ -59,9 +59,9 @@ const block_html = edit(
       "|<\\?[\\s\\S]*?(?:\\?>\\n*|$)" + // (3)
       "|<![A-Z][\\s\\S]*?(?:>\\n*|$)" + // (4)
       "|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)" + // (5)
-      "|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n *)+\\n|$)" + // (6)
-      "|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)" + // (7) open tag
-      "|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)" + // (7) closing tag
+      "|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (6)
+      "|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) open tag
+      "|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) closing tag
       ")",
    "i",
 )
@@ -75,7 +75,7 @@ const block_lheading = edit(
    /^(?!bull |blockCode|fences|blockquote|heading|html)((?:.|\n(?!\s*?\n|bull |blockCode|fences|blockquote|heading|html))+?)\n {0,3}(=+|-+) *(?:\n+|$)/,
 )
    .replace(/bull/g, block_bullet) // lists can interrupt
-   .replace(/blockCode/g, / {4}/) // indented code blocks can interrupt
+   .replace(/blockCode/g, /(?: {4}| {0,3}\t)/) // indented code blocks can interrupt
    .replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/) // fenced code blocks can interrupt
    .replace(/blockquote/g, / {0,3}>/) // blockquote can interrupt
    .replace(/heading/g, / {0,3}#{1,6}/) // ATX heading can interrupt
@@ -92,7 +92,7 @@ const block_table = edit(
    .replace("hr", block_hr)
    .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
    .replace("blockquote", " {0,3}>")
-   .replace("code", " {4}[^\\n]")
+   .replace("code", "(?: {4}| {0,3}\\t)[^\\n]")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
    .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // any bullet ends the table rows
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
@@ -124,8 +124,8 @@ const block_blockquote = edit(/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/)
    .getRegex();
 
 export const block: Record<BlockRuleNames, RegExp> = {
-   newline: /^(?: *(?:\n|$))+/,
-   code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
+   newline: /^(?:[ \t]*(?:\n|$))+/,
+   code: /^((?: {4}| {0,3}\t)[^\n]+(?:\n(?:[ \t]*(?:\n|$))*)?)+/,
    fences:
       /^ {0,3}(`{3,}(?=[^`\n]*(?:\n|$))|~{3,})([^\n]*)(?:\n|$)(?:|([\s\S]*?)(?:\n|$))(?: {0,3}\1[~`]* *(?=\n|$)|$)/,
    hr: block_hr,
