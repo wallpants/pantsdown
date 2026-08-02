@@ -346,3 +346,10 @@ exports[`marked spec: tasklist_setext_heading 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: lheading_hash_prefix 1`] = `
+"<h2 style="position: relative;" line-start="1" line-end="2"><span style="position: absolute; top: -50px;" id="1-goals"></span>#1 Goals<a class="anchor octicon-link" href="#1-goals"></a></h2>
+<h1 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="hashtag"></span>#hashtag<a class="anchor octicon-link" href="#hashtag"></a></h1>
+<h1 style="position: relative;" line-start="7" line-end="8"><span style="position: absolute; top: -50px;" id="-seven"></span>####### seven<a class="anchor octicon-link" href="#-seven"></a></h1>
+"
+`;
