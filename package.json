@@ -38,7 +38,7 @@
   "dependencies": {
     "github-slugger": "^2.0.0",
     "highlight.js": "^11.11.1",
-    "katex": "^0.18.0"
+    "katex": "^0.18.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
