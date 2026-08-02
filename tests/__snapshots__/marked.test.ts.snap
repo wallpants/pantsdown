@@ -324,3 +324,25 @@ exports[`marked spec: tasklist_blocks 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: tasklist_setext_heading 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="tight"></span>tight<a class="anchor octicon-link" href="#tight"></a></h1>
+<ul class="">
+<li line-start="3" line-end="4"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="x-title"></span>[x] title<a class="anchor octicon-link" href="#x-title"></a></h2>
+</li>
+</ul>
+<h1 style="position: relative;" line-start="6" line-end="6"><span style="position: absolute; top: -50px;" id="unchecked"></span>unchecked<a class="anchor octicon-link" href="#unchecked"></a></h1>
+<ul class="">
+<li line-start="8" line-end="9"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="--title"></span>[ ] title<a class="anchor octicon-link" href="#--title"></a></h2>
+</li>
+</ul>
+<h1 style="position: relative;" line-start="11" line-end="11"><span style="position: absolute; top: -50px;" id="loose"></span>loose<a class="anchor octicon-link" href="#loose"></a></h1>
+<ul class="">
+<li line-start="13" line-end="16"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="x-title-1"></span>[x] title<a class="anchor octicon-link" href="#x-title-1"></a></h2>
+<p>body</p>
+</li>
+<li line-start="17" line-end="17"><p>second</p>
+</li>
+</ul>
+"
+`;
