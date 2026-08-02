@@ -270,3 +270,59 @@ exports[`marked spec: tabs_code 1`] = `
 "<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">	tab
 </code></pre>"
 `;
+
+exports[`marked spec: hr_following_tables 1`] = `
+"<table>
+<thead>
+<tr line-start="1" line-end="1">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="3" line-end="3">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="4" line-end="4">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="5" line-end="5">
+<table>
+<thead>
+<tr line-start="7" line-end="7">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="9" line-end="9">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="10" line-end="10">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="11" line-end="11">
+<p line-start="13" line-end="13">text then table</p>
+<table>
+<thead>
+<tr line-start="14" line-end="14">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="16" line-end="16">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="17" line-end="17">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="18" line-end="18">
+"
+`;
