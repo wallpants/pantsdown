@@ -2,16 +2,16 @@ import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type Links, type Token, type Tokens } from "./types.ts";
+import { type Links,type Token,type Tokens } from "./types.ts";
 import {
-   ALERTS,
-   expandTabs,
-   findClosingBracket,
-   indentCodeCompensation,
-   outputLink,
-   rtrim,
-   splitCells,
-   trimTrailingBlankLines,
+ALERTS,
+expandTabs,
+findClosingBracket,
+indentCodeCompensation,
+outputLink,
+rtrim,
+splitCells,
+trimTrailingBlankLines,
 } from "./utils.ts";
 
 /**
@@ -420,21 +420,19 @@ export class Tokenizer {
          this.lexer.state.top = false;
          item.tokens = this.lexer.blockTokens(item.text, []);
 
-         if (item.task) {
+         const itemToken = item.tokens[0];
+         if (item.task && (itemToken?.type === "text" || itemToken?.type === "paragraph")) {
             // Remove checkbox markdown from item tokens
             item.text = item.text.replace(other.listReplaceTask, "");
-            const itemToken = item.tokens[0];
-            if (itemToken?.type === "text" || itemToken?.type === "paragraph") {
-               itemToken.raw = itemToken.raw.replace(other.listReplaceTask, "");
-               itemToken.text = itemToken.text.replace(other.listReplaceTask, "");
-               for (let i = this.lexer.inlineQueue.length - 1; i >= 0; i--) {
-                  if (other.listIsTask.test(this.lexer.inlineQueue[i]!.src)) {
-                     this.lexer.inlineQueue[i]!.src = this.lexer.inlineQueue[i]!.src.replace(
-                        other.listReplaceTask,
-                        "",
-                     );
-                     break;
-                  }
+            itemToken.raw = itemToken.raw.replace(other.listReplaceTask, "");
+            itemToken.text = itemToken.text.replace(other.listReplaceTask, "");
+            for (let i = this.lexer.inlineQueue.length - 1; i >= 0; i--) {
+               if (other.listIsTask.test(this.lexer.inlineQueue[i]!.src)) {
+                  this.lexer.inlineQueue[i]!.src = this.lexer.inlineQueue[i]!.src.replace(
+                     other.listReplaceTask,
+                     "",
+                  );
+                  break;
                }
             }
 
@@ -469,6 +467,8 @@ export class Tokenizer {
                   item.tokens.unshift(checkboxToken);
                }
             }
+         } else if (item.task) {
+            item.task = false;
          }
 
          if (!list.loose) {
