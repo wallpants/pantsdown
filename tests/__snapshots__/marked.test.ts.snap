@@ -17,6 +17,69 @@ bar</p>
 "
 `;
 
+exports[`marked spec: escape_newline 1`] = `
+"<p line-start="1" line-end="2"><a href="https://example.com">foo<br>bar</a></p>
+<p line-start="7" line-end="8"><a href="https://example2.com">foo2<br>bar2</a></p>
+<p line-start="10" line-end="12"><a href="https://example.com">foo3<br>bar3</a></p>
+"
+`;
+
+exports[`marked spec: hr_following_tables 1`] = `
+"<table>
+<thead>
+<tr line-start="1" line-end="1">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="3" line-end="3">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="4" line-end="4">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="5" line-end="5">
+<table>
+<thead>
+<tr line-start="7" line-end="7">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="9" line-end="9">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="10" line-end="10">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="11" line-end="11">
+<p line-start="13" line-end="13">text then table</p>
+<table>
+<thead>
+<tr line-start="14" line-end="14">
+<th>abc</th>
+<th>def</th>
+</tr>
+</thead>
+<tbody><tr line-start="16" line-end="16">
+<td>bar</td>
+<td>foo</td>
+</tr>
+<tr line-start="17" line-end="17">
+<td>baz</td>
+<td>boo</td>
+</tr>
+</tbody></table>
+<hr line-start="18" line-end="18">
+"
+`;
+
 exports[`marked spec: html_following_list 1`] = `
 "<ul class="">
 <li line-start="1" line-end="1">list item 1</li>
@@ -24,9 +87,7 @@ exports[`marked spec: html_following_list 1`] = `
 </ul>
 <div class="some-class" line-start="3" line-end="5">
 Content
-</div>
-
-<ul class="">
+</div><ul class="">
 <li line-start="7" line-end="7">list item 1</li>
 <li line-start="8" line-end="8">list item 2</li>
 </ul>
@@ -214,6 +275,11 @@ exports[`marked spec: ordered_list_after_blockquote 1`] = `
 "
 `;
 
+exports[`marked spec: tabs_code 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">	tab
+</code></pre>"
+`;
+
 exports[`marked spec: tasklist_blocks 1`] = `
 "<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="tight"></span>tight<a class="anchor octicon-link" href="#tight"></a></h1>
 <ul class="contains-task-list">
@@ -256,73 +322,5 @@ exports[`marked spec: tasklist_blocks 1`] = `
 | 1 | 1 |</p>
 </li>
 </ul>
-"
-`;
-
-exports[`marked spec: escape_newline 1`] = `
-"<p line-start="1" line-end="2"><a href="https://example.com">foo<br>bar</a></p>
-<p line-start="7" line-end="8"><a href="https://example2.com">foo2<br>bar2</a></p>
-<p line-start="10" line-end="12"><a href="https://example.com">foo3<br>bar3</a></p>
-"
-`;
-
-exports[`marked spec: tabs_code 1`] = `
-"<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">	tab
-</code></pre>"
-`;
-
-exports[`marked spec: hr_following_tables 1`] = `
-"<table>
-<thead>
-<tr line-start="1" line-end="1">
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody><tr line-start="3" line-end="3">
-<td>bar</td>
-<td>foo</td>
-</tr>
-<tr line-start="4" line-end="4">
-<td>baz</td>
-<td>boo</td>
-</tr>
-</tbody></table>
-<hr line-start="5" line-end="5">
-<table>
-<thead>
-<tr line-start="7" line-end="7">
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody><tr line-start="9" line-end="9">
-<td>bar</td>
-<td>foo</td>
-</tr>
-<tr line-start="10" line-end="10">
-<td>baz</td>
-<td>boo</td>
-</tr>
-</tbody></table>
-<hr line-start="11" line-end="11">
-<p line-start="13" line-end="13">text then table</p>
-<table>
-<thead>
-<tr line-start="14" line-end="14">
-<th>abc</th>
-<th>def</th>
-</tr>
-</thead>
-<tbody><tr line-start="16" line-end="16">
-<td>bar</td>
-<td>foo</td>
-</tr>
-<tr line-start="17" line-end="17">
-<td>baz</td>
-<td>boo</td>
-</tr>
-</tbody></table>
-<hr line-start="18" line-end="18">
 "
 `;

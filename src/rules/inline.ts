@@ -1,4 +1,4 @@
-import { comment as blockComment,label as blockLabel } from "./block.ts";
+import { comment as blockComment, label as blockLabel } from "./block.ts";
 import { edit } from "./utils.ts";
 
 type InlineRuleNames =
@@ -40,7 +40,8 @@ const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
 const comment = edit(blockComment).replace("(?:-->|$)", "-->").getRegex();
 const attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
 // codespan branches carry the #3918 ReDoS fix (`+(?!`) head, ``+(?=\]) tail)
-const label = /(?:\[(?:\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/;
+const label =
+   /(?:\[(?:\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/;
 const email =
    /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
 const extended_email = /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/;
@@ -115,7 +116,9 @@ const inline_tag = edit(
    .replace("attribute", attribute)
    .getRegex();
 
-const inline_link = edit(/^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/)
+const inline_link = edit(
+   /^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/,
+)
    .replace("label", label)
    .replace("href", href)
    .replace("title", title)

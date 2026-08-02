@@ -5,15 +5,15 @@ import { type Pantsdown } from "./pantsdown.ts";
 import { type Parser } from "./parser.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type HTMLAttrs,type SourceMap,type Tokens } from "./types.ts";
+import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
 import {
-addGithubImageStyles,
-cleanUrl,
-escape,
-fixHtmlLocalImageHref,
-fixLocalImageHref,
-getHtmlElementText,
-injectHtmlAttributes,
+   addGithubImageStyles,
+   cleanUrl,
+   escape,
+   fixHtmlLocalImageHref,
+   fixLocalImageHref,
+   getHtmlElementText,
+   injectHtmlAttributes,
 } from "./utils.ts";
 
 /**
