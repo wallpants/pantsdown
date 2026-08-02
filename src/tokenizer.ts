@@ -2,16 +2,16 @@ import type { Lexer } from "./lexer.ts";
 import { block } from "./rules/block.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type Links,type Token,type Tokens } from "./types.ts";
+import { type Links, type Token, type Tokens } from "./types.ts";
 import {
-ALERTS,
-expandTabs,
-findClosingBracket,
-indentCodeCompensation,
-outputLink,
-rtrim,
-splitCells,
-trimTrailingBlankLines,
+   ALERTS,
+   expandTabs,
+   findClosingBracket,
+   indentCodeCompensation,
+   outputLink,
+   rtrim,
+   splitCells,
+   trimTrailingBlankLines,
 } from "./utils.ts";
 
 /**
