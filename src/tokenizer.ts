@@ -682,12 +682,13 @@ export class Tokenizer {
       const cap = block.lheading.exec(src);
       if (!cap) return undefined;
 
+      const text = cap[1]!.trim();
       return {
          type: "heading",
          raw: cap[0],
          depth: cap[2]!.startsWith("=") ? 1 : 2,
-         text: cap[1]!,
-         tokens: this.lexer.inline(cap[1]!),
+         text,
+         tokens: this.lexer.inline(text),
          sourceMap: this.lexer.getSourceMap(cap[0]),
       };
    }
