@@ -1,8 +1,8 @@
 /**
  * Regexes that don't belong to the block or inline grammars.
- * Names mirror marked's `other` rules object (src/rules.ts) so future
- * syncs stay diffable; some values intentionally lag upstream until the
- * corresponding fixes are ported (see MARKED_SYNC.md).
+ * Names and values mirror marked's `other` rules object (src/rules.ts,
+ * currently marked v18.0.7 — see "Last synced" in the root README) so
+ * future syncs stay diffable.
  */
 function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
    const cache: RegExp[] = [];

@@ -1,8 +1,9 @@
 # Marked spec fixtures
 
 Fixtures mirrored from [Marked](https://github.com/markedjs/marked)'s
-`test/specs/new/` (as of v18.0.7) for upstream fixes that have been ported to
-Pantsdown — see `MARKED_SYNC.md` at the repo root. Run by `tests/marked.test.ts`.
+`test/specs/new/` for upstream fixes that have been ported to Pantsdown (the
+current sync baseline is the "Last synced with Marked" note in the root
+README). Run by `tests/marked.test.ts`.
 
 Two kinds of fixtures:
 

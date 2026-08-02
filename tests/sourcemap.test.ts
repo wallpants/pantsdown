@@ -179,7 +179,8 @@ test("line-start/line-end attributes for every block type", () => {
 test("sourcemaps stay correct after sibling nested lists", () => {
    // regression: a nested list following a sibling nested list used to be
    // lexed with a stale state.top and advanced the line counter (+2 drift
-   // for everything after) — see MARKED_SYNC.md Phase 4 finding
+   // for everything after) — fixed by saving/restoring state.top around
+   // list()'s item-child lexing loop (see the marked-sync commits)
    const markdown = [
       "- a", //      1
       "  - a1", //   2
