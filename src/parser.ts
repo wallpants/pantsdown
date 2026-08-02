@@ -1,5 +1,6 @@
 import { type Pantsdown } from "./pantsdown.ts";
 import { Renderer } from "./renderer.ts";
+import { TextRenderer } from "./text-renderer.ts";
 import { type Token, type Tokens } from "./types.ts";
 
 /**
@@ -7,10 +8,12 @@ import { type Token, type Tokens } from "./types.ts";
  */
 export class Parser {
    renderer: Renderer;
+   textRenderer: TextRenderer;
 
    constructor(pantsdown: Pantsdown) {
       this.renderer = new Renderer(pantsdown);
       this.renderer.parser = this;
+      this.textRenderer = new TextRenderer();
    }
 
    /**
@@ -109,7 +112,7 @@ export class Parser {
    /**
     * Parse Inline Tokens
     */
-   parseInline(tokens: Token[]): string {
+   parseInline(tokens: Token[], renderer: Renderer | TextRenderer = this.renderer): string {
       let out = "";
 
       for (let i = 0, len = tokens.length; i < len; i++) {
@@ -117,55 +120,55 @@ export class Parser {
 
          switch (token.type) {
             case "escape": {
-               out += this.renderer.text(token);
+               out += renderer.text(token);
                break;
             }
             case "html": {
-               out += this.renderer.html(token);
+               out += renderer.html(token);
                break;
             }
             case "link": {
-               out += this.renderer.link(token);
+               out += renderer.link(token);
                break;
             }
             case "image": {
-               out += this.renderer.image(token);
+               out += renderer.image(token);
                break;
             }
             case "checkbox": {
-               out += this.renderer.checkbox(token);
+               out += renderer.checkbox(token);
                break;
             }
             case "strong": {
-               out += this.renderer.strong(token);
+               out += renderer.strong(token);
                break;
             }
             case "em": {
-               out += this.renderer.em(token);
+               out += renderer.em(token);
                break;
             }
             case "footnoteRef": {
-               out += this.renderer.footnoteRef(token);
+               out += renderer.footnoteRef(token);
                break;
             }
             case "codespan": {
-               out += this.renderer.codespan(token);
+               out += renderer.codespan(token);
                break;
             }
             case "br": {
-               out += this.renderer.br(token);
+               out += renderer.br(token);
                break;
             }
             case "del": {
-               out += this.renderer.del(token);
+               out += renderer.del(token);
                break;
             }
             case "text": {
-               out += this.renderer.text(token);
+               out += renderer.text(token);
                break;
             }
             case "latexInline": {
-               out += this.renderer.latexInline(token);
+               out += renderer.latexInline(token);
                break;
             }
             default: {

@@ -148,6 +148,7 @@ export interface Tokens extends Record<string, BaseToken> {
       text: string;
       href: string;
       title: string | null;
+      tokens: Token[];
    };
    Strong: {
       type: "strong";
