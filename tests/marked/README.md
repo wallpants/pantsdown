@@ -22,6 +22,10 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
 - `del_strikethrough.html` — the `~~~test~~~` fence renders with Pantsdown's
   highlight.js markup (`hljs language-plaintext`) instead of Marked's
   `language-test~~~`.
+- `image_alt.html` — Pantsdown emits `<img ...>` (no self-closing ` />`) and
+  escapes `'` as `&#39;` in the alt attribute (upstream's fixture shows raw
+  single quotes; Marked's own output escapes them too, but its spec compare is
+  entity-insensitive).
 - `emoji_strikethrough.html` — upstream's fixture has a stray double space in
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).
