@@ -39,7 +39,11 @@ type MappedToken = {
    alertFirstChild: boolean;
 };
 
-function collectMapped(tokens: (Token | Tokens["Footnote"])[], out: MappedToken[], inAlert = false) {
+function collectMapped(
+   tokens: (Token | Tokens["Footnote"])[],
+   out: MappedToken[],
+   inAlert = false,
+) {
    tokens.forEach((token, index) => {
       if (token.type === "footnotes") return;
       if ("sourceMap" in token && token.sourceMap) {

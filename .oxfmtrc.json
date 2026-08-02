@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [".github", "tests/test.md"],
+  "ignorePatterns": [".github", "tests/test.md", "tests/marked"],
   "printWidth": 100,
   "tabWidth": 3,
   "sortImports": {

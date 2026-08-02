@@ -182,7 +182,13 @@ export class Renderer {
       return "<table>\n" + "<thead>\n" + header + "</thead>\n" + body + "</table>\n";
    }
 
-   tablerow({ text, sourceMapStart }: { text: string; sourceMapStart?: number | undefined }): string {
+   tablerow({
+      text,
+      sourceMapStart,
+   }: {
+      text: string;
+      sourceMapStart?: number | undefined;
+   }): string {
       const sourceMap: SourceMap = sourceMapStart ? [sourceMapStart, sourceMapStart] : undefined;
       return injectHtmlAttributes(`<tr>\n${text}</tr>\n`, [], sourceMap);
    }
