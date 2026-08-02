@@ -161,17 +161,20 @@ const inline_delRDelim = edit(delRDelimCore, "gu")
    .replace(/punct/g, _punctuation)
    .getRegex();
 
-const inline_text =
-   /^(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/;
+const inline_text = edit(
+   /^(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/,
+)
+   .replace("protocol", /[hH][tT][tT][pP][sS]?|[fF][tT][pP]/)
+   .getRegex();
 
 // DEVIATION from upstream `(?:[a-zA-Z0-9\-]+\.?)+`: the nested quantifier
 // combined with the email alternative defeats JSC's start-anchor optimization
 // (every exec scans the whole subject, O(n²) across the inline loop). This
 // domain form matches the exact same language. See MARKED_SYNC.md.
 const inline_url = edit(
-   /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.?[^\s<]*|^email/,
-   "i",
+   /^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.?[^\s<]*|^email/,
 )
+   .replace("protocol", /[fF][tT][pP]|[hH][tT][tT][pP][sS]?/)
    .replace("email", extended_email)
    .getRegex();
 
