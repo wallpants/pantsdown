@@ -29,7 +29,7 @@ export const other = {
    blankLine: /^[ \t]*$/,
    doubleBlankLine: /\n[ \t]*\n[ \t]*$/,
    blockquoteSetextReplace: /\n {0,3}((?:=+|-+) *)(?=\n|$)/g,
-   blockquoteSetextReplace2: /^ *>[ \t]?/gm,
+   blockquoteSetextReplace2: /^ {0,3}>[ \t]?/gm,
    blockquoteStart: /^ {0,3}>/,
    listIsTask: /^\[[ xX]\] +\S/,
    listReplaceTask: /^\[[ xX]\] +/,
