@@ -634,11 +634,11 @@ export class Tokenizer {
 
       const item: Tokens["Table"] = {
          type: "table",
-         raw: cap[0],
+         raw: rtrim(cap[0], "\n"),
          header: [],
          align: [],
          rows: [],
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         sourceMap: this.lexer.getSourceMap(rtrim(cap[0], "\n")),
       };
 
       for (const align of aligns) {
