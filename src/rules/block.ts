@@ -101,7 +101,7 @@ const block_table = edit(
    .getRegex();
 
 const createParagraph = (listInterrupt: string) =>
-   edit(/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/)
+   edit(/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table|[ \t]+\n)[^\n]+)*)/)
       .replace("hr", block_hr)
       .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
       .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
