@@ -1,5 +1,5 @@
 import GithubSlugger from "github-slugger";
-import { javascript } from "./javascript.ts";
+import { getJavascript } from "./javascript.ts";
 import { Lexer } from "./lexer.ts";
 import { Parser } from "./parser.ts";
 import { type PantsdownConfig, type PartialPantsdownConfig } from "./types.ts";
@@ -9,6 +9,15 @@ const defaultConfig: PantsdownConfig = {
       relativeImageUrlPrefix: "",
       absoluteImageUrlPrefix: undefined,
       detailsTagDefaultOpen: false,
+      mermaid: {
+         buttons: {
+            zoom: true,
+            reset: true,
+            arrows: true,
+            popover: true,
+         },
+         mouseActions: true,
+      },
    },
 };
 
@@ -28,10 +37,19 @@ export class Pantsdown {
     * The object you provide will be deeply merged into current config.
     */
    setConfig(config: PartialPantsdownConfig) {
+      const { mermaid, ...renderer } = config.renderer ?? {};
       this.config = {
          renderer: {
             ...this.config.renderer,
-            ...config.renderer,
+            ...renderer,
+            mermaid: {
+               ...this.config.renderer.mermaid,
+               ...mermaid,
+               buttons: {
+                  ...this.config.renderer.mermaid.buttons,
+                  ...mermaid?.buttons,
+               },
+            },
          },
       };
    }
@@ -43,12 +61,13 @@ export class Pantsdown {
       // re-init slugger to avoid slug count from incorrectly incrementing
       // from previosly slugged headings
       this.parser.renderer.slugger = new GithubSlugger();
+      this.parser.renderer.mermaidCounts = new Map();
 
       const tokens = this.lexer.lex(src);
       const html = this.parser.parse(tokens);
       return {
          html,
-         javascript,
+         javascript: getJavascript(this.config),
       };
    }
 }

@@ -97,6 +97,13 @@ Comment
 "
 `;
 
+exports[`marked spec: lheading_hash_prefix 1`] = `
+"<h2 style="position: relative;" line-start="1" line-end="2"><span style="position: absolute; top: -50px;" id="1-goals"></span>#1 Goals<a class="anchor octicon-link" href="#1-goals"></a></h2>
+<h1 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="hashtag"></span>#hashtag<a class="anchor octicon-link" href="#hashtag"></a></h1>
+<h1 style="position: relative;" line-start="7" line-end="8"><span style="position: absolute; top: -50px;" id="-seven"></span>####### seven<a class="anchor octicon-link" href="#-seven"></a></h1>
+"
+`;
+
 exports[`marked spec: list_item_empty 1`] = `
 "<ul class="">
 <li line-start="1" line-end="2"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="title"></span>title<a class="anchor octicon-link" href="#title"></a></h2>
@@ -344,12 +351,5 @@ exports[`marked spec: tasklist_setext_heading 1`] = `
 <li line-start="17" line-end="17"><p>second</p>
 </li>
 </ul>
-"
-`;
-
-exports[`marked spec: lheading_hash_prefix 1`] = `
-"<h2 style="position: relative;" line-start="1" line-end="2"><span style="position: absolute; top: -50px;" id="1-goals"></span>#1 Goals<a class="anchor octicon-link" href="#1-goals"></a></h2>
-<h1 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="hashtag"></span>#hashtag<a class="anchor octicon-link" href="#hashtag"></a></h1>
-<h1 style="position: relative;" line-start="7" line-end="8"><span style="position: absolute; top: -50px;" id="-seven"></span>####### seven<a class="anchor octicon-link" href="#-seven"></a></h1>
 "
 `;
