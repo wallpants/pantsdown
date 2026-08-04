@@ -143,6 +143,17 @@ Math code block:
 Take a look at [how Pantsdown's demo is built](https://github.com/wallpants/pantsdown/blob/main/docs/build.ts)
 for an example setup.
 
+Rendered diagrams are interactive: `cmd/ctrl + drag` pans, `cmd/ctrl + scroll` zooms
+(plain click & scroll keep selecting text and scrolling the page), and the overlaid
+buttons pan, zoom, reset the view or open the diagram in a fullscreen popover, where
+plain drag pans and plain scroll zooms. Buttons and mouse actions can be toggled via
+the `renderer.mermaid` config.
+
+Each diagram's pan/zoom state is keyed by a `data-mermaid-key` attribute (a hash of
+its source), so consumers that re-render the whole document on every update — like
+github-preview.nvim — keep the current view in place; the state resets when the
+diagram's source changes or the document no longer contains it.
+
 ````
 ```mermaid
 sequenceDiagram

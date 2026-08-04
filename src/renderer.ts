@@ -13,6 +13,7 @@ import {
    fixHtmlLocalImageHref,
    fixLocalImageHref,
    getHtmlElementText,
+   hashString,
    injectHtmlAttributes,
 } from "./utils.ts";
 
@@ -23,6 +24,7 @@ export class Renderer {
    private pantsdown: Pantsdown;
    parser!: Parser; // set by the parser
    slugger = new GithubSlugger();
+   mermaidCounts = new Map<string, number>();
 
    constructor(pantsdown: Pantsdown) {
       this.pantsdown = pantsdown;
@@ -40,6 +42,13 @@ export class Renderer {
 
       if (lang === "mermaid") {
          attrs.push(["class", "mermaid-container mermaid"]);
+         // stable identity across re-renders — the pan/zoom script keys
+         // stashed transforms on it; the occurrence index disambiguates
+         // byte-identical diagrams in the same document
+         const hash = hashString(code);
+         const count = this.mermaidCounts.get(hash) ?? 0;
+         this.mermaidCounts.set(hash, count + 1);
+         attrs.push(["data-mermaid-key", `${hash}-${count}`]);
          // escape so diagram source can't be parsed as HTML;
          // mermaid reads textContent, which undoes the escaping
          const result = `<pre style="position: relative;">` + escape(code, true) + "\n" + `</pre>`;

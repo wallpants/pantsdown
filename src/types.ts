@@ -285,6 +285,40 @@ export type PantsdownConfig = {
        * false
        */
       detailsTagDefaultOpen: boolean;
+
+      /**
+       * Interactive controls added to rendered mermaid diagrams.
+       */
+      mermaid: {
+         /**
+          * Control buttons overlaid on the diagram.
+          * Set individual buttons to `false` to hide them.
+          *
+          * @default
+          * { zoom: true, reset: true, arrows: true, popover: true }
+          */
+         buttons: {
+            /** Zoom in & zoom out buttons */
+            zoom: boolean;
+            /** Reset zoom & pan to the initial position */
+            reset: boolean;
+            /** Directional pan arrows */
+            arrows: boolean;
+            /** Open the diagram in a fullscreen popover */
+            popover: boolean;
+         };
+
+         /**
+          * Enable cmd/ctrl + drag to pan and cmd/ctrl + scroll to zoom.
+          * Plain click & scroll are never captured, so text selection
+          * and page scrolling keep working. Inside the popover, plain
+          * drag pans and plain scroll zooms regardless of this setting.
+          *
+          * @default
+          * true
+          */
+         mouseActions: boolean;
+      };
    };
 };
 
