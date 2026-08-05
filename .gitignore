@@ -2,3 +2,7 @@
 node_modules
 .parcel-cache
 .claude/settings.local.json
+
+# docs build output (docs/build.ts)
+docs/index.html
+docs/light.html
