@@ -967,7 +967,7 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
             // prefer the canvas svg: if a consumer re-injects html that was
             // serialized after a previous setup, the diagram svg sits inside
             // the old wrapper and stale button icons are svgs too
-            const svg = el.querySelector(".mermaid-canvas svg") ?? el.querySelector("svg");
+            const svg = el.querySelector(".mermaid-canvas svg") ?? el.querySelector(":scope > svg");
             if (!svg) return;
 
             // serialized html loses event listeners, so stale wrappers and
@@ -1001,14 +1001,16 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
         }
 
         // mermaid renders asynchronously (the page loads mermaid.js separately),
-        // so wait for the svg to replace the diagram source
+        // so wait for the svg to replace the diagram source. Only a direct-child
+        // svg counts: mermaid.run() renders in place via a nested temp div
+        // whose skeleton svg must not be grabbed mid-render
         function whenRendered(el, cb) {
-            if (el.querySelector("svg")) {
+            if (el.querySelector(":scope > svg")) {
                 cb();
                 return;
             }
             const observer = new MutationObserver(() => {
-                if (el.querySelector("svg")) {
+                if (el.querySelector(":scope > svg")) {
                     observer.disconnect();
                     cb();
                 }
