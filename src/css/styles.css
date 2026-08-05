@@ -336,6 +336,8 @@ html.pantsdown-mermaid-mod.pantsdown .mermaid-viewport {
 .pantsdown a {
    background-color: transparent;
    color: var(--color-accent-fg);
+   /* explicit ua default: resets set `text-decoration: inherit` */
+   text-decoration: underline;
 }
 
 .pantsdown abbr[title] {
@@ -391,6 +393,9 @@ html.pantsdown-mermaid-mod.pantsdown .mermaid-viewport {
    max-width: 100%;
    box-sizing: content-box;
    background-color: var(--color-canvas-default);
+   /* explicit ua defaults: resets set `display: block; vertical-align: middle` */
+   display: inline;
+   vertical-align: baseline;
 }
 
 .pantsdown code,
@@ -609,6 +614,24 @@ html.pantsdown-mermaid-mod.pantsdown .mermaid-viewport {
    margin-top: 0;
    margin-bottom: 0;
    padding-left: 2em;
+}
+
+/* consumers may apply a css reset (e.g. tailwind preflight sets
+   `list-style: none`), so don't rely on user-agent defaults */
+.pantsdown ul {
+   list-style-type: disc;
+}
+
+.pantsdown ul ul {
+   list-style-type: circle;
+}
+
+.pantsdown ul ul ul {
+   list-style-type: square;
+}
+
+.pantsdown ol {
+   list-style-type: decimal;
 }
 
 .pantsdown ol ol,
