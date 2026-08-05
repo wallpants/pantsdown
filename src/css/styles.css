@@ -128,7 +128,7 @@
    color: inherit;
 }
 
-.pantsdown .markdown-alert span {
+.pantsdown .markdown-alert > span {
    font-weight: 500;
    display: flex;
    align-items: center;
@@ -138,34 +138,34 @@
 .pantsdown .markdown-alert-note {
    border-color: var(--color-accent-fg);
 }
-.pantsdown .markdown-alert-note span {
+.pantsdown .markdown-alert-note > span {
    color: var(--color-accent-fg);
 }
 
 .pantsdown .markdown-alert-important {
    border-color: var(--color-done-fg);
 }
-.pantsdown .markdown-alert-important span {
+.pantsdown .markdown-alert-important > span {
    color: var(--color-done-fg);
 }
 
 .pantsdown .markdown-alert-warning {
    border-color: var(--color-attention-fg);
 }
-.pantsdown .markdown-alert-warning span {
+.pantsdown .markdown-alert-warning > span {
    color: var(--color-attention-fg);
 }
 
 .pantsdown .markdown-alert-tip {
    border-color: var(--color-success-fg);
 }
-.pantsdown .markdown-alert-tip span {
+.pantsdown .markdown-alert-tip > span {
    color: var(--color-success-fg);
 }
 .pantsdown .markdown-alert-caution {
    border-color: var(--color-danger-fg);
 }
-.pantsdown .markdown-alert-caution span {
+.pantsdown .markdown-alert-caution > span {
    color: var(--color-danger-fg);
 }
 .pantsdown .copy-button {
