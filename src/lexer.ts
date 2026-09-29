@@ -278,8 +278,11 @@ export class Lexer {
                : match0,
          );
       }
-      // Mask out escaped characters
-      maskedSrc = maskedSrc.replace(inline.anyPunctuation, "++");
+      // Mask out escaped characters.
+      // Every mask must keep the length it replaces: emStrong and del line
+      // maskedSrc up with src by slicing from the end. `anyPunctuation` matches
+      // unicode punctuation, so an escaped astral character is 3 code units.
+      maskedSrc = maskedSrc.replace(inline.anyPunctuation, (match0) => "+".repeat(match0.length));
 
       // Mask out other blocks
       maskedSrc = maskedSrc.replace(
