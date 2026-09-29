@@ -263,6 +263,39 @@ export class Lexer {
    }
 
    /**
+    * Does this link text hold a link already? An image does not count: an image
+    * may hold a link, a link may not.
+    */
+   private linkInText(text: string): boolean {
+      if (!text.includes("[")) {
+         return false;
+      }
+
+      for (const match of text.matchAll(inline.blockSkip)) {
+         // blockSkip also matches code spans and html, and the `!` of an image is
+         // left out of the match, so read the character before it.
+         if (inline.link.test(match[0]) && text.charAt(match.index - 1) !== "!") {
+            return true;
+         }
+      }
+
+      for (const match of text.matchAll(inline.reflinkSearch)) {
+         const match0 = match[0];
+         const refStart = match0.lastIndexOf("[");
+         if (match0.startsWith("!") || !Object.hasOwn(this.links, match0.slice(refStart + 1, -1))) {
+            continue;
+         }
+         // a candidate holding a link is not a link either, so it does not count
+         if (refStart > 1 && this.linkInText(match0.slice(1, refStart - 1))) {
+            continue;
+         }
+         return true;
+      }
+
+      return false;
+   }
+
+   /**
     * Lexing/Compiling
     */
    inlineTokens(src: string, tokens: Token[] = []): Token[] {
@@ -274,11 +307,31 @@ export class Lexer {
 
       // Mask out reflinks
       if (src.includes("[")) {
-         maskedSrc = maskedSrc.replace(inline.reflinkSearch, (match0) =>
-            Object.hasOwn(this.links, match0.slice(match0.lastIndexOf("[") + 1, -1))
-               ? "[" + "a".repeat(match0.length - 2) + "]"
-               : match0,
-         );
+         const maskReflink = (match0: string): string => {
+            const refStart = match0.lastIndexOf("[");
+            if (!Object.hasOwn(this.links, match0.slice(refStart + 1, -1))) {
+               return match0;
+            }
+            // CommonMark: "Links may not contain other links, at any level of
+            // nesting." A candidate whose text already holds one never becomes a
+            // link, so flattening the whole span would hide the emphasis that
+            // does still apply inside it. Mask the links it holds instead.
+            // Images are exempt: their text is flattened into an alt attribute.
+            if (refStart > 1 && !match0.startsWith("!")) {
+               const text = match0.slice(1, refStart - 1);
+               if (this.linkInText(text)) {
+                  return (
+                     "[" +
+                     text.replace(inline.reflinkSearch, maskReflink) +
+                     "][" +
+                     "a".repeat(match0.length - refStart - 2) +
+                     "]"
+                  );
+               }
+            }
+            return "[" + "a".repeat(match0.length - 2) + "]";
+         };
+         maskedSrc = maskedSrc.replace(inline.reflinkSearch, maskReflink);
       }
       // Mask out escaped characters.
       // Every mask must keep the length it replaces: emStrong and del line
