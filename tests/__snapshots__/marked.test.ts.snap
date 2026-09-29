@@ -435,13 +435,13 @@ exports[`marked spec: ordered_list_after_blockquote 1`] = `
 `;
 
 exports[`marked spec: setext_indented_continuation 1`] = `
-"<h1 style="position: relative;" line-start="1" line-end="3"><span style="position: absolute; top: -50px;" id="foo----bar"></span>Foo
-    bar<a class="anchor octicon-link" href="#foo----bar"></a></h1>
-<h2 style="position: relative;" line-start="5" line-end="7"><span style="position: absolute; top: -50px;" id="foobar"></span>Foo
-	bar<a class="anchor octicon-link" href="#foobar"></a></h2>
-<h1 style="position: relative;" line-start="9" line-end="12"><span style="position: absolute; top: -50px;" id="aaa--------bbb------------ccc"></span>aaa
-        bbb
-            ccc<a class="anchor octicon-link" href="#aaa--------bbb------------ccc"></a></h1>
+"<h1 style="position: relative;" line-start="1" line-end="3"><span style="position: absolute; top: -50px;" id="foobar"></span>Foo
+bar<a class="anchor octicon-link" href="#foobar"></a></h1>
+<h2 style="position: relative;" line-start="5" line-end="7"><span style="position: absolute; top: -50px;" id="foobar-1"></span>Foo
+bar<a class="anchor octicon-link" href="#foobar-1"></a></h2>
+<h1 style="position: relative;" line-start="9" line-end="12"><span style="position: absolute; top: -50px;" id="aaabbbccc"></span>aaa
+bbb
+ccc<a class="anchor octicon-link" href="#aaabbbccc"></a></h1>
 <pre style="position: relative;" line-start="14" line-end="14"><code class="hljs language-plaintext">Foo
 </code></pre><p line-start="15" line-end="15">===</p>
 <p line-start="17" line-end="17">Foo</p>

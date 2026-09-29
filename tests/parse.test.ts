@@ -76,3 +76,28 @@ test("GFM protocol autolinks are found mid-text (marked #4067)", () => {
    expect(html).toContain('contact <a href="mailto:foo@bar.baz">mailto:foo@bar.baz</a> or (');
    expect(html).toContain('<a href="xmpp:a@b.cd">xmpp:a@b.cd</a>)');
 });
+
+test("setext heading slugs ignore continuation-line indentation, as on GitHub", () => {
+   const markdown = [
+      "Alpha\n    beta\n===",
+      "Gamma\n\tdelta\n---",
+      "Epsilon\n        zeta\n            eta\n===",
+      "Theta\n  \t iota\n---",
+      "Kappa\nlambda\n===",
+      "Mu nu\n===",
+   ].join("\n\n");
+
+   const { html } = new Pantsdown().parse(markdown);
+   // anchors GitHub generated for this exact markdown
+   for (const slug of [
+      "alphabeta",
+      "gammadelta",
+      "epsilonzetaeta",
+      "thetaiota",
+      "kappalambda",
+      "mu-nu",
+   ]) {
+      expect(html).toContain(`id="${slug}"`);
+   }
+   expect(html).toContain("Alpha\nbeta<a");
+});

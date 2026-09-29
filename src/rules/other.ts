@@ -46,6 +46,8 @@ export const other = {
    tableAlignRight: /^ *-+: *$/,
    tableAlignCenter: /^ *:-+: *$/,
    tableAlignLeft: /^ *:-+ *$/,
+   // Pantsdown: setext heading continuation lines (see Tokenizer.lheading)
+   continuationIndent: /\n[ \t]+/g,
    // Pantsdown: html block sourcemaps (see Tokenizer.html)
    htmlOpenTagName: /^ {0,3}<([a-zA-Z][a-zA-Z0-9-]*)/,
    htmlEndingCloseTagName: /<\/([a-zA-Z][a-zA-Z0-9-]*)\s*>$/,
