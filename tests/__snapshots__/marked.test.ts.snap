@@ -365,3 +365,27 @@ exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext">
 </code></pre>"
 `;
+
+exports[`marked spec: list_loose_nested_tasks 1`] = `
+"<ul class="contains-task-list">
+<li class="task-list-item" line-start="1" line-end="5"><p><input disabled="" type="checkbox" class="task-list-item-checkbox"> Prepare the project</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Install dependencies</li>
+<li class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Update Marked</li>
+<li class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Check the rendering</li>
+</ul>
+</li>
+<li class="task-list-item" line-start="6" line-end="11"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Run the tests</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> Test lists</p>
+</li>
+<li class="task-list-item"><p><input disabled="" type="checkbox" class="task-list-item-checkbox"> Test tables</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox"> Test nested cases</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+"
+`;

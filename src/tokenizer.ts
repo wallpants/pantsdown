@@ -422,10 +422,24 @@ export class Tokenizer {
       // save/restore top: blockTokens resets it to true on exit, and a nested list
       // lexed with a stale top=true would advance the sourcemap line counter
       const top = this.lexer.state.top;
+      // First pass: tokenize items and finalize list.loose from spacers before placing checkboxes
       for (const item of list.items) {
          this.lexer.state.top = false;
          item.tokens = this.lexer.blockTokens(item.text, []);
 
+         if (!list.loose) {
+            // Check if list should be loose
+            const spacers = item.tokens.filter((t) => t.type === "space");
+            const hasMultipleLineBreaks =
+               spacers.length > 0 && spacers.some((t) => other.anyLine.test(t.raw));
+
+            list.loose = hasMultipleLineBreaks;
+         }
+      }
+      this.lexer.state.top = top;
+
+      // Second pass: place task checkboxes using the final list.loose
+      for (const item of list.items) {
          const itemToken = item.tokens[0];
          if (item.task && (itemToken?.type === "text" || itemToken?.type === "paragraph")) {
             // Remove checkbox markdown from item tokens
@@ -435,7 +449,7 @@ export class Tokenizer {
             // DEVIATION: upstream strips the last queued src that looks like a task,
             // which can be a later paragraph of the same item (`- [ ] a\n\n  [ ] b`).
             // The item token's own queue entry shares its tokens array.
-            const queued = this.lexer.inlineQueue.find(
+            const queued = this.lexer.inlineQueue.findLast(
                (entry) => entry.tokens === itemToken.tokens,
             );
             if (queued) queued.src = queued.src.replace(other.listReplaceTask, "");
@@ -474,17 +488,7 @@ export class Tokenizer {
          } else if (item.task) {
             item.task = false;
          }
-
-         if (!list.loose) {
-            // Check if list should be loose
-            const spacers = item.tokens.filter((t) => t.type === "space");
-            const hasMultipleLineBreaks =
-               spacers.length > 0 && spacers.some((t) => other.anyLine.test(t.raw));
-
-            list.loose = hasMultipleLineBreaks;
-         }
       }
-      this.lexer.state.top = top;
 
       // Set all items to loose if list is loose
       if (list.loose) {
