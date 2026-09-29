@@ -39,9 +39,17 @@ const href = /<(?:\\.|[^\n<>\\])+>|[^ \t\n\x00-\x1f]+|(?=\))/;
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
 const comment = edit(blockComment).replace("(?:-->|$)", "-->").getRegex();
 const attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
+// One matched pair of brackets, holding no bracket of its own.
+const labelBrackets = /\[(?:\\[\s\S]|[^\[\]\\])*\]/;
+// CommonMark lets the brackets in a link label nest to any depth, which a regex
+// cannot follow, so it stops at a fixed one. Two levels is what the spec suite
+// asks for: a third and a fourth flip no further example.
 // codespan branches carry the #3918 ReDoS fix (`+(?!`) head, ``+(?=\]) tail)
-const label =
-   /(?:\[(?:\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/;
+const label = edit(
+   /(?:\[(?:brackets|\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/,
+)
+   .replace("brackets", labelBrackets)
+   .getRegex();
 const email =
    /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
 const extended_email = /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/;

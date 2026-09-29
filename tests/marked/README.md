@@ -33,6 +33,12 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).
 
+Upstream fixes that ship no fixture of their own are covered by fixtures built
+from the CommonMark 0.31.2 spec examples they unlock (concatenated, `<img />`
+written as `<img>`):
+
+- `link_label_nested_brackets` — examples 512, 520, 528 (marked #4064)
+
 Upstream's per-fixture option front matter (e.g. `gfm: false`) is stripped:
 Pantsdown is GFM-only, so a fixture is mirrored only when its behavior also
 holds under GFM (`backtick_fence_eof_interrupts_paragraph`,
