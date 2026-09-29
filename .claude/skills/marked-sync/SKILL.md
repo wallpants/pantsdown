@@ -64,6 +64,9 @@ this skill.
 - List task checkboxes are stripped from the item token's own inline-queue entry
   (found by its shared `tokens` array), not upstream's backward search for a
   task-looking src, which can hit a later paragraph of the same item.
+- Setext heading text drops its continuation lines' leading whitespace
+  (`other.continuationIndent`), as CommonMark and GitHub do; upstream keeps it,
+  which leaks into heading slugs (`foo----bar` instead of GitHub's `foobar`).
 - Pantsdown extras with no upstream counterpart: alerts, footnotes, latex tokens,
   sourceMap plumbing, task-checkbox `javascript` output, `injectHtmlAttributes`,
   `TextRenderer.footnoteRef`/`latexInline`.

@@ -712,7 +712,9 @@ export class Tokenizer {
       const cap = block.lheading.exec(src);
       if (!cap) return undefined;
 
-      const text = cap[1]!.trim();
+      // DEVIATION: upstream keeps continuation lines' indentation; CommonMark (and
+      // GitHub, whose heading slugs would otherwise gain a dash per space) strips it
+      const text = cap[1]!.trim().replace(other.continuationIndent, "\n");
       const raw = rtrim(cap[0], "\n");
       return {
          type: "heading",
