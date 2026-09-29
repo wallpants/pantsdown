@@ -141,6 +141,11 @@ export interface Tokens extends Record<string, BaseToken> {
       href: string;
       title: string | null;
       tokens: Token[];
+      /**
+       * Set for autolinks and extended (GFM) urls, where character references are
+       * not resolved, so the destination and text are literal.
+       */
+      autolink?: boolean;
    };
    Image: {
       type: "image";
