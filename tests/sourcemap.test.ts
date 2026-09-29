@@ -195,3 +195,14 @@ test("sourcemaps stay correct after sibling nested lists", () => {
    const { html } = pantsdown.parse(markdown);
    expect(html).toContain('<p line-start="6" line-end="6">after</p>');
 });
+
+test("sourcemaps span a blockquote paragraph merged across a lazy line", () => {
+   // the paragraph after a lazy continuation line is lexed in a separate
+   // blockquote round and merged into the previous paragraph
+   const markdown = ["> a", "b", "> c", "", "after", ""].join("\n");
+
+   const pantsdown = new Pantsdown();
+   const { html } = pantsdown.parse(markdown);
+   expect(html).toContain('<p line-start="1" line-end="3">a\nb\nc</p>');
+   expect(html).toContain('<p line-start="5" line-end="5">after</p>');
+});
