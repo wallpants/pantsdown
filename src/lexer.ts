@@ -215,6 +215,9 @@ export class Lexer {
             if (lastParagraphClipped && lastToken?.type === "paragraph") {
                lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.text;
+               if (lastToken.sourceMap && token.sourceMap) {
+                  lastToken.sourceMap[1] = token.sourceMap[1];
+               }
                this.inlineQueue.pop();
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                if (lastInline) lastInline.src = lastToken.text;
