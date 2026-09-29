@@ -353,3 +353,15 @@ exports[`marked spec: tasklist_setext_heading 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: backtick_fence_eof_interrupts_paragraph 1`] = `
+"<p line-start="1" line-end="1">foo</p>
+<pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext">
+</code></pre>"
+`;
+
+exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
+"<p line-start="1" line-end="1">foo</p>
+<pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext">
+</code></pre>"
+`;

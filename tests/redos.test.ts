@@ -59,9 +59,10 @@ test("redos: html block close at EOF (marked #4014)", () => {
    expect(html).toContain("<!x");
 });
 
-test("redos: tilde paragraph interrupt (marked #4014)", () => {
+test("redos: tilde paragraph interrupt (marked #4014, #4039)", () => {
+   // since #4039 the EOF tilde run is an (empty) fence that interrupts the paragraph
    const html = parseWithin("intro\n" + "~".repeat(50000));
-   expect(html).toContain("intro");
+   expect(html).toMatch(/<p[^>]*>intro<\/p>/);
 });
 
 test("redos: masking escaped punctuation (marked #4017)", () => {

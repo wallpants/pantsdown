@@ -31,6 +31,11 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).
 
+Upstream's per-fixture option front matter (e.g. `gfm: false`) is stripped:
+Pantsdown is GFM-only, so a fixture is mirrored only when its behavior also
+holds under GFM (`backtick_fence_eof_interrupts_paragraph`,
+`tilde_fence_eof_interrupts_paragraph`).
+
 When porting a new upstream fix, drop its fixture pair in here: keep upstream's
 `.html` if the outputs match, otherwise delete the `.html` and rely on the
 snapshot (or adapt it and document the deviation above).
