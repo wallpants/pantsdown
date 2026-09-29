@@ -8,6 +8,7 @@ import {
    expandTabs,
    findClosingBracket,
    indentCodeCompensation,
+   isLabelEndInsideToken,
    normalizeLabel,
    outputLink,
    rtrim,
@@ -775,6 +776,10 @@ export class Tokenizer {
       const cap = inline.link.exec(src);
       if (!cap) return undefined;
 
+      if (isLabelEndInsideToken(src, cap[1]!, cap[0].startsWith("!") ? 2 : 1)) {
+         return;
+      }
+
       const trimmedUrl = cap[2]!.trim();
       if (trimmedUrl.startsWith("<")) {
          // commonmark requires matching angle brackets
@@ -827,6 +832,10 @@ export class Tokenizer {
    ): Tokens["Link"] | Tokens["Image"] | Tokens["Text"] | undefined {
       let cap;
       if ((cap = inline.reflink.exec(src)) ?? (cap = inline.nolink.exec(src))) {
+         if (isLabelEndInsideToken(src, cap[1]!, cap[0].startsWith("!") ? 2 : 1)) {
+            return;
+         }
+
          const linkStr = (cap[2] ?? cap[1])!.replace(/\s+/g, " ");
          const link = links[normalizeLabel(linkStr)];
          if (!link) {

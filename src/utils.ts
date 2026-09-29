@@ -1,4 +1,5 @@
 import { type Lexer } from "./lexer.ts";
+import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
 import { type HTMLAttrs, type PantsdownConfig, type SourceMap, type Tokens } from "./types.ts";
 
@@ -355,6 +356,48 @@ export function indentCodeCompensation(raw: string, text: string) {
          return node.slice(Math.min(indentInNode.length, indentToCode?.length ?? 0));
       })
       .join("\n");
+}
+
+/**
+ * Does the link label end inside a raw token (html tag or autolink) that starts
+ * within it? Such a token takes precedence over the link, so its closing `]`
+ * does not close the label.
+ */
+export function isLabelEndInsideToken(src: string, label: string, labelStart: number) {
+   if (!label.includes("<")) {
+      return false;
+   }
+
+   for (let i = 0; i < label.length; i++) {
+      if (label[i] === "\\") {
+         i++;
+         continue;
+      }
+
+      if (label[i] === "`") {
+         const code = inline.code.exec(label.slice(i));
+         if (code) {
+            i += code[0].length - 1;
+            continue;
+         }
+      }
+
+      if (label[i] !== "<") {
+         continue;
+      }
+
+      const tokenSrc = src.slice(labelStart + i);
+      const token = inline.tag.exec(tokenSrc) ?? inline.autolink.exec(tokenSrc);
+      if (!token) {
+         continue;
+      }
+
+      if (token[0].length > label.length - i) {
+         return true;
+      }
+      i += token[0].length - 1;
+   }
+   return false;
 }
 
 function makeAlertRegex(type: string) {

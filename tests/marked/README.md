@@ -38,6 +38,7 @@ from the CommonMark 0.31.2 spec examples they unlock (concatenated, `<img />`
 written as `<img>`):
 
 - `link_label_nested_brackets` — examples 512, 520, 528 (marked #4064)
+- `link_label_raw_token_precedence` — examples 524, 526, 536, 538 (marked #4066)
 
 Upstream's per-fixture option front matter (e.g. `gfm: false`) is stripped:
 Pantsdown is GFM-only, so a fixture is mirrored only when its behavior also
