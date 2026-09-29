@@ -4,7 +4,7 @@ import { Pantsdown } from "../src";
 /**
  * Regression guards for the ReDoS / infinite-loop fixes ported from marked
  * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017,
- * #4040)
+ * #4040, #4090)
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
@@ -110,4 +110,15 @@ test("redos: many footnote definitions and references (marked #4040)", () => {
    }
    const html = parseWithin(`${refs}\n\n${defs.join("\n")}`);
    expect(html).toContain('href="#footnote-12999"');
+});
+
+test("redos: reflinkSearch escaped brackets (marked #4090)", () => {
+   // linear but bounded by the 999-item label cap (~0.4s locally, 2.4s before)
+   const html = parseWithin("[" + "\t\\[".repeat(18000) + "[", 1000);
+   expect(html).toContain("[" + "\t[".repeat(18000) + "[");
+});
+
+test("redos: reflinkSearch escaped bracket pairs (marked #4090)", () => {
+   const html = parseWithin("[" + "\t\\[\\]".repeat(14000) + "[", 1000);
+   expect(html).toContain("[" + "\t[]".repeat(14000) + "[");
 });

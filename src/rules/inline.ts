@@ -141,9 +141,40 @@ const inline_nolink = edit(/^!?\[(ref)\](?:\[\])?/)
    .replace("ref", blockLabel)
    .getRegex();
 
+// `reflink` and `nolink` are anchored, so the tokenizer tries each of them at a
+// single position. `reflinkSearch` drops the anchors and runs with the global
+// flag, which makes every '[' in the source a start position. A label crosses a
+// bracket only by escaping it, and nothing caps how often it does, so a
+// candidate that can never match still scans to the end of the source and the
+// whole pass costs O(n^2).
+//
+// The labels below bound that scan. `boundedInlineLabel` limits how many
+// escapes, code spans and nested brackets a link text may hold, leaving runs of
+// ordinary characters unbounded so link text of any length is still found.
+// `boundedBlockLabel` limits the label itself to 999 items, which is every
+// label CommonMark allows: "A link label can have at most 999 characters
+// inside the square brackets."
+const boundedBlockLabel = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\]){1,999}/;
+const boundedInlineLabel = edit(
+   /(?:[^\[\]\\`]*(?:\[(?:brackets|\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\]))){0,999}?[^\[\]\\`]*?/,
+)
+   .replace("brackets", labelBrackets)
+   .getRegex();
+
 const inline_reflinkSearch = edit("reflink|nolink(?!\\()", "g")
-   .replace("reflink", inline_reflink)
-   .replace("nolink", inline_nolink)
+   .replace(
+      "reflink",
+      edit(/^!?\[(label)\]\[(ref)\]/)
+         .replace("label", boundedInlineLabel)
+         .replace("ref", boundedBlockLabel)
+         .getRegex(),
+   )
+   .replace(
+      "nolink",
+      edit(/^!?\[(ref)\](?:\[\])?/)
+         .replace("ref", boundedBlockLabel)
+         .getRegex(),
+   )
    .getRegex();
 
 const inline_escape = /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/;
