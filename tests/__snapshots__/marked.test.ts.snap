@@ -389,3 +389,12 @@ exports[`marked spec: list_loose_nested_tasks 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: fence_indent_stripping 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="5"><code class="hljs language-plaintext">aaa
+ aaa
+aaa
+</code></pre><p line-start="7" line-end="7">sep</p>
+<pre style="position: relative;" line-start="9" line-end="11"><code class="hljs language-plaintext">    aaa
+</code></pre>"
+`;
