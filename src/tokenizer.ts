@@ -77,8 +77,8 @@ export class Tokenizer {
       // remove trailing #s
       if (text.endsWith("#")) {
          const trimmed = rtrim(text, "#");
-         if (!trimmed || trimmed.endsWith(" ")) {
-            // CommonMark requires space before trailing #s
+         if (!trimmed || other.endingSpaceTabChar.test(trimmed)) {
+            // CommonMark requires a space or tab before trailing #s
             text = trimmed.trim();
          }
       }
