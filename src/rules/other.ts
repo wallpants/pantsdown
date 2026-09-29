@@ -1,10 +1,10 @@
+import { tag } from "./block.ts";
+
 /**
  * Regexes that don't belong to the block or inline grammars.
- * Names and values mirror marked's `other` rules object (src/rules.ts,
- * currently marked v18.0.7 — see "Last synced" in the root README) so
- * future syncs stay diffable.
+ * Names and values mirror marked's `other` rules object (src/rules.ts, as of
+ * the "Last synced" version in the root README) so future syncs stay diffable.
  */
-import { tag } from "./block.ts";
 
 function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
    const cache: RegExp[] = [];
