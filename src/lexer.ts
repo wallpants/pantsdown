@@ -273,10 +273,9 @@ export class Lexer {
       let keepPrevChar, prevChar;
 
       // Mask out reflinks
-      const links = Object.keys(this.links);
-      if (links.length > 0) {
+      if (src.includes("[")) {
          maskedSrc = maskedSrc.replace(inline.reflinkSearch, (match0) =>
-            links.includes(match0.slice(match0.lastIndexOf("[") + 1, -1))
+            Object.hasOwn(this.links, match0.slice(match0.lastIndexOf("[") + 1, -1))
                ? "[" + "a".repeat(match0.length - 2) + "]"
                : match0,
          );
