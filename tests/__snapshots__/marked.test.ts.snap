@@ -537,3 +537,19 @@ exports[`marked spec: list_content_tabs_tab_separated_marker_gfm 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: setext_indented_continuation 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="3"><span style="position: absolute; top: -50px;" id="foo----bar"></span>Foo
+    bar<a class="anchor octicon-link" href="#foo----bar"></a></h1>
+<h2 style="position: relative;" line-start="5" line-end="7"><span style="position: absolute; top: -50px;" id="foobar"></span>Foo
+	bar<a class="anchor octicon-link" href="#foobar"></a></h2>
+<h1 style="position: relative;" line-start="9" line-end="12"><span style="position: absolute; top: -50px;" id="aaa--------bbb------------ccc"></span>aaa
+        bbb
+            ccc<a class="anchor octicon-link" href="#aaa--------bbb------------ccc"></a></h1>
+<pre style="position: relative;" line-start="14" line-end="14"><code class="hljs language-plaintext">Foo
+</code></pre><p line-start="15" line-end="15">===</p>
+<p line-start="17" line-end="17">Foo</p>
+<hr line-start="18" line-end="18">
+<p line-start="19" line-end="19">===</p>
+"
+`;
