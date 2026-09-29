@@ -278,19 +278,23 @@ export class Tokenizer {
          raw = cap[0];
          src = src.substring(raw.length);
 
-         let line = expandTabs(cap[2]!.split("\n", 1)[0]!, cap[1]!.length);
+         const firstLine = cap[2]!.split("\n", 1)[0]!;
+         const bulletIndent = cap[1]!.length;
+         let line = firstLine.replace(other.leadingSpaceTab, (whitespace) =>
+            expandTabs(whitespace, bulletIndent),
+         );
          let nextLine = src.split("\n", 1)[0] ?? "";
 
          let blankLine = !line.trim();
 
          let indent = 0;
          if (blankLine) {
-            indent = cap[1]!.length + 1;
+            indent = bulletIndent + 1;
          } else {
             indent = line.search(other.nonSpaceChar); // Find first non-space char
             indent = indent > 4 ? 1 : indent; // Treat indented code blocks (> 4 spaces) as having only 1 indent
             itemContents = line.slice(indent);
-            indent += cap[1]!.length;
+            indent += bulletIndent;
          }
 
          if (blankLine && other.blankLine.test(nextLine)) {
@@ -312,7 +316,9 @@ export class Tokenizer {
             while (src) {
                const rawLine = src.split("\n", 1)[0] ?? "";
                nextLine = rawLine;
-               const nextLineWithoutTabs = nextLine.replace(other.tabCharGlobal, "    ");
+               const nextLineWithoutTabs = nextLine.replace(other.leadingSpaceTab, (whitespace) =>
+                  whitespace.replace(other.tabCharGlobal, "    "),
+               );
 
                // End list item if found code fences
                if (fencesBeginRegex.test(nextLine)) {

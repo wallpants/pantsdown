@@ -22,6 +22,7 @@ function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
 export const other = {
    codeRemoveIndent: /^(?: {0,3}\t| {1,4})/gm,
    tabCharGlobal: /\t/g,
+   leadingSpaceTab: /^[ \t]+/,
    outputLinkReplace: /\\([\[\]])/g,
    indentCodeCompensation: /^(\s+)(?:```)/,
    beginningSpace: /^\s+/,
