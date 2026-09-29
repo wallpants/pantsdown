@@ -155,6 +155,24 @@ export function fixLocalImageHref(href: string, config: PantsdownConfig): string
    }
 }
 
+/**
+ * Numeric character references are recognized outside code and are equivalent to the
+ * character they name. Values that are zero, out of range, or a surrogate become the
+ * replacement character.
+ */
+export function decodeNumericCharacterReferences(text: string) {
+   return text.replace(
+      other.numericCharacterReference,
+      (_, dec: string | undefined, hex: string | undefined) => {
+         const code = dec === undefined ? Number.parseInt(hex!, 16) : Number.parseInt(dec, 10);
+         if (code === 0 || code > 0x10ffff || (code >= 0xd800 && code <= 0xdfff)) {
+            return "\uFFFD";
+         }
+         return String.fromCodePoint(code);
+      },
+   );
+}
+
 export function cleanUrl(href: string) {
    try {
       href = encodeURI(href).replace(other.percentDecode, "%");

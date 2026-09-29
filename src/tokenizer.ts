@@ -5,6 +5,7 @@ import { other } from "./rules/other.ts";
 import { type Links, type Token, type Tokens } from "./types.ts";
 import {
    ALERTS,
+   decodeNumericCharacterReferences,
    expandTabs,
    findClosingBracket,
    indentCodeCompensation,
@@ -1119,11 +1120,14 @@ export class Tokenizer {
       const cap = inline.text.exec(src);
       if (!cap) return undefined;
 
+      const escaped = this.lexer.state.inRawBlock;
       return {
          type: "text",
          raw: cap[0],
-         text: cap[0],
-         escaped: this.lexer.state.inRawBlock,
+         // raw HTML keeps whatever it was written with, everywhere else a numeric
+         // character reference stands for the character itself
+         text: escaped ? cap[0] : decodeNumericCharacterReferences(cap[0]),
+         escaped,
       };
    }
 
