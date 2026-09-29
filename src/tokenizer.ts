@@ -432,15 +432,13 @@ export class Tokenizer {
             item.text = item.text.replace(other.listReplaceTask, "");
             itemToken.raw = itemToken.raw.replace(other.listReplaceTask, "");
             itemToken.text = itemToken.text.replace(other.listReplaceTask, "");
-            for (let i = this.lexer.inlineQueue.length - 1; i >= 0; i--) {
-               if (other.listIsTask.test(this.lexer.inlineQueue[i]!.src)) {
-                  this.lexer.inlineQueue[i]!.src = this.lexer.inlineQueue[i]!.src.replace(
-                     other.listReplaceTask,
-                     "",
-                  );
-                  break;
-               }
-            }
+            // DEVIATION: upstream strips the last queued src that looks like a task,
+            // which can be a later paragraph of the same item (`- [ ] a\n\n  [ ] b`).
+            // The item token's own queue entry shares its tokens array.
+            const queued = this.lexer.inlineQueue.find(
+               (entry) => entry.tokens === itemToken.tokens,
+            );
+            if (queued) queued.src = queued.src.replace(other.listReplaceTask, "");
 
             const taskRaw = other.listTaskCheckbox.exec(item.raw);
             if (taskRaw) {

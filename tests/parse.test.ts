@@ -57,3 +57,9 @@ test("closing tags receive no injected attributes", () => {
    expect(html).toMatch(/<\/details>/);
    expect(html).not.toMatch(/<\/details [^>]/);
 });
+
+test("task checkbox markdown is stripped from the item's own first line only", () => {
+   const { html } = new Pantsdown().parse("- [ ] a\n\n  [ ] b\n");
+   expect(html).toContain("<p>a</p>");
+   expect(html).toContain("<p>[ ] b</p>");
+});
