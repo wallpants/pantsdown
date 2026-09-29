@@ -63,3 +63,10 @@ test("task checkbox markdown is stripped from the item's own first line only", (
    expect(html).toContain('task-list-item-checkbox"> a</p>');
    expect(html).toContain("<p>[ ] b</p>");
 });
+
+test("text before a raw block opener in a rejected link stays escaped (marked #4051)", () => {
+   // the rejected link text is tokenized once and thrown away; that pass must
+   // not leave `inRawBlock` set, or the re-scan emits this text unescaped
+   const { html } = new Pantsdown().parse("[a & b <pre> [x](/uri)](/uri)");
+   expect(html).toContain('[a &amp; b <pre> <a href="/uri">x</a>](/uri)</p>');
+});
