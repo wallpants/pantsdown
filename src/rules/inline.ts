@@ -106,8 +106,8 @@ const inline_autolink = edit(/^<(scheme:[^\s\x00-\x1f<>]*|email)>/)
 
 const inline_tag = edit(
    "^comment" +
-      "|^</[a-zA-Z][\\w:-]*\\s*>" + // self-closing tag
-      "|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>" + // open tag
+      "|^</[a-zA-Z][a-zA-Z0-9-]*\\s*>" + // self-closing tag
+      "|^<[a-zA-Z][a-zA-Z0-9-]*(?:attribute)*?\\s*/?>" + // open tag
       "|^<\\?[\\s\\S]*?\\?>" + // processing instruction, e.g. <?php ?>
       "|^<![a-zA-Z]+\\s[\\s\\S]*?>" + // declaration, e.g. <!DOCTYPE html>
       "|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>", // CDATA section
