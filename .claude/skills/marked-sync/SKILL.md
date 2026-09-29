@@ -61,6 +61,9 @@ this skill.
   upstream's nested-quantifier form) — same language, avoids O(n²) under JSC.
   Preserve it through any url-rule change.
 - Lookbehind regex forms are used directly; no `supportsLookbehind` fallback.
+- List task checkboxes are stripped from the item token's own inline-queue entry
+  (found by its shared `tokens` array), not upstream's backward search for a
+  task-looking src, which can hit a later paragraph of the same item.
 - Pantsdown extras with no upstream counterpart: alerts, footnotes, latex tokens,
   sourceMap plumbing, task-checkbox `javascript` output, `injectHtmlAttributes`,
   `TextRenderer.footnoteRef`/`latexInline`.
@@ -81,7 +84,8 @@ lines against the actual source.
    latest-version form when later fixes in the same range touch the same regex
    (note which later PRs are folded in, in the commit message).
 2. Verify with the bare commands `bun run check` then `bun test` — NEVER judge
-   success through a pipe (`| tail` masks exit codes); check `$?` of the command itself.
+   success through a pipe (`| tail` masks exit codes); check `$?` of the command itself,
+   and don't chain `git commit` after a test run whose result you haven't read.
 3. Output must stay byte-identical unless the fix intentionally changes rendering.
    If only `line-start`/`line-end` attrs move, verify the new numbers against the
    markdown source before `bun test --update-snapshots`. Review every snapshot diff
@@ -89,8 +93,16 @@ lines against the actual source.
 4. Mirror the fix's fixture from upstream `test/specs/new/` into `tests/marked/`
    (policy in `tests/marked/README.md`: keep upstream's `.html` when output matches
    after normalization; otherwise `.md`-only snapshot, or adapt the `.html` and
-   document it in that README). If the fix has no fixture, build one from the
-   CommonMark/GFM spec examples it unlocks. NOTE: `tests/marked` and `tests/test.md`
+   document it in that README). Fetch fixtures from
+   `https://raw.githubusercontent.com/markedjs/marked/<sha>/test/specs/new/<name>.{md,html}`.
+   Upstream fixtures often open with YAML front matter (`gfm: false`,
+   `renderExact: true`, `#` comments) — strip it; mirror a `gfm: false` fixture
+   only if the changed rule is shared with GFM, and of `_gfm`/`_commonmark`
+   (or `_nogfm`) pairs take only the GFM one. The `.html` compare trims
+   per-line whitespace, so diff `renderExact` fixtures' output exactly by hand.
+   If the fix has no fixture, build one from the CommonMark/GFM spec examples
+   it unlocks: `shouldFail` entries it removes from
+   `test/specs/{commonmark,gfm}/*.json`, fetched at the release tag. NOTE: `tests/marked` and `tests/test.md`
    are in `.oxfmtrc.json` `ignorePatterns` — oxfmt rewrites markdown fixture content
    (tabs, escapes); never let a formatter touch fixtures, and check `git status`
    after any `bun run format`.
