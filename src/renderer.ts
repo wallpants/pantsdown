@@ -60,7 +60,8 @@ export class Renderer {
       }
 
       const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
-      code = hljs.highlight(code + "\n", { language }).value;
+      // An empty code block has no content, so it must not gain a newline.
+      code = hljs.highlight(code ? code + "\n" : "", { language }).value;
       code = `<code class="hljs language-${escape(language)}">${code}</code>`;
 
       const result = `<pre style="position: relative;">` + code + `</pre>`;
