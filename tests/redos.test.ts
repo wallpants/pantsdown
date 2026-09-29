@@ -92,11 +92,14 @@ test("url autolinks still match after domain regex reshape", () => {
    expect(html).toContain('<a href="http://www.foo.bar">www.foo.bar</a>. end');
 });
 
+// The #4040 inputs are coarse guards here: under JSC they took 257ms and 97ms
+// before the fix (vs ~60ms/~105ms after), and CI runs them at ~5-9x local time,
+// so the budget only catches a catastrophic regression.
 test("redos: reflink mask with many definitions (marked #4040)", () => {
    const n = 13000;
    const defs = ["[id]: /url"];
    for (let i = 0; i < n; i++) defs.push(`[unused-${i}]: /${i}`);
-   const html = parseWithin(`${"[[x]][id] ".repeat(n)}\n\n${defs.join("\n")}`);
+   const html = parseWithin(`${"[[x]][id] ".repeat(n)}\n\n${defs.join("\n")}`, 2000);
    expect(html).toContain('<a href="/url">[x]</a> <a href="/url">[x]</a>');
 });
 
@@ -108,17 +111,18 @@ test("redos: many footnote definitions and references (marked #4040)", () => {
       refs += `[^${i}] `;
       defs.push(`[^${i}]: x`);
    }
-   const html = parseWithin(`${refs}\n\n${defs.join("\n")}`);
+   const html = parseWithin(`${refs}\n\n${defs.join("\n")}`, 2000);
    expect(html).toContain('href="#footnote-12999"');
 });
 
 test("redos: reflinkSearch escaped brackets (marked #4090)", () => {
-   // linear but bounded by the 999-item label cap (~0.4s locally, 2.4s before)
-   const html = parseWithin("[" + "\t\\[".repeat(18000) + "[", 1000);
+   // linear but bounded by the 999-item label cap: ~0.4s locally and ~1s on
+   // CI, vs 2.4s locally before the fix
+   const html = parseWithin("[" + "\t\\[".repeat(18000) + "[", 3000);
    expect(html).toContain("[" + "\t[".repeat(18000) + "[");
 });
 
 test("redos: reflinkSearch escaped bracket pairs (marked #4090)", () => {
-   const html = parseWithin("[" + "\t\\[\\]".repeat(14000) + "[", 1000);
+   const html = parseWithin("[" + "\t\\[\\]".repeat(14000) + "[", 3000);
    expect(html).toContain("[" + "\t[]".repeat(14000) + "[");
 });
