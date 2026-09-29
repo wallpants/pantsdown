@@ -46,6 +46,9 @@ export const other = {
    tableAlignRight: /^ *-+: *$/,
    tableAlignCenter: /^ *:-+: *$/,
    tableAlignLeft: /^ *:-+ *$/,
+   // Pantsdown: html block sourcemaps (see Tokenizer.html)
+   htmlOpenTagName: /^ {0,3}<([a-zA-Z][a-zA-Z0-9-]*)/,
+   htmlEndingCloseTagName: /<\/([a-zA-Z][a-zA-Z0-9-]*)\s*>$/,
    startATag: /^<a /i,
    endATag: /^<\/a>/i,
    startPreScriptTag: /^<(pre|code|kbd|script)(\s|>)/i,

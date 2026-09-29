@@ -206,3 +206,61 @@ test("sourcemaps span a blockquote paragraph merged across a lazy line", () => {
    expect(html).toContain('<p line-start="1" line-end="3">a\nb\nc</p>');
    expect(html).toContain('<p line-start="5" line-end="5">after</p>');
 });
+
+test("html blocks closed by a later html token span to their closing tag", () => {
+   const markdown = [
+      "<div>", //                 1
+      "",
+      "bare div",
+      "",
+      "</div>", //                5
+      "",
+      '<div class="note">', //    7
+      "",
+      "div with attributes",
+      "",
+      "</div>", //               11
+      "",
+      "<details open>", //       13
+      "<summary>s</summary>",
+      "",
+      "details with attributes",
+      "",
+      "</details>", //           18
+      "",
+      "> <section>", //          20
+      ">",
+      "> in a blockquote",
+      ">",
+      "> </section>", //         24
+      "",
+   ].join("\n");
+
+   const { html } = new Pantsdown().parse(markdown);
+   expect(html).toContain('<div line-start="1" line-end="5">');
+   expect(html).toContain('<div class="note" line-start="7" line-end="11">');
+   expect(html).toContain('<details open line-start="13" line-end="18">');
+   expect(html).toContain('<section line-start="20" line-end="24">');
+});
+
+test("self-contained and inner html blocks don't close an outer pending one", () => {
+   const markdown = [
+      "<div>", //               1
+      "",
+      "<div>inner</div>", //    3
+      "",
+      "<dl>", //                5
+      "  <dt>a</dt>",
+      "",
+      "  <dt>b</dt>", //        8
+      "</dl>", //               9
+      "",
+      "</div>", //             11
+      "",
+   ].join("\n");
+
+   const { html } = new Pantsdown().parse(markdown);
+   expect(html).toContain('<div line-start="1" line-end="11">');
+   expect(html).toContain('<div line-start="3" line-end="3">inner</div>');
+   expect(html).toContain('<dl line-start="5" line-end="9">');
+});

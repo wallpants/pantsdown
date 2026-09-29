@@ -22,7 +22,7 @@ import {
  */
 export class Tokenizer {
    private lexer: Lexer;
-   pendingHtmlClose: [tag: string, index: number][] = [];
+   pendingHtmlClose: { tag: string; token: Tokens["HTML"] }[] = [];
 
    constructor(lexer: Lexer) {
       this.lexer = lexer;
@@ -598,26 +598,26 @@ export class Tokenizer {
        * and update their sourceMap once they're closed.
        */
 
-      const capEndsWith = (str?: string) => str && cap[0].trimEnd().endsWith(str);
+      const openTag = other.htmlOpenTagName.exec(raw)?.[1]?.toLowerCase();
+      const closeTag = other.htmlEndingCloseTagName.exec(raw.trimEnd())?.[1]?.toLowerCase();
 
-      const tag = inline.tag.exec(src);
-      const isHtmlClosed = capEndsWith(tag?.[0].slice(1));
-
-      if (tag?.[0] && !isHtmlClosed) {
-         // index where the token we just created will be inserted
-         const tokenIdx = this.lexer.tokens.length;
-         // first in last out
-         this.pendingHtmlClose.unshift([tag[0], tokenIdx]);
-      } else if (this.pendingHtmlClose.length) {
-         for (const [pendingTag, index] of this.pendingHtmlClose) {
-            if (capEndsWith(pendingTag.slice(1))) {
-               const updateToken = this.lexer.tokens[index] as Tokens["HTML"];
-               if (updateToken.sourceMap?.[1] && token.sourceMap?.[1]) {
-                  updateToken.sourceMap[1] = token.sourceMap[1];
-               }
-               this.pendingHtmlClose.shift();
-            }
+      // a token ending in the closing tag of a pending html token closes it, even
+      // when it opens other tags itself (`  <dt>a</dt>\n</dl>`); one that closes
+      // the tag it opens (`<div>a</div>`) is self-contained
+      const index =
+         closeTag === undefined || closeTag === openTag
+            ? -1
+            : this.pendingHtmlClose.findIndex((pending) => pending.tag === closeTag);
+      const pending = this.pendingHtmlClose[index];
+      if (pending) {
+         if (pending.token.sourceMap && token.sourceMap) {
+            pending.token.sourceMap[1] = token.sourceMap[1];
          }
+         // tags opened after the one just closed can no longer be closed
+         this.pendingHtmlClose.splice(0, index + 1);
+      } else if (openTag && openTag !== closeTag) {
+         // first in last out
+         this.pendingHtmlClose.unshift({ tag: openTag, token });
       }
 
       return token;
