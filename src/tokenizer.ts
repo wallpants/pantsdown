@@ -8,6 +8,7 @@ import {
    expandTabs,
    findClosingBracket,
    indentCodeCompensation,
+   normalizeLabel,
    outputLink,
    rtrim,
    splitCells,
@@ -610,7 +611,7 @@ export class Tokenizer {
       const cap = block.def.exec(src);
       if (!cap) return undefined;
 
-      const tag = cap[1]!.toLowerCase().replace(other.multipleSpaceGlobal, " ");
+      const tag = normalizeLabel(cap[1]!).replace(other.multipleSpaceGlobal, " ");
       const href = cap[2]
          ? cap[2].replace(other.hrefBrackets, "$1").replace(inline.anyPunctuation, "$1")
          : "";
@@ -827,7 +828,7 @@ export class Tokenizer {
       let cap;
       if ((cap = inline.reflink.exec(src)) ?? (cap = inline.nolink.exec(src))) {
          const linkStr = (cap[2] ?? cap[1])!.replace(/\s+/g, " ");
-         const link = links[linkStr.toLowerCase()];
+         const link = links[normalizeLabel(linkStr)];
          if (!link) {
             const text = cap[0].charAt(0);
             return {
