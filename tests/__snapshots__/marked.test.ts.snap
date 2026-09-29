@@ -424,3 +424,19 @@ exports[`marked spec: tabs_indented_code 1`] = `
 <pre style="position: relative;" line-start="17" line-end="17"><code class="hljs language-plaintext"> five spaces
 </code></pre>"
 `;
+
+exports[`marked spec: thematic_break_with_tabs_ends_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1">foo</li>
+</ul>
+<hr line-start="2" line-end="2">
+<ul class="">
+<li line-start="4" line-end="4">bar</li>
+</ul>
+<hr line-start="5" line-end="5">
+<ul class="">
+<li line-start="7" line-end="7">baz</li>
+</ul>
+<hr line-start="8" line-end="8">
+"
+`;
