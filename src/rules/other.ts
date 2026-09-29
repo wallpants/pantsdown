@@ -4,6 +4,8 @@
  * currently marked v18.0.7 — see "Last synced" in the root README) so
  * future syncs stay diffable.
  */
+import { tag } from "./block.ts";
+
 function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
    const cache: RegExp[] = [];
    return (indent: number) => {
@@ -73,8 +75,14 @@ export const other = {
       (indent: number) => new RegExp(`^ {0,${indent}}(?:\`\`\`|~~~)`),
    ),
    headingBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}#`)),
+   // a list item ends where a paragraph would be interrupted, so this mirrors the
+   // html start conditions in the paragraph rule; type 7 is excluded there
    htmlBeginRegex: cachedIndentRegex(
-      (indent: number) => new RegExp(`^ {0,${indent}}<(?:[a-z].*>|!--)`, "i"),
+      (indent: number) =>
+         new RegExp(
+            `^ {0,${indent}}(?:</?(?:${tag})(?: +|$|/?>)|<(?:script|pre|style|textarea|!--))`,
+            "i",
+         ),
    ),
    blockquoteBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}>`)),
 };
