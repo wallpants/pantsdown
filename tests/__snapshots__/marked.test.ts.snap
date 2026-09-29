@@ -411,3 +411,16 @@ exports[`marked spec: atx_heading_closing_sequence_tab 1`] = `
 <h5 style="position: relative;" line-start="5" line-end="5"><span style="position: absolute; top: -50px;" id="quux"></span>quux#<a class="anchor octicon-link" href="#quux"></a></h5>
 "
 `;
+
+exports[`marked spec: tabs_indented_code 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="1"><code class="hljs language-plaintext">foo	baz		bim
+</code></pre><p line-start="3" line-end="3">sep</p>
+<pre style="position: relative;" line-start="5" line-end="5"><code class="hljs language-plaintext">three spaces and a tab
+</code></pre><p line-start="7" line-end="7">sep</p>
+<pre style="position: relative;" line-start="9" line-end="9"><code class="hljs language-plaintext">lone tab
+</code></pre><p line-start="11" line-end="11">sep</p>
+<pre style="position: relative;" line-start="13" line-end="13"><code class="hljs language-plaintext">four spaces
+</code></pre><p line-start="15" line-end="15">sep</p>
+<pre style="position: relative;" line-start="17" line-end="17"><code class="hljs language-plaintext"> five spaces
+</code></pre>"
+`;
