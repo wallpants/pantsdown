@@ -70,3 +70,9 @@ test("text before a raw block opener in a rejected link stays escaped (marked #4
    const { html } = new Pantsdown().parse("[a & b <pre> [x](/uri)](/uri)");
    expect(html).toContain('[a &amp; b <pre> <a href="/uri">x</a>](/uri)</p>');
 });
+
+test("GFM protocol autolinks are found mid-text (marked #4067)", () => {
+   const { html } = new Pantsdown().parse("contact mailto:foo@bar.baz or (xmpp:a@b.cd)");
+   expect(html).toContain('contact <a href="mailto:foo@bar.baz">mailto:foo@bar.baz</a> or (');
+   expect(html).toContain('<a href="xmpp:a@b.cd">xmpp:a@b.cd</a>)');
+});

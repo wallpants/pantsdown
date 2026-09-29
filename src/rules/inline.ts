@@ -53,6 +53,11 @@ const label = edit(
 const email =
    /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
 const extended_email = /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![\w-])/;
+// GFM protocol autolinks (`mailto:`/`xmpp:`); the email here has no `(@)` group,
+// so the url tokenizer treats a match as a plain url (href = text)
+const extended_email_protocol = edit(/(?:mailto:email|xmpp:email(?:\/[A-Za-z0-9@.]+)?)/)
+   .replace(/email/g, /[A-Za-z0-9._+-]+@[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![\w-])/)
+   .getRegex();
 
 const inline_punctuation = edit(/^((?![*_])punctSpace)/, "u")
    .replace(/punctSpace/g, _punctuationOrSpace)
@@ -204,9 +209,10 @@ const inline_delRDelim = edit(delRDelimCore, "gu")
    .getRegex();
 
 const inline_text = edit(
-   /^(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/,
+   /^(?:[^a-zA-Z0-9](?=emailProtocol)|(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_$]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9](?=emailProtocol)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))))/,
 )
    .replace("protocol", /[hH][tT][tT][pP][sS]?|[fF][tT][pP]/)
+   .replace(/emailProtocol/g, /(?:mailto|xmpp):/)
    .getRegex();
 
 // DEVIATION from upstream `(?:[a-zA-Z0-9\-]+\.?)+`: the nested quantifier
@@ -215,8 +221,9 @@ const inline_text = edit(
 // domain form matches the exact same language (fuzz-verified over 200k
 // samples) — preserve it when porting upstream changes to this rule.
 const inline_url = edit(
-   /^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.?[^\s<]*|^email/,
+   /^emailProtocol|^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.?[^\s<]*|^email/,
 )
+   .replace("emailProtocol", extended_email_protocol)
    .replace("protocol", /[fF][tT][pP]|[hH][tT][tT][pP][sS]?/)
    .replace("email", extended_email)
    .getRegex();
