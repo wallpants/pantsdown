@@ -167,13 +167,19 @@ export class Tokenizer {
          } else if (lastToken?.type === "blockquote") {
             // include continuation in nested blockquote
             const oldToken = lastToken;
-            const newText = oldToken.raw + "\n" + lines.join("\n");
+            // The continuation lines belong to the same nesting frame as the
+            // nested blockquote, which already had one '>' marker stripped, so
+            // strip one marker from them too. Otherwise a restated marker after a
+            // lazy line is re-parsed as a spurious deeper blockquote.
+            const continuation = lines.join("\n");
+            const newText =
+               oldToken.raw + "\n" + continuation.replace(other.blockquoteSetextReplace2, "");
             // re-lexing the nested blockquote restarts at its first source line
             this.lexer.line = startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
             const newToken = this.blockquote(newText)!;
             tokens[tokens.length - 1] = newToken;
 
-            raw = raw.substring(0, raw.length - oldToken.raw.length) + newToken.raw;
+            raw = `${raw}\n${continuation}`;
             text = text.substring(0, text.length - oldToken.text.length) + newToken.text;
             break;
          } else if (lastToken?.type === "list") {
