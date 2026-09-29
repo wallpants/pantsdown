@@ -204,7 +204,7 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
    anyPunctuation: inline_anyPunctuation,
    emStrong: inline_emStrong,
    code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
-   br: /^( {2,}|\\)\n(?!\s*$)/,
+   br: /^( {2,}|\\)\n(?!\s*$)[ \t]*/,
    delLDelim: inline_delLDelim,
    delRDelim: inline_delRDelim,
    text: inline_text,
