@@ -440,3 +440,34 @@ exports[`marked spec: thematic_break_with_tabs_ends_list 1`] = `
 <hr line-start="8" line-end="8">
 "
 `;
+
+exports[`marked spec: html_closing_tag_following_list 1`] = `
+"<div class="some-class" line-start="1" line-end="1"><ul class="">
+<li line-start="3" line-end="3">list item 1</li>
+<li line-start="4" line-end="4">list item 2</li>
+</ul>
+</div>
+"
+`;
+
+exports[`marked spec: html_inline_tag_in_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="2">list item 1
+<b>bold</b></li>
+<li line-start="3" line-end="4">list item 2
+<span>span</span></li>
+</ul>
+"
+`;
+
+exports[`marked spec: html_multiline_tag_following_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1">list item 1</li>
+<li line-start="2" line-end="2">list item 2</li>
+</ul>
+<div
+class="some-class" line-start="3" line-end="6">
+Content
+</div>
+"
+`;

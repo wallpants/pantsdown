@@ -21,7 +21,7 @@ type BlockRuleNames =
 
 export const label = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\])+/;
 
-const tag =
+export const tag =
    "address|article|aside|base|basefont|blockquote|body|caption" +
    "|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption" +
    "|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe" +
