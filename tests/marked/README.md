@@ -27,6 +27,8 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
   escapes `'` as `&#39;` in the alt attribute (upstream's fixture shows raw
   single quotes; Marked's own output escapes them too, but its spec compare is
   entity-insensitive).
+- `link_in_link_text.html` — `<img ...>` without the self-closing ` />`, as
+  in `image_alt.html`.
 - `emoji_strikethrough.html` — upstream's fixture has a stray double space in
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).

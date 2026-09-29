@@ -14,6 +14,8 @@ export class Lexer {
    state = {
       inLink: false,
       inRawBlock: false,
+      /** a link was produced in the inline run currently being scanned */
+      linkEmitted: false,
       top: true,
    };
 
@@ -35,6 +37,7 @@ export class Lexer {
       this.state = {
          inLink: false,
          inRawBlock: false,
+         linkEmitted: false,
          top: true,
       };
 
