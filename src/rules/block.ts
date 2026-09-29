@@ -94,7 +94,7 @@ const block_table = edit(
    .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
    .replace("blockquote", " {0,3}>")
    .replace("code", "(?: {4}| {0,3}\\t)[^\\n]")
-   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
+   .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
    .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // any bullet ends the table rows
    .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
    .replace("tag", tag) // tables can be interrupted by type (6) html blocks
@@ -107,7 +107,7 @@ const createParagraph = (listInterrupt: string) =>
       .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
       .replace("table", block_table) // interrupt paragraphs with table
       .replace("blockquote", " {0,3}>")
-      .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~~~)[^\\n]*\\n")
+      .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
       .replace("list", listInterrupt)
       .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
       .replace("tag", tag) // pars can be interrupted by type (6) html blocks
