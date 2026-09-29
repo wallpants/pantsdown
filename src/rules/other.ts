@@ -67,7 +67,7 @@ export const other = {
    ),
    hrRegex: cachedIndentRegex(
       (indent: number) =>
-         new RegExp(`^ {0,${indent}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`),
+         new RegExp(`^ {0,${indent}}((?:-[ \t]*){3,}|(?:_[ \t]*){3,}|(?:\\*[ \t]*){3,})(?:\\n+|$)`),
    ),
    fencesBeginRegex: cachedIndentRegex(
       (indent: number) => new RegExp(`^ {0,${indent}}(?:\`\`\`|~~~)`),
