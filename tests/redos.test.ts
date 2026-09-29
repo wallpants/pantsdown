@@ -3,7 +3,8 @@ import { Pantsdown } from "../src";
 
 /**
  * Regression guards for the ReDoS / infinite-loop fixes ported from marked
- * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017)
+ * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017,
+ * #4040)
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
@@ -89,4 +90,24 @@ test("url autolinks still match after domain regex reshape", () => {
    expect(html).toContain('<a href="mailto:user@example.com">user@example.com</a>');
    expect(html).toContain('<a href="https://a.b-c.d/e?f=g">https://a.b-c.d/e?f=g</a>');
    expect(html).toContain('<a href="http://www.foo.bar">www.foo.bar</a>. end');
+});
+
+test("redos: reflink mask with many definitions (marked #4040)", () => {
+   const n = 13000;
+   const defs = ["[id]: /url"];
+   for (let i = 0; i < n; i++) defs.push(`[unused-${i}]: /${i}`);
+   const html = parseWithin(`${"[[x]][id] ".repeat(n)}\n\n${defs.join("\n")}`);
+   expect(html).toContain('<a href="/url">[x]</a> <a href="/url">[x]</a>');
+});
+
+test("redos: many footnote definitions and references (marked #4040)", () => {
+   const n = 13000;
+   let refs = "";
+   const defs: string[] = [];
+   for (let i = 0; i < n; i++) {
+      refs += `[^${i}] `;
+      defs.push(`[^${i}]: x`);
+   }
+   const html = parseWithin(`${refs}\n\n${defs.join("\n")}`);
+   expect(html).toContain('href="#footnote-12999"');
 });
