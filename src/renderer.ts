@@ -234,15 +234,17 @@ export class Renderer {
       return `<del>${this.parser.parseInline(tokens)}</del>`;
    }
 
-   link({ href, title, tokens }: Tokens["Link"]): string {
-      const text = this.parser.parseInline(tokens);
+   link({ href, title, text, tokens, autolink }: Tokens["Link"]): string {
+      // References are not resolved inside an autolink, so every `&` there is
+      // literal. Elsewhere only an `&` that cannot start one needs escaping.
+      const parsedText = autolink ? escape(text, true) : this.parser.parseInline(tokens);
       const cleanHref = cleanUrl(href);
       if (cleanHref === null) {
-         return text;
+         return parsedText;
       }
-      const attrs: HTMLAttrs = [["href", cleanHref]];
+      const attrs: HTMLAttrs = [["href", escape(cleanHref, autolink)]];
       if (title) attrs.push(["title", escape(title)]);
-      return injectHtmlAttributes(`<a>${text}</a>`, attrs);
+      return injectHtmlAttributes(`<a>${parsedText}</a>`, attrs);
    }
 
    image({ href, title, tokens }: Tokens["Image"]): string {
@@ -252,7 +254,7 @@ export class Renderer {
          return escape(text);
       }
       const attrs: HTMLAttrs = [
-         ["src", fixLocalImageHref(cleanHref, this.pantsdown.config)],
+         ["src", escape(fixLocalImageHref(cleanHref, this.pantsdown.config))],
          ["alt", escape(text)],
       ];
       if (title) attrs.push(["title", escape(title)]);
