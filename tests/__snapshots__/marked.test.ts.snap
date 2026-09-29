@@ -1,5 +1,14 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
+exports[`marked spec: atx_heading_closing_sequence_tab 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="foo"></span>foo<a class="anchor octicon-link" href="#foo"></a></h1>
+<h2 style="position: relative;" line-start="2" line-end="2"><span style="position: absolute; top: -50px;" id="bar"></span>bar<a class="anchor octicon-link" href="#bar"></a></h2>
+<h3 style="position: relative;" line-start="3" line-end="3"><span style="position: absolute; top: -50px;" id="baz-"></span>baz #<a class="anchor octicon-link" href="#baz-"></a></h3>
+<h4 style="position: relative;" line-start="4" line-end="4"><span style="position: absolute; top: -50px;" id="qux"></span>qux<a class="anchor octicon-link" href="#qux"></a></h4>
+<h5 style="position: relative;" line-start="5" line-end="5"><span style="position: absolute; top: -50px;" id="quux"></span>quux#<a class="anchor octicon-link" href="#quux"></a></h5>
+"
+`;
+
 exports[`marked spec: backtick_fence_eof_interrupts_paragraph 1`] = `
 "<p line-start="1" line-end="1">foo</p>
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
@@ -102,6 +111,15 @@ exports[`marked spec: hr_following_tables 1`] = `
 "
 `;
 
+exports[`marked spec: html_closing_tag_following_list 1`] = `
+"<div class="some-class" line-start="1" line-end="5"><ul class="">
+<li line-start="3" line-end="3">list item 1</li>
+<li line-start="4" line-end="4">list item 2</li>
+</ul>
+</div>
+"
+`;
+
 exports[`marked spec: html_following_list 1`] = `
 "<ul class="">
 <li line-start="1" line-end="1">list item 1</li>
@@ -119,10 +137,98 @@ Comment
 "
 `;
 
+exports[`marked spec: html_inline_tag_in_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="2">list item 1
+<b>bold</b></li>
+<li line-start="3" line-end="4">list item 2
+<span>span</span></li>
+</ul>
+"
+`;
+
+exports[`marked spec: html_multiline_tag_following_list 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1">list item 1</li>
+<li line-start="2" line-end="2">list item 2</li>
+</ul>
+<div
+class="some-class" line-start="3" line-end="6">
+Content
+</div>
+"
+`;
+
 exports[`marked spec: lheading_hash_prefix 1`] = `
 "<h2 style="position: relative;" line-start="1" line-end="2"><span style="position: absolute; top: -50px;" id="1-goals"></span>#1 Goals<a class="anchor octicon-link" href="#1-goals"></a></h2>
 <h1 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="hashtag"></span>#hashtag<a class="anchor octicon-link" href="#hashtag"></a></h1>
 <h1 style="position: relative;" line-start="7" line-end="8"><span style="position: absolute; top: -50px;" id="-seven"></span>####### seven<a class="anchor octicon-link" href="#-seven"></a></h1>
+"
+`;
+
+exports[`marked spec: list_content_tabs_continuation_code_span_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>item</p>
+<p><code>foo	bar</code></p>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_fence_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_first_line_code_span_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"><code>foo	bar</code></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_nested_fence_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="4">outer<ul class="">
+<li><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ul>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_ordered_fence_gfm 1`] = `
+"<ol class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ol>
+"
+`;
+
+exports[`marked spec: list_content_tabs_repeated_tabs_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo		bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_structural_indentation_tab_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">  foo	bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_tab_separated_marker_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"><code>foo	bar</code></li>
+</ul>
 "
 `;
 
@@ -328,8 +434,37 @@ exports[`marked spec: ordered_list_after_blockquote 1`] = `
 "
 `;
 
+exports[`marked spec: setext_indented_continuation 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="3"><span style="position: absolute; top: -50px;" id="foo----bar"></span>Foo
+    bar<a class="anchor octicon-link" href="#foo----bar"></a></h1>
+<h2 style="position: relative;" line-start="5" line-end="7"><span style="position: absolute; top: -50px;" id="foobar"></span>Foo
+	bar<a class="anchor octicon-link" href="#foobar"></a></h2>
+<h1 style="position: relative;" line-start="9" line-end="12"><span style="position: absolute; top: -50px;" id="aaa--------bbb------------ccc"></span>aaa
+        bbb
+            ccc<a class="anchor octicon-link" href="#aaa--------bbb------------ccc"></a></h1>
+<pre style="position: relative;" line-start="14" line-end="14"><code class="hljs language-plaintext">Foo
+</code></pre><p line-start="15" line-end="15">===</p>
+<p line-start="17" line-end="17">Foo</p>
+<hr line-start="18" line-end="18">
+<p line-start="19" line-end="19">===</p>
+"
+`;
+
 exports[`marked spec: tabs_code 1`] = `
 "<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">	tab
+</code></pre>"
+`;
+
+exports[`marked spec: tabs_indented_code 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="1"><code class="hljs language-plaintext">foo	baz		bim
+</code></pre><p line-start="3" line-end="3">sep</p>
+<pre style="position: relative;" line-start="5" line-end="5"><code class="hljs language-plaintext">three spaces and a tab
+</code></pre><p line-start="7" line-end="7">sep</p>
+<pre style="position: relative;" line-start="9" line-end="9"><code class="hljs language-plaintext">lone tab
+</code></pre><p line-start="11" line-end="11">sep</p>
+<pre style="position: relative;" line-start="13" line-end="13"><code class="hljs language-plaintext">four spaces
+</code></pre><p line-start="15" line-end="15">sep</p>
+<pre style="position: relative;" line-start="17" line-end="17"><code class="hljs language-plaintext"> five spaces
 </code></pre>"
 `;
 
@@ -398,33 +533,6 @@ exports[`marked spec: tasklist_setext_heading 1`] = `
 "
 `;
 
-exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
-"<p line-start="1" line-end="1">foo</p>
-<pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
-`;
-
-exports[`marked spec: atx_heading_closing_sequence_tab 1`] = `
-"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="foo"></span>foo<a class="anchor octicon-link" href="#foo"></a></h1>
-<h2 style="position: relative;" line-start="2" line-end="2"><span style="position: absolute; top: -50px;" id="bar"></span>bar<a class="anchor octicon-link" href="#bar"></a></h2>
-<h3 style="position: relative;" line-start="3" line-end="3"><span style="position: absolute; top: -50px;" id="baz-"></span>baz #<a class="anchor octicon-link" href="#baz-"></a></h3>
-<h4 style="position: relative;" line-start="4" line-end="4"><span style="position: absolute; top: -50px;" id="qux"></span>qux<a class="anchor octicon-link" href="#qux"></a></h4>
-<h5 style="position: relative;" line-start="5" line-end="5"><span style="position: absolute; top: -50px;" id="quux"></span>quux#<a class="anchor octicon-link" href="#quux"></a></h5>
-"
-`;
-
-exports[`marked spec: tabs_indented_code 1`] = `
-"<pre style="position: relative;" line-start="1" line-end="1"><code class="hljs language-plaintext">foo	baz		bim
-</code></pre><p line-start="3" line-end="3">sep</p>
-<pre style="position: relative;" line-start="5" line-end="5"><code class="hljs language-plaintext">three spaces and a tab
-</code></pre><p line-start="7" line-end="7">sep</p>
-<pre style="position: relative;" line-start="9" line-end="9"><code class="hljs language-plaintext">lone tab
-</code></pre><p line-start="11" line-end="11">sep</p>
-<pre style="position: relative;" line-start="13" line-end="13"><code class="hljs language-plaintext">four spaces
-</code></pre><p line-start="15" line-end="15">sep</p>
-<pre style="position: relative;" line-start="17" line-end="17"><code class="hljs language-plaintext"> five spaces
-</code></pre>"
-`;
-
 exports[`marked spec: thematic_break_with_tabs_ends_list 1`] = `
 "<ul class="">
 <li line-start="1" line-end="1">foo</li>
@@ -441,115 +549,7 @@ exports[`marked spec: thematic_break_with_tabs_ends_list 1`] = `
 "
 `;
 
-exports[`marked spec: html_closing_tag_following_list 1`] = `
-"<div class="some-class" line-start="1" line-end="1"><ul class="">
-<li line-start="3" line-end="3">list item 1</li>
-<li line-start="4" line-end="4">list item 2</li>
-</ul>
-</div>
-"
-`;
-
-exports[`marked spec: html_inline_tag_in_list 1`] = `
-"<ul class="">
-<li line-start="1" line-end="2">list item 1
-<b>bold</b></li>
-<li line-start="3" line-end="4">list item 2
-<span>span</span></li>
-</ul>
-"
-`;
-
-exports[`marked spec: html_multiline_tag_following_list 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1">list item 1</li>
-<li line-start="2" line-end="2">list item 2</li>
-</ul>
-<div
-class="some-class" line-start="3" line-end="6">
-Content
-</div>
-"
-`;
-
-exports[`marked spec: list_content_tabs_continuation_code_span_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="3"><p>item</p>
-<p><code>foo	bar</code></p>
-</li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_fence_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
-</code></pre></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_first_line_code_span_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1"><code>foo	bar</code></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_nested_fence_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="4">outer<ul class="">
-<li><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
-</code></pre></li>
-</ul>
-</li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_ordered_fence_gfm 1`] = `
-"<ol class="">
-<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
-</code></pre></li>
-</ol>
-"
-`;
-
-exports[`marked spec: list_content_tabs_repeated_tabs_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo		bar
-</code></pre></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_structural_indentation_tab_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">  foo	bar
-</code></pre></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_tab_separated_marker_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1"><code>foo	bar</code></li>
-</ul>
-"
-`;
-
-exports[`marked spec: setext_indented_continuation 1`] = `
-"<h1 style="position: relative;" line-start="1" line-end="3"><span style="position: absolute; top: -50px;" id="foo----bar"></span>Foo
-    bar<a class="anchor octicon-link" href="#foo----bar"></a></h1>
-<h2 style="position: relative;" line-start="5" line-end="7"><span style="position: absolute; top: -50px;" id="foobar"></span>Foo
-	bar<a class="anchor octicon-link" href="#foobar"></a></h2>
-<h1 style="position: relative;" line-start="9" line-end="12"><span style="position: absolute; top: -50px;" id="aaa--------bbb------------ccc"></span>aaa
-        bbb
-            ccc<a class="anchor octicon-link" href="#aaa--------bbb------------ccc"></a></h1>
-<pre style="position: relative;" line-start="14" line-end="14"><code class="hljs language-plaintext">Foo
-</code></pre><p line-start="15" line-end="15">===</p>
-<p line-start="17" line-end="17">Foo</p>
-<hr line-start="18" line-end="18">
-<p line-start="19" line-end="19">===</p>
-"
+exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
+"<p line-start="1" line-end="1">foo</p>
+<pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
 `;
