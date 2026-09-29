@@ -471,3 +471,69 @@ Content
 </div>
 "
 `;
+
+exports[`marked spec: list_content_tabs_continuation_code_span_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>item</p>
+<p><code>foo	bar</code></p>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_fence_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_first_line_code_span_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"><code>foo	bar</code></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_nested_fence_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="4">outer<ul class="">
+<li><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ul>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_ordered_fence_gfm 1`] = `
+"<ol class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
+</code></pre></li>
+</ol>
+"
+`;
+
+exports[`marked spec: list_content_tabs_repeated_tabs_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo		bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_structural_indentation_tab_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">  foo	bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list_content_tabs_tab_separated_marker_gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"><code>foo	bar</code></li>
+</ul>
+"
+`;
