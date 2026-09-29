@@ -23,6 +23,7 @@ export const other = {
    outputLinkReplace: /\\([\[\]])/g,
    indentCodeCompensation: /^(\s+)(?:```)/,
    beginningSpace: /^\s+/,
+   endingSpaceTabChar: /[ \t]$/,
    nonSpaceChar: /[^ ]/,
    newLineCharGlobal: /\n/g,
    multipleSpaceGlobal: /\s+/g,

@@ -402,3 +402,12 @@ exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
 "<p line-start="1" line-end="1">foo</p>
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
 `;
+
+exports[`marked spec: atx_heading_closing_sequence_tab 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="foo"></span>foo<a class="anchor octicon-link" href="#foo"></a></h1>
+<h2 style="position: relative;" line-start="2" line-end="2"><span style="position: absolute; top: -50px;" id="bar"></span>bar<a class="anchor octicon-link" href="#bar"></a></h2>
+<h3 style="position: relative;" line-start="3" line-end="3"><span style="position: absolute; top: -50px;" id="baz-"></span>baz #<a class="anchor octicon-link" href="#baz-"></a></h3>
+<h4 style="position: relative;" line-start="4" line-end="4"><span style="position: absolute; top: -50px;" id="qux"></span>qux<a class="anchor octicon-link" href="#qux"></a></h4>
+<h5 style="position: relative;" line-start="5" line-end="5"><span style="position: absolute; top: -50px;" id="quux"></span>quux#<a class="anchor octicon-link" href="#quux"></a></h5>
+"
+`;
