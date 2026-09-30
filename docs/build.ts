@@ -24,10 +24,13 @@ const index = (theme: "dark" | "light") => `<!doctype html>
         <style>${baseCss}</style>
         <script type="module">${javascript}</script>
         <script type="module">
-            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
             mermaid.initialize({
                 startOnLoad: true,
-                theme: "${theme === "light" ? "default" : "dark"}"
+                theme: "${theme === "light" ? "default" : "dark"}",
+                // mermaid 12 defaults to elk + neo; keep the pre-12 look
+                layout: "dagre",
+                look: "classic"
             });
         </script>
         <title>Pantsdown</title>
