@@ -52,6 +52,16 @@
     "semantic-release": "^25.0.9",
     "typescript": "7.0.2"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "body-max-line-length": [
+        0
+      ]
+    }
+  },
   "release": {
     "branches": [
       "main"
