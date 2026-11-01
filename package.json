@@ -47,7 +47,7 @@
     "@types/katex": "^0.16.8",
     "husky": "^9.1.7",
     "oxfmt": "^0.71.0",
-    "oxlint": "^1.86.0",
+    "oxlint": "^1.90.0",
     "oxlint-tsgolint": "^7.0.2003",
     "semantic-release": "^25.0.9",
     "typescript": "7.0.2"
