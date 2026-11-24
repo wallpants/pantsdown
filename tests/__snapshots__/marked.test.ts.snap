@@ -190,3 +190,24 @@ exports[`marked spec: list_lazy_setext_partial_indent_nested 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: list_lazy_after_html 1`] = `
+"<ul class="">
+<li line-start="1" line-end="1"><div></li>
+</ul>
+<p line-start="2" line-end="2">not in the list</p>
+<ul class="">
+<li line-start="4" line-end="5">item<div></li>
+</ul>
+<p line-start="6" line-end="6">not in the list</p>
+<ol class="">
+<li line-start="8" line-end="8"><!-- comment --></li>
+</ol>
+<p line-start="9" line-end="9">not in the list</p>
+<ul class="">
+<li line-start="11" line-end="13"><p>item</p>
+<pre></li>
+</ul>
+<p line-start="14" line-end="14">not in the list</p>
+"
+`;

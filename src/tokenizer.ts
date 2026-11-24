@@ -404,6 +404,9 @@ export class Tokenizer {
                   if (headingBeginRegex.test(line)) {
                      break;
                   }
+                  if (htmlBeginRegex.test(line)) {
+                     break;
+                  }
                   if (hrRegex.test(line)) {
                      break;
                   }
