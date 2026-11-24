@@ -101,3 +101,8 @@ test("setext heading slugs ignore continuation-line indentation, as on GitHub", 
    }
    expect(html).toContain("Alpha\nbeta<a");
 });
+
+test('ordered lists starting at 0 keep start="0" (#322)', () => {
+   const { html } = new Pantsdown().parse("0. first\n1. second");
+   expect(html).toContain('<ol class="" start="0">');
+});

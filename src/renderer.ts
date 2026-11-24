@@ -132,7 +132,7 @@ export class Renderer {
       const listClasses: string[] = [];
       if (containsTaskList) listClasses.push("contains-task-list");
       const attrs: HTMLAttrs = [["class", listClasses.join(" ")]];
-      if (ordered && start && start !== 1) {
+      if (ordered && start !== 1) {
          attrs.push(["start", String(start)]);
       }
       const result = `<${type}>\n${body}</${type}>\n`;
