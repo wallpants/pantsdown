@@ -17,6 +17,7 @@ type InlineRuleNames =
    | "text"
    | "emStrong"
    | "anyPunctuation"
+   | "anyPunctuationOutsideCode"
    | "punctuation"
    | "blockSkip"
    | "footnoteRef"
@@ -109,6 +110,17 @@ const inline_emStrong = {
 };
 
 const inline_anyPunctuation = edit(/\\([punct])/g, "gu")
+   .replace(/punct/g, punctuation)
+   .getRegex();
+
+// `anyPunctuation` for the em/strong mask. A backslash is literal inside a code
+// span, so a code span (matched like `inline.code`), or a backtick run that
+// opens none, is matched whole and kept; only the escapes outside code spans
+// are masked.
+const inline_anyPunctuationOutsideCode = edit(
+   /(`+)(?:[^`]|[^`][\s\S]*?[^`])\1(?!`)|`+|\\([punct])/,
+   "gu",
+)
    .replace(/punct/g, punctuation)
    .getRegex();
 
@@ -240,6 +252,7 @@ export const inline: Omit<Record<InlineRuleNames, RegExp>, "emStrong"> & {
    nolink: inline_nolink,
    reflinkSearch: inline_reflinkSearch,
    anyPunctuation: inline_anyPunctuation,
+   anyPunctuationOutsideCode: inline_anyPunctuationOutsideCode,
    emStrong: inline_emStrong,
    code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
    br: /^( {2,}|\\)\n(?!\s*$)[ \t]*/,
