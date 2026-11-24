@@ -37,7 +37,29 @@ const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
 
 // Same as the definition title: the escaped character is not the closer.
 const title = /"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'|\((?:\\[\s\S]|[^)\\])*\)/;
-const href = /<(?:\\.|[^\n<>\\])*>|(?!<)[^ \t\n\x00-\x1f]+|(?=\))/;
+// Bare link destinations allow balanced parentheses (CommonMark asks for at
+// least three levels of nesting) and backslash escapes, but must stop before
+// an unmatched ')' so adjacent links like `[a](b)[a](b)...` don't scan to the
+// end of the paragraph on every link.
+const bareHrefChar = /\\[^ \t\n\x00-\x1f]|\\(?=[ \t\n])|[^ \t\n\x00-\x1f\\()]/;
+const bareHrefParens1 = edit(/\((?:char)*\)/)
+   .replace("char", bareHrefChar)
+   .getRegex();
+const bareHrefParens2 = edit(/\((?:char|p1)*\)/)
+   .replace("char", bareHrefChar)
+   .replace("p1", bareHrefParens1)
+   .getRegex();
+const bareHrefParens3 = edit(/\((?:char|p2)*\)/)
+   .replace("char", bareHrefChar)
+   .replace("p2", bareHrefParens2)
+   .getRegex();
+const bareHref = edit(/(?!<)(?:char|p3)+/)
+   .replace("char", bareHrefChar)
+   .replace("p3", bareHrefParens3)
+   .getRegex();
+const href = edit(/<(?:\\.|[^\n<>\\])*>|bareHref|(?=\))/)
+   .replace("bareHref", bareHref)
+   .getRegex();
 const scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
 const comment = edit(blockComment).replace("(?:-->|$)", "-->").getRegex();
 const attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
