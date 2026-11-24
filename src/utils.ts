@@ -323,6 +323,32 @@ export function findClosingBracket(str: string, b: string) {
    return -1;
 }
 
+/**
+ * Remove the bracket escapes that the label match consumed, but leave code
+ * spans untouched: their content is literal, so a `\[` or `\]` inside a
+ * code span is not an escape.
+ */
+function unescapeLinkLabel(label: string): string {
+   let result = "";
+   for (let i = 0; i < label.length; i++) {
+      if (label[i] === "`") {
+         const code = inline.code.exec(label.slice(i));
+         if (code) {
+            result += code[0];
+            i += code[0].length - 1;
+            continue;
+         }
+      }
+      if (label[i] === "\\" && (label[i + 1] === "[" || label[i + 1] === "]")) {
+         result += label.charAt(i + 1);
+         i++;
+         continue;
+      }
+      result += label.charAt(i);
+   }
+   return result;
+}
+
 export function outputLink(
    cap: string[],
    link: Pick<Tokens["Link"], "href" | "title">,
@@ -331,7 +357,7 @@ export function outputLink(
 ): Tokens["Link"] | Tokens["Image"] | undefined {
    const href = link.href;
    const title = link.title || null;
-   const text = cap[1]?.replace(other.outputLinkReplace, "$1") ?? "";
+   const text = unescapeLinkLabel(cap[1] ?? "");
    const isImage = cap[0]?.charAt(0) === "!";
 
    const outerInLink = lexer.state.inLink;
