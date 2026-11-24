@@ -4,7 +4,7 @@ import { Pantsdown } from "../src";
 /**
  * Regression guards for the ReDoS / infinite-loop fixes ported from marked
  * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017,
- * #4040, #4070, #4090, #4106, #4114)
+ * #4040, #4070, #4090, #4103, #4106, #4114)
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
@@ -141,4 +141,11 @@ test("redos: unicode whitespace in link destination (marked #4106)", () => {
 test("redos: paragraph lines starting with a prefixed html tag (marked #4114)", () => {
    const html = parseWithin("a\n<prefix/>".repeat(10000));
    expect(html).toContain("a\n<prefix/>a\n<prefix/>");
+});
+
+test("redos: unmatched emphasis and strikethrough openers (marked #4103)", () => {
+   expect(parseWithin("- *".repeat(2000))).toContain("*- *- ");
+   expect(parseWithin("+ _".repeat(2000))).toContain("_+ _+ ");
+   expect(parseWithin("*x *x ".repeat(2000))).toContain("*x *x *x");
+   expect(parseWithin("~x ~x ".repeat(2000))).toContain("~x ~x ~x");
 });
