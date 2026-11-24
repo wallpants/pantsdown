@@ -556,8 +556,11 @@ export class Tokenizer {
       // lexed with a stale top=true would advance the sourcemap line counter
       const top = this.lexer.state.top;
       // First pass: tokenize items and finalize list.loose from spacers before placing checkboxes
+      // Where each item's inline queue entries start, so the checkbox is removed from its own text
+      const queueStarts: number[] = [];
       for (const item of list.items) {
          this.lexer.state.top = false;
+         queueStarts.push(this.lexer.inlineQueue.length);
          item.tokens = this.lexer.blockTokens(item.text, []);
 
          if (!list.loose) {
@@ -572,20 +575,22 @@ export class Tokenizer {
       this.lexer.state.top = top;
 
       // Second pass: place task checkboxes using the final list.loose
-      for (const item of list.items) {
+      list.items.forEach((item, i) => {
          const itemToken = item.tokens[0];
          if (item.task && (itemToken?.type === "text" || itemToken?.type === "paragraph")) {
             // Remove checkbox markdown from item tokens
             item.text = item.text.replace(other.listReplaceTask, "");
             itemToken.raw = itemToken.raw.replace(other.listReplaceTask, "");
             itemToken.text = itemToken.text.replace(other.listReplaceTask, "");
-            // DEVIATION: upstream strips the last queued src that looks like a task,
-            // which can be a later paragraph of the same item (`- [ ] a\n\n  [ ] b`).
-            // The item token's own queue entry shares its tokens array.
-            const queued = this.lexer.inlineQueue.findLast(
-               (entry) => entry.tokens === itemToken.tokens,
-            );
-            if (queued) queued.src = queued.src.replace(other.listReplaceTask, "");
+            // The first token queued its text first, so its entry is found right away
+            const inlineQueue = this.lexer.inlineQueue;
+            for (let j = queueStarts[i]!; j < inlineQueue.length; j++) {
+               const entry = inlineQueue[j]!;
+               if (entry.tokens === itemToken.tokens) {
+                  entry.src = entry.src.replace(other.listReplaceTask, "");
+                  break;
+               }
+            }
 
             const taskRaw = other.listTaskCheckbox.exec(item.raw);
             if (taskRaw) {
@@ -621,7 +626,7 @@ export class Tokenizer {
          } else if (item.task) {
             item.task = false;
          }
-      }
+      });
 
       // Set all items to loose if list is loose
       if (list.loose) {
