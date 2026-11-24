@@ -142,8 +142,24 @@ const block_blockquoteParagraph = createParagraph(
 
 // a line with only whitespace after the marker is blank, so it must not start a
 // paragraph that lazily continues onto the next line
-const block_blockquote = edit(/^( {0,3}> ?(?:(?![ \t]*(?:\n|$))(paragraph)|[^\n]*)(?:\n|$))+/)
-   .replace("paragraph", block_blockquoteParagraph)
+// Only a paragraph can lazily continue the first quoted line. Indented code
+// must not scan the remaining document looking for paragraph continuation.
+// Later quoted lines may continue an earlier paragraph and keep the old rule.
+const blockquoteLine = / {0,3}> ?(?:(?!blank)(paragraph)|[^\n]*)(?:\n|$)/;
+const block_blockquote = edit(/^(first)(?:next)*/)
+   .replace(
+      "first",
+      edit(blockquoteLine)
+         .replace("blank", /[ \t]*(?:\n|$)| {4}/)
+         .getRegex(),
+   )
+   .replace(
+      "next",
+      edit(blockquoteLine)
+         .replace("blank", /[ \t]*(?:\n|$)/)
+         .getRegex(),
+   )
+   .replace(/paragraph/g, block_blockquoteParagraph)
    .getRegex();
 
 export const block: Record<BlockRuleNames, RegExp> = {
