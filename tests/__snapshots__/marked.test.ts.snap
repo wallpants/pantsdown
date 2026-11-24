@@ -126,3 +126,24 @@ exports[`marked spec: tasklist_tab 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: tasklist_checkbox_text 1`] = `
+"<ul class="contains-task-list">
+<li class="task-list-item" line-start="1" line-end="3"><p><input disabled="" type="checkbox" class="task-list-item-checkbox"> a</p>
+<p>[ ] b</p>
+</li>
+<li class="task-list-item" line-start="4" line-end="6"><p><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> c</p>
+<blockquote>
+<p>[ ] d</p>
+</blockquote>
+</li>
+<li class="task-list-item" line-start="7" line-end="10"><p><input disabled="" type="checkbox" class="task-list-item-checkbox"> e</p>
+<ul class="">
+<li><p>f</p>
+<p>[x] g</p>
+</li>
+</ul>
+</li>
+</ul>
+"
+`;
