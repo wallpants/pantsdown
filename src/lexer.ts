@@ -2,7 +2,7 @@ import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
 import { Tokenizer } from "./tokenizer.ts";
 import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
-import { normalizeLabel } from "./utils.ts";
+import { beginEmStrongDelCloserScan, endEmStrongDelCloserScan, normalizeLabel } from "./utils.ts";
 
 export class Lexer {
    private tokenizer: Tokenizer;
@@ -335,12 +335,24 @@ export class Lexer {
    }
 
    private inlineTokensInner(src: string, tokens: Token[]): Token[] {
-      let token, lastToken, cutSrc;
-
       // The masked source is only read by emStrong and del, which need a *, _ or
       // ~ to start. Skip building it for a run without one.
       const maskedSrc =
          src.includes("*") || src.includes("_") || src.includes("~") ? this.maskSrc(src) : src;
+
+      // One scan of this maskedSrc for the last emphasis, strong, and
+      // strikethrough closers, shared by every opener in the pass. Popped
+      // when the pass ends so the source is not retained.
+      beginEmStrongDelCloserScan(this.tokenizer, maskedSrc);
+      try {
+         return this.tokenizeInlines(src, maskedSrc, tokens);
+      } finally {
+         endEmStrongDelCloserScan(this.tokenizer);
+      }
+   }
+
+   private tokenizeInlines(src: string, maskedSrc: string, tokens: Token[]): Token[] {
+      let token, lastToken, cutSrc;
       let keepPrevChar, prevChar;
 
       let srcLength = Infinity;
