@@ -155,3 +155,35 @@ exports[`marked spec: blockquote_fenced_code_tab 1`] = `
 </code></pre></blockquote>
 "
 `;
+
+exports[`marked spec: fence_closing_trailing_tabs 1`] = `
+"<pre style="position: relative;" line-start="1" line-end="3"><code class="hljs language-plaintext">a
+</code></pre><p line-start="4" line-end="4">b</p>
+<pre style="position: relative;" line-start="6" line-end="8"><code class="hljs language-plaintext">a
+</code></pre><p line-start="9" line-end="9">b</p>
+<pre style="position: relative;" line-start="11" line-end="13"><code class="hljs language-js">a
+</code></pre><p line-start="14" line-end="14">b</p>
+<pre style="position: relative;" line-start="16" line-end="17"><code class="hljs language-plaintext"></code></pre><p line-start="18" line-end="18">b</p>
+<pre style="position: relative;" line-start="20" line-end="22"><code class="hljs language-plaintext">a
+</code></pre><pre style="position: relative;" line-start="24" line-end="26"><code class="hljs language-plaintext">a
+</code></pre><p line-start="27" line-end="27">b</p>
+<blockquote>
+<pre style="position: relative;" line-start="29" line-end="31"><code class="hljs language-plaintext">a
+</code></pre><p line-start="32" line-end="32">b</p>
+</blockquote>
+<ul class="">
+<li line-start="34" line-end="38"><pre style="position: relative;"><code class="hljs language-plaintext">a
+</code></pre><p>b</p>
+</li>
+</ul>
+<pre style="position: relative;" line-start="40" line-end="44"><code class="hljs language-plaintext">a
+\`\`\`	x
+b
+</code></pre><pre style="position: relative;" line-start="46" line-end="50"><code class="hljs language-plaintext">a
+~~~	
+b
+</code></pre><pre style="position: relative;" line-start="52" line-end="56"><code class="hljs language-plaintext">a
+~~~	
+b
+</code></pre>"
+`;
