@@ -147,3 +147,11 @@ exports[`marked spec: tasklist_checkbox_text 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: blockquote_fenced_code_tab 1`] = `
+"<blockquote>
+<pre style="position: relative;" line-start="1" line-end="4"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">P</span>:
+	name: <span class="hljs-built_in">str</span>
+</code></pre></blockquote>
+"
+`;

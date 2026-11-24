@@ -158,11 +158,16 @@ export class Tokenizer {
             // a tab right after the block quote marker runs to the next tab stop, and
             // the marker only consumes one space of it; the rest is content.
             // After a space the marker consumes it whole, so later tabs stay literal.
-            .replace(
-               other.blockquoteMarkerWhitespace,
-               (_, marker: string, whitespace: string) =>
-                  marker + expandTabs(whitespace, marker.length),
-            )
+            .replace(other.blockquoteMarkerWhitespace, (_, marker: string, whitespace: string) => {
+               // The optional space after ">" is marker; anything after that is
+               // content (e.g. a tab that opens a fenced code line) and must not
+               // be expanded. Tabs with no leading space are structural and are
+               // expanded so indented code under the quote still works.
+               if (whitespace.startsWith(" ")) {
+                  return marker + " " + whitespace.slice(1);
+               }
+               return marker + expandTabs(whitespace, marker.length);
+            })
             // precede setext continuation with 4 spaces so it isn't a setext
             .replace(other.blockquoteSetextReplace, "\n    $1")
             .replace(other.blockquoteSetextReplace2, "");
