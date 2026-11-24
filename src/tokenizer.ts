@@ -864,6 +864,7 @@ export class Tokenizer {
    }
 
    escape(src: string): Tokens["Escape"] | undefined {
+      if (src.charCodeAt(0) !== 92) return; // \\
       const cap = inline.escape.exec(src);
       if (!cap) return undefined;
 
@@ -875,6 +876,7 @@ export class Tokenizer {
    }
 
    tag(src: string): Tokens["Tag"] | undefined {
+      if (src.charCodeAt(0) !== 60) return; // <
       const cap = inline.tag.exec(src);
       if (!cap) return undefined;
 
@@ -904,6 +906,8 @@ export class Tokenizer {
       // like '[a](b'.repeat(n); inlineTokens anchors one paren scan per run in
       // state.linkParenPossible, and when it is false the regex cannot match.
       if (!this.lexer.state.linkParenPossible) return;
+      const first = src.charCodeAt(0);
+      if (first !== 91 && first !== 33) return; // [ or !
       const cap = inline.link.exec(src);
       if (!cap) return undefined;
 
@@ -967,6 +971,8 @@ export class Tokenizer {
       src: string,
       links: Links,
    ): Tokens["Link"] | Tokens["Image"] | Tokens["Text"] | undefined {
+      const first = src.charCodeAt(0);
+      if (first !== 91 && first !== 33) return; // [ or !
       let cap;
       if ((cap = inline.reflink.exec(src)) ?? (cap = inline.nolink.exec(src))) {
          if (isLabelEndInsideToken(src, cap[1]!, cap[0].startsWith("!") ? 2 : 1)) {
@@ -1128,6 +1134,7 @@ export class Tokenizer {
    }
 
    codespan(src: string): Tokens["Codespan"] | undefined {
+      if (src.charCodeAt(0) !== 96) return; // `
       const cap = inline.code.exec(src);
       if (!cap) return undefined;
 
@@ -1145,6 +1152,8 @@ export class Tokenizer {
    }
 
    br(src: string): Tokens["Br"] | undefined {
+      const first = src.charCodeAt(0);
+      if (first !== 32 && first !== 92 && first !== 10) return; // space, \\ or newline
       const cap = inline.br.exec(src);
       if (!cap) return undefined;
 
@@ -1155,6 +1164,7 @@ export class Tokenizer {
    }
 
    del(src: string, maskedSrc: string, prevChar = ""): Tokens["Del"] | undefined {
+      if (src.charCodeAt(0) !== 126) return; // ~
       let match = inline.delLDelim.exec(src);
       if (!match) return;
 
@@ -1218,6 +1228,7 @@ export class Tokenizer {
    }
 
    autolink(src: string): Tokens["Link"] | undefined {
+      if (src.charCodeAt(0) !== 60) return; // <
       const cap = inline.autolink.exec(src);
       if (!cap) return undefined;
 
