@@ -144,8 +144,9 @@ export class Tokenizer {
 
          const currentRaw = currentLines.join("\n");
          const currentText = currentRaw
-            // a tab after the block quote marker runs to the next tab stop, and
-            // the marker only consumes one space of it; the rest is content
+            // a tab right after the block quote marker runs to the next tab stop, and
+            // the marker only consumes one space of it; the rest is content.
+            // After a space the marker consumes it whole, so later tabs stay literal.
             .replace(
                other.blockquoteMarkerWhitespace,
                (_, marker: string, whitespace: string) =>
