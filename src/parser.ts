@@ -14,6 +14,7 @@ export class Parser {
       this.renderer = new Renderer(pantsdown);
       this.renderer.parser = this;
       this.textRenderer = new TextRenderer();
+      this.textRenderer.parser = this;
    }
 
    /**
