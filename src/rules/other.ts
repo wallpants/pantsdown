@@ -90,7 +90,7 @@ export const other = {
    htmlBeginRegex: cachedIndentRegex(
       (indent: number) =>
          new RegExp(
-            `^ {0,${indent}}(?:</?(?:${tag})(?: +|$|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--))`,
+            `^ {0,${indent}}(?:</?(?:${tag})(?: +|$|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)`,
             "i",
          ),
    ),

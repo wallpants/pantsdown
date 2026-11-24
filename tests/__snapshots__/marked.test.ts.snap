@@ -690,3 +690,18 @@ exports[`marked spec: list-tab-stops-wide-ordered-gfm 1`] = `
 </ol>
 "
 `;
+
+exports[`marked spec: html_block_interrupts_paragraph 1`] = `
+"<p line-start="1" line-end="1">Paragraph before an indented div</p>
+  <div line-start="2" line-end="4">
+*raw*
+</div><p line-start="6" line-end="6">Paragraph before an indented comment</p>
+   <!-- comment --><p line-start="9" line-end="9">Paragraph before a processing instruction</p>
+<?php echo 1; ?><p line-start="12" line-end="12">Paragraph before a declaration</p>
+<!DOCTYPE html line-start="13" line-end="13"><p line-start="15" line-end="15">Paragraph before CDATA</p>
+<![CDATA[ x ]]><blockquote>
+<p line-start="18" line-end="18">Paragraph in a blockquote</p>
+ <div line-start="19" line-end="20">
+</div></blockquote>
+"
+`;
