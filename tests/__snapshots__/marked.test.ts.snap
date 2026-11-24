@@ -177,3 +177,16 @@ exports[`marked spec: tasklist_blocks 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: list_lazy_setext_partial_indent_nested 1`] = `
+"<ul class="">
+<li line-start="1" line-end="5">outer<ul class="">
+<li>inner
+===</li>
+<li><h1 style="position: relative;"><span style="position: absolute; top: -50px;" id="heading"></span>heading<a class="anchor octicon-link" href="#heading"></a></h1>
+</li>
+</ul>
+</li>
+</ul>
+"
+`;

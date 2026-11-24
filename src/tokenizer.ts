@@ -399,7 +399,15 @@ export class Tokenizer {
                      break;
                   }
 
-                  itemContents += "\n" + nextLine;
+                  // A lazy continuation can look like a setext underline after
+                  // list indentation is removed. Keep it in the paragraph.
+                  const setextContinuation =
+                     other.setextUnderline.test(nextLine) &&
+                     block.lheading.test(`${line}\n${nextLine}`);
+                  const continuation = setextContinuation
+                     ? `    ${nextLineWithoutTabs.replace(other.leadingThreeSpaces, "")}`
+                     : nextLine;
+                  itemContents += "\n" + continuation;
                }
 
                // Check if current line is blank
