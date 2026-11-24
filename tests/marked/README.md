@@ -10,13 +10,14 @@ Two kinds of fixtures:
 - `<name>.md` + `<name>.html` — output is compared against Marked's expected
   HTML after normalizing Pantsdown's rendering extras (injected
   `line-start`/`line-end` attributes, the empty `class=""` of lists without
-  task items, GitHub-style heading anchors, `<hr>` for `<hr />`) and trimming
-  per-line whitespace. Used wherever the normalized output matches.
-- `<name>.md` only — output is snapshot-tested instead. Used for block-level
-  fixtures where Pantsdown's GitHub-style renderer intentionally differs from
-  Marked's canonical HTML beyond that normalization (highlight.js code
-  blocks, whitespace between block html tokens, task list markup, ...). The
-  snapshots were reviewed against upstream's expected HTML for semantic equivalence when
+  task items, GitHub-style heading anchors, `<hr>` for `<hr />`, the
+  highlight.js wrapper of language-less code blocks), trimming per-line
+  whitespace and dropping line breaks between tags. Used wherever the
+  normalized output matches.
+- `<name>.md` only — output is snapshot-tested instead. Used where Pantsdown's
+  GitHub-style renderer differs from Marked's canonical HTML beyond that
+  normalization (highlighted code, task list markup, ...). The snapshots were
+  reviewed against upstream's expected HTML for semantic equivalence when
   added.
 
 Local adaptations of upstream expected HTML (keep when re-syncing):
