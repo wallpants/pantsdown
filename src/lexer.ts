@@ -110,6 +110,7 @@ export class Lexer {
       // list items and block quotes lex their contents with a nested call, so
       // restore the outer last token when it returns
       const outerLastToken = this.state.lastToken;
+      let lastParagraph: Token | undefined;
 
       let srcLength = Infinity;
       while (src) {
@@ -248,7 +249,12 @@ export class Lexer {
          cutSrc = src;
          if (this.state.top && (token = this.tokenizer.paragraph(cutSrc))) {
             lastToken = tokens[tokens.length - 1];
-            if (lastParagraphClipped && lastToken?.type === "paragraph") {
+            // A table-shaped header rejected by the table tokenizer is still
+            // paragraph continuation, not a new block.
+            if (
+               (lastParagraphClipped || lastToken === lastParagraph) &&
+               lastToken?.type === "paragraph"
+            ) {
                lastToken.raw += (lastToken.raw.endsWith("\n") ? "" : "\n") + token.raw;
                lastToken.text += "\n" + token.text;
                if (lastToken.sourceMap && token.sourceMap) {
@@ -257,8 +263,10 @@ export class Lexer {
                this.inlineQueue.pop();
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                if (lastInline) lastInline.src = lastToken.text;
+               lastParagraph = lastToken;
             } else {
                tokens.push(token);
+               lastParagraph = token;
             }
             lastParagraphClipped = cutSrc.length !== src.length;
             src = src.substring(token.raw.length);
