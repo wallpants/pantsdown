@@ -130,7 +130,7 @@ const inline_tag = edit(
    .getRegex();
 
 const inline_link = edit(
-   /^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/,
+   /^!?\[(label)\]\([ \t\n]*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?[ \t\n]*\)/,
 )
    .replace("label", label)
    .replace("href", href)
