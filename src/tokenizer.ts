@@ -331,7 +331,7 @@ export class Tokenizer {
                const rawLine = src.split("\n", 1)[0] ?? "";
                nextLine = rawLine;
                const nextLineWithoutTabs = nextLine.replace(other.leadingSpaceTab, (whitespace) =>
-                  whitespace.replace(other.tabCharGlobal, "    "),
+                  expandTabs(whitespace),
                );
 
                // End list item if found code fences

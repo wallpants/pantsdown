@@ -624,3 +624,69 @@ exports[`marked spec: blockquote_lazy_after_non_paragraph 1`] = `
 <p line-start="15" line-end="15">not quoted</p>
 "
 `;
+
+exports[`marked spec: list-tab-stops-blank-gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>foo</p>
+<p>  bar</p>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list-tab-stops-code-gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>foo</p>
+<pre style="position: relative;"><code class="hljs language-plaintext">  bar
+</code></pre></li>
+</ul>
+"
+`;
+
+exports[`marked spec: list-tab-stops-internal-gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>foo</p>
+<p>  bar	baz</p>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list-tab-stops-nested-gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="4">outer<ul class="">
+<li><p>foo</p>
+<pre style="position: relative;"><code class="hljs language-plaintext">bar
+</code></pre></li>
+</ul>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list-tab-stops-ordered-gfm 1`] = `
+"<ol class="">
+<li line-start="1" line-end="3"><p>foo</p>
+<p> bar</p>
+</li>
+</ol>
+"
+`;
+
+exports[`marked spec: list-tab-stops-unordered-gfm 1`] = `
+"<ul class="">
+<li line-start="1" line-end="3"><p>foo</p>
+<p>  bar</p>
+</li>
+</ul>
+"
+`;
+
+exports[`marked spec: list-tab-stops-wide-ordered-gfm 1`] = `
+"<ol class="" start="10">
+<li line-start="1" line-end="3"><p>foo</p>
+<p>bar</p>
+</li>
+</ol>
+"
+`;
