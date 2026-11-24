@@ -8,12 +8,13 @@ import { Pantsdown } from "../src";
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
- * deliberately generous (fixed code parses each input in 2-170ms locally);
- * before the fixes these inputs took 0.8s-7.3s, so a budget breach signals a
- * reintroduced quadratic, not a slow machine.
+ * deliberately generous: fixed code parses each input in 0-170ms locally and
+ * in up to ~650ms on CI, which runs them at ~5-10x local time. Before the
+ * fixes these inputs took 0.4s-2min locally (several seconds or more on CI),
+ * so a budget breach signals a reintroduced quadratic, not a slow machine.
  */
 
-const BUDGET_MS = 500;
+const BUDGET_MS = 1500;
 
 function parseWithin(markdown: string, budgetMs = BUDGET_MS): string {
    const pantsdown = new Pantsdown();
@@ -127,9 +128,8 @@ test("redos: reflinkSearch escaped bracket pairs (marked #4090)", () => {
    expect(html).toContain("[" + "\t[]".repeat(14000) + "[");
 });
 
-// ~70ms locally, but a full-suite run once took 560ms (GC); 19s before the fix
 test("redos: unterminated inline links (marked #4070)", () => {
-   const html = parseWithin("[a](b".repeat(50000), 2000);
+   const html = parseWithin("[a](b".repeat(50000));
    expect(html).toContain("[a](b[a](b");
 });
 
