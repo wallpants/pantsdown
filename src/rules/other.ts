@@ -42,8 +42,8 @@ export const other = {
    // Pantsdown: lazy setext underline inside a list item (upstream inlines these)
    setextUnderline: /^ {0,3}(?:=+|-+) *$/,
    leadingThreeSpaces: /^ {0,3}/,
-   listIsTask: /^\[[ xX]\] +\S/,
-   listReplaceTask: /^\[[ xX]\] +/,
+   listIsTask: /^\[[ xX]\][ \t]+\S/,
+   listReplaceTask: /^\[[ xX]\][ \t]+/,
    listTaskCheckbox: /\[[ xX]\]/,
    anyLine: /\n.*\n/,
    hrefBrackets: /^<(.*)>$/,
