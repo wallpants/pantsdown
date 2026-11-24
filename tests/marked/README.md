@@ -35,6 +35,9 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
   `---\t` and `=\t=` lines are kept in the paragraph text, as Marked's own
   output has them (upstream's fixture drops them; its spec compare is
   whitespace-insensitive).
+- `blockquote_tab_after_space.html` — `<p>  foo</p>` keeps the two columns
+  of the expanded tab, as Marked's own output does (upstream's fixture shows
+  `<p>foo</p>`; its spec compare is whitespace-insensitive).
 - `emoji_strikethrough.html` — upstream's fixture has a stray double space in
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).

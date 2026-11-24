@@ -30,6 +30,8 @@ export class Lexer {
        */
       linkParenPossible: true,
       top: true,
+      /** lexing the content of a block quote, whose nested markers the outermost one has expanded */
+      inBlockquote: false,
       /** inside a container whose lines the counter is not tracking (see Tokenizer.blockquote) */
       unmapped: false,
       /** the last block token lexed in the current block run, so a tokenizer can check the token before it */
@@ -57,6 +59,7 @@ export class Lexer {
          linkEmitted: false,
          linkParenPossible: true,
          top: true,
+         inBlockquote: false,
          unmapped: false,
          lastToken: undefined,
       };
