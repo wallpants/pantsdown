@@ -8,15 +8,15 @@ README). Run by `tests/marked.test.ts`.
 Two kinds of fixtures:
 
 - `<name>.md` + `<name>.html` — output is compared against Marked's expected
-  HTML after stripping Pantsdown's injected `line-start`/`line-end` attributes
-  and the empty `class=""` of lists without task items, and trimming per-line
-  whitespace. Used where Pantsdown's rendering matches
-  upstream exactly (mostly inline-level fixtures).
+  HTML after normalizing Pantsdown's rendering extras (injected
+  `line-start`/`line-end` attributes, the empty `class=""` of lists without
+  task items, GitHub-style heading anchors, `<hr>` for `<hr />`) and trimming
+  per-line whitespace. Used wherever the normalized output matches.
 - `<name>.md` only — output is snapshot-tested instead. Used for block-level
   fixtures where Pantsdown's GitHub-style renderer intentionally differs from
-  Marked's canonical HTML (heading anchors, `class` attributes on lists,
-  highlight.js code blocks, `<hr>` vs `<hr />`, ...). The snapshots were
-  reviewed against upstream's expected HTML for semantic equivalence when
+  Marked's canonical HTML beyond that normalization (highlight.js code
+  blocks, whitespace between block html tokens, task list markup, ...). The
+  snapshots were reviewed against upstream's expected HTML for semantic equivalence when
   added.
 
 Local adaptations of upstream expected HTML (keep when re-syncing):

@@ -15,6 +15,12 @@ function normalize(html: string): string {
          .replace(/ line-(?:start|end)="\d+"/g, "")
          // lists without task items carry an empty class attribute
          .replace(/<(ul|ol) class=""/g, "<$1")
+         // GitHub-style heading anchors
+         .replace(
+            /<(h[1-6]) style="position: relative;"><span style="position: absolute; top: -50px;" id="[^"]*"><\/span>([\s\S]*?)<a class="anchor octicon-link" href="#[^"]*"><\/a><\/\1>/g,
+            "<$1>$2</$1>",
+         )
+         .replace(/<hr \/>/g, "<hr>")
          .split("\n")
          .map((line) => line.trim())
          .filter((line) => line !== "")
