@@ -5,7 +5,7 @@ import { type Pantsdown } from "./pantsdown.ts";
 import { type Parser } from "./parser.ts";
 import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
-import { type HTMLAttrs, type SourceMap, type Tokens } from "./types.ts";
+import { type HTMLAttrs, type SourceMap, type Token, type Tokens } from "./types.ts";
 import {
    addGithubImageStyles,
    cleanUrl,
@@ -20,6 +20,20 @@ import {
 /**
  * An object containing functions to render tokens to HTML.
  */
+// Literal code and escaped punctuation must survive the later alt-attribute
+// escaping. Copy tokens so rendering the image cannot change the token tree.
+function imageTextTokens(tokens: Token[]): Token[] {
+   return tokens.map((token) => {
+      if (token.type === "codespan" || token.type === "escape") {
+         return { ...token, text: escape(token.text, true) };
+      }
+      if ("tokens" in token) {
+         return { ...token, tokens: imageTextTokens(token.tokens) };
+      }
+      return token;
+   });
+}
+
 export class Renderer {
    private pantsdown: Pantsdown;
    parser!: Parser; // set by the parser
@@ -249,7 +263,7 @@ export class Renderer {
    }
 
    image({ href, title, tokens }: Tokens["Image"]): string {
-      const text = this.parser.parseInline(tokens, this.parser.textRenderer);
+      const text = this.parser.parseInline(imageTextTokens(tokens), this.parser.textRenderer);
       const cleanHref = cleanUrl(href);
       if (cleanHref === null) {
          return escape(text);
