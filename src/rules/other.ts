@@ -46,6 +46,9 @@ export const other = {
    blockquoteSetextReplace2: /^ {0,3}>[ \t]?/gm,
    blockquoteStart: /^ {0,3}>/,
    blockquoteMarkerWhitespace: /^( {0,3}>)(\t[ \t]*)/gm,
+   blockquoteFenceOpen: /^ {0,3}(`{3,}(?=[^`]*$)|~{3,})/,
+   blockquoteFenceClose: /^ {0,3}(`{3,}|~{3,})[ \t]*$/,
+   blockquoteListItemStart: /^ {0,3}(?:[*+-]|\d{1,9}[.)])(?:[ \t]|$)/,
    nestedBlockMarker: /^ {0,3}(?:(?:[*+-]|\d{1,9}[.)])(?: |$)|> ?)/,
    // Pantsdown: lazy setext underline inside a list item (upstream inlines these)
    setextUnderline: /^ {0,3}(?:=+|-+) *$/,

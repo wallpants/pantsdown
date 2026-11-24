@@ -8,6 +8,7 @@ import {
    cachedLastPossibleDelCloserIndex,
    cachedLastPossibleEmStrongCloserIndex,
    decodeNumericCharacterReferences,
+   expandBlockquoteTabs,
    expandTabs,
    findClosingBracket,
    indentCodeCompensation,
@@ -134,6 +135,7 @@ export class Tokenizer {
       // left alone.
       const mapped = this.lexer.state.top && !this.lexer.state.unmapped;
       const outerUnmapped = this.lexer.state.unmapped;
+      const outerInBlockquote = this.lexer.state.inBlockquote;
 
       while (lines.length > 0) {
          let inBlockquote = false;
@@ -154,7 +156,11 @@ export class Tokenizer {
          lines = lines.slice(i);
 
          const currentRaw = currentLines.join("\n");
-         const currentText = currentRaw
+         // expandBlockquoteTabs needs the marker's column, which is unknown inside a list item
+         // or a block quote, where the outermost block quote has already expanded the markers
+         const expandColumns =
+            this.lexer.state.top && !this.lexer.state.inBlockquote && currentRaw.includes("\t");
+         const currentText = (expandColumns ? expandBlockquoteTabs(currentLines) : currentRaw)
             // a tab right after the block quote marker runs to the next tab stop, and
             // the marker only consumes one space of it; the rest is content.
             // After a space the marker consumes it whole, so later tabs stay literal.
@@ -180,9 +186,11 @@ export class Tokenizer {
          // merge paragraphs if this is a continuation
          const top = this.lexer.state.top;
          this.lexer.state.top = true;
+         this.lexer.state.inBlockquote = true;
          this.lexer.state.unmapped = !mapped;
          this.lexer.blockTokens(currentText, tokens, true);
          this.lexer.state.top = top;
+         this.lexer.state.inBlockquote = outerInBlockquote;
          this.lexer.state.unmapped = outerUnmapped;
 
          // if there is no continuation then we are done
@@ -215,7 +223,9 @@ export class Tokenizer {
             if (mapped)
                this.lexer.line =
                   startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            this.lexer.state.inBlockquote = true;
             const newToken = this.blockquote(newText)!;
+            this.lexer.state.inBlockquote = outerInBlockquote;
             tokens[tokens.length - 1] = newToken;
 
             // Only include continuation lines the nested blockquote actually
