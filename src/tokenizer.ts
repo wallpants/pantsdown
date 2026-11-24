@@ -904,12 +904,36 @@ export class Tokenizer {
       if (!match) return;
       if (!match[1] && !match[2] && !match[3] && !match[4]) return;
 
+      const delimChar = match[0][0];
+      // A mid-run opener (for example the second star of an unmatched `**`) must
+      // only pair with a delimiter that can only close, otherwise it steals the
+      // opener of a later span (`**a*b*c` must be `**a<em>b</em>c`).
+      const midRun = prevChar === delimChar;
+
+      // The start of this delimiter run may already be behind src, either taken
+      // as text after the whole run failed to match or used to close an earlier
+      // span. Flanking and rules 9-10 are about the whole run, so find its start.
+      const srcStart = maskedSrc.length - src.length;
+      let runStart = srcStart;
+      while (runStart > 0 && maskedSrc[runStart - 1] === delimChar) {
+         runStart--;
+      }
+      const runPrevChar =
+         Array.from(maskedSrc.slice(Math.max(0, runStart - 2), runStart)).at(-1) ?? "";
+      // The other delimiter character counts as punctuation here (`_**a*`)
+      const runPrevPunct =
+         runPrevChar === "*" || runPrevChar === "_" || !!inline.punctuation.exec(runPrevChar);
+      if (runStart < srcStart) {
+         prevChar = runPrevChar;
+      }
+      const prevPunct = runStart < srcStart ? runPrevPunct : !!inline.punctuation.exec(prevChar);
+
       // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
       if (match[4] && other.unicodeAlphaNumeric.exec(prevChar)) return;
 
       const nextChar = match[1] || match[3] || "";
 
-      if (!nextChar || !prevChar || inline.punctuation.exec(prevChar)) {
+      if (!nextChar || !prevChar || prevPunct) {
          // unicode Regex counts emoji as 1 char; convert to array for proper count (used multiple times below)
          const lLength = Array.from(match[0]).length - 1;
          let rDelim,
@@ -917,11 +941,11 @@ export class Tokenizer {
             delimTotal = lLength,
             midDelimTotal = 0;
 
-         const delimChar = match[0][0];
-         // A mid-run opener (for example the second star of an unmatched `**`) must
-         // only pair with a delimiter that can only close, otherwise it steals the
-         // opener of a later span (`**a*b*c` must be `**a<em>b</em>c`).
-         const midRun = prevChar === delimChar;
+         // Rules 9-10 count the whole run, and also apply when the opener could
+         // close as well (`a*b**`, where `*` is both left- and right-flanking).
+         const runLength = srcStart - runStart + lLength;
+         const openerCanClose =
+            !!runPrevChar.trim() && (!!nextChar || (delimChar === "*" && !runPrevPunct));
          const endReg = delimChar === "*" ? inline.emStrong.rDelimAst : inline.emStrong.rDelimUnd;
          endReg.lastIndex = 0;
 
@@ -939,16 +963,16 @@ export class Tokenizer {
                // found another Left Delim
                delimTotal += rLength;
                continue;
-            } else if (match[5] || match[6]) {
+            } else if (match[5] || match[6] || openerCanClose) {
                // either Left or Right Delim
-               if (lLength % 3 && !((lLength + rLength) % 3)) {
-                  midDelimTotal += rLength;
-                  continue; // CommonMark Emphasis Rules 9-10
-               }
-               if (midRun) {
+               if (midRun && (match[5] || match[6])) {
                   // A mid-run opener cannot close against an ambiguous delimiter that
                   // can also open; that delimiter opens its own emphasis span instead.
                   break;
+               }
+               if (runLength % 3 && !((runLength + rLength) % 3)) {
+                  midDelimTotal += rLength;
+                  continue; // CommonMark Emphasis Rules 9-10
                }
             }
 
