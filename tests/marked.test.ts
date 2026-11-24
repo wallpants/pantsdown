@@ -30,8 +30,8 @@ function normalize(html: string): string {
          .map((line) => line.trim())
          .filter((line) => line !== "")
          .join("\n")
-         // line breaks between tags are insignificant (as in marked's own differ)
-         .replace(/>\n</g, "><")
+         // line breaks next to tags are insignificant (as in marked's own differ)
+         .replace(/\n(?=<)|(?<=>)\n/g, "")
    );
 }
 

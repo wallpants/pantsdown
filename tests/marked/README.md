@@ -12,7 +12,7 @@ Two kinds of fixtures:
   `line-start`/`line-end` attributes, the empty `class=""` of lists without
   task items, GitHub-style heading anchors, `<hr>` for `<hr />`, the
   highlight.js wrapper of language-less code blocks), trimming per-line
-  whitespace and dropping line breaks between tags. Used wherever the
+  whitespace and dropping line breaks next to tags. Used wherever the
   normalized output matches.
 - `<name>.md` only — output is snapshot-tested instead. Used where Pantsdown's
   GitHub-style renderer differs from Marked's canonical HTML beyond that
