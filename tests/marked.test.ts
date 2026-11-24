@@ -10,12 +10,16 @@ import { Pantsdown } from "../src";
 const fixturesDir = import.meta.dir + "/marked";
 
 function normalize(html: string): string {
-   return html
-      .replace(/ line-(?:start|end)="\d+"/g, "")
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line !== "")
-      .join("\n");
+   return (
+      html
+         .replace(/ line-(?:start|end)="\d+"/g, "")
+         // lists without task items carry an empty class attribute
+         .replace(/<(ul|ol) class=""/g, "<$1")
+         .split("\n")
+         .map((line) => line.trim())
+         .filter((line) => line !== "")
+         .join("\n")
+   );
 }
 
 const fixtures = readdirSync(fixturesDir)
