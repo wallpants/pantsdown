@@ -352,8 +352,13 @@ export class Lexer {
    private inlineTokensInner(src: string, tokens: Token[]): Token[] {
       // The masked source is only read by emStrong and del, which need a *, _ or
       // ~ to start. Skip building it for a run without one.
-      const maskedSrc =
-         src.includes("*") || src.includes("_") || src.includes("~") ? this.maskSrc(src) : src;
+      const hasDelimiter = src.includes("*") || src.includes("_") || src.includes("~");
+      const maskedSrc = hasDelimiter ? this.maskSrc(src) : src;
+
+      // Without a delimiter no opener can match, so nothing reads the closer scan.
+      if (!hasDelimiter) {
+         return this.tokenizeInlines(src, maskedSrc, tokens);
+      }
 
       // One scan of this maskedSrc for the last emphasis, strong, and
       // strikethrough closers, shared by every opener in the pass. Popped
