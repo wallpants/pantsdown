@@ -106,4 +106,6 @@ export const other = {
          ),
    ),
    blockquoteBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}>`)),
+   // list item and blockquote markers that open nested blocks at the start of a line, as in `- > # heading`
+   nestedContainerMarkers: /^(?: {0,3}(?:(?:[*+-]|\d{1,9}[.)])[ \t]+|>[ \t]?))+/,
 };
