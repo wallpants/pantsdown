@@ -879,12 +879,21 @@ export class Tokenizer {
       const cap = block.text.exec(src);
       if (!cap) return undefined;
 
+      let raw = cap[0];
+      let text = cap[0];
+      // Indented code cannot interrupt the text, so indented lines continue it
+      // up to the next blank line
+      const continuation = other.textIndentedContinuation.exec(src.slice(raw.length));
+      if (continuation) {
+         raw += continuation[0];
+         text += continuation[0].replace(other.codeRemoveIndent, "");
+      }
       return {
          type: "text",
-         raw: cap[0],
-         text: cap[0],
-         tokens: this.lexer.inline(cap[0]),
-         sourceMap: this.lexer.getSourceMap(cap[0]),
+         raw,
+         text,
+         tokens: this.lexer.inline(text),
+         sourceMap: this.lexer.getSourceMap(raw),
       };
    }
 
