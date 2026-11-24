@@ -127,8 +127,9 @@ test("redos: reflinkSearch escaped bracket pairs (marked #4090)", () => {
    expect(html).toContain("[" + "\t[]".repeat(14000) + "[");
 });
 
+// ~70ms locally, but a full-suite run once took 560ms (GC); 19s before the fix
 test("redos: unterminated inline links (marked #4070)", () => {
-   const html = parseWithin("[a](b".repeat(50000));
+   const html = parseWithin("[a](b".repeat(50000), 2000);
    expect(html).toContain("[a](b[a](b");
 });
 
