@@ -41,7 +41,7 @@ export class TextRenderer {
    }
 
    br(_token: Tokens["Br"]): string {
-      return "";
+      return "\n";
    }
 
    checkbox({ raw }: Tokens["Checkbox"]): string {
