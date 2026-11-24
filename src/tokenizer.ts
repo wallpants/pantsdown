@@ -972,13 +972,16 @@ export class Tokenizer {
       }
       const runPrevChar =
          Array.from(maskedSrc.slice(Math.max(0, runStart - 2), runStart)).at(-1) ?? "";
-      // The other delimiter character counts as punctuation here (`_**a*`)
+      // The other delimiter character counts as punctuation here (`_**a*`, `*_#_`)
       const runPrevPunct =
          runPrevChar === "*" || runPrevChar === "_" || !!inline.punctuation.exec(runPrevChar);
       if (runStart < srcStart) {
          prevChar = runPrevChar;
       }
-      const prevPunct = runStart < srcStart ? runPrevPunct : !!inline.punctuation.exec(prevChar);
+      const prevPunct =
+         runStart < srcStart
+            ? runPrevPunct
+            : prevChar === "*" || prevChar === "_" || !!inline.punctuation.exec(prevChar);
 
       // _ can't be between two alphanumerics. \p{L}\p{N} includes non-english alphabet/numbers as well
       if (match[4] && other.unicodeAlphaNumeric.exec(prevChar)) return;
