@@ -624,6 +624,12 @@ export class Tokenizer {
       const cap = block.html.exec(src);
       if (!cap) return undefined;
 
+      // an html block of type 7 cannot interrupt a paragraph, so a lazy
+      // continuation line that starts one continues the paragraph instead
+      if (this.lexer.state.lastToken?.type === "paragraph" && !other.htmlBeginRegex(4).test(src)) {
+         return;
+      }
+
       const raw = trimTrailingBlankLines(cap[0]);
       const token: Tokens["HTML"] = {
          type: "html",
