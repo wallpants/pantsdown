@@ -160,14 +160,22 @@ export function fixLocalImageHref(href: string, config: PantsdownConfig): string
  * replacement character.
  */
 export function decodeNumericCharacterReferences(text: string) {
+   if (!other.numericCharacterReference.test(text)) {
+      return text;
+   }
+   // A decoded character must not join its neighbours into a new reference,
+   // so every `&` that is not already one is escaped here.
    return text.replace(
-      other.numericCharacterReference,
+      other.numericCharacterReferenceOrAmpersand,
       (_, dec: string | undefined, hex: string | undefined) => {
+         if (dec === undefined && hex === undefined) {
+            return "&amp;";
+         }
          const code = dec === undefined ? Number.parseInt(hex!, 16) : Number.parseInt(dec, 10);
          if (code === 0 || code > 0x10ffff || (code >= 0xd800 && code <= 0xdfff)) {
             return "\uFFFD";
          }
-         return String.fromCodePoint(code);
+         return code === 38 ? "&amp;" : String.fromCodePoint(code);
       },
    );
 }
