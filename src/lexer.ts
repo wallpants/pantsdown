@@ -487,6 +487,39 @@ export class Lexer {
    }
 
    /**
+    * Mask links, code spans, raw html and autolinks. blockSkip finds every
+    * `<...>` run, but only real raw html and autolinks take precedence over
+    * emphasis: other text in angle brackets, like `<*name*>`, stays unmasked so
+    * emphasis can open and close in it. A tag may also run past the first `>`,
+    * as in `<a title=">">`, so mask the whole tag.
+    */
+   private maskBlocks(src: string): string {
+      const { blockSkip, tag, autolink } = inline;
+      let masked = "";
+      let last = 0;
+      let match: RegExpExecArray | null;
+      blockSkip.lastIndex = 0;
+      while ((match = blockSkip.exec(src))) {
+         // upstream offsets by its no-lookbehind context group; ours has none
+         const start = match.index;
+         let end = match.index + match[0].length;
+         if (src.charAt(start) === "<") {
+            const rest = src.slice(start);
+            const html = tag.exec(rest) ?? autolink.exec(rest);
+            if (!html) {
+               blockSkip.lastIndex = start + 1;
+               continue;
+            }
+            end = start + html[0].length;
+            blockSkip.lastIndex = end;
+         }
+         masked += src.slice(last, start) + "[" + "a".repeat(end - start - 2) + "]";
+         last = end;
+      }
+      return masked + src.slice(last);
+   }
+
+   /**
     * Mask links, code, html and escapes so emStrong and del do not see their
     * delimiters inside them.
     */
@@ -542,10 +575,7 @@ export class Lexer {
       );
 
       // Mask out other blocks
-      maskedSrc = maskedSrc.replace(
-         inline.blockSkip,
-         (match0) => "[" + "a".repeat(match0.length - 2) + "]",
-      );
+      maskedSrc = this.maskBlocks(maskedSrc);
 
       return maskedSrc;
    }
