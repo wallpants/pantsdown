@@ -267,3 +267,25 @@ test("self-contained and inner html blocks don't close an outer pending one", ()
    expect(html).toContain('<div line-start="3" line-end="3">inner</div>');
    expect(html).toContain('<dl line-start="5" line-end="9">');
 });
+
+test("a blockquote inside a list item or footnote does not move the line counter", () => {
+   const markdown = [
+      "- c", //       1
+      "", //          2
+      "  > d", //     3
+      "  > e", //     4
+      "  > f", //     5
+      "- g", //       6
+      "", //          7
+      "z", //         8
+      "", //          9
+      "[^1]: > a", // 10
+      "    > b", //   11
+      "", //          12
+      "end", //       13
+   ].join("\n");
+   verifySourceMaps(markdown, "nested blockquote");
+   const { html } = new Pantsdown().parse(markdown);
+   expect(html).toContain('<p line-start="8" line-end="8">z</p>');
+   expect(html).toContain('<p line-start="13" line-end="13">end</p>');
+});

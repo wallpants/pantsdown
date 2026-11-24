@@ -30,6 +30,8 @@ export class Lexer {
        */
       linkParenPossible: true,
       top: true,
+      /** inside a container whose lines the counter is not tracking (see Tokenizer.blockquote) */
+      unmapped: false,
       /** the last block token lexed in the current block run, so a tokenizer can check the token before it */
       lastToken: undefined as Token | undefined,
    };
@@ -55,6 +57,7 @@ export class Lexer {
          linkEmitted: false,
          linkParenPossible: true,
          top: true,
+         unmapped: false,
          lastToken: undefined,
       };
 
@@ -83,7 +86,7 @@ export class Lexer {
    }
 
    getSourceMap(rawToken: string): SourceMap | undefined {
-      if (!this.state.top) return;
+      if (!this.state.top || this.state.unmapped) return;
       const tokenLines = rawToken.split("\n");
       const sourceMap: SourceMap = [this.line, (this.line += tokenLines.length - 1)];
 
