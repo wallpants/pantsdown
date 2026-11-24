@@ -667,7 +667,7 @@ export class Tokenizer {
          return;
       }
 
-      const tag = normalizeLabel(cap[1]!).replace(other.multipleSpaceGlobal, " ");
+      const tag = normalizeLabel(cap[1]!);
       const href = cap[2]
          ? cap[2].replace(other.hrefBrackets, "$1").replace(inline.anyPunctuation, "$1")
          : "";
@@ -903,8 +903,7 @@ export class Tokenizer {
             return;
          }
 
-         const linkStr = (cap[2] ?? cap[1])!.replace(/\s+/g, " ");
-         const link = links[normalizeLabel(linkStr)];
+         const link = links[normalizeLabel((cap[2] ?? cap[1])!)];
          if (!link) {
             const text = cap[0].charAt(0);
             return {
