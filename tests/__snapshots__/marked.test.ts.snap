@@ -553,3 +553,52 @@ exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
 "<p line-start="1" line-end="1">foo</p>
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
 `;
+
+exports[`marked spec: html_block_prefixed_tag_name 1`] = `
+"<preview-card line-start="1" line-end="3">
+*stays raw*
+</preview-card><style-guide line-start="5" line-end="7">
+*stays raw*
+</style-guide><ScriptEditor line-start="9" line-end="11">
+*stays raw*
+</ScriptEditor></pre>
+*stays raw*
+"
+`;
+
+exports[`marked spec: paragraph_prefixed_html_tag 1`] = `
+"<p line-start="1" line-end="2">Paragraph
+<preview-card>text</preview-card></p>
+<ul class="">
+<li line-start="4" line-end="5">list item
+<preview-card>text</preview-card></li>
+</ul>
+<blockquote>
+<p line-start="7" line-end="8">quote
+<preview-card>text</preview-card></p>
+</blockquote>
+<p line-start="10" line-end="10">Paragraph</p>
+<pre
+class="x" line-start="11" line-end="14">
+code
+</pre><ul class="">
+<li line-start="16" line-end="16">list item</li>
+</ul>
+<pre
+class="x" line-start="17" line-end="20">
+code
+</pre><table>
+<thead>
+<tr line-start="22" line-end="22">
+<th>a</th>
+</tr>
+</thead>
+<tbody><tr line-start="24" line-end="24">
+<td>b</td>
+</tr>
+<tr line-start="25" line-end="25">
+<td><preview-card>text</preview-card></td>
+</tr>
+</tbody></table>
+"
+`;

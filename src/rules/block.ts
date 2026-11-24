@@ -60,8 +60,8 @@ const block_html = edit(
       "|<![A-Z][\\s\\S]*?(?:>[^\\n]*\\n*|$)" + // (4)
       "|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>[^\\n]*\\n*|$)" + // (5)
       "|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (6)
-      "|<(?!script|pre|style|textarea)([a-z][a-z0-9-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) open tag
-      "|</(?!script|pre|style|textarea)[a-z][a-z0-9-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) closing tag
+      "|<(?!(?:script|pre|style|textarea)(?![a-z0-9-]))([a-z][a-z0-9-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) open tag
+      "|</[a-z][a-z0-9-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ \\t]*)+\\n|$)" + // (7) closing tag
       ")",
    "i",
 )
@@ -97,7 +97,7 @@ const block_table = edit(
    .replace("code", "(?: {4}| {0,3}\\t)[^\\n]")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
    .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // any bullet ends the table rows
-   .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
+   .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)")
    .replace("tag", tag) // tables can be interrupted by type (6) html blocks
    .getRegex();
 
@@ -110,7 +110,10 @@ const createParagraph = (listInterrupt: string) =>
       .replace("blockquote", " {0,3}>")
       .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
       .replace("list", listInterrupt)
-      .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)")
+      .replace(
+         "html",
+         "</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)",
+      )
       .replace("tag", tag) // pars can be interrupted by type (6) html blocks
       .getRegex();
 
