@@ -164,8 +164,13 @@ export class Tokenizer {
 
          const lastToken = tokens[tokens.length - 1];
 
-         if (lastToken?.type === "code") {
-            // blockquote continuation cannot be preceded by a code block
+         if (
+            lastToken?.type === "code" ||
+            lastToken?.type === "heading" ||
+            lastToken?.type === "hr" ||
+            lastToken?.type === "html"
+         ) {
+            // blockquote continuation cannot be preceded by a code block, heading, hr or html block
             break;
          } else if (lastToken?.type === "blockquote") {
             // include continuation in nested blockquote
