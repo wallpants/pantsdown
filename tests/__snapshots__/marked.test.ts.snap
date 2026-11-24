@@ -727,3 +727,17 @@ exports[`marked spec: unclosed_inline_raw_tag 1`] = `
 across a line</code> but not after it: 1 &lt; 2</p>
 "
 `;
+
+exports[`marked spec: blockquote_whitespace_only_line 1`] = `
+"<blockquote>
+<p line-start="1" line-end="2">a
+ </p>
+</blockquote>
+<p line-start="3" line-end="3">b</p>
+<blockquote>
+<p line-start="5" line-end="6">c
+  </p>
+</blockquote>
+<p line-start="7" line-end="7">d</p>
+"
+`;
