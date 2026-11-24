@@ -627,6 +627,11 @@ export class Tokenizer {
       const cap = block.def.exec(src);
       if (!cap) return undefined;
 
+      // outside angle brackets a link destination holds only balanced parentheses
+      if (!other.startAngleBracket.test(cap[2]!) && findClosingBracket(cap[2]!, "()") !== -1) {
+         return;
+      }
+
       const tag = normalizeLabel(cap[1]!).replace(other.multipleSpaceGlobal, " ");
       const href = cap[2]
          ? cap[2].replace(other.hrefBrackets, "$1").replace(inline.anyPunctuation, "$1")
