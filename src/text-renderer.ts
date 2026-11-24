@@ -1,3 +1,4 @@
+import type { Parser } from "./parser.ts";
 import { type Tokens } from "./types.ts";
 
 /**
@@ -5,21 +6,22 @@ import { type Tokens } from "./types.ts";
  * returns only the textual part of the token
  */
 export class TextRenderer {
+   parser!: Parser;
    // no need for block level renderers
-   strong({ text }: Tokens["Strong"]): string {
-      return text;
+   strong({ tokens }: Tokens["Strong"]): string {
+      return this.parser.parseInline(tokens, this);
    }
 
-   em({ text }: Tokens["Em"]): string {
-      return text;
+   em({ tokens }: Tokens["Em"]): string {
+      return this.parser.parseInline(tokens, this);
    }
 
    codespan({ text }: Tokens["Codespan"]): string {
       return text;
    }
 
-   del({ text }: Tokens["Del"]): string {
-      return text;
+   del({ tokens }: Tokens["Del"]): string {
+      return this.parser.parseInline(tokens, this);
    }
 
    html({ text }: Tokens["HTML"] | Tokens["Tag"]): string {
@@ -30,12 +32,12 @@ export class TextRenderer {
       return text;
    }
 
-   link({ text }: Tokens["Link"]): string {
-      return text;
+   link({ tokens }: Tokens["Link"]): string {
+      return this.parser.parseInline(tokens, this);
    }
 
-   image({ text }: Tokens["Image"]): string {
-      return text;
+   image({ tokens }: Tokens["Image"]): string {
+      return this.parser.parseInline(tokens, this);
    }
 
    br(_token: Tokens["Br"]): string {
