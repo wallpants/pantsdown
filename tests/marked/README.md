@@ -9,7 +9,8 @@ Two kinds of fixtures:
 
 - `<name>.md` + `<name>.html` — output is compared against Marked's expected
   HTML after stripping Pantsdown's injected `line-start`/`line-end` attributes
-  and trimming per-line whitespace. Used where Pantsdown's rendering matches
+  and the empty `class=""` of lists without task items, and trimming per-line
+  whitespace. Used where Pantsdown's rendering matches
   upstream exactly (mostly inline-level fixtures).
 - `<name>.md` only — output is snapshot-tested instead. Used for block-level
   fixtures where Pantsdown's GitHub-style renderer intentionally differs from
