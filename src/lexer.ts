@@ -24,6 +24,8 @@ export class Lexer {
        */
       linkParenPossible: true,
       top: true,
+      /** the last block token lexed in the current block run, so a tokenizer can check the token before it */
+      lastToken: undefined as Token | undefined,
    };
 
    constructor() {
@@ -47,6 +49,7 @@ export class Lexer {
          linkEmitted: false,
          linkParenPossible: true,
          top: true,
+         lastToken: undefined,
       };
 
       src = src.replace(other.carriageReturn, "\n");
@@ -95,6 +98,9 @@ export class Lexer {
       let token: Token | undefined;
       let lastToken: Token | undefined;
       let cutSrc;
+      // list items and block quotes lex their contents with a nested call, so
+      // restore the outer last token when it returns
+      const outerLastToken = this.state.lastToken;
 
       let srcLength = Infinity;
       while (src) {
@@ -103,6 +109,8 @@ export class Lexer {
          } else {
             this.infiniteLoopError(src.charCodeAt(0));
          }
+
+         this.state.lastToken = tokens[tokens.length - 1];
 
          // newline
          if ((token = this.tokenizer.space(src))) {
@@ -270,6 +278,7 @@ export class Lexer {
       }
 
       this.state.top = true;
+      this.state.lastToken = outerLastToken;
       return tokens;
    }
 
