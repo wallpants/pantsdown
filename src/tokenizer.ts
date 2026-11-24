@@ -63,7 +63,12 @@ export class Tokenizer {
       if (!cap) return undefined;
 
       const raw = cap[0];
-      const text = indentCodeCompensation(raw, cap[3] ?? "");
+      let text = indentCodeCompensation(raw, cap[3] ?? "");
+      // The fence pattern consumes the final content newline outside the capture.
+      // Keep it when the captured content ends in a blank line.
+      if (cap[3] !== undefined && (text === "" || text.endsWith("\n"))) {
+         text += "\n";
+      }
 
       return {
          type: "code",
