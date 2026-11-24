@@ -97,8 +97,11 @@ const block_table = edit(
    .replace("code", "(?: {4}| {0,3}\\t)[^\\n]")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
    .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // any bullet ends the table rows
-   .replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)")
-   .replace("tag", tag) // tables can be interrupted by type (6) html blocks
+   .replace(
+      "html",
+      " {0,3}(?:</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)",
+   )
+   .replace("tag", tag) // tables can be interrupted by html blocks of types (1) to (6)
    .getRegex();
 
 const createParagraph = (listInterrupt: string) =>
@@ -112,9 +115,9 @@ const createParagraph = (listInterrupt: string) =>
       .replace("list", listInterrupt)
       .replace(
          "html",
-         "</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)",
+         " {0,3}(?:</?(?:tag)(?: +|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)",
       )
-      .replace("tag", tag) // pars can be interrupted by type (6) html blocks
+      .replace("tag", tag) // pars can be interrupted by html blocks of types (1) to (6)
       .getRegex();
 
 // only non-empty lists starting from 1 can interrupt paragraphs
