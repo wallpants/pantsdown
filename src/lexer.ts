@@ -365,7 +365,20 @@ export class Lexer {
       // Every mask must keep the length it replaces: emStrong and del line
       // maskedSrc up with src by slicing from the end. `anyPunctuation` matches
       // unicode punctuation, so an escaped astral character is 3 code units.
-      maskedSrc = maskedSrc.replace(inline.anyPunctuation, (match0) => "+".repeat(match0.length));
+      // A backslash inside a code span is literal, not an escape. Mask the
+      // backticks inside the span instead, so blockSkip still skips all of it.
+      maskedSrc = maskedSrc.replace(
+         inline.anyPunctuationOutsideCode,
+         (match0, code: string | undefined, punct: string | undefined) => {
+            if (punct) {
+               return "+".repeat(match0.length);
+            }
+            if (code) {
+               return code + match0.slice(code.length, -code.length).replace(/`/g, "+") + code;
+            }
+            return match0;
+         },
+      );
 
       // Mask out other blocks
       maskedSrc = maskedSrc.replace(
