@@ -602,3 +602,25 @@ code
 </tbody></table>
 "
 `;
+
+exports[`marked spec: blockquote_lazy_after_non_paragraph 1`] = `
+"<blockquote>
+<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="heading"></span>heading<a class="anchor octicon-link" href="#heading"></a></h1>
+</blockquote>
+<p line-start="2" line-end="2">not quoted</p>
+<blockquote>
+<h2 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="setext-heading"></span>setext heading<a class="anchor octicon-link" href="#setext-heading"></a></h2>
+</blockquote>
+<p line-start="6" line-end="6">not quoted</p>
+<blockquote>
+<hr line-start="8" line-end="8">
+</blockquote>
+<p line-start="9" line-end="9">not quoted</p>
+<blockquote>
+<div line-start="11" line-end="11"></blockquote>
+<p line-start="12" line-end="12">not quoted</p>
+<blockquote>
+<!-- comment --></blockquote>
+<p line-start="15" line-end="15">not quoted</p>
+"
+`;
