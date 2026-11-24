@@ -211,3 +211,16 @@ exports[`marked spec: list_lazy_after_html 1`] = `
 <p line-start="14" line-end="14">not in the list</p>
 "
 `;
+
+exports[`marked spec: tasklist_tab 1`] = `
+"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="tab-after-the-marker"></span>tab after the marker<a class="anchor octicon-link" href="#tab-after-the-marker"></a></h1>
+<ul class="contains-task-list">
+<li class="task-list-item" line-start="3" line-end="3"><input disabled="" type="checkbox" class="task-list-item-checkbox"> item</li>
+<li class="task-list-item" line-start="4" line-end="4"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> item</li>
+</ul>
+<h1 style="position: relative;" line-start="6" line-end="6"><span style="position: absolute; top: -50px;" id="space-and-tab-after-the-marker"></span>space and tab after the marker<a class="anchor octicon-link" href="#space-and-tab-after-the-marker"></a></h1>
+<ul class="contains-task-list">
+<li class="task-list-item" line-start="8" line-end="8"><input disabled="" type="checkbox" class="task-list-item-checkbox" checked=""> item</li>
+</ul>
+"
+`;
