@@ -40,6 +40,7 @@ export const other = {
    blockquoteSetextReplace2: /^ {0,3}>[ \t]?/gm,
    blockquoteStart: /^ {0,3}>/,
    blockquoteMarkerWhitespace: /^( {0,3}>)(\t[ \t]*)/gm,
+   nestedBlockMarker: /^ {0,3}(?:(?:[*+-]|\d{1,9}[.)])(?: |$)|> ?)/,
    // Pantsdown: lazy setext underline inside a list item (upstream inlines these)
    setextUnderline: /^ {0,3}(?:=+|-+) *$/,
    leadingThreeSpaces: /^ {0,3}/,
