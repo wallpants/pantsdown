@@ -200,4 +200,4 @@ console.log(html, javascript);
 Pantsdown is based on [Marked](https://github.com/markedjs/marked). Without their hard work,
 Pantsdown would not exist.
 
-Last synced with Marked [v18.0.14](https://github.com/markedjs/marked/releases/tag/v18.0.14).
+Last synced with Marked [v18.3.0](https://github.com/markedjs/marked/releases/tag/v18.3.0).

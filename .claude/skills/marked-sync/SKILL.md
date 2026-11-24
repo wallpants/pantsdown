@@ -61,12 +61,13 @@ this skill.
   upstream's nested-quantifier form) — same language, avoids O(n²) under JSC.
   Preserve it through any url-rule change.
 - Lookbehind regex forms are used directly; no `supportsLookbehind` fallback.
-- List task checkboxes are stripped from the item token's own inline-queue entry
-  (found by its shared `tokens` array), not upstream's backward search for a
-  task-looking src, which can hit a later paragraph of the same item.
 - Setext heading text drops its continuation lines' leading whitespace
   (`other.continuationIndent`), as CommonMark and GitHub do; upstream keeps it,
   which leaks into heading slugs (`foo----bar` instead of GitHub's `foobar`).
+- `createParagraph(listInterrupt, tableInterrupts)` builds both the top-level
+  paragraph (gfm, table interrupts) and the blockquote rule's paragraph, which
+  upstream builds from the non-gfm variant (no table interrupt) — keep that
+  split when porting paragraph/blockquote rule changes.
 - Pantsdown extras with no upstream counterpart: alerts, footnotes, latex tokens,
   sourceMap plumbing, task-checkbox `javascript` output, `injectHtmlAttributes`,
   `TextRenderer.footnoteRef`/`latexInline`.
@@ -80,6 +81,11 @@ Convention: a raw without a trailing newline leaves the counter ON its last line
 pending newlines are counted by the following space token. After any raw-affecting
 port, `bun test tests/sourcemap.test.ts` must pass — it verifies every token's claimed
 lines against the actual source.
+
+Children of list items and footnotes are lexed after the container was consumed, so
+they get no sourcemap (`state.top` false). A blockquote forces `state.top` on for its
+children, so inside such a container it sets `state.unmapped` instead and leaves
+`lexer.line` alone — keep any upstream blockquote change inside that guard.
 
 ## 6. Per-fix loop
 
@@ -96,7 +102,10 @@ lines against the actual source.
 4. Mirror the fix's fixture from upstream `test/specs/new/` into `tests/marked/`
    (policy in `tests/marked/README.md`: keep upstream's `.html` when output matches
    after normalization; otherwise `.md`-only snapshot, or adapt the `.html` and
-   document it in that README). Fetch fixtures from
+   document it in that README). Upstream's spec differ is whitespace-insensitive, so
+   its expected `.html` sometimes drops whitespace marked itself emits; check with the
+   real package (`bun add marked@<version>` in a scratch dir, `marked.parse(md, { gfm: true })`)
+   before calling a difference a Pantsdown bug. Fetch fixtures from
    `https://raw.githubusercontent.com/markedjs/marked/<sha>/test/specs/new/<name>.{md,html}`.
    Upstream fixtures often open with YAML front matter (`gfm: false`,
    `renderExact: true`, `#` comments) — strip it; mirror a `gfm: false` fixture
@@ -110,13 +119,18 @@ lines against the actual source.
    (tabs, escapes); never let a formatter touch fixtures, and check `git status`
    after any `bun run format`.
 5. One commit per upstream fix: `fix(<area>): port marked vX.Y.Z <title> (#<PR>)`,
-   body noting adaptations and n/a hunks. Never `git push`.
+   body noting adaptations and n/a hunks; commitlint caps the header at 100
+   characters, so shorten long titles. Never `git push`.
 6. ReDoS fixes: also add the pathological input to `tests/redos.test.ts` under a
-   timing budget.
+   timing budget. Time the input before and after the fix (and against the marked
+   package) — some upstream inputs are already fast here and need no guard.
 
 ## 7. Wrap up
 
 - Full `bun run check` + `bun test` green.
+- Render every `tests/marked/*.md` with both Pantsdown and the marked package at the
+  target version and compare after the fixture normalization; only intentional
+  renderer differences (e.g. highlight.js on unknown languages) should remain.
 - Update the README acknowledgement: "Last synced with Marked vX.Y.Z".
 - Delete the temporary checklist file; fold durable findings into this skill.
 - Report: fixes ported, fixes skipped (and why), behavior changes accepted.
