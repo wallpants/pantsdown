@@ -37,19 +37,19 @@
   "dependencies": {
     "github-slugger": "^2.0.0",
     "highlight.js": "^11.12.0",
-    "katex": "^0.18.9"
+    "katex": "^0.18.10"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-conventional": "^21.2.3",
-    "@happy-dom/global-registrator": "^20.14.5",
-    "@types/bun": "^1.4.2",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@happy-dom/global-registrator": "^20.14.6",
+    "@types/bun": "^1.4.5",
     "@types/katex": "^0.16.8",
     "husky": "^9.1.7",
-    "oxfmt": "^0.71.0",
-    "oxlint": "^1.86.0",
-    "oxlint-tsgolint": "^7.0.2003",
-    "semantic-release": "^25.0.9",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
+    "oxlint-tsgolint": "^7.0.2007",
+    "semantic-release": "^26.0.1",
     "typescript": "7.0.2"
   },
   "commitlint": {
