@@ -21,10 +21,17 @@ function normalize(html: string): string {
             "<$1>$2</$1>",
          )
          .replace(/<hr \/>/g, "<hr>")
+         // highlight.js wrapper of code blocks without a language (no spans inside)
+         .replace(
+            /<pre style="position: relative;"><code class="hljs language-plaintext">/g,
+            "<pre><code>",
+         )
          .split("\n")
          .map((line) => line.trim())
          .filter((line) => line !== "")
          .join("\n")
+         // line breaks between tags are insignificant (as in marked's own differ)
+         .replace(/>\n</g, "><")
    );
 }
 
