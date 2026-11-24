@@ -4,7 +4,7 @@ import { Pantsdown } from "../src";
 /**
  * Regression guards for the ReDoS / infinite-loop fixes ported from marked
  * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017,
- * #4040, #4090)
+ * #4040, #4070, #4090)
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
@@ -125,4 +125,9 @@ test("redos: reflinkSearch escaped brackets (marked #4090)", () => {
 test("redos: reflinkSearch escaped bracket pairs (marked #4090)", () => {
    const html = parseWithin("[" + "\t\\[\\]".repeat(14000) + "[", 3000);
    expect(html).toContain("[" + "\t[]".repeat(14000) + "[");
+});
+
+test("redos: unterminated inline links (marked #4070)", () => {
+   const html = parseWithin("[a](b".repeat(50000));
+   expect(html).toContain("[a](b[a](b");
 });

@@ -790,6 +790,10 @@ export class Tokenizer {
    }
 
    link(src: string): Tokens["Link"] | Tokens["Image"] | undefined {
+      // The link regex backtracks quadratically over unterminated-link inputs
+      // like '[a](b'.repeat(n); inlineTokens anchors one paren scan per run in
+      // state.linkParenPossible, and when it is false the regex cannot match.
+      if (!this.lexer.state.linkParenPossible) return;
       const cap = inline.link.exec(src);
       if (!cap) return undefined;
 
