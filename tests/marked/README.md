@@ -31,6 +31,10 @@ Local adaptations of upstream expected HTML (keep when re-syncing):
   entity-insensitive).
 - `link_in_link_text.html` — `<img ...>` without the self-closing ` />`, as
   in `image_alt.html`.
+- `setext_underline_trailing_tab.html` — the tabs of the lazy `===\t`,
+  `---\t` and `=\t=` lines are kept in the paragraph text, as Marked's own
+  output has them (upstream's fixture drops them; its spec compare is
+  whitespace-insensitive).
 - `emoji_strikethrough.html` — upstream's fixture has a stray double space in
   `<del>🏴‍☠️</del>  test` (Marked's own spec comparison is
   whitespace-insensitive; the source has a single space).
