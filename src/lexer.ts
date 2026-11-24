@@ -333,62 +333,11 @@ export class Lexer {
    private inlineTokensInner(src: string, tokens: Token[]): Token[] {
       let token, lastToken, cutSrc;
 
-      // String with links masked to avoid interference with em and strong
-      let maskedSrc = src;
+      // The masked source is only read by emStrong and del, which need a *, _ or
+      // ~ to start. Skip building it for a run without one.
+      const maskedSrc =
+         src.includes("*") || src.includes("_") || src.includes("~") ? this.maskSrc(src) : src;
       let keepPrevChar, prevChar;
-
-      // Mask out reflinks
-      if (src.includes("[")) {
-         const maskReflink = (match0: string): string => {
-            const refStart = match0.lastIndexOf("[");
-            if (!Object.hasOwn(this.links, normalizeLabel(match0.slice(refStart + 1, -1)))) {
-               return match0;
-            }
-            // CommonMark: "Links may not contain other links, at any level of
-            // nesting." A candidate whose text already holds one never becomes a
-            // link, so flattening the whole span would hide the emphasis that
-            // does still apply inside it. Mask the links it holds instead.
-            // Images are exempt: their text is flattened into an alt attribute.
-            if (refStart > 1 && !match0.startsWith("!")) {
-               const text = match0.slice(1, refStart - 1);
-               if (this.linkInText(text)) {
-                  return (
-                     "[" +
-                     text.replace(inline.reflinkSearch, maskReflink) +
-                     "][" +
-                     "a".repeat(match0.length - refStart - 2) +
-                     "]"
-                  );
-               }
-            }
-            return "[" + "a".repeat(match0.length - 2) + "]";
-         };
-         maskedSrc = maskedSrc.replace(inline.reflinkSearch, maskReflink);
-      }
-      // Mask out escaped characters.
-      // Every mask must keep the length it replaces: emStrong and del line
-      // maskedSrc up with src by slicing from the end. `anyPunctuation` matches
-      // unicode punctuation, so an escaped astral character is 3 code units.
-      // A backslash inside a code span is literal, not an escape. Mask the
-      // backticks inside the span instead, so blockSkip still skips all of it.
-      maskedSrc = maskedSrc.replace(
-         inline.anyPunctuationOutsideCode,
-         (match0, code: string | undefined, punct: string | undefined) => {
-            if (punct) {
-               return "+".repeat(match0.length);
-            }
-            if (code) {
-               return code + match0.slice(code.length, -code.length).replace(/`/g, "+") + code;
-            }
-            return match0;
-         },
-      );
-
-      // Mask out other blocks
-      maskedSrc = maskedSrc.replace(
-         inline.blockSkip,
-         (match0) => "[" + "a".repeat(match0.length - 2) + "]",
-      );
 
       let srcLength = Infinity;
       while (src) {
@@ -519,6 +468,70 @@ export class Lexer {
       }
 
       return tokens;
+   }
+
+   /**
+    * Mask links, code, html and escapes so emStrong and del do not see their
+    * delimiters inside them.
+    */
+   private maskSrc(src: string): string {
+      // String with links masked to avoid interference with em and strong
+      let maskedSrc = src;
+
+      // Mask out reflinks
+      if (src.includes("[")) {
+         const maskReflink = (match0: string): string => {
+            const refStart = match0.lastIndexOf("[");
+            if (!Object.hasOwn(this.links, normalizeLabel(match0.slice(refStart + 1, -1)))) {
+               return match0;
+            }
+            // CommonMark: "Links may not contain other links, at any level of
+            // nesting." A candidate whose text already holds one never becomes a
+            // link, so flattening the whole span would hide the emphasis that
+            // does still apply inside it. Mask the links it holds instead.
+            // Images are exempt: their text is flattened into an alt attribute.
+            if (refStart > 1 && !match0.startsWith("!")) {
+               const text = match0.slice(1, refStart - 1);
+               if (this.linkInText(text)) {
+                  return (
+                     "[" +
+                     text.replace(inline.reflinkSearch, maskReflink) +
+                     "][" +
+                     "a".repeat(match0.length - refStart - 2) +
+                     "]"
+                  );
+               }
+            }
+            return "[" + "a".repeat(match0.length - 2) + "]";
+         };
+         maskedSrc = maskedSrc.replace(inline.reflinkSearch, maskReflink);
+      }
+      // Mask out escaped characters.
+      // Every mask must keep the length it replaces: emStrong and del line
+      // maskedSrc up with src by slicing from the end. `anyPunctuation` matches
+      // unicode punctuation, so an escaped astral character is 3 code units.
+      // A backslash inside a code span is literal, not an escape. Mask the
+      // backticks inside the span instead, so blockSkip still skips all of it.
+      maskedSrc = maskedSrc.replace(
+         inline.anyPunctuationOutsideCode,
+         (match0, code: string | undefined, punct: string | undefined) => {
+            if (punct) {
+               return "+".repeat(match0.length);
+            }
+            if (code) {
+               return code + match0.slice(code.length, -code.length).replace(/`/g, "+") + code;
+            }
+            return match0;
+         },
+      );
+
+      // Mask out other blocks
+      maskedSrc = maskedSrc.replace(
+         inline.blockSkip,
+         (match0) => "[" + "a".repeat(match0.length - 2) + "]",
+      );
+
+      return maskedSrc;
    }
 
    private infiniteLoopError(byte: number): never {
