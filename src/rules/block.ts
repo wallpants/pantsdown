@@ -74,9 +74,10 @@ const block_html = edit(
    .replace("attribute", / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/)
    .getRegex();
 
-// upstream's lheadingGfm variant (we are GFM-only; the commonmark variant drops |table)
+// upstream's lheadingGfm variant (we are GFM-only; the commonmark variant drops |table).
+// The underline may end with spaces or tabs (CommonMark §4.3).
 const block_lheading = edit(
-   /^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |fences|blockquote|heading|hr|html|table))+?)\n {0,3}(=+|-+) *(?:\n+|$)/,
+   /^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |fences|blockquote|heading|hr|html|table))+?)\n {0,3}(=+|-+)[ \t]*(?:\n+|$)/,
 )
    .replace(/bull/g, block_bullet) // lists can interrupt
    .replace(/blockCode/g, /(?: {4}| {0,3}\t)/) // indented code can start a block but cannot interrupt a paragraph
