@@ -2,7 +2,13 @@ import { inline } from "./rules/inline.ts";
 import { other } from "./rules/other.ts";
 import { Tokenizer } from "./tokenizer.ts";
 import { type Links, type SourceMap, type Token, type Tokens } from "./types.ts";
-import { beginEmStrongDelCloserScan, endEmStrongDelCloserScan, normalizeLabel } from "./utils.ts";
+import {
+   beginEmStrongDelCloserScan,
+   cachedLastPossibleDelCloserIndex,
+   cachedLastPossibleEmStrongCloserIndex,
+   endEmStrongDelCloserScan,
+   normalizeLabel,
+} from "./utils.ts";
 
 export class Lexer {
    private tokenizer: Tokenizer;
@@ -423,6 +429,35 @@ export class Lexer {
                tokens.push(token);
             }
             continue;
+         }
+
+         // For a run of `*`, `_` or `~` with no possible closer anywhere ahead in
+         // maskedSrc, every opener position fails identically and the loop would
+         // walk the run char-by-char, giving O(n^2) time. Consume the whole run as
+         // literal text in one step.
+         const firstChar = src.charAt(0);
+         if (firstChar === "*" || firstChar === "_" || firstChar === "~") {
+            const pos = maskedSrc.length - src.length;
+            const lastCloser =
+               firstChar === "~"
+                  ? cachedLastPossibleDelCloserIndex(this.tokenizer, maskedSrc)
+                  : cachedLastPossibleEmStrongCloserIndex(this.tokenizer, maskedSrc, firstChar);
+            if (lastCloser <= pos) {
+               let runEnd = 1;
+               while (runEnd < src.length && src.charAt(runEnd) === firstChar) runEnd++;
+               const raw = src.substring(0, runEnd);
+               lastToken = tokens[tokens.length - 1];
+               if (lastToken?.type === "text" && !lastToken.escaped) {
+                  lastToken.raw += raw;
+                  lastToken.text += raw;
+               } else {
+                  tokens.push({ type: "text", raw, text: raw, escaped: false });
+               }
+               src = src.substring(runEnd);
+               prevChar = firstChar;
+               keepPrevChar = true;
+               continue;
+            }
          }
 
          // em & strong
