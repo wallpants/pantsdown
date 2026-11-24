@@ -1,14 +1,5 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`marked spec: atx_heading_closing_sequence_tab 1`] = `
-"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="foo"></span>foo<a class="anchor octicon-link" href="#foo"></a></h1>
-<h2 style="position: relative;" line-start="2" line-end="2"><span style="position: absolute; top: -50px;" id="bar"></span>bar<a class="anchor octicon-link" href="#bar"></a></h2>
-<h3 style="position: relative;" line-start="3" line-end="3"><span style="position: absolute; top: -50px;" id="baz-"></span>baz #<a class="anchor octicon-link" href="#baz-"></a></h3>
-<h4 style="position: relative;" line-start="4" line-end="4"><span style="position: absolute; top: -50px;" id="qux"></span>qux<a class="anchor octicon-link" href="#qux"></a></h4>
-<h5 style="position: relative;" line-start="5" line-end="5"><span style="position: absolute; top: -50px;" id="quux"></span>quux#<a class="anchor octicon-link" href="#quux"></a></h5>
-"
-`;
-
 exports[`marked spec: backtick_fence_eof_interrupts_paragraph 1`] = `
 "<p line-start="1" line-end="1">foo</p>
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
@@ -56,23 +47,6 @@ exports[`marked spec: empty_code_block 1`] = `
 <pre style="position: relative;" line-start="11" line-end="13"><code class="hljs language-plaintext">x
 </code></pre><p line-start="15" line-end="15">sep</p>
 <pre style="position: relative;" line-start="17" line-end="17"><code class="hljs language-plaintext"></code></pre>"
-`;
-
-exports[`marked spec: empty_list_after_blockquote 1`] = `
-"<blockquote>
-<p line-start="1" line-end="1">foo</p>
-</blockquote>
-<ul class="">
-<li line-start="2" line-end="2"></li>
-</ul>
-<blockquote>
-<p line-start="4" line-end="5">foo
-bar</p>
-</blockquote>
-<ol class="">
-<li line-start="6" line-end="6"></li>
-</ol>
-"
 `;
 
 exports[`marked spec: escape_newline 1`] = `
@@ -200,35 +174,6 @@ Comment
 "
 `;
 
-exports[`marked spec: html_inline_tag_in_list 1`] = `
-"<ul class="">
-<li line-start="1" line-end="2">list item 1
-<b>bold</b></li>
-<li line-start="3" line-end="4">list item 2
-<span>span</span></li>
-</ul>
-"
-`;
-
-exports[`marked spec: html_multiline_tag_following_list 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1">list item 1</li>
-<li line-start="2" line-end="2">list item 2</li>
-</ul>
-<div
-class="some-class" line-start="3" line-end="6">
-Content
-</div>
-"
-`;
-
-exports[`marked spec: lheading_hash_prefix 1`] = `
-"<h2 style="position: relative;" line-start="1" line-end="2"><span style="position: absolute; top: -50px;" id="1-goals"></span>#1 Goals<a class="anchor octicon-link" href="#1-goals"></a></h2>
-<h1 style="position: relative;" line-start="4" line-end="5"><span style="position: absolute; top: -50px;" id="hashtag"></span>#hashtag<a class="anchor octicon-link" href="#hashtag"></a></h1>
-<h1 style="position: relative;" line-start="7" line-end="8"><span style="position: absolute; top: -50px;" id="-seven"></span>####### seven<a class="anchor octicon-link" href="#-seven"></a></h1>
-"
-`;
-
 exports[`marked spec: list-tab-stops-code-gfm 1`] = `
 "<ul class="">
 <li line-start="1" line-end="3"><p>foo</p>
@@ -250,26 +195,10 @@ exports[`marked spec: list-tab-stops-nested-gfm 1`] = `
 "
 `;
 
-exports[`marked spec: list_content_tabs_continuation_code_span_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="3"><p>item</p>
-<p><code>foo	bar</code></p>
-</li>
-</ul>
-"
-`;
-
 exports[`marked spec: list_content_tabs_fence_gfm 1`] = `
 "<ul class="">
 <li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">foo	bar
 </code></pre></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_first_line_code_span_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1"><code>foo	bar</code></li>
 </ul>
 "
 `;
@@ -305,13 +234,6 @@ exports[`marked spec: list_content_tabs_structural_indentation_tab_gfm 1`] = `
 "<ul class="">
 <li line-start="1" line-end="3"><pre style="position: relative;"><code class="hljs language-plaintext">  foo	bar
 </code></pre></li>
-</ul>
-"
-`;
-
-exports[`marked spec: list_content_tabs_tab_separated_marker_gfm 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1"><code>foo	bar</code></li>
 </ul>
 "
 `;
@@ -352,74 +274,6 @@ exports[`marked spec: list_item_empty_trailing_space 1`] = `
 "
 `;
 
-exports[`marked spec: list_item_tabs 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1">A</li>
-<li line-start="2" line-end="2">B</li>
-<li line-start="3" line-end="3">C</li>
-<li line-start="4" line-end="4">D</li>
-<li line-start="5" line-end="5">E</li>
-<li line-start="6" line-end="6">F</li>
-</ul>
-<ol class="">
-<li line-start="8" line-end="8">A</li>
-<li line-start="9" line-end="9">B</li>
-<li line-start="10" line-end="10">C</li>
-<li line-start="11" line-end="11">D</li>
-<li line-start="12" line-end="12">E</li>
-<li line-start="13" line-end="13">F</li>
-</ol>
-<p line-start="15" line-end="15">I am using spaces after the number:</p>
-<ol class="">
-<li line-start="16" line-end="16">Some Text</li>
-<li line-start="17" line-end="17">Some Text</li>
-<li line-start="18" line-end="18">Some Text</li>
-</ol>
-<p line-start="20" line-end="20">I am using tabs after the number:</p>
-<ol class="">
-<li line-start="21" line-end="21">SomeText</li>
-<li line-start="22" line-end="22">SomeText</li>
-<li line-start="23" line-end="23">SomeText</li>
-</ol>
-<p line-start="25" line-end="25">I am using tabs after the number and have a space:</p>
-<ol class="">
-<li line-start="27" line-end="27">SomeText</li>
-<li line-start="28" line-end="28">SomeText</li>
-<li line-start="29" line-end="29">SomeText</li>
-</ol>
-<p line-start="31" line-end="31">I am using space after the number and have a tab:</p>
-<ol class="">
-<li line-start="33" line-end="33">SomeText</li>
-<li line-start="34" line-end="34">SomeText</li>
-<li line-start="35" line-end="35">SomeText</li>
-</ol>
-<p line-start="37" line-end="37">I am using spaces after the bullet:</p>
-<ul class="">
-<li line-start="38" line-end="38">Some Text</li>
-<li line-start="39" line-end="39">Some Text</li>
-<li line-start="40" line-end="40">Some Text</li>
-</ul>
-<p line-start="42" line-end="42">I am using tabs after the bullet:</p>
-<ul class="">
-<li line-start="43" line-end="43">SomeText</li>
-<li line-start="44" line-end="44">SomeText</li>
-<li line-start="45" line-end="45">SomeText</li>
-</ul>
-<p line-start="47" line-end="47">I am using tabs after the bullet and have a space:</p>
-<ul class="">
-<li line-start="49" line-end="49">SomeText</li>
-<li line-start="50" line-end="50">SomeText</li>
-<li line-start="51" line-end="51">SomeText</li>
-</ul>
-<p line-start="53" line-end="53">I am using space after the bullet and have a tab:</p>
-<ul class="">
-<li line-start="55" line-end="55">SomeText</li>
-<li line-start="56" line-end="56">SomeText</li>
-<li line-start="57" line-end="57">SomeText</li>
-</ul>
-"
-`;
-
 exports[`marked spec: list_loose_nested_tasks 1`] = `
 "<ul class="contains-task-list">
 <li class="task-list-item" line-start="1" line-end="5"><p><input disabled="" type="checkbox" class="task-list-item-checkbox"> Prepare the project</p>
@@ -441,18 +295,6 @@ exports[`marked spec: list_loose_nested_tasks 1`] = `
 </ul>
 </li>
 </ul>
-"
-`;
-
-exports[`marked spec: list_with_line_break 1`] = `
-"<ol class="">
-<li line-start="1" line-end="1"></li>
-</ol>
-<p line-start="2" line-end="6">Monday
-2.
-Tuesday
-3.
-Wednesday</p>
 "
 `;
 
@@ -498,22 +340,6 @@ exports[`marked spec: nested_blockquote_in_list 1`] = `
 </ul>
 <blockquote>
 <p line-start="14" line-end="14">quote block</p>
-</blockquote>
-"
-`;
-
-exports[`marked spec: ordered_list_after_blockquote 1`] = `
-"<ol class="">
-<li line-start="1" line-end="1">test</li>
-</ol>
-<blockquote>
-<p line-start="2" line-end="2">blockquote</p>
-</blockquote>
-<ol class="" start="2">
-<li line-start="3" line-end="3">test</li>
-</ol>
-<blockquote>
-<p line-start="4" line-end="4">blockquote</p>
 </blockquote>
 "
 `;
@@ -632,60 +458,7 @@ exports[`marked spec: tasklist_blocks 1`] = `
 "
 `;
 
-exports[`marked spec: tasklist_setext_heading 1`] = `
-"<h1 style="position: relative;" line-start="1" line-end="1"><span style="position: absolute; top: -50px;" id="tight"></span>tight<a class="anchor octicon-link" href="#tight"></a></h1>
-<ul class="">
-<li line-start="3" line-end="4"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="x-title"></span>[x] title<a class="anchor octicon-link" href="#x-title"></a></h2>
-</li>
-</ul>
-<h1 style="position: relative;" line-start="6" line-end="6"><span style="position: absolute; top: -50px;" id="unchecked"></span>unchecked<a class="anchor octicon-link" href="#unchecked"></a></h1>
-<ul class="">
-<li line-start="8" line-end="9"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="--title"></span>[ ] title<a class="anchor octicon-link" href="#--title"></a></h2>
-</li>
-</ul>
-<h1 style="position: relative;" line-start="11" line-end="11"><span style="position: absolute; top: -50px;" id="loose"></span>loose<a class="anchor octicon-link" href="#loose"></a></h1>
-<ul class="">
-<li line-start="13" line-end="16"><h2 style="position: relative;"><span style="position: absolute; top: -50px;" id="x-title-1"></span>[x] title<a class="anchor octicon-link" href="#x-title-1"></a></h2>
-<p>body</p>
-</li>
-<li line-start="17" line-end="17"><p>second</p>
-</li>
-</ul>
-"
-`;
-
-exports[`marked spec: thematic_break_with_tabs_ends_list 1`] = `
-"<ul class="">
-<li line-start="1" line-end="1">foo</li>
-</ul>
-<hr line-start="2" line-end="2">
-<ul class="">
-<li line-start="4" line-end="4">bar</li>
-</ul>
-<hr line-start="5" line-end="5">
-<ul class="">
-<li line-start="7" line-end="7">baz</li>
-</ul>
-<hr line-start="8" line-end="8">
-"
-`;
-
 exports[`marked spec: tilde_fence_eof_interrupts_paragraph 1`] = `
 "<p line-start="1" line-end="1">foo</p>
 <pre style="position: relative;" line-start="2" line-end="2"><code class="hljs language-plaintext"></code></pre>"
-`;
-
-exports[`marked spec: unclosed_inline_raw_tag 1`] = `
-"<p line-start="1" line-end="1">an unclosed <code> tag</p>
-<p line-start="3" line-end="3">does not leak into the next paragraph: 1 &lt; 2 &amp; 3 &gt; 2</p>
-<p line-start="5" line-end="5">an unclosed <pre> tag</p>
-<h1 style="position: relative;" line-start="7" line-end="7"><span style="position: absolute; top: -50px;" id="does-not-leak-into-a-heading-1--2--3--2"></span>does not leak into a heading: 1 &lt; 2 &amp; 3 &gt; 2<a class="anchor octicon-link" href="#does-not-leak-into-a-heading-1--2--3--2"></a></h1>
-<p line-start="9" line-end="9">an unclosed <kbd> tag</p>
-<ul class="">
-<li line-start="11" line-end="11">does not leak into a list item: 1 &lt; 2 &amp; 3 &gt; 2</li>
-</ul>
-<p line-start="13" line-end="15">within a paragraph <code>a & b</code> is still raw, as is
-<code>a & b
-across a line</code> but not after it: 1 &lt; 2</p>
-"
 `;
