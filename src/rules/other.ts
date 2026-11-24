@@ -84,7 +84,11 @@ export const other = {
    fencesBeginRegex: cachedIndentRegex(
       (indent: number) => new RegExp(`^ {0,${indent}}(?:\`\`\`|~~~)`),
    ),
-   headingBeginRegex: cachedIndentRegex((indent: number) => new RegExp(`^ {0,${indent}}#`)),
+   // an ATX heading needs a space (or the end of the line) after the hashes, so a
+   // line like `#tag` does not end a list item
+   headingBeginRegex: cachedIndentRegex(
+      (indent: number) => new RegExp(`^ {0,${indent}}#{1,6}(?:\\s|$)`),
+   ),
    // a list item ends where a paragraph would be interrupted, so this mirrors the
    // html start conditions in the paragraph rule; type 7 is excluded there
    htmlBeginRegex: cachedIndentRegex(
