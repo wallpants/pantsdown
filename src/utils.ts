@@ -40,16 +40,15 @@ export function hashString(str: string): string {
    return (hash >>> 0).toString(36);
 }
 
-export function getHtmlElementText(html: string) {
-   try {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-      const element = doc.body.firstChild;
-      if (!element) throw Error("No valid element found");
-      return element.textContent || html;
-   } catch (_) {
-      return html;
-   }
+const unescapeReplacements: Record<string, string> = Object.fromEntries(
+   Object.entries(escapeReplacements).map(([ch, entity]) => [entity, ch]),
+);
+
+/** Text content of rendered inline html: tags stripped, `escape()` entities decoded */
+export function getHtmlText(html: string) {
+   return html
+      .replace(/<[^>]*>/g, "")
+      .replace(/&(?:amp|lt|gt|quot|#39);/g, (entity) => unescapeReplacements[entity]!);
 }
 
 export function injectHtmlAttributes(html: string, attrs: HTMLAttrs, sourceMap?: SourceMap) {

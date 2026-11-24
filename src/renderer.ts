@@ -12,7 +12,7 @@ import {
    escape,
    fixHtmlLocalImageHref,
    fixLocalImageHref,
-   getHtmlElementText,
+   getHtmlText,
    hashString,
    injectHtmlAttributes,
 } from "./utils.ts";
@@ -103,7 +103,7 @@ export class Renderer {
 
    heading({ tokens, depth, sourceMap }: Tokens["Heading"]): string {
       const text = this.parser.parseInline(tokens);
-      const elementText = getHtmlElementText(text);
+      const elementText = getHtmlText(text);
       const slug = this.slugger.slug(elementText);
       let result = `<h${depth}>`;
       // span with negative top to add some offset when scrolling to #slug

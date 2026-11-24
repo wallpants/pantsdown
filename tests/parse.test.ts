@@ -102,6 +102,22 @@ test("setext heading slugs ignore continuation-line indentation, as on GitHub", 
    expect(html).toContain("Alpha\nbeta<a");
 });
 
+test("heading slugs use the text of every inline node, as on GitHub (#322)", () => {
+   const cases: [markdown: string, slug: string][] = [
+      ["## Install `npm` today", "install-npm-today"],
+      ["## [Docs](https://example.com) link", "docs-link"],
+      ["## **Bold** and _em_ text", "bold-and-em-text"],
+      ["## A & B <em>raw</em>", "a--b-raw"],
+      ["## a < b > c", "a--b--c"],
+   ];
+
+   for (const [markdown, slug] of cases) {
+      const { html } = new Pantsdown().parse(markdown);
+      expect(html).toContain(`id="${slug}"`);
+      expect(html).toContain(`href="#${slug}"`);
+   }
+});
+
 test('ordered lists starting at 0 keep start="0" (#322)', () => {
    const { html } = new Pantsdown().parse("0. first\n1. second");
    expect(html).toContain('<ol class="" start="0">');
