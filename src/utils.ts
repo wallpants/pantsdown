@@ -328,15 +328,16 @@ export function outputLink(
    const text = cap[1]?.replace(other.outputLinkReplace, "$1") ?? "";
    const isImage = cap[0]?.charAt(0) === "!";
 
-   lexer.state.inLink = true;
+   const outerInLink = lexer.state.inLink;
    const outerLinkEmitted = lexer.state.linkEmitted;
    const outerInRawBlock = lexer.state.inRawBlock;
+   lexer.state.inLink = true;
    lexer.state.linkEmitted = false;
    const tokens = lexer.inlineTokens(text);
    // widen: TS keeps the `= false` narrowing across the inlineTokens call that sets it
    const textHasLink = lexer.state.linkEmitted as boolean;
    lexer.state.linkEmitted = outerLinkEmitted;
-   lexer.state.inLink = false;
+   lexer.state.inLink = outerInLink;
 
    if (!isImage) {
       // CommonMark: "Links may not contain other links, at any level of nesting."
