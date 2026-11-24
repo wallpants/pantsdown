@@ -29,7 +29,11 @@ export const tag =
    "|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title" +
    "|tr|track|ul";
 
-const title = /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/;
+// An escaped delimiter is part of the title, so a backslash must consume the
+// next character. An optional closer (`\"?`) lets that character backtrack
+// into the closing quote (`[foo]: /url "t\"` is not a title).
+const title =
+   /(?:"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\\n]|\n(?!\n))*'|\((?:\\[\s\S]|[^()\\])*\))/;
 
 const block_def = edit(
    /^ {0,3}\[(label)\]: *(?:\n[ \t]*)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n[ \t]*)?| *\n[ \t]*)(title))? *(?:\n+|$)/,
