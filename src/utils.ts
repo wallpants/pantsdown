@@ -285,7 +285,8 @@ export function normalizeLabel(label: string) {
 }
 
 export function findClosingBracket(str: string, b: string) {
-   if (!b[1] || !str.includes(b[1])) {
+   // an opening bracket on its own is still unbalanced, so both have to be absent
+   if (!b[0] || !b[1] || (!str.includes(b[0]) && !str.includes(b[1]))) {
       return -1;
    }
 
