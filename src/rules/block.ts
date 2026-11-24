@@ -29,6 +29,13 @@ export const tag =
    "|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title" +
    "|tr|track|ul";
 
+// HTML blocks of types (1) to (6) can interrupt a paragraph, type (7) cannot
+const htmlInterrupt = edit(
+   " {0,3}(?:</?(?:tag)(?:[ \\t]+|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)",
+)
+   .replace("tag", tag)
+   .getRegex();
+
 // An escaped delimiter is part of the title, so a backslash must consume the
 // next character. An optional closer (`\"?`) lets that character backtrack
 // into the closing quote (`[foo]: /url "t\"` is not a title).
@@ -88,8 +95,8 @@ const block_lheading = edit(
    .replace(/blockquote/g, / {0,3}>/) // blockquote can interrupt
    .replace(/heading/g, / {0,3}#{1,6}(?:\s|$)/) // ATX heading can interrupt
    .replace(/hr/g, / {0,3}(?:(?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/) // thematic break can interrupt
-   .replace(/html/g, / {0,3}<[^\n>]+>\n/) // block html can interrupt
    .replace(/table/g, / {0,3}\|?(?:[:\- ]*\|)+[\:\- ]*\n/) // table can interrupt
+   .replace(/html/g, htmlInterrupt) // block html of types (1) to (6) can interrupt
    .getRegex();
 
 const block_hr = /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/;
@@ -105,11 +112,7 @@ const block_table = edit(
    .replace("code", "(?: {4}| {0,3}\\t)[^\\n]")
    .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
    .replace("list", " {0,3}(?:[*+-]|1[.)])[ \\t]") // any bullet ends the table rows
-   .replace(
-      "html",
-      " {0,3}(?:</?(?:tag)(?:[ \\t]+|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)",
-   )
-   .replace("tag", tag) // tables can be interrupted by html blocks of types (1) to (6)
+   .replace("html", htmlInterrupt) // tables can be interrupted by html blocks of types (1) to (6)
    .getRegex();
 
 const createParagraph = (listInterrupt: string, tableInterrupts: boolean) =>
@@ -123,11 +126,7 @@ const createParagraph = (listInterrupt: string, tableInterrupts: boolean) =>
       .replace("blockquote", " {0,3}>")
       .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
       .replace("list", listInterrupt)
-      .replace(
-         "html",
-         " {0,3}(?:</?(?:tag)(?:[ \\t]+|\\n|/?>)|<(?:(?:script|pre|style|textarea)(?:[\\s>]|$)|!--)|<\\?|<![A-Za-z]|<!\\[CDATA\\[)",
-      )
-      .replace("tag", tag) // pars can be interrupted by html blocks of types (1) to (6)
+      .replace("html", htmlInterrupt) // pars can be interrupted by html blocks of types (1) to (6)
       .getRegex();
 
 // only non-empty lists starting from 1 can interrupt paragraphs
