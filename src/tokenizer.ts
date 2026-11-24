@@ -354,6 +354,9 @@ export class Tokenizer {
             const htmlBeginRegex = other.htmlBeginRegex(indent);
             const blockquoteBeginRegex = other.blockquoteBeginRegex(indent);
 
+            // A lazy line continues a paragraph, so it is not checked for the start of a block
+            let lineIsLazy = false;
+
             // Check if following lines should be included in List Item
             while (src) {
                const rawLine = src.split("\n", 1)[0] ?? "";
@@ -395,6 +398,7 @@ export class Tokenizer {
                if (nextLineWithoutTabs.search(other.nonSpaceChar) >= indent || !nextLine.trim()) {
                   // Dedent if possible
                   itemContents += "\n" + nextLineWithoutTabs.slice(indent);
+                  lineIsLazy = false;
                } else {
                   // not enough indentation
                   if (blankLine) {
@@ -418,6 +422,20 @@ export class Tokenizer {
                   if (hrRegex.test(line)) {
                      break;
                   }
+                  if (!lineIsLazy) {
+                     // `line` is relative to the item content, so a block on it can be indented up
+                     // to 3 spaces whatever the item indent is. A nested list item or blockquote on
+                     // it, as in `- # heading` or `> ---`, holds a block that a lazy line cannot
+                     // continue either, so check what follows those markers too.
+                     const lastBlockLine = line.replace(other.nestedContainerMarkers, "");
+                     if (
+                        block.fences.test(lastBlockLine) ||
+                        block.heading.test(lastBlockLine) ||
+                        block.hr.test(lastBlockLine)
+                     ) {
+                        break;
+                     }
+                  }
 
                   // A lazy continuation can look like a setext underline after
                   // list indentation is removed. Keep it in the paragraph.
@@ -428,6 +446,7 @@ export class Tokenizer {
                      ? `    ${nextLineWithoutTabs.replace(other.leadingThreeSpaces, "")}`
                      : nextLine;
                   itemContents += "\n" + continuation;
+                  lineIsLazy = true;
                }
 
                // Check if current line is blank
