@@ -258,6 +258,10 @@ export class Tokenizer {
       let cap = block.list.exec(src);
       if (!cap) return undefined;
 
+      // src is only consumed from the front, so every raw below is a slice of
+      // listSrc rather than a string built up line by line
+      const listSrc = src;
+      const taken = () => listSrc.length - src.length;
       let bull = cap[1]!.trim();
       const isordered = bull.length > 1;
 
@@ -278,7 +282,6 @@ export class Tokenizer {
       // Check if current bullet point can start a new List Item
       while (src) {
          let endEarly = false;
-         let raw = "";
          let itemContents = "";
          if (!(cap = itemRegex.exec(src))) {
             break;
@@ -289,8 +292,8 @@ export class Tokenizer {
             break;
          }
 
-         raw = cap[0];
-         src = src.substring(raw.length);
+         const itemStart = taken();
+         src = src.substring(cap[0].length);
 
          const firstLine = cap[2]!.split("\n", 1)[0]!;
          const bulletIndent = cap[1]!.length;
@@ -313,7 +316,6 @@ export class Tokenizer {
 
          if (blankLine && other.blankLine.test(nextLine)) {
             // Items begin with at most one blank line
-            raw += nextLine + "\n";
             src = src.substring(nextLine.length + 1);
             endEarly = true;
          }
@@ -394,11 +396,15 @@ export class Tokenizer {
                // Check if current line is blank
                blankLine = !nextLine.trim();
 
-               raw += rawLine + "\n";
                src = src.substring(rawLine.length + 1);
                line = nextLineWithoutTabs.slice(indent);
             }
          }
+
+         // The loops above may step past a '\n' the source did not have. It could
+         // only be on the item that exhausts src, whose raw is trimmed below,
+         // and after which nothing reads endsWithBlankLine
+         const raw = listSrc.slice(itemStart, taken());
 
          if (!list.loose) {
             // If the previous item ended with a blank line, the list is loose
@@ -418,8 +424,6 @@ export class Tokenizer {
             tokens: [],
             sourceMap: this.lexer.getSourceMap(raw),
          });
-
-         list.raw += raw;
       }
 
       const lastItem = list.items[list.items.length - 1];
@@ -438,7 +442,7 @@ export class Tokenizer {
 
       lastItem.raw = lastTrimmed;
       lastItem.text = lastItem.text.trimEnd();
-      list.raw = list.raw.trimEnd();
+      list.raw = listSrc.slice(0, taken()).trimEnd();
 
       // Item child tokens handled here at end because we needed to have the final item to trim it first
       // save/restore top: blockTokens resets it to true on exit, and a nested list
