@@ -705,3 +705,10 @@ exports[`marked spec: html_block_interrupts_paragraph 1`] = `
 </div></blockquote>
 "
 `;
+
+exports[`marked spec: def_duplicate_label 1`] = `
+"<ul class="">
+<li line-start="3" line-end="5"><a href="/a">foo</a></li>
+</ul>
+"
+`;

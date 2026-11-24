@@ -196,10 +196,14 @@ export class Lexer {
                const lastInline = this.inlineQueue[this.inlineQueue.length - 1];
                if (lastInline) lastInline.src = lastToken.text;
             } else {
+               // The first definition of a label wins, but a later one still consumes its text
                this.links[token.tag] ??= {
                   href: token.href,
                   title: token.title,
                };
+               // kept in the tokens (rendering nothing) so the spacer after it
+               // attaches to it instead of piling up into a loose-list blank line
+               tokens.push(token);
             }
             continue;
          }

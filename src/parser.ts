@@ -98,6 +98,10 @@ export class Parser {
                out += this.renderer.latexBlock(token);
                continue;
             }
+            case "def": {
+               // link reference definitions render nothing
+               continue;
+            }
 
             default: {
                const errMsg = 'Token with "' + token.type + '" type was not found.';
