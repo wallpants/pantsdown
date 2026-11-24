@@ -19,6 +19,11 @@ function cachedIndentRegex(createRegex: (indent: number) => RegExp) {
    };
 }
 
+// header and delimiter rows of a gfm table, shared with block.table
+export const tableHeaderSource =
+   "^ *([^\\n ].*)\\n" + // Header
+   " {0,3}((?:\\| *)?:?-+:? *(?:\\| *:?-+:? *)*(?:\\| *)?)"; // Align
+
 export const other = {
    codeRemoveIndent: /^(?: {0,3}\t| {1,4})/gm,
    listInterruptsParagraph: /^ {0,3}(?:[*+-]|1[.)])[ \t]+[^ \t\n]/,
@@ -49,6 +54,7 @@ export const other = {
    listTaskCheckbox: /\[[ xX]\]/,
    anyLine: /\n.*\n/,
    hrefBrackets: /^<(.*)>$/,
+   tableHeader: new RegExp(tableHeaderSource + "(?:\\n|$)"),
    startAngleBracket: /^</,
    tableDelimiter: /[:|]/,
    tableAlignChars: /^\||\| *$/g,

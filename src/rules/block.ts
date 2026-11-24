@@ -1,3 +1,4 @@
+import { other, tableHeaderSource } from "./other.ts";
 import { edit } from "./utils.ts";
 
 type BlockRuleNames =
@@ -102,8 +103,7 @@ const block_lheading = edit(
 const block_hr = /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/;
 
 const block_table = edit(
-   "^ *([^\\n ].*)\\n" + // Header
-      " {0,3}((?:\\| *)?:?-+:? *(?:\\| *:?-+:? *)*(?:\\| *)?)" + // Align
+   tableHeaderSource +
       "(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)", // Cells
 )
    .replace("hr", block_hr)
@@ -122,7 +122,8 @@ const createParagraph = (listInterrupt: string, tableInterrupts: boolean) =>
       .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
       // interrupt paragraphs with table; upstream's blockquote paragraph is the
       // non-gfm one, so a table there does not end the quoted paragraph
-      .replace(tableInterrupts ? "table" : "|table", tableInterrupts ? block_table : "")
+      // only the header and delimiter are needed to interrupt
+      .replace(tableInterrupts ? "table" : "|table", tableInterrupts ? other.tableHeader : "")
       .replace("blockquote", " {0,3}>")
       .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
       .replace("list", listInterrupt)
