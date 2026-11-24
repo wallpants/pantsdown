@@ -4,7 +4,7 @@ import { Pantsdown } from "../src";
 /**
  * Regression guards for the ReDoS / infinite-loop fixes ported from marked
  * (see marked #3560, #3902, #3906, #3918, #3947, #3969, #4013, #4014, #4017,
- * #4040, #4070, #4090, #4103, #4106, #4114, #4196)
+ * #4040, #4070, #4090, #4103, #4106, #4114, #4196, #4225)
  * plus the Pantsdown-specific `inline.url` reshape for JSC.
  *
  * Inputs mirror upstream's test/specs/redos suite. The timing budget is
@@ -159,4 +159,8 @@ test("redos: closer-less delimiter runs (marked #4196)", () => {
    ]) {
       expect(parseWithin(run + "x")).toContain(run + "x");
    }
+});
+
+test("redos: long local part before @ (marked #4225)", () => {
+   expect(parseWithin("a".repeat(50000) + "@")).toContain("a".repeat(50000) + "@");
 });
