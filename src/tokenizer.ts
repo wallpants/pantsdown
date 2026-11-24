@@ -783,19 +783,17 @@ export class Tokenizer {
    }
 
    table(src: string): Tokens["Table"] | undefined {
-      const cap = block.table.exec(src);
-      if (!cap?.[2]) return;
-
-      if (!other.tableDelimiter.test(cap[2])) {
-         // delimiter row must have a pipe (|) or colon (:) otherwise it is a setext heading
-         return;
-      }
-
-      const headers = splitCells(cap[1]!);
-      const aligns = cap[2].replace(other.tableAlignChars, "").split("|");
-      const rows = cap[3]?.trim() ? cap[3].replace(other.tableRowBlankLine, "").split("\n") : [];
-
+      // decide on the header and delimiter rows before scanning the body
+      const header = other.tableHeader.exec(src);
+      // delimiter row must have a pipe (|) or colon (:) otherwise it is a setext heading
+      if (!header || !other.tableDelimiter.test(header[2]!)) return;
+      const headers = splitCells(header[1]!);
+      const aligns = header[2]!.replace(other.tableAlignChars, "").split("|");
       if (headers.length !== aligns.length) return;
+
+      const cap = block.table.exec(src);
+      if (!cap) return;
+      const rows = cap[3]?.trim() ? cap[3].replace(other.tableRowBlankLine, "").split("\n") : [];
 
       const item: Tokens["Table"] = {
          type: "table",
