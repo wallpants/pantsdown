@@ -128,6 +128,12 @@ export class Tokenizer {
       // boundaries (upstream does the same), but its length and newline count always
       // match the consumed source — which is all the lexer and sourcemaps rely on
       const startLine = this.lexer.line;
+      // Inside a list item or footnote the line counter is not tracking this
+      // blockquote's lines (their children are lexed after the whole container
+      // was consumed), so its children get no sourcemaps and the counter is
+      // left alone.
+      const mapped = this.lexer.state.top && !this.lexer.state.unmapped;
+      const outerUnmapped = this.lexer.state.unmapped;
 
       while (lines.length > 0) {
          let inBlockquote = false;
@@ -161,7 +167,7 @@ export class Tokenizer {
             .replace(other.blockquoteSetextReplace, "\n    $1")
             .replace(other.blockquoteSetextReplace2, "");
          // this round starts right after the lines already accumulated in `raw`
-         this.lexer.line = startLine + (raw ? raw.split("\n").length : 0);
+         if (mapped) this.lexer.line = startLine + (raw ? raw.split("\n").length : 0);
          raw = raw ? `${raw}\n${currentRaw}` : currentRaw;
          text = text ? `${text}\n${currentText}` : currentText;
 
@@ -169,8 +175,10 @@ export class Tokenizer {
          // merge paragraphs if this is a continuation
          const top = this.lexer.state.top;
          this.lexer.state.top = true;
+         this.lexer.state.unmapped = !mapped;
          this.lexer.blockTokens(currentText, tokens, true);
          this.lexer.state.top = top;
+         this.lexer.state.unmapped = outerUnmapped;
 
          // if there is no continuation then we are done
          if (lines.length === 0) {
@@ -199,7 +207,9 @@ export class Tokenizer {
             const newText =
                oldToken.raw + "\n" + continuation.replace(other.blockquoteSetextReplace2, "");
             // re-lexing the nested blockquote restarts at its first source line
-            this.lexer.line = startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            if (mapped)
+               this.lexer.line =
+                  startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
             const newToken = this.blockquote(newText)!;
             tokens[tokens.length - 1] = newToken;
 
@@ -226,7 +236,9 @@ export class Tokenizer {
             const oldToken = lastToken;
             const newText = oldToken.raw + "\n" + lines.join("\n");
             // re-lexing the nested list restarts at its first source line
-            this.lexer.line = startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
+            if (mapped)
+               this.lexer.line =
+                  startLine + raw.split("\n").length - oldToken.raw.split("\n").length;
             const newToken = this.list(newText)!;
             tokens[tokens.length - 1] = newToken;
 
@@ -254,7 +266,7 @@ export class Tokenizer {
 
       // leave the counter on the blockquote's last line; `raw` has no trailing
       // newline, so the pending line terminator is counted by the next space token
-      this.lexer.line = startLine + raw.split("\n").length - 1;
+      if (mapped) this.lexer.line = startLine + raw.split("\n").length - 1;
 
       const blockquoteToken: Tokens["Blockquote"] = {
          type: "blockquote",
