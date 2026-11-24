@@ -177,9 +177,10 @@ export class Tokenizer {
             lastToken?.type === "code" ||
             lastToken?.type === "heading" ||
             lastToken?.type === "hr" ||
-            lastToken?.type === "html"
+            lastToken?.type === "html" ||
+            lastToken?.type === "table"
          ) {
-            // blockquote continuation cannot be preceded by a code block, heading, hr or html block
+            // blockquote continuation cannot be preceded by a code block, heading, hr, html block or table
             break;
          } else if (lastToken?.type === "blockquote") {
             // include continuation in nested blockquote
