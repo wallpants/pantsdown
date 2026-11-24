@@ -712,3 +712,18 @@ exports[`marked spec: def_duplicate_label 1`] = `
 </ul>
 "
 `;
+
+exports[`marked spec: unclosed_inline_raw_tag 1`] = `
+"<p line-start="1" line-end="1">an unclosed <code> tag</p>
+<p line-start="3" line-end="3">does not leak into the next paragraph: 1 &lt; 2 &amp; 3 &gt; 2</p>
+<p line-start="5" line-end="5">an unclosed <pre> tag</p>
+<h1 style="position: relative;" line-start="7" line-end="7"><span style="position: absolute; top: -50px;" id="does-not-leak-into-a-heading-1--2--3--2"></span>does not leak into a heading: 1 &lt; 2 &amp; 3 &gt; 2<a class="anchor octicon-link" href="#does-not-leak-into-a-heading-1--2--3--2"></a></h1>
+<p line-start="9" line-end="9">an unclosed <kbd> tag</p>
+<ul class="">
+<li line-start="11" line-end="11">does not leak into a list item: 1 &lt; 2 &amp; 3 &gt; 2</li>
+</ul>
+<p line-start="13" line-end="15">within a paragraph <code>a & b</code> is still raw, as is
+<code>a & b
+across a line</code> but not after it: 1 &lt; 2</p>
+"
+`;
