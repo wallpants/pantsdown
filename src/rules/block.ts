@@ -109,12 +109,14 @@ const block_table = edit(
    .replace("tag", tag) // tables can be interrupted by html blocks of types (1) to (6)
    .getRegex();
 
-const createParagraph = (listInterrupt: string) =>
+const createParagraph = (listInterrupt: string, tableInterrupts: boolean) =>
    edit(/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table|[ \t]+\n)[^\n]+)*)/)
       .replace("hr", block_hr)
       .replace("heading", " {0,3}#{1,6}(?:\\s|$)")
       .replace("|lheading", "") // setext headings don't interrupt commonmark paragraphs
-      .replace("table", block_table) // interrupt paragraphs with table
+      // interrupt paragraphs with table; upstream's blockquote paragraph is the
+      // non-gfm one, so a table there does not end the quoted paragraph
+      .replace(tableInterrupts ? "table" : "|table", tableInterrupts ? block_table : "")
       .replace("blockquote", " {0,3}>")
       .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)")
       .replace("list", listInterrupt)
@@ -126,11 +128,14 @@ const createParagraph = (listInterrupt: string) =>
       .getRegex();
 
 // only non-empty lists starting from 1 can interrupt paragraphs
-const block_paragraph = createParagraph(" {0,3}(?:[*+-]|1[.)])[ \\t]+[^ \\t\\n]");
+const block_paragraph = createParagraph(" {0,3}(?:[*+-]|1[.)])[ \\t]+[^ \\t\\n]", true);
 // inside a blockquote a bare list marker (any number) starts a sibling list,
 // so it must not be lazily continued as paragraph text (unlike a top level
 // paragraph, where an empty list cannot interrupt)
-const block_blockquoteParagraph = createParagraph(" {0,3}(?:[*+-]|\\d{1,9}[.)])(?:[ \\t]|\\n|$)");
+const block_blockquoteParagraph = createParagraph(
+   " {0,3}(?:[*+-]|\\d{1,9}[.)])(?:[ \\t]|\\n|$)",
+   false,
+);
 
 // a line with only whitespace after the marker is blank, so it must not start a
 // paragraph that lazily continues onto the next line
