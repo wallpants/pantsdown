@@ -54,6 +54,10 @@ export class Lexer {
       this.blockTokens(src, this.tokens);
 
       for (const next of this.inlineQueue) {
+         // an inline <pre>, <code>, <kbd> or <script> left open ends with the block
+         // holding it; carried over, it would stop every later block's text from
+         // being escaped
+         this.state.inRawBlock = false;
          this.inlineTokens(next.src, next.tokens);
       }
       this.inlineQueue = [];
