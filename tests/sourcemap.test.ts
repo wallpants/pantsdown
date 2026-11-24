@@ -92,11 +92,14 @@ function verifySourceMaps(src: string, label: string) {
          // the source line at the claimed start must contain the raw's first
          // line (raws of nested tokens are stripped of `> ` prefixes and list
          // indentation, so substring containment is the right relation; an
-         // alert's first child claims the line after its `[!NOTE]` marker)
+         // alert's first child claims the line after its `[!NOTE]` marker).
+         // Whitespace runs are collapsed: a tab after a `>` marker is expanded
+         // to spaces in the nested raw.
+         const collapse = (line: string) => line.replace(/[ \t]+/g, " ");
          const rawLines = raw.split("\n");
          const claimedLine = lines[start - 1] ?? "";
          const expectedLine = (alertFirstChild ? rawLines[1] : rawLines[0])!.trimEnd();
-         if (!claimedLine.includes(expectedLine)) {
+         if (!collapse(claimedLine).includes(collapse(expectedLine).trimStart())) {
             expect(`${describe}, but line ${start} is ${JSON.stringify(claimedLine)}`).toBe(
                `${describe}, containing ${JSON.stringify(expectedLine)}`,
             );
